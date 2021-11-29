@@ -7,7 +7,9 @@ run in terminal: npm start
 
 ## Config
 React: http://localhost:3000/
+
 Server: http://localhost:5000/
 
 They are connected with proxy in the client/package.json
+
 "proxy": "http://localhost:5000"
