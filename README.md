@@ -3,6 +3,7 @@ Master thesis in frontend developer course, collaboration with [Oliver Nygren](h
 
 ## Run app
 This command will start both react app and server.
+
 run in terminal: npm start
 
 ## Config
