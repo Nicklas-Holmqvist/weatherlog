@@ -16,8 +16,9 @@ They are connected with proxy in the client/package.json
 "proxy": "http://localhost:5000"
 
 ## Deploy to Heroku
-- To deploy to Heroku:
 - Change in package.json in ROOT
-- From - "start": "npm-run-all --parallel client server",
-- To - "start": "node server",
+- From - "start": "npm-run-all --parallel client server"
+- To - "start": "node server"
+- Run - npm run client:build
 - Run - git push heroku HEAD:master
+- Change back "start" for liveview coding
