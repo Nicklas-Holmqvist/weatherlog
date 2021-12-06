@@ -1,8 +1,5 @@
 const helloServer = (req, res, next) => {
-    res.status(200).json({
-        'Vädret': 'Kallt och vitt!',
-        'Saknar': 'Våren och försommaren!'
-    });
+    res.status(200).json('För i helvete!');
 };
 
 module.exports.helloServer = helloServer
