@@ -2,6 +2,12 @@ import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 
+// To deploy to Heroku:
+// Change in package.json in ROOT
+// From - "start": "npm-run-all --parallel client server",
+// To - "start": "node server",
+// Run - git push heroku HEAD:master
+
 function App() {
 
   const [api, setApi] = useState<string>("")
