@@ -10,7 +10,7 @@ const app = express();
 
 // Set our backend port to be either an environment variable or port 5000
 const port = process.env.PORT || 5000;
-const mognoDb = 'mongodb+srv://nicklas:!Nicklas@weatherlog.3tpno.mongodb.net/weatherlog'
+// const mognoDb = 'mongodb+srv://nicklas:!Nicklas@weatherlog.3tpno.mongodb.net/weatherlog'
 
 // This application level middleware prints incoming requests to the servers console
 app.use((req, res, next) => {
@@ -67,4 +67,4 @@ app.get('*', (req, res) => {
 // Configure our server to listen on the port defiend by our port variable
 app.listen(port, () => console.log(`BACK_END_SERVICE_PORT: ${port}`));
 
-run()
+// run()
