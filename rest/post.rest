@@ -1,4 +1,0 @@
-/// Skapar en post
-GET http://localhost:5000/api/hello-server
-
-###
