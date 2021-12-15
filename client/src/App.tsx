@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { Typography } from '@material-ui/core';
+import { useEffect } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 
@@ -9,6 +8,27 @@ import routes from './routes';
 
 function App() {
 
+  useEffect(() => {
+    const options = {
+      method: "get",
+    }
+    const fetchApi = async () => {
+      await fetch("/api/users", options)
+        .then(function(res) {
+          if( res.status === 400) {
+            return
+          } return res.json()
+        })
+        .then(function (data) {
+          console.log(data)
+        })
+        .catch(function(err) {
+          console.error(err);
+        })
+      }
+
+      fetchApi();
+  })
 	return (
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
