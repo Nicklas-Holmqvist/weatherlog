@@ -1,9 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
 import { useEffect, useState } from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
+
+import './App.css';
 import theme from './theme';
+import routes from './routes';
 
 function App() {
 	const [api, setApi] = useState<string>('');
@@ -33,21 +35,14 @@ function App() {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<div className="App">
-				<h1>{api}</h1>
-				<Grid container direction="column">
-					<Typography variant="h1">Exempeltext här</Typography>
-					<Typography variant="h2">Exempeltext här</Typography>
-					<Typography variant="h3">Exempeltext här</Typography>
-					<Typography variant="h4">Exempeltext här</Typography>
-					<Typography variant="h5">Exempeltext här</Typography>
-					<Typography variant="h6">Exempeltext här</Typography>
-					<Typography variant="subtitle1">Exempeltext här</Typography>
-					<Typography variant="subtitle2">Exempeltext här</Typography>
-					<Typography variant="body1">Exempeltext här</Typography>
-					<Typography variant="body2">Exempeltext här</Typography>
-				</Grid>
-			</div>
+			<Typography variant="h2">{api}</Typography>
+			<BrowserRouter>
+				<Routes>
+					{routes.map(({ path, element }, key) => (
+						<Route path={path} element={element} key={key} />
+					))}
+				</Routes>
+			</BrowserRouter>
 		</ThemeProvider>
 	);
 }

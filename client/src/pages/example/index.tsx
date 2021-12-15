@@ -1,9 +1,8 @@
 import { Grid, Typography } from '@material-ui/core';
-import React from 'react';
 
 export const ExamplePage = () => {
 	return (
-		<Grid container>
+		<Grid container direction="column">
 			<Typography variant="h1">Exempeltext här</Typography>
 			<Typography variant="h2">Exempeltext här</Typography>
 			<Typography variant="h3">Exempeltext här</Typography>
