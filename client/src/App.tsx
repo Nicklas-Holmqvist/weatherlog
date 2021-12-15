@@ -1,23 +1,50 @@
+import { useEffect, useState } from 'react';
+import { Typography } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
 
 import './App.css';
-
-// To deploy to Heroku:
-// Change in package.json in ROOT
-// From - "start": "npm-run-all --parallel client server",
-// To - "start": "node server",
-// Run - git push heroku HEAD:master
+import theme from './theme';
+import routes from './routes';
 
 function App() {
+	const [api, setApi] = useState<string>('');
 
-  
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Weatherlog</h1>
-        <span className="iconify" data-icon="flat-ui:weather"></span>
-      </header>
-    </div>
-  );
+	useEffect(() => {
+		const options = {
+			method: 'get',
+		};
+		const fetchApi = async () => {
+			await fetch('/api/hello-server', options)
+				.then(function (res) {
+					if (res.status === 400) {
+						return;
+					}
+					return res.json();
+				})
+				.then(function (data) {
+					setApi(data);
+				})
+				.catch(function (err) {
+					console.error(err);
+				});
+		};
+
+		fetchApi();
+	});
+
+	return (
+		<ThemeProvider theme={theme}>
+			<Typography variant="h2">{api}</Typography>
+			<BrowserRouter>
+				<Routes>
+					{routes.map(({ path, element }, key) => (
+						<Route path={path} element={element} key={key} />
+					))}
+				</Routes>
+			</BrowserRouter>
+		</ThemeProvider>
+	);
 }
 
 export default App;
