@@ -16,6 +16,7 @@ export const ExamplePage = () => {
 			<Typography variant="subtitle2">Exempeltext här</Typography>
 			<Typography variant="body1">Exempeltext här</Typography>
 			<Typography variant="body2">Exempeltext här</Typography>
+			<Typography variant="body2">Exempeltext här</Typography>
 		</Grid>
 	);
 };
