@@ -1,12 +1,10 @@
-
 import { useEffect } from 'react';
-import './App.css';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
 
-// To deploy to Heroku:
-// Change in package.json in ROOT
-// From - "start": "npm-run-all --parallel client server",
-// To - "start": "node server",
-// Run - git push heroku HEAD:master
+import './App.css';
+import theme from './theme';
+import routes from './routes';
 
 function App() {
 
@@ -31,16 +29,17 @@ function App() {
 
       fetchApi();
   })
-
-  
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Weatherlog</h1>
-        <span className="iconify" data-icon="flat-ui:weather"></span>
-      </header>
-    </div>
-  );
+	return (
+		<ThemeProvider theme={theme}>
+			<BrowserRouter>
+				<Routes>
+					{routes.map(({ path, element }, key) => (
+						<Route path={path} element={element} key={key} />
+					))}
+				</Routes>
+			</BrowserRouter>
+		</ThemeProvider>
+	);
 }
 
 export default App;
