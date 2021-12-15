@@ -1,4 +1,5 @@
 
+import { useEffect } from 'react';
 import './App.css';
 
 // To deploy to Heroku:
@@ -8,6 +9,28 @@ import './App.css';
 // Run - git push heroku HEAD:master
 
 function App() {
+
+  useEffect(() => {
+    const options = {
+      method: "get",
+    }
+    const fetchApi = async () => {
+      await fetch("/api/users", options)
+        .then(function(res) {
+          if( res.status === 400) {
+            return
+          } return res.json()
+        })
+        .then(function (data) {
+          console.log(data)
+        })
+        .catch(function(err) {
+          console.error(err);
+        })
+      }
+
+      fetchApi();
+  })
 
   
   return (
