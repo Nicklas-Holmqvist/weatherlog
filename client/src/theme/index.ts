@@ -3,6 +3,8 @@ import { createTheme } from '@material-ui/core';
 const FONT_PRIMARY = 'Roboto';
 const FONT_SECONDARY = 'Amiri';
 
+// primary och secondary färger?
+
 interface TemperatruePaletteOptions {
 	minus25orLess: string;
 	minus20to25: string;
@@ -37,12 +39,14 @@ export const theme = createTheme({
 			fontSize: 60,
 			color: '#333',
 			zIndex: 1,
+			fontFamily: FONT_SECONDARY,
 		},
 		h2: {
 			fontWeight: 600,
 			fontSize: 52,
 			color: '#333',
 			zIndex: 1,
+			fontFamily: FONT_SECONDARY,
 		},
 		h3: {
 			fontWeight: 600,
@@ -67,6 +71,7 @@ export const theme = createTheme({
 			fontSize: 20,
 			color: '#333',
 			zIndex: 1,
+			fontFamily: FONT_SECONDARY,
 		},
 		subtitle1: {
 			fontWeight: 500,
@@ -94,16 +99,6 @@ export const theme = createTheme({
 		},
 	},
 	palette: {
-		primary: {
-			light: '#fff',
-			main: '#fff',
-			dark: '#fff',
-		},
-		secondary: {
-			light: '#fff',
-			main: '#fff',
-			dark: '#fff',
-		},
 		common: {
 			white: '#fefefe',
 			black: '#333333',

@@ -1,10 +1,10 @@
-import React from 'react';
+import { Grid, Typography } from '@material-ui/core';
 
 export const HomePage = () => {
 	return (
-		<div>
-			<h1>Tjo</h1>
-		</div>
+		<Grid>
+			<Typography variant="h2">Tjo</Typography>
+		</Grid>
 	);
 };
 
