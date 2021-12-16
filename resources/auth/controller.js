@@ -1,36 +1,14 @@
 const UserModel = require('../user/model');
 
-exports.auth = async (req, res, next) => {
-	const userCookieId = req.cookies.user;
-	const loggedInUser = await UserModel.findById(userCookieId);
+exports.authUser = async (req, res, next) => {
+	const cookie = req.cookies.user;
+	const user = await UserModel.findOne({ _id: cookie})
 
-	if (loggedInUser === null) {
-		res.status(401).json('You`re not logged in!');
-		return next();
-	}
-	// else {
-	// 	if (loggedInUser.isAdmin) {
-	// 		return next();
-	// 	} else {
-	// 		let error = new Error('User is unauthorized and has no admin rights');
-	// 		// error.status = 403
-	// 		return next(error);
-	// 	}
-	// }
+	if (!user) {
+	 return res.status(401).json('You`re not logged in!');
+	} else return next();
 };
 
-exports.isLoggedIn = async (req, res, next) => {
-	const userCookieId = req.cookies.user;
-
-	if (userCookieId === undefined) {
-		let error = new Error('Not logged in');
-		error.status = 401;
-
-		return next(error);
-	} else {
-		return next();
-	}
-};
 
 exports.isAuth = async (req, res) => {
 	const cookie = req.cookies.user;

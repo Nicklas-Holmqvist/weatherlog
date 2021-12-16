@@ -1,6 +1,7 @@
 // Import dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require("cookie-parser");
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
@@ -11,7 +12,6 @@ const userRouter = require('./resources/user/router');
 
 // Create a new express application named 'app'
 const app = express();
-console.log(process.env);
 
 // Set our backend port to be either an environment variable or port 5000
 const port = process.env.PORT || 5000;
@@ -25,6 +25,7 @@ app.use((req, res, next) => {
 	next();
 });
 
+app.use(cookieParser());
 // Configure the bodyParser middleware
 app.use(bodyParser.json());
 app.use(
