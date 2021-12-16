@@ -1,4 +1,6 @@
+const { ObjectId } = require('bson');
 const mongoose = require("mongoose");
+const { Types, Schema, model } = require('mongoose');
 
 const logSchema = new mongoose.Schema({
     airFeeling: {
@@ -22,7 +24,9 @@ const logSchema = new mongoose.Schema({
     temperature: {
         type : "String"
     },
-    user: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    user: { 
+        type: mongoose.Types.ObjectId, 
+        ref: "user"},
     windDirection: {
         type : "String"
     },
