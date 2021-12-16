@@ -13,7 +13,7 @@ function App() {
       method: "get",
     }
     const fetchApi = async () => {
-      await fetch("/api/users", options)
+      await fetch("/api/logs", options)
         .then(function(res) {
           if( res.status === 400) {
             return
