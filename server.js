@@ -11,7 +11,6 @@ const userRouter = require('./resources/user/router');
 
 // Create a new express application named 'app'
 const app = express();
-console.log(process.env);
 
 // Set our backend port to be either an environment variable or port 5000
 const port = process.env.PORT || 5000;

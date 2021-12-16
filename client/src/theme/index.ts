@@ -1,6 +1,6 @@
 import { createTheme } from '@material-ui/core';
 
-const FONT_PRIMARY = 'Roboto';
+const FONT_PRIMARY = 'Outfit';
 const FONT_SECONDARY = 'Amiri';
 
 // primary och secondary färger?
@@ -75,25 +75,25 @@ export const theme = createTheme({
 		},
 		subtitle1: {
 			fontWeight: 500,
-			fontSize: 16,
+			fontSize: 18,
 			color: '#333',
 			zIndex: 1,
 		},
 		subtitle2: {
 			fontWeight: 500,
-			fontSize: 14,
+			fontSize: 16,
 			color: '#333',
 			zIndex: 1,
 		},
 		body1: {
 			fontWeight: 300,
-			fontSize: 16,
+			fontSize: 18,
 			color: '#333',
 			zIndex: 1,
 		},
 		body2: {
 			fontWeight: 300,
-			fontSize: 14,
+			fontSize: 16,
 			color: '#333',
 			zIndex: 1,
 		},
