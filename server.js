@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const mongoose = require("mongoose");
-const weatherRouter = require('./resources/weather/router')
+const logsRouter = require('./resources/logs/router')
 const userRouter = require('./resources/user/router')
 
 // Create a new express application named 'app'
@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 });
 
 // Routers
-app.use(weatherRouter)
+app.use(logsRouter)
 app.use(userRouter)
 
 // Connecting to MongoDB
