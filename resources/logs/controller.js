@@ -120,7 +120,7 @@ exports.deleteLog = async (req, res) => {
     if (getLog) {     
         try {
             await LogModel.findByIdAndRemove({ _id: log })
-            res.status(201).json(log)
+            res.status(201).json(getLog)
     } catch (error) {
         res.status(400).json(error)
     }
