@@ -26,7 +26,7 @@ exports.createLog = async (req, res) => {
         windSpeed
     } = req.body
     
-    const userId = "61b9d2dcbd5038e17fc353a3"
+    const cookie = req.cookies.user
     const dateExist = await LogModel.exists({ date: date });
     
     const newLog = {
@@ -37,32 +37,29 @@ exports.createLog = async (req, res) => {
         humidity: humidity,
         precipitation: precipitation,
         temperature: temperature,
-        user: userId,
+        user: cookie,
         windDirection: windDirection,
         weather: weather,
-      windSpeed: windSpeed,
+        windSpeed: windSpeed,
     }
-    
+   
     if (!dateExist) {     
         try {
             const log = await LogModel.create(newLog)
             res.status(201).json(log)
-        console.log({log: newLog})
-    } catch (error) {
-        res.status(400).json(error)
-    }
+        } catch (error) {
+            res.status(400).json(error)
+        }
     } else {
         let errors = { msg: '' }
-        
-        // if email already exists in db
-        errors.msg = 'Datumet är redan loggat!'
-        
+        errors.msg = 'Date is already logged!'        
         res.status(400).json({ errors })
     }
 }
 
 exports.changeLog = async (req, res) => {
     const log = req.params.id
+    const user = req.cookies.user
 
     const { 
         airFeeling,
@@ -77,11 +74,7 @@ exports.changeLog = async (req, res) => {
         windSpeed
     } = req.body
 
-    const getLog = await LogModel.findById(log);
-    
-    const userId = "61b9d2dcbd5038e17fc353a3"
-    // const userId = ""
-    // const userExist = await LogModel.exists({ user: userId });
+    const getLog = await LogModel.findById(log).exists({user:user});
     
     const newLog = {
         airFeeling: airFeeling,
@@ -91,13 +84,13 @@ exports.changeLog = async (req, res) => {
         humidity: humidity,
         precipitation: precipitation,
         temperature: temperature,
-        user: userId,
+        user: user,
         windDirection: windDirection,
         weather: weather,
         windSpeed: windSpeed,
     }
 
-    if (getLog && userId !== "") {     
+    if (getLog) {     
         try {
             if(getLog) {
                 await LogModel.findByIdAndUpdate({ _id: log }, newLog)
@@ -121,10 +114,10 @@ exports.changeLog = async (req, res) => {
 
 exports.deleteLog = async (req, res) => {
     const log = req.params.id
-    const userId = "61b9d2dcbd5038e17fc353a3"
-    // const userId = ""
-    const getLog = await LogModel.findById(log);
-    if (getLog && userId) {     
+    const user = req.cookies.user
+    
+    const getLog = await LogModel.findById(log).exists({ _id: user});
+    if (getLog) {     
         try {
             await LogModel.findByIdAndRemove({ _id: log })
             res.status(201).json(log)
@@ -132,9 +125,8 @@ exports.deleteLog = async (req, res) => {
         res.status(400).json(error)
     }
     } else {
-        let errors = { msg: '' }        
-        // if email already exists in db
-        errors.msg = 'Not autherize to delete this log'        
+        let errors = { msg: '' }
+        errors.msg = 'No log to delete'        
         res.status(400).json({ errors })
     }
 }

@@ -9,7 +9,7 @@ Content-Type: application/json
     "airFeeling": "Skylig,",
     "airpressure": "1024",
     "description": "Vädret har varit växlande med lite regnskurar",
-    "date": "211219",
+    "date": "205212",
     "humidity": "64",
     "precipitation": "4",
     "temperature": "14",
@@ -20,14 +20,14 @@ Content-Type: application/json
 
 ### 
 
-PUT http://localhost:5000/api/logs/61bb59cea9cc42f3aee1c352
+PUT http://localhost:5000/api/logs/61bba11c4b2c4ac56f05e2da
 Content-Type: application/json
 
 {
     "airFeeling": "Varmt",
     "airpressure": "950",
     "description": "Regnar hela dagen!",
-    "date": "211217",
+    "date": "211214",
     "humidity": "64",
     "precipitation": "4",
     "temperature": "14",
@@ -38,4 +38,4 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:5000/api/logs/61bb59cea9cc42f3aee1c352
+DELETE http://localhost:5000/api/logs/61bba11c4b2c4ac56f05e2da
