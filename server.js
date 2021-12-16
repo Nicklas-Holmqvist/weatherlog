@@ -41,15 +41,10 @@ app.use(authRouter);
 // Connecting to MongoDB
 // The variable MONGODB_URL uses as a key in Heroku and the url link as value
 // It won´t work without it!
-mongoose.connect(
-	process.env.MONGODB_URL ||
-		// 'mongodb+srv://nicklas:!Nicklas@weatherlog.3tpno.mongodb.net/weatherlog?retryWrites=true&w=majority' ||
-		mongoDB,
-	{
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-	}
-);
+mongoose.connect(process.env.MONGODB_URL || mongoDB, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+});
 
 mongoose.connection.on('connected', () => {
 	console.log('Mongoose is connected!');
