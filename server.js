@@ -24,20 +24,17 @@ app.use((req, res, next) => {
 app.use(weatherRouter)
 app.use(userRouter)
 
-async function run() {
-  try {
-    await mongoose.connect(
-      mognoDb,
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }
-    );
-    console.log("Database is connected");
-  } catch (error) {
-    console.error(error);
-  }
-}
+// Connecting to MongoDB
+// The variable MONGODB_URL uses as a key in Heroku and the url link as value
+// It won´t work without it!
+mongoose.connect(process.env.MONGODB_URL || 'mongodb+srv://nicklas:!Nicklas@weatherlog.3tpno.mongodb.net/weatherlog?retryWrites=true&w=majority', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+
+mongoose.connection.on('connected', () => {
+  console.log('Mongoose is connected!')
+})
 
 // Configure the bodyParser middleware
 app.use(bodyParser.json());
@@ -67,5 +64,3 @@ app.get('*', (req, res) => {
 
 // Configure our server to listen on the port defiend by our port variable
 app.listen(port, () => console.log(`BACK_END_SERVICE_PORT: ${port}`));
-
-run()
