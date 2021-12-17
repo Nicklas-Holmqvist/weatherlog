@@ -6,7 +6,18 @@ POST http://localhost:5000/api/user/register
 Content-Type: application/json
 
 {
-"email": "a@a.se", "password": "123"
+    "email": "hans@allt.se",
+    "password": "1235"
+}
+###
+
+POST http://localhost:5000/api/user/addUserInfo
+Content-Type: application/json
+
+{
+    "firstName": "Hans",
+    "lastName": "Gustavsson",
+    "city": "Göteborg"
 }
 
 ###
@@ -15,7 +26,27 @@ POST http://localhost:5000/api/user/login
 Content-Type: application/json
 
 {
-"email": "adminanders@gåslever.eu", "password": "123"
+"email": "hans@allt.se", "password": "1235"
+}
+
+###
+
+PUT http://localhost:5000/api/user/edit/ 
+Content-Type: application/json
+
+{
+    "firstName": "Nils",
+    "lastName": "Hansson",
+    "city": "Halmstad"
+}
+###
+
+PUT http://localhost:5000/api/user/changePassword 
+Content-Type: application/json
+
+{
+    "oldPassword": "1236",
+    "newPassword": "1235"
 }
 
 ###
@@ -23,3 +54,5 @@ Content-Type: application/json
 POST http://localhost:5000/api/user/logout
 
 ###
+
+DELETE http://localhost:5000/api/user/delete
