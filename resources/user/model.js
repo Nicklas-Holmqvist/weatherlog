@@ -2,15 +2,15 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
-	username: 'String',
+	email: 'String',
 	password: 'string',
 	city: 'String',
 	firstName: 'String',
 	lastName: 'String',
 });
 
-userSchema.statics.login = async function (username, password) {
-	const user = await this.findOne({ username });
+userSchema.statics.login = async function (email, password) {
+	const user = await this.findOne({ email });
 
 	if (user) {
 		const auth = await bcrypt.compare(password, user.password);
@@ -19,7 +19,7 @@ userSchema.statics.login = async function (username, password) {
 		}
 		throw Error('incorrect password');
 	}
-	throw Error('incorrect username');
+	throw Error('incorrect email');
 };
 
 const UserModel = mongoose.model('user', userSchema);

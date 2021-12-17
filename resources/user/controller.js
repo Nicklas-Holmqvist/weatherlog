@@ -14,14 +14,14 @@ exports.getUsers = async (req, res) => {
 
 // Create new user
 exports.createUser = async (req, res) => {
-	const { username, password } = req.body;
-	const usernameExists = await UserModel.exists({ username: username });
+	const { email, password } = req.body;
+	const emailExists = await UserModel.exists({ email });
 
-	if (!usernameExists) {
+	if (!emailExists) {
 		const hashedPassword = await bcrypt.hash(password, 10);
 
 		const newUser = {
-			username: username,
+			email,
 			password: hashedPassword,
 		};
 
@@ -32,10 +32,10 @@ exports.createUser = async (req, res) => {
 			res.status(400).json(error);
 		}
 	} else {
-		let errors = { username: '' };
+		let errors = { email: '' };
 
 		// if username already exists in db
-		errors.username = 'Denna username är redan registrerad';
+		errors.email = 'Denna email är redan registrerad';
 
 		res.status(400).json({ errors });
 	}
@@ -43,19 +43,19 @@ exports.createUser = async (req, res) => {
 
 // Log in
 exports.login = async (req, res) => {
-	const { username, password } = req.body;
-	let errors = { username: '', password: '' };
+	const { email, password } = req.body;
+	let errors = { email: '', password: '' };
 
 	try {
-		const user = await UserModel.login(username, password);
+		const user = await UserModel.login(email, password);
 		res.cookie('user', user._id, { maxAge: 1000 * 60 * 60 * 24 });
 		res.status(200).json({ user });
 	} catch (err) {
 		// här fångas error från "throw"
 
-		//incorrect username
-		if (err.message === 'incorrect username') {
-			errors.username = 'Denna username finns ej registrerad';
+		//incorrect email
+		if (err.message === 'incorrect email') {
+			errors.email = 'Denna email-adress finns ej registrerad';
 		}
 
 		//incorrect password

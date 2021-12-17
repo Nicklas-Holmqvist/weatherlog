@@ -49,19 +49,19 @@ export const theme = createTheme({
 			fontFamily: FONT_SECONDARY,
 		},
 		h3: {
-			fontWeight: 600,
+			fontWeight: 500,
 			fontSize: 44,
 			color: '#333',
 			zIndex: 1,
 		},
 		h4: {
-			fontWeight: 600,
+			fontWeight: 500,
 			fontSize: 36,
 			color: '#333',
 			zIndex: 1,
 		},
 		h5: {
-			fontWeight: 600,
+			fontWeight: 500,
 			fontSize: 28,
 			color: '#333',
 			zIndex: 1,
@@ -99,6 +99,15 @@ export const theme = createTheme({
 		},
 	},
 	palette: {
+		primary: {
+			main: '#fefefe',
+			dark: '#ededed',
+		},
+		secondary: {
+			light: '#444444',
+			main: '#333333',
+			dark: '#222222',
+		},
 		common: {
 			white: '#fefefe',
 			black: '#333333',

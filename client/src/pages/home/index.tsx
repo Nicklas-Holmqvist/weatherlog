@@ -1,9 +1,16 @@
-import { Grid, Typography } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
+import { LoginForm } from 'src/components';
+
+import logo from './weatherlog-logo.svg';
+import useStyles from './styles';
 
 export const HomePage = () => {
+	const classes = useStyles();
 	return (
-		<Grid>
-			<Typography variant="h3">Hejsan outfit</Typography>
+		<Grid container direction="column" className={classes.container}>
+			{/* om inloggad */}
+			<img src={logo} alt="Logo" className={classes.image} />
+			<LoginForm />
 		</Grid>
 	);
 };
