@@ -5,8 +5,6 @@ export default makeStyles((theme) => ({
 		width: '100%',
 		height: 70,
 		backgroundColor: theme.palette.grey[100],
-		// position: 'fixed',
-		// top: 0,
 		boxShadow: '0px 4px 8px rgba(180, 180, 180, 0.27)',
 		alignItems: 'center',
 		justifyContent: 'center',
@@ -25,8 +23,24 @@ export default makeStyles((theme) => ({
 	name: {
 		marginLeft: 16,
 	},
-	link: {
-		margin: '0 30px',
-		textDecoration: 'none',
+	mobileHeader: {
+		width: '100%',
+		height: 50,
+		backgroundColor: theme.palette.grey[100],
+		boxShadow: '0px 4px 8px rgba(180, 180, 180, 0.27)',
+		padding: '0 20px',
+	},
+	mobileLeft: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'start',
+		flexGrow: 1,
+	},
+	mobileLogo: {
+		width: 32,
+		justifySelf: 'center',
+	},
+	mobileLogoutButton: {
+		justifySelf: 'end',
 	},
 }));

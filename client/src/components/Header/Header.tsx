@@ -1,13 +1,36 @@
-import { Button, Grid, Typography } from '@material-ui/core';
-import { ExitToAppRounded } from '@material-ui/icons';
+import {
+	Button,
+	Grid,
+	Typography,
+	useMediaQuery,
+	IconButton,
+} from '@material-ui/core';
+import { ExitToAppRounded, Menu } from '@material-ui/icons';
 
+import theme from 'src/theme';
 import useStyles from './styles';
 import logo from './weatherlog-mini-logo.svg';
 
 export const Header = () => {
 	const classes = useStyles();
-	return (
-		<Grid item container className={classes.container}>
+	const mobile = useMediaQuery(theme.breakpoints.only('xs'));
+	return mobile ? (
+		<Grid item container component="header" className={classes.mobileHeader}>
+			<Grid item className={classes.mobileLeft}>
+				<IconButton size="large" edge="start" color="inherit" aria-label="menu">
+					<Menu />
+				</IconButton>
+				<img src={logo} alt="Logo" className={classes.mobileLogo} />
+			</Grid>
+			<Button
+				endIcon={<ExitToAppRounded />}
+				className={classes.mobileLogoutButton}
+			>
+				Logga ut
+			</Button>
+		</Grid>
+	) : (
+		<Grid item container component="header" className={classes.container}>
 			<Grid item container className={classes.wrapper}>
 				<Grid item className={classes.left}>
 					<img src={logo} alt="Logo" />
