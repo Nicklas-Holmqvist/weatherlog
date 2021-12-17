@@ -26,7 +26,6 @@ exports.createUser = async (req, res) => {
 			email,
 			password: hashedPassword
 		};
-
 		
 		try {
 			const user = await UserModel.create(newUser);
@@ -39,10 +38,7 @@ exports.createUser = async (req, res) => {
 		}
 	} else {
 		let errors = { email: '' };
-
-		// if username already exists in db
 		errors.email = 'Denna email är redan registrerad';
-
 		res.status(400).json({ errors });
 	}
 };
@@ -67,13 +63,13 @@ exports.addInfo = async (req, res) => {
     if (getUser) {     
         try {           
 			await UserModel.findByIdAndUpdate({ _id: user }, newUser)
-			res.status(200).json('Added user information!')
+			res.status(200).json('Lagt till information')
         } catch (error) {
             res.status(400).json(error)
     }
     } else {
         let errors = { msg: '' }        
-        errors.msg = 'The user does not exist'        
+        errors.msg = 'Användaren finns inte!'        
         res.status(400).json({ errors })
     }
 }

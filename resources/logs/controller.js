@@ -91,21 +91,15 @@ exports.changeLog = async (req, res) => {
 
     if (getLog) {     
         try {
-            if(getLog) {
-                await LogModel.findByIdAndUpdate({ _id: log }, newLog)
-                res.status(200).json('Log has been updated!')
-                console.log(newLog)
-            } else {
-                res.status(400).json('No log!')
-            }
+            await LogModel.findByIdAndUpdate({ _id: log }, newLog)
+            res.status(200).json('Log has been updated!')
+            console.log(newLog)
         } catch (error) {
             res.status(400).json(error)
     }
     } else {
-        let errors = { msg: '' }
-        
-        errors.msg = 'No log to update!'
-        
+        let errors = { msg: '' }        
+        errors.msg = 'No log to update!'        
         res.status(400).json({ errors })
     }
 }
@@ -119,9 +113,9 @@ exports.deleteLog = async (req, res) => {
         try {
             await LogModel.findByIdAndRemove({ _id: log })
             res.status(201).json(getLog)
-    } catch (error) {
-        res.status(400).json(error)
-    }
+        } catch (error) {
+            res.status(400).json(error)
+        }
     } else {
         let errors = { msg: '' }
         errors.msg = 'No log to delete'        
