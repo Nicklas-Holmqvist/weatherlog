@@ -9,6 +9,9 @@ export default makeStyles((theme) => ({
 		textTransform: 'uppercase',
 		textAlign: 'center',
 		marginBottom: 40,
+		[theme.breakpoints.down('lg')]: {
+			marginBottom: 20,
+		},
 	},
 	input: {
 		[`& fieldset`]: {
