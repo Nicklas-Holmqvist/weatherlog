@@ -14,7 +14,9 @@ exports.getUsers = async (req, res) => {
 
 // Create new user
 exports.createUser = async (req, res) => {
-	const { email, password } = req.body;
+	const { email,
+		password } = req.body;
+
 	const emailExists = await UserModel.exists({ email });
 
 	if (!emailExists) {
@@ -22,24 +24,55 @@ exports.createUser = async (req, res) => {
 
 		const newUser = {
 			email,
-			password: hashedPassword,
+			password: hashedPassword
 		};
-
+		
 		try {
 			const user = await UserModel.create(newUser);
+			const login = await UserModel.login(email, password);
+
+			res.cookie('user', login._id, { maxAge: 1000 * 60 * 60 * 24 });
 			res.status(201).json(user);
 		} catch (error) {
 			res.status(400).json(error);
 		}
 	} else {
 		let errors = { email: '' };
-
-		// if username already exists in db
 		errors.email = 'Denna email är redan registrerad';
-
 		res.status(400).json({ errors });
 	}
 };
+
+exports.addInfo = async (req, res) => {
+	const user = req.cookies.user
+
+    const { 
+        firstName,
+        lastName,
+        city
+    } = req.body
+
+    const getUser = await UserModel.findById(user);
+    
+    const newUser = {
+        firstName: firstName,
+		lastName: lastName,
+		city: city
+    }
+
+    if (getUser) {     
+        try {           
+			await UserModel.findByIdAndUpdate({ _id: user }, newUser)
+			res.status(200).json('Lagt till information')
+        } catch (error) {
+            res.status(400).json(error)
+    }
+    } else {
+        let errors = { msg: '' }        
+        errors.msg = 'Användaren finns inte!'        
+        res.status(400).json({ errors })
+    }
+}
 
 // Log in
 exports.login = async (req, res) => {
@@ -51,7 +84,6 @@ exports.login = async (req, res) => {
 		res.cookie('user', user._id, { maxAge: 1000 * 60 * 60 * 24 });
 		res.status(200).json({ user });
 	} catch (err) {
-		// här fångas error från "throw"
 
 		//incorrect email
 		if (err.message === 'incorrect email') {
@@ -67,6 +99,69 @@ exports.login = async (req, res) => {
 	}
 };
 
+exports.editUser = async (req, res) => {
+    const user = req.cookies.user
+
+    const { 
+        firstName,
+        lastName,
+        city
+    } = req.body
+
+    const getUser = await UserModel.findById(user);
+    
+    const newUser = {
+        firstName: firstName,
+		lastName: lastName,
+		city: city
+    }
+
+    if (getUser) {     
+        try {           
+			await UserModel.findByIdAndUpdate({ _id: user }, newUser)
+			res.status(200).json('User has been updated!')
+        } catch (error) {
+            res.status(400).json(error)
+    }
+    } else {
+        let errors = { msg: '' }        
+        errors.msg = 'The user does not exist'        
+        res.status(400).json({ errors })
+    }
+}
+
+exports.changePassword = async (req, res) => {
+    const user = req.cookies.user
+
+    const { 
+        oldPassword,
+        newPassword
+    } = req.body
+
+    const getUser = await UserModel.findById(user);
+	const authUser = await bcrypt.compare(oldPassword, getUser.password);
+	
+    if (authUser) {     
+
+		const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+		const updatedPassword = {
+			password: hashedPassword
+		}
+
+        try {           
+			await UserModel.findByIdAndUpdate({ _id: user }, updatedPassword)
+			res.status(200).json('Password has been updated!')
+        } catch (error) {
+            res.status(400).json(error)
+    }
+    } else {
+        let errors = { msg: '' }        
+        errors.msg = 'The old password does not match!'        
+        res.status(400).json({ errors })
+    }
+}
+
 // Log out
 exports.logout = (req, res) => {
 	try {
@@ -76,3 +171,22 @@ exports.logout = (req, res) => {
 		res.status(400).json(error);
 	}
 };
+
+exports.deleteUser = async (req, res) => {
+    const user = req.cookies.user
+    
+    const getUser = await UserModel.findById(user);
+    if (getUser) {     
+        try {
+            await UserModel.findByIdAndRemove({ _id: user })
+            res.status(201).json(getUser)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+    } else {
+        let errors = { msg: '' }
+        errors.msg = 'No user exist!'        
+        res.status(400).json({ errors })
+    }
+}
+
