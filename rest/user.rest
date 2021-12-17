@@ -6,7 +6,7 @@ POST http://localhost:5000/api/user/register
 Content-Type: application/json
 
 {
-    "username": "hans@telia.se",
+    "email": "hans@telia.se",
     "password": "123",
     "firstName": "Hans",
     "lastName": "Gustavsson",
@@ -19,7 +19,7 @@ POST http://localhost:5000/api/user/login
 Content-Type: application/json
 
 {
-"username": "hans@telia.se", "password": "123"
+"email": "hans@telia.se", "password": "1234"
 }
 
 ###
