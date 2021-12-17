@@ -113,13 +113,16 @@ exports.changePassword = async (req, res) => {
         newPassword
     } = req.body
 
-    const getUser = await UserModel.findById(user).exists(oldPassword);
-    
-    const updatedPassword = {
-        password: newPassword
-    }
-
+    const getUser = await UserModel.findById(user).exists(oldPassword);    
+	
     if (getUser) {     
+
+		const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+		const updatedPassword = {
+			password: hashedPassword
+		}
+
         try {           
 			await UserModel.findByIdAndUpdate({ _id: user }, updatedPassword)
 			res.status(200).json('Password has been updated!')

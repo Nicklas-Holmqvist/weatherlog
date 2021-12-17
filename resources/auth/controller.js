@@ -9,7 +9,6 @@ exports.authUser = async (req, res, next) => {
 	} else return next();
 };
 
-
 exports.isAuth = async (req, res) => {
 	const cookie = req.cookies.user;
 
