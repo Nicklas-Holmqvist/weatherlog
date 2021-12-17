@@ -15,10 +15,7 @@ exports.getUsers = async (req, res) => {
 // Create new user
 exports.createUser = async (req, res) => {
 	const { email,
-		password,
-		firstName,
-		lastName,
-		city } = req.body;
+		password } = req.body;
 
 	const emailExists = await UserModel.exists({ email });
 
@@ -27,14 +24,15 @@ exports.createUser = async (req, res) => {
 
 		const newUser = {
 			email,
-			password: hashedPassword,
-			firstName: firstName,
-			lastName: lastName,
-			city: city
+			password: hashedPassword
 		};
 
+		
 		try {
 			const user = await UserModel.create(newUser);
+			const login = await UserModel.login(email, password);
+
+			res.cookie('user', login._id, { maxAge: 1000 * 60 * 60 * 24 });
 			res.status(201).json(user);
 		} catch (error) {
 			res.status(400).json(error);
@@ -48,6 +46,37 @@ exports.createUser = async (req, res) => {
 		res.status(400).json({ errors });
 	}
 };
+
+exports.addInfo = async (req, res) => {
+	const user = req.cookies.user
+
+    const { 
+        firstName,
+        lastName,
+        city
+    } = req.body
+
+    const getUser = await UserModel.findById(user);
+    
+    const newUser = {
+        firstName: firstName,
+		lastName: lastName,
+		city: city
+    }
+
+    if (getUser) {     
+        try {           
+			await UserModel.findByIdAndUpdate({ _id: user }, newUser)
+			res.status(200).json('Added user information!')
+        } catch (error) {
+            res.status(400).json(error)
+    }
+    } else {
+        let errors = { msg: '' }        
+        errors.msg = 'The user does not exist'        
+        res.status(400).json({ errors })
+    }
+}
 
 // Log in
 exports.login = async (req, res) => {
@@ -113,9 +142,10 @@ exports.changePassword = async (req, res) => {
         newPassword
     } = req.body
 
-    const getUser = await UserModel.findById(user).exists(oldPassword);    
+    const getUser = await UserModel.findById(user);
+	const authUser = await bcrypt.compare(oldPassword, getUser.password);
 	
-    if (getUser) {     
+    if (authUser) {     
 
 		const hashedPassword = await bcrypt.hash(newPassword, 10);
 
