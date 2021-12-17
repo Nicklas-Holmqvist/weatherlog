@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
 	Button,
 	Grid,
@@ -6,6 +7,7 @@ import {
 	IconButton,
 } from '@material-ui/core';
 import { ExitToAppRounded, Menu } from '@material-ui/icons';
+// import { useNavigate } from 'react-router-dom';
 
 import theme from 'src/theme';
 import useStyles from './styles';
@@ -14,7 +16,23 @@ import logo from './weatherlog-mini-logo.svg';
 export const Header = () => {
 	const classes = useStyles();
 	const mobile = useMediaQuery(theme.breakpoints.only('xs'));
-	return mobile ? (
+
+	useEffect(() => {
+		isPathLoginOrRegister();
+	});
+
+	const isPathLoginOrRegister = () => {
+		if (
+			window.location.pathname === '/login' ||
+			window.location.pathname === '/register'
+		) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+	return isPathLoginOrRegister() ? null : mobile ? (
 		<Grid item container component="header" className={classes.mobileHeader}>
 			<Grid item className={classes.mobileLeft}>
 				<IconButton size="large" edge="start" color="inherit" aria-label="menu">
