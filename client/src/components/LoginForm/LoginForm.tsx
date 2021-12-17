@@ -45,6 +45,7 @@ export const LoginForm = () => {
 				...oldstate,
 				empty: true,
 			}));
+			return;
 		}
 
 		fetchUser();
@@ -100,9 +101,6 @@ export const LoginForm = () => {
 						? 'Denna email-adress finns ej registrerad'
 						: null
 				}
-				variant="outlined"
-				margin="normal"
-				className={classes.input}
 				InputProps={{
 					startAdornment: (
 						<InputAdornment position="start">
@@ -110,6 +108,10 @@ export const LoginForm = () => {
 						</InputAdornment>
 					),
 				}}
+				variant="outlined"
+				margin="dense"
+				size="small"
+				className={classes.input}
 				placeholder="Email"
 				onChange={(event: any) => setEmail(event.target.value)}
 				required
@@ -123,10 +125,6 @@ export const LoginForm = () => {
 						? 'Fel lösenord'
 						: null
 				}
-				variant="outlined"
-				margin="normal"
-				type="password"
-				className={classes.input}
 				InputProps={{
 					startAdornment: (
 						<InputAdornment position="start">
@@ -134,6 +132,11 @@ export const LoginForm = () => {
 						</InputAdornment>
 					),
 				}}
+				variant="outlined"
+				margin="dense"
+				size="small"
+				type="password"
+				className={classes.input}
 				placeholder="Lösenord"
 				onChange={(event: any) => setPassword(event.target.value)}
 				required
@@ -144,7 +147,6 @@ export const LoginForm = () => {
 			<Button
 				variant="contained"
 				color="secondary"
-				size="large"
 				className={classes.button}
 				onClick={() => handleLogin()}
 				disableElevation

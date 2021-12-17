@@ -19,7 +19,7 @@ export default makeStyles((theme) => ({
 	},
 	input: {
 		[`& fieldset`]: {
-			borderRadius: 16,
+			borderRadius: 12,
 			borderColor: theme.palette.common.black,
 		},
 		'& .MuiOutlinedInput-root': {
