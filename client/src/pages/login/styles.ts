@@ -14,5 +14,9 @@ export default makeStyles((theme) => ({
 		[theme.breakpoints.down('lg')]: {
 			padding: '20px 0 40px 0',
 		},
+		[theme.breakpoints.only('xs')]: {
+			width: '250px',
+			padding: '40px 0 80px 0',
+		},
 	},
 }));

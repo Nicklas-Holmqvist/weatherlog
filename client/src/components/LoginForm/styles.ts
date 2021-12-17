@@ -2,8 +2,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
 	container: {
-		maxWidth: 400,
+		maxWidth: 420,
 		margin: '0 auto',
+		padding: '0 20px 10px 20px',
 	},
 	title: {
 		textTransform: 'uppercase',
@@ -11,6 +12,9 @@ export default makeStyles((theme) => ({
 		marginBottom: 40,
 		[theme.breakpoints.down('lg')]: {
 			marginBottom: 20,
+		},
+		[theme.breakpoints.only('xs')]: {
+			marginBottom: 40,
 		},
 	},
 	input: {

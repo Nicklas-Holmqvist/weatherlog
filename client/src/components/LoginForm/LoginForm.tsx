@@ -63,8 +63,6 @@ export const LoginForm = () => {
 			const res = await fetch('api/user/login', options);
 			const data = await res.json();
 
-			console.log(data);
-
 			if (data.errors) {
 				if (data.errors.email) {
 					setEmailError((oldstate) => ({
