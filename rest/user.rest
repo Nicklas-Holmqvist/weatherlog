@@ -6,7 +6,11 @@ POST http://localhost:5000/api/user/register
 Content-Type: application/json
 
 {
-"username": "adminanders@gåslever.eu", "password": "123"
+    "username": "hans@telia.se",
+    "password": "123",
+    "firstName": "Hans",
+    "lastName": "Gustavsson",
+    "city": "Göteborg"
 }
 
 ###
@@ -15,7 +19,27 @@ POST http://localhost:5000/api/user/login
 Content-Type: application/json
 
 {
-"username": "adminanders@gåslever.eu", "password": "123"
+"username": "hans@telia.se", "password": "123"
+}
+
+###
+
+PUT http://localhost:5000/api/user/edit/ 
+Content-Type: application/json
+
+{
+    "firstName": "Nils",
+    "lastName": "Hansson",
+    "city": "Halmstad"
+}
+###
+
+PUT http://localhost:5000/api/user/changePassword 
+Content-Type: application/json
+
+{
+    "oldPassword": "123",
+    "newPassword": "1234"
 }
 
 ###
@@ -23,3 +47,5 @@ Content-Type: application/json
 POST http://localhost:5000/api/user/logout
 
 ###
+
+DELETE http://localhost:5000/api/user/delete

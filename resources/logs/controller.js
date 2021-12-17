@@ -5,8 +5,7 @@ const LogModel = require('./model')
 exports.getLogs = async (req, res) => {
     try {
         const logs = await LogModel.find({}).populate('user');
-        res.status(200).json(logs) 
-        console.log(logs)
+        res.status(200).json(logs)
     } catch (error) {
         res.status(503).json('No database connection')
     }       
@@ -105,7 +104,6 @@ exports.changeLog = async (req, res) => {
     } else {
         let errors = { msg: '' }
         
-        // if email already exists in db
         errors.msg = 'No log to update!'
         
         res.status(400).json({ errors })

@@ -14,7 +14,12 @@ exports.getUsers = async (req, res) => {
 
 // Create new user
 exports.createUser = async (req, res) => {
-	const { username, password } = req.body;
+	const { username,
+			password,
+			firstName,
+			lastName,
+			city } = req.body;
+
 	const usernameExists = await UserModel.exists({ username: username });
 
 	if (!usernameExists) {
@@ -23,6 +28,9 @@ exports.createUser = async (req, res) => {
 		const newUser = {
 			username: username,
 			password: hashedPassword,
+			firstName: firstName,
+			lastName: lastName,
+			city: city
 		};
 
 		try {
@@ -51,7 +59,6 @@ exports.login = async (req, res) => {
 		res.cookie('user', user._id, { maxAge: 1000 * 60 * 60 * 24 });
 		res.status(200).json({ user });
 	} catch (err) {
-		// här fångas error från "throw"
 
 		//incorrect username
 		if (err.message === 'incorrect username') {
@@ -67,6 +74,65 @@ exports.login = async (req, res) => {
 	}
 };
 
+exports.editUser = async (req, res) => {
+    const user = req.cookies.user
+
+    const { 
+        firstName,
+        lastName,
+        city
+    } = req.body
+
+    const getUser = await UserModel.findById(user);
+    
+    const newUser = {
+        firstName: firstName,
+		lastName: lastName,
+		city: city
+    }
+
+    if (getUser) {     
+        try {           
+			await UserModel.findByIdAndUpdate({ _id: user }, newUser)
+			res.status(200).json('User has been updated!')
+        } catch (error) {
+            res.status(400).json(error)
+    }
+    } else {
+        let errors = { msg: '' }        
+        errors.msg = 'The user does not exist'        
+        res.status(400).json({ errors })
+    }
+}
+
+exports.changePassword = async (req, res) => {
+    const user = req.cookies.user
+
+    const { 
+        oldPassword,
+        newPassword
+    } = req.body
+
+    const getUser = await UserModel.findById(user).exists(oldPassword);
+    
+    const updatedPassword = {
+        password: newPassword
+    }
+
+    if (getUser) {     
+        try {           
+			await UserModel.findByIdAndUpdate({ _id: user }, updatedPassword)
+			res.status(200).json('Password has been updated!')
+        } catch (error) {
+            res.status(400).json(error)
+    }
+    } else {
+        let errors = { msg: '' }        
+        errors.msg = 'The old password does not match!'        
+        res.status(400).json({ errors })
+    }
+}
+
 // Log out
 exports.logout = (req, res) => {
 	try {
@@ -76,3 +142,22 @@ exports.logout = (req, res) => {
 		res.status(400).json(error);
 	}
 };
+
+exports.deleteUser = async (req, res) => {
+    const user = req.cookies.user
+    
+    const getUser = await UserModel.findById(user);
+    if (getUser) {     
+        try {
+            await UserModel.findByIdAndRemove({ _id: user })
+            res.status(201).json(getUser)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+    } else {
+        let errors = { msg: '' }
+        errors.msg = 'No user exist!'        
+        res.status(400).json({ errors })
+    }
+}
+
