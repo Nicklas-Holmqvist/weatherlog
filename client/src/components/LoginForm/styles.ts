@@ -19,7 +19,7 @@ export default makeStyles((theme) => ({
 	},
 	input: {
 		[`& fieldset`]: {
-			borderRadius: 16,
+			borderRadius: 12,
 			borderColor: theme.palette.common.black,
 		},
 		'& .MuiOutlinedInput-root': {
@@ -33,9 +33,9 @@ export default makeStyles((theme) => ({
 		color: theme.palette.grey[700],
 	},
 	button: {
-		borderRadius: 16,
-		paddingTop: 10,
-		paddingBottom: 10,
+		borderRadius: 14,
+		paddingTop: 8,
+		paddingBottom: 8,
 		marginTop: 30,
 		fontWeight: 400,
 		fontSize: 18,
@@ -47,7 +47,7 @@ export default makeStyles((theme) => ({
 		fontSize: 14,
 	},
 	createAccount: {
-		marginTop: 30,
+		marginTop: 24,
 		textDecoration: 'underline',
 		textAlign: 'center',
 		color: theme.palette.common.black,

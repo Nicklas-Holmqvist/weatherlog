@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
 	container: {
 		alignItems: 'center',
-		height: '100vh',
 		flexWrap: 'nowrap',
 	},
 	image: {
