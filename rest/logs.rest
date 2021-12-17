@@ -1,3 +1,41 @@
 GET http://localhost:5000/api/logs/
 
 ###
+
+POST http://localhost:5000/api/logs/register 
+Content-Type: application/json
+
+{
+    "airFeeling": "Skylig,",
+    "airpressure": "1024",
+    "description": "Vädret har varit växlande med lite regnskurar",
+    "date": "102544",
+    "humidity": "64",
+    "precipitation": "4",
+    "temperature": "14",
+    "windDirection": "nw",
+    "weather": "clear",
+    "windSpeed": "2"
+}
+
+### 
+
+PUT http://localhost:5000/api/logs/61bba3a2b0d71c5a25c703b9
+Content-Type: application/json
+
+{
+    "airFeeling": "Varmt",
+    "airpressure": "950",
+    "description": "Regnar hela dagen!",
+    "date": "211214",
+    "humidity": "64",
+    "precipitation": "4",
+    "temperature": "14",
+    "windDirection": "nw",
+    "weather": "clear",
+    "windSpeed": "2"
+}
+
+###
+
+DELETE http://localhost:5000/api/logs/61bba3a2b0d71c5a25c703b9

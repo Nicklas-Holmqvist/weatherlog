@@ -1,6 +1,7 @@
 // Import dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require("cookie-parser");
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 	next();
 });
 
+app.use(cookieParser());
 // Configure the bodyParser middleware
 app.use(bodyParser.json());
 app.use(
