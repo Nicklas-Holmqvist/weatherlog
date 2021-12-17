@@ -6,7 +6,7 @@ POST http://localhost:5000/api/user/register
 Content-Type: application/json
 
 {
-"email": "adminanders@gåslever.eu", "password": "123"
+"email": "a@a.se", "password": "123"
 }
 
 ###

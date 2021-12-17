@@ -13,19 +13,24 @@ import useStyles from './styles';
 
 export const LoginForm = () => {
 	const classes = useStyles();
+	const navigateTo = useNavigate();
+
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [emailError, setEmailError] = useState({
 		format: false,
 		notRegistered: false,
 	});
-	const [passwordError, setPasswordError] = useState(false);
-	const formData = { email, password };
-	const navigateTo = useNavigate();
+	const [passwordError, setPasswordError] = useState({
+		empty: false,
+		invalid: false,
+	});
 
-	const handleCheckForError = () => {
+	const formData = { email, password };
+
+	const handleLogin = () => {
 		setEmailError({ format: false, notRegistered: false });
-		setPasswordError(false);
+		setPasswordError({ empty: false, invalid: false });
 
 		if (!email.includes('@' && '.')) {
 			setEmailError((oldstate) => ({
@@ -33,6 +38,13 @@ export const LoginForm = () => {
 				format: true,
 			}));
 			return;
+		}
+
+		if (password === '') {
+			setPasswordError((oldstate) => ({
+				...oldstate,
+				empty: true,
+			}));
 		}
 
 		fetchUser();
@@ -61,14 +73,15 @@ export const LoginForm = () => {
 					}));
 				}
 				if (data.errors.password) {
-					setPasswordError(true);
+					setPasswordError((oldstate) => ({
+						...oldstate,
+						invalid: true,
+					}));
 				}
 			}
 
 			if (data.user) {
-				setTimeout(() => {
-					navigateTo('/example');
-				}, 2000);
+				navigateTo('/example');
 			}
 		} catch (error) {
 			console.log(error);
@@ -104,8 +117,14 @@ export const LoginForm = () => {
 				required
 			/>
 			<TextField
-				error={passwordError}
-				helperText={passwordError && 'Fel lösenord'}
+				error={passwordError.empty || passwordError.invalid}
+				helperText={
+					passwordError.empty
+						? 'Vänligen skriv in ditt lösenord'
+						: passwordError.invalid
+						? 'Fel lösenord'
+						: null
+				}
 				variant="outlined"
 				margin="normal"
 				type="password"
@@ -129,7 +148,7 @@ export const LoginForm = () => {
 				color="secondary"
 				size="large"
 				className={classes.button}
-				onClick={() => handleCheckForError()}
+				onClick={() => handleLogin()}
 				disableElevation
 			>
 				Logga in
