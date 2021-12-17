@@ -5,7 +5,7 @@ import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import './App.css';
 import theme from './theme';
 import routes from './routes';
-import { Footer } from './components';
+import { Footer, Header } from './components';
 
 function App() {
 	useEffect(() => {
@@ -33,6 +33,7 @@ function App() {
 	return (
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
+				<Header />
 				<Routes>
 					{routes.map(({ path, element }, key) => (
 						<Route path={path} element={element} key={key} />

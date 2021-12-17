@@ -11,6 +11,7 @@ export default makeStyles((theme) => ({
 		padding: '0 100px',
 		alignItems: 'center',
 		justifyContent: 'center',
+		zIndex: 100,
 	},
 	link: {
 		margin: '0 30px',
