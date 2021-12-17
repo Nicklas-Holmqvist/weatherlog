@@ -46,5 +46,6 @@ export default makeStyles((theme) => ({
 		marginTop: 30,
 		textDecoration: 'underline',
 		textAlign: 'center',
+		color: theme.palette.common.black,
 	},
 }));

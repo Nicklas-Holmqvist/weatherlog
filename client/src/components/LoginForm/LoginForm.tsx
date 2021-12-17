@@ -7,7 +7,7 @@ import {
 	Typography,
 } from '@material-ui/core';
 import { AccountCircleRounded, LockOutlined } from '@material-ui/icons';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import useStyles from './styles';
 
@@ -153,9 +153,9 @@ export const LoginForm = () => {
 			>
 				Logga in
 			</Button>
-			<Typography variant="subtitle1" className={classes.createAccount}>
-				Skapa konto
-			</Typography>
+			<Link to="/register" className={classes.createAccount}>
+				<Typography variant="subtitle1">Skapa konto</Typography>
+			</Link>
 		</Grid>
 	);
 };
