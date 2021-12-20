@@ -12,6 +12,7 @@ type Context = {
     addUser: () => void,
     addUserInfo: () => void,
     editUser: () => void,    
+    logout: () => void,    
 }
 
 export const UsersProvider: FunctionComponent = ({ children }) => {
@@ -114,6 +115,19 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
         });
     };
 
+    const logout = async () => {   
+        const options = {
+            method: "post",
+            headers: {
+            "Content-Type": "application/json",
+            },
+        };
+        await fetch(`/api/user/logout`, options)
+        .catch(function (err) {
+            console.error(err);
+        });
+    };
+
     const deleteUser = async () => {   
         const options = {
             method: "delete",
@@ -132,7 +146,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
     });
 
     return (
-        <UsersContext.Provider value={{ Users, test, deleteUser, changePassword, fetchUser, addUser, addUserInfo, editUser }}>
+        <UsersContext.Provider value={{ Users, test, deleteUser, changePassword, fetchUser, addUser, addUserInfo, editUser, logout }}>
             {children}
         </UsersContext.Provider>
     )

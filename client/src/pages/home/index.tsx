@@ -13,7 +13,7 @@ export const HomePage = () => {
 			{/* <p>{logsContext?.date}</p>
 			<p>{logsContext?.description}</p>
 			<p>{logsContext?.weather}</p> */}´
-			<button onClick={usersContext.deleteUser}>Skicka log</button>
+			<button onClick={usersContext.logout}>Skicka log</button>
 		</Grid>
 	);
 };
