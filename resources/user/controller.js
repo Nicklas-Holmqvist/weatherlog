@@ -132,7 +132,7 @@ exports.editUser = async (req, res) => {
 
 exports.changePassword = async (req, res) => {
     const user = req.cookies.user
-
+    console.log(req.body)
     const { 
         oldPassword,
         newPassword

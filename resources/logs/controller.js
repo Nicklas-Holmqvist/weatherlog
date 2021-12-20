@@ -12,6 +12,7 @@ exports.getLogs = async (req, res) => {
 }
 
 exports.createLog = async (req, res) => {
+    
     const { 
         airFeeling,
         airpressure,
@@ -41,7 +42,7 @@ exports.createLog = async (req, res) => {
         weather: weather,
         windSpeed: windSpeed,
     }
-   
+    
     if (!dateExist) {     
         try {
             const log = await LogModel.create(newLog)
@@ -93,7 +94,7 @@ exports.changeLog = async (req, res) => {
         try {
             await LogModel.findByIdAndUpdate({ _id: log }, newLog)
             res.status(200).json('Log has been updated!')
-            console.log(newLog)
+            
         } catch (error) {
             res.status(400).json(error)
     }
