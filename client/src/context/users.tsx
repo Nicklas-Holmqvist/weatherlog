@@ -27,7 +27,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
     })
 
     // Test att sätta värdet från input direkt i context via en universal funktion
-    function setInputs(e:any){
+    const setInputs = (e:any) => {
         const value = e.target.value;
         console.log(e)
 
@@ -60,17 +60,17 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
     // Hämtar alla användarna
     const fetchUser = async () => {
         await fetch('/api/logs', {method: 'get'})
-            .then(function (res) {
+            .then((res) =>  {
                 if (res.status === 400) {
                     return;
                 }
                 return res.json();
             })
-            .then(function (data) {
+            .then((data) =>  {
                 setUsers(data)
                 console.log(data)
             })
-            .catch(function (err) {
+            .catch((err) =>  {
                 console.error(err);
             });
     };
@@ -85,7 +85,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
             body: JSON.stringify(newUser),
         };
         await fetch('/api/user/register', options)
-        .catch(function (err) {
+        .catch((err) =>  {
             console.error(err);
         });
     };
@@ -100,7 +100,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
             body: JSON.stringify(userInfo),
         };
         await fetch('/api/user/addUserInfo', options)
-        .catch(function (err) {
+        .catch((err) =>  {
             console.log('error')
             console.error(err);
         });
@@ -116,7 +116,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
             body: JSON.stringify(newUserInfo),
         };
         await fetch(`/api/user/edit`, options)
-        .catch(function (err) {
+        .catch((err) =>  {
             console.error(err);
         });
     };
@@ -132,7 +132,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
         };
 
         await fetch(`/api/user/changePassword`, options)
-        .catch(function (err) {
+        .catch((err) =>  {
             console.error(err);
         });
     };
@@ -146,7 +146,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
             },
         };
         await fetch(`/api/user/delete`, options)
-        .catch(function (err) {
+        .catch((err) =>  {
             console.error(err);
         });
     };

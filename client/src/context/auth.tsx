@@ -37,20 +37,20 @@ import {
     useEffect(() => {
       
         fetch("/auth", { method: 'GET'})
-          .then(function (res) {
+          .then((res) =>  {
             if (res.status === 400) {
               return;
             }
             return res.json();
           })
-          .then(function (data) {
+          .then((data) =>  {
             const user = data;
             if (user === undefined) {
              return
             }
             setUser(user);
           })
-          .catch(function (err) {
+          .catch((err) => {
             console.error(err);
           });
   
