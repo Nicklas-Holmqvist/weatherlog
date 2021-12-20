@@ -45,47 +45,44 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             });
     };
 
-    const optionsPost = {
-        method: "post",
-        headers: {
-        "Content-Type": "application/json",
-        },
-        body: JSON.stringify(postLog),
-    };
-
     const addPost = async () => {   
-        await fetch('/api/logs/register', optionsPost)
+        const options = {
+            method: "post",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify(postLog),
+        };
+        await fetch('/api/logs/register', options)
         .catch(function (err) {
             console.error(err);
         });
-    };
-
-    const optionsPut = {
-        method: "put",
-        headers: {
-        "Content-Type": "application/json",
-        },
-        body: JSON.stringify(postLog),
     };
 
     const editPost = async () => {   
+        const options = {
+            method: "put",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify(postLog),
+        };
         const logId = "61b9d185bd5038e17fc353a2"
-        await fetch(`/api/logs/${logId}`, optionsPut)
+        await fetch(`/api/logs/${logId}`, options)
         .catch(function (err) {
             console.error(err);
         });
     };
 
-    const optionsDelete = {
-        method: "delete",
-        headers: {
-        "Content-Type": "application/json",
-        },
-    };
-
     const deletePost = async () => {   
+        const options = {
+            method: "delete",
+            headers: {
+            "Content-Type": "application/json",
+            },
+        };
         const logId = "61b9d185bd5038e17fc353a2"
-        await fetch(`/api/logs/${logId}`, optionsDelete)
+        await fetch(`/api/logs/${logId}`, options)
         .catch(function (err) {
             console.error(err);
         });
