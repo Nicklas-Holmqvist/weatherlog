@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { LogsProvider } from './context/logs';
 import { UsersProvider } from './context/users';
@@ -10,28 +9,6 @@ import routes from './routes';
 import { Footer, Header } from './components';
 
 function App() {
-	useEffect(() => {
-		const options = {
-			method: 'get',
-		};
-		const fetchApi = async () => {
-			await fetch('/api/logs', options)
-				.then(function (res) {
-					if (res.status === 400) {
-						return;
-					}
-					return res.json();
-				})
-				.then(function (data) {
-					console.log(data);
-				})
-				.catch(function (err) {
-					console.error(err);
-				});
-		};
-
-		fetchApi();
-	});
 	return (
 		<ThemeProvider theme={theme}>
 			<LogsProvider>
