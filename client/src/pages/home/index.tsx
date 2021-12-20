@@ -1,10 +1,10 @@
 import { Grid, Typography } from '@material-ui/core';
-import { useLogsContext } from '../../context/logs'
+// import { useLogsContext } from '../../context/logs'
 import { useUsersContext } from '../../context/users'
 export const HomePage = () => {
 
-	const edit = useLogsContext().deletePost
-	const logsContext = useLogsContext().logs[0]
+	// const edit = useLogsContext().deletePost
+	// const logsContext = useLogsContext().logs[0]
 	const usersContext = useUsersContext()
 
 	return (
