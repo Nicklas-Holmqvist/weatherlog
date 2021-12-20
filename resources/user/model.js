@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
 	lastName: 'String',
 });
 
-userSchema.statics.login = async function (email, password) {
+userSchema.statics.login = async (email, password) => {
 	const user = await this.findOne({ email });
 
 	if (user) {

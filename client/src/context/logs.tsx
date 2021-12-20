@@ -32,17 +32,17 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     // Hämtar alla logs
     const fetchLogs = async () => {
         await fetch('/api/logs', {method: 'get'})
-            .then(function (res) {
+            .then((res) => {
                 if (res.status === 400) {
                     return;
                 }
                 return res.json();
             })
-            .then(function (data) {
+            .then((data) => {
                 setLogs(data)
                 console.log(data)
             })
-            .catch(function (err) {
+            .catch((err) =>  {
                 console.error(err);
             });
     };
@@ -57,7 +57,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             body: JSON.stringify(postLog),
         };
         await fetch('/api/logs/register', options)
-        .catch(function (err) {
+        .catch((err) =>  {
             console.error(err);
         });
     };
@@ -73,7 +73,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         };
         const logId = "61b9d185bd5038e17fc353a2"
         await fetch(`/api/logs/${logId}`, options)
-        .catch(function (err) {
+        .catch((err) =>  {
             console.error(err);
         });
     };
@@ -88,7 +88,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         };
         const logId = "61b9d185bd5038e17fc353a2"
         await fetch(`/api/logs/${logId}`, options)
-        .catch(function (err) {
+        .catch((err) =>  {
             console.error(err);
         });
     };
