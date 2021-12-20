@@ -15,6 +15,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     const [logs, setLogs] = useState<Logs[]>([])
     const test = "Logs context fungerar"
 
+    // Dummy information för en log
     const postLog = {
         airFeeling: "Kyligt",
         airpressure: "String",
@@ -28,6 +29,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         weather: "String",
     }
 
+    // Hämtar alla logs
     const fetchLogs = async () => {
         await fetch('/api/logs', {method: 'get'})
             .then(function (res) {
@@ -45,6 +47,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             });
     };
 
+    // Skapar en log
     const addPost = async () => {   
         const options = {
             method: "post",
@@ -59,6 +62,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         });
     };
 
+    // Ändra en log
     const editPost = async () => {   
         const options = {
             method: "put",
@@ -74,6 +78,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         });
     };
 
+    // Ta bort log
     const deletePost = async () => {   
         const options = {
             method: "delete",
