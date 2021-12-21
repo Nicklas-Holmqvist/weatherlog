@@ -20,7 +20,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     const postLog = {
         airFeeling: "Kyligt",
         airpressure: "String",
-        date: "1245",
+        date: "987",
         description: "String",
         humidity: "String",
         precipitation: "String",
@@ -30,66 +30,66 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         weather: "String",
     }
 
+    const options = {
+        fetchLogs: {
+            method: 'get',
+        },
+        addPost: {
+            method: "post",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(postLog),
+        },
+        editPost: {
+            method: "put",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(postLog),
+        },
+        deletePost: {
+            method: "delete",
+            headers: {"Content-Type": "application/json"},
+        },
+    }
+
     // Hämtar alla logs
     const fetchLogs = async () => {
-        await fetch('/api/logs', {method: 'get'})
-            .then(function (res) {
+        await fetch('/api/logs', options.fetchLogs)
+            .then((res) => {
                 if (res.status === 400) {
                     return;
                 }
                 return res.json();
             })
-            .then(function (data) {
+            .then((data) => {
                 setLogs(data)
                 console.log(data)
             })
-            .catch(function (err) {
+            .catch((err) => {
                 console.error(err);
             });
     };
 
     // Skapar en log
     const addPost = async () => {   
-        const options = {
-            method: "post",
-            headers: {
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify(postLog),
-        };
-        await fetch('/api/logs/register', options)
-        .catch(function (err) {
+        await fetch('/api/logs/register', options.addPost)
+        .catch((err) => {
             console.error(err);
         });
     };
 
     // Ändra en log
-    const editPost = async () => {   
-        const options = {
-            method: "put",
-            headers: {
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify(postLog),
-        };
-        const logId = "61bb59298a1d872cb74d9a5f"
-        await fetch(`/api/logs/${logId}`, options)
-        .catch(function (err) {
+    const editPost = async () => {  
+        const logId = "61c1cf0f934272f160fffbca"
+        await fetch(`/api/logs/${logId}`, options.editPost)
+        .catch((err) => {
             console.error(err);
         });
     };
 
     // Ta bort log
-    const deletePost = async () => {   
-        const options = {
-            method: "delete",
-            headers: {
-            "Content-Type": "application/json",
-            },
-        };
-        const logId = "61bb59298a1d872cb74d9a5f"
-        await fetch(`/api/logs/${logId}`, options)
-        .catch(function (err) {
+    const deletePost = async () => {  
+        const logId = "61c1cf0f934272f160fffbca"
+        await fetch(`/api/logs/${logId}`, options.deletePost)
+        .catch((err) => {
             console.error(err);
         });
     };
