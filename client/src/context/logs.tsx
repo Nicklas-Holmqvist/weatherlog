@@ -70,7 +70,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 
     // Skapar en log
     const addPost = async () => {   
-      
         await fetch('/api/logs/register', options.addPost)
         .catch(function (err) {
             console.error(err);
@@ -78,8 +77,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     };
 
     // Ändra en log
-    const editPost = async () => {   
-        
+    const editPost = async () => {  
         const logId = "61c1cf0f934272f160fffbca"
         await fetch(`/api/logs/${logId}`, options.editPost)
         .catch(function (err) {
@@ -89,7 +87,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 
     // Ta bort log
     const deletePost = async () => {  
-        
         const logId = "61c1cf0f934272f160fffbca"
         await fetch(`/api/logs/${logId}`, options.deletePost)
         .catch(function (err) {

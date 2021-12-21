@@ -41,8 +41,40 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
         newPassword: "1234"
     }
 
+    const options = {
+        fetchUser: {method: 'get'},
+        addUser: {
+            method: "post",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(newUser),
+        },
+        addUserInfo: {
+            method: "post",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(userInfo),
+        },
+        editUser: {
+            method: "put",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(newUserInfo),
+        },
+        changePassword: {
+            method: "put",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(newPassword),
+        },
+        logout: {
+            method: "post",
+            headers: {"Content-Type": "application/json"},
+        },
+        deleteUser: {
+            method: "delete",
+            headers: {"Content-Type": "application/json"},
+        },
+    }
+
     const fetchUser = async () => {
-        await fetch('/api/logs', {method: 'get'})
+        await fetch('/api/logs', options.addUser)
             .then(function (res) {
                 if (res.status === 400) {
                     return;
@@ -58,84 +90,43 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
             });
     };
 
-    const addUser = async () => {   
-        const options = {
-            method: "post",
-            headers: {
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newUser),
-        };
-        await fetch('/api/user/register', options)
+    const addUser = async () => {          
+        await fetch('/api/user/register', options.addUser)
         .catch(function (err) {
             console.error(err);
         });
     };
 
     const addUserInfo = async () => {   
-        const options = {
-            method: "post",
-            headers: {
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userInfo),
-        };
-        await fetch('/api/user/addUserInfo', options)
+        await fetch('/api/user/addUserInfo', options.addUserInfo)
         .catch(function (err) {
             console.error(err);
         });
     };
 
-    const editUser = async () => {   
-        const options = {
-            method: "put",
-            headers: {
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newUserInfo),
-        };
-        await fetch(`/api/user/edit`, options)
+    const editUser = async () => {          
+        await fetch(`/api/user/edit`, options.editUser)
         .catch(function (err) {
             console.error(err);
         });
     };
 
-    const changePassword = async () => {   
-        const options = {
-            method: "put",
-            headers: {
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newPassword),
-        };
-
-        await fetch(`/api/user/changePassword`, options)
+    const changePassword = async () => {       
+        await fetch(`/api/user/changePassword`, options.changePassword)
         .catch(function (err) {
             console.error(err);
         });
     };
 
     const logout = async () => {   
-        const options = {
-            method: "post",
-            headers: {
-            "Content-Type": "application/json",
-            },
-        };
-        await fetch(`/api/user/logout`, options)
+        await fetch(`/api/user/logout`, options.logout)
         .catch(function (err) {
             console.error(err);
         });
     };
 
     const deleteUser = async () => {   
-        const options = {
-            method: "delete",
-            headers: {
-            "Content-Type": "application/json",
-            },
-        };
-        await fetch(`/api/user/delete`, options)
+        await fetch(`/api/user/delete`, options.deleteUser)
         .catch(function (err) {
             console.error(err);
         });
