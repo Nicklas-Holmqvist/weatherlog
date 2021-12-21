@@ -9,6 +9,7 @@ type Context = {
     addPost: () => void
     editPost: () => void
     deletePost: () => void
+    fetchLogs: () => void
 }
 
 export const LogsProvider: FunctionComponent = ({ children }) => {
@@ -19,7 +20,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     const postLog = {
         airFeeling: "Kyligt",
         airpressure: "String",
-        date: "1234",
+        date: "1245",
         description: "String",
         humidity: "String",
         precipitation: "String",
@@ -32,17 +33,17 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     // Hämtar alla logs
     const fetchLogs = async () => {
         await fetch('/api/logs', {method: 'get'})
-            .then((res) => {
+            .then(function (res) {
                 if (res.status === 400) {
                     return;
                 }
                 return res.json();
             })
-            .then((data) => {
+            .then(function (data) {
                 setLogs(data)
                 console.log(data)
             })
-            .catch((err) =>  {
+            .catch(function (err) {
                 console.error(err);
             });
     };
@@ -57,7 +58,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             body: JSON.stringify(postLog),
         };
         await fetch('/api/logs/register', options)
-        .catch((err) =>  {
+        .catch(function (err) {
             console.error(err);
         });
     };
@@ -71,9 +72,9 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             },
             body: JSON.stringify(postLog),
         };
-        const logId = "61b9d185bd5038e17fc353a2"
+        const logId = "61bb59298a1d872cb74d9a5f"
         await fetch(`/api/logs/${logId}`, options)
-        .catch((err) =>  {
+        .catch(function (err) {
             console.error(err);
         });
     };
@@ -86,9 +87,9 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             "Content-Type": "application/json",
             },
         };
-        const logId = "61b9d185bd5038e17fc353a2"
+        const logId = "61bb59298a1d872cb74d9a5f"
         await fetch(`/api/logs/${logId}`, options)
-        .catch((err) =>  {
+        .catch(function (err) {
             console.error(err);
         });
     };
@@ -98,11 +99,10 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     });
 
     return (
-        <LogsContext.Provider value={{ logs, test, addPost, editPost, deletePost }}>
+        <LogsContext.Provider value={{ logs, test, addPost, editPost, deletePost, fetchLogs }}>
             {children}
         </LogsContext.Provider>
     )
 };
 
 export const useLogsContext = () => useContext<Context>(LogsContext)
-
