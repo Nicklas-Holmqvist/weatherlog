@@ -15,6 +15,8 @@ import {
 	getEmailErrorText,
 	getPasswordError,
 	getPasswordErrorText,
+	testEmailForErrors,
+	testPasswordForErrors,
 } from 'src/utils';
 
 export const RegisterForm = () => {
@@ -29,7 +31,7 @@ export const RegisterForm = () => {
 	const [emailError, setEmailError] = useState({
 		empty: false,
 		format: false,
-		alreayRegistered: false,
+		alreadyRegistered: false,
 	});
 	const [passwordError, setPasswordError] = useState({
 		empty: false,
@@ -41,7 +43,7 @@ export const RegisterForm = () => {
 	const formData = { email: user.email, password: user.password };
 
 	const handleCreateAccount = () => {
-		setEmailError({ empty: false, format: false, alreayRegistered: false });
+		setEmailError({ empty: false, format: false, alreadyRegistered: false });
 		setPasswordError({
 			empty: false,
 			tooShort: false,
@@ -63,6 +65,7 @@ export const RegisterForm = () => {
 			}));
 			return;
 		}
+
 		if (user.password === '') {
 			setPasswordError((oldstate) => ({
 				...oldstate,
@@ -78,7 +81,6 @@ export const RegisterForm = () => {
 			return;
 		}
 		if (!/([A-Za-z._-]{0,})\d\w+/.test(user.password)) {
-			//funkar ej med endast siffror...
 			setPasswordError((oldstate) => ({
 				...oldstate,
 				format: true,
@@ -92,6 +94,11 @@ export const RegisterForm = () => {
 			}));
 			return;
 		}
+
+		// setEmailError(testEmailForErrors(user.email)!);
+		// setPasswordError(
+		// 	testPasswordForErrors(user.password, user.passwordToConfirm)!
+		// );
 
 		fetchUser();
 	};
@@ -112,14 +119,11 @@ export const RegisterForm = () => {
 			const res = await fetch('api/user/register', options);
 			const data = await res.json();
 
-			console.log(res);
-			console.log(data);
-
 			if (data.errors) {
 				if (data.errors.email) {
 					setEmailError((oldstate) => ({
 						...oldstate,
-						alreayRegistered: true,
+						alreadyRegistered: true,
 					}));
 				}
 			} else {
@@ -150,11 +154,35 @@ export const RegisterForm = () => {
 				size="small"
 				type="email"
 				className={classes.input}
-				placeholder="Email"
+				placeholder="Email*"
 				onChange={(event: any) =>
 					setUser((oldstate) => ({
 						...oldstate,
 						email: event.target.value,
+					}))
+				}
+				required
+			/>
+			<TextField
+				error={getPasswordError(passwordError)!}
+				helperText={getPasswordErrorText(passwordError)!}
+				InputProps={{
+					startAdornment: (
+						<InputAdornment position="start">
+							<LockOutlined className={classes.icon} />
+						</InputAdornment>
+					),
+				}}
+				variant="outlined"
+				margin="dense"
+				size="small"
+				type="password"
+				className={classes.input}
+				placeholder="Lösenord*"
+				onChange={(event: any) =>
+					setUser((oldstate) => ({
+						...oldstate,
+						password: event.target.value,
 					}))
 				}
 				required
@@ -174,31 +202,7 @@ export const RegisterForm = () => {
 				size="small"
 				type="password"
 				className={classes.input}
-				placeholder="Lösenord"
-				onChange={(event: any) =>
-					setUser((oldstate) => ({
-						...oldstate,
-						password: event.target.value,
-					}))
-				}
-				required
-			/>
-			<TextField
-				// error={getPasswordError(passwordError)}
-				// helperText={getPasswordErrorText(passwordError)}
-				InputProps={{
-					startAdornment: (
-						<InputAdornment position="start">
-							<LockOutlined className={classes.icon} />
-						</InputAdornment>
-					),
-				}}
-				variant="outlined"
-				margin="dense"
-				size="small"
-				type="password"
-				className={classes.input}
-				placeholder="Bekräfta lösenord"
+				placeholder="Bekräfta lösenord*"
 				onChange={(event: any) =>
 					setUser((oldstate) => ({
 						...oldstate,
