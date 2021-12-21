@@ -15,8 +15,8 @@ import {
 	getEmailErrorText,
 	getPasswordError,
 	getPasswordErrorText,
-	testEmailForErrors,
-	testPasswordForErrors,
+	// testEmailForErrors,
+	// testPasswordForErrors,
 } from 'src/utils';
 
 export const RegisterForm = () => {
@@ -188,8 +188,10 @@ export const RegisterForm = () => {
 				required
 			/>
 			<TextField
-				error={getPasswordError(passwordError)}
-				helperText={getPasswordErrorText(passwordError)}
+				error={passwordError.notMatching}
+				helperText={
+					passwordError.notMatching ? getPasswordErrorText(passwordError) : null
+				}
 				InputProps={{
 					startAdornment: (
 						<InputAdornment position="start">

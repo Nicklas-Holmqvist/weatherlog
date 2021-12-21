@@ -45,83 +45,83 @@ export const getPasswordErrorText = (passwordError: {
 	return null;
 };
 
-export const testEmailForErrors = (email: string) => {
-	if (email === '') {
-		const emailError = {
-			empty: true,
-			format: false,
-			alreadyRegistered: false,
-		};
-		console.log('från function' + emailError);
-		return emailError;
-	} else if (!email.includes('@' && '.')) {
-		const emailError = {
-			empty: false,
-			format: true,
-			alreadyRegistered: false,
-		};
-		console.log('från function' + emailError);
-		return emailError;
-	} else {
-		const emailError = {
-			empty: false,
-			format: false,
-			alreadyRegistered: false,
-		};
-		console.log('från function' + emailError);
-		return emailError;
-	}
-};
+// export const testEmailForErrors = (email: string) => {
+// 	if (email === '') {
+// 		const emailError = {
+// 			empty: true,
+// 			format: false,
+// 			alreadyRegistered: false,
+// 		};
+// 		console.log('från function' + emailError);
+// 		return emailError;
+// 	} else if (!email.includes('@' && '.')) {
+// 		const emailError = {
+// 			empty: false,
+// 			format: true,
+// 			alreadyRegistered: false,
+// 		};
+// 		console.log('från function' + emailError);
+// 		return emailError;
+// 	} else {
+// 		const emailError = {
+// 			empty: false,
+// 			format: false,
+// 			alreadyRegistered: false,
+// 		};
+// 		console.log('från function' + emailError);
+// 		return emailError;
+// 	}
+// };
 
-export const testPasswordForErrors = (
-	password: string,
-	passwordToConfirm: string
-) => {
-	if (password === '') {
-		const passwordError = {
-			empty: true,
-			tooShort: false,
-			format: false,
-			notMatching: false,
-		};
-		console.log('från function' + passwordError);
-		return passwordError;
-	} else if (password.length < 6) {
-		const passwordError = {
-			empty: false,
-			tooShort: true,
-			format: false,
-			notMatching: false,
-		};
-		console.log('från function' + passwordError);
-		return passwordError;
-	} else if (!/([A-Za-z._-]{0,})\d\w+/.test(password)) {
-		//funkar ej med endast siffror eller endast 1 siffra...
-		const passwordError = {
-			empty: false,
-			tooShort: false,
-			format: true,
-			notMatching: false,
-		};
-		console.log('från function' + passwordError);
-		return passwordError;
-	} else if (password !== passwordToConfirm) {
-		const passwordError = {
-			empty: false,
-			tooShort: false,
-			format: false,
-			notMatching: true,
-		};
-		console.log('från function' + passwordError);
-		return passwordError;
-	} else {
-		const passwordError = {
-			empty: false,
-			tooShort: false,
-			format: false,
-			notMatching: false,
-		};
-		console.log('från function' + passwordError);
-		return passwordError;
-	}
-};
+// export const testPasswordForErrors = (
+// 	password: string,
+// 	passwordToConfirm: string
+// ) => {
+// 	if (password === '') {
+// 		const passwordError = {
+// 			empty: true,
+// 			tooShort: false,
+// 			format: false,
+// 			notMatching: false,
+// 		};
+// 		console.log('från function' + passwordError);
+// 		return passwordError;
+// 	} else if (password.length < 6) {
+// 		const passwordError = {
+// 			empty: false,
+// 			tooShort: true,
+// 			format: false,
+// 			notMatching: false,
+// 		};
+// 		console.log('från function' + passwordError);
+// 		return passwordError;
+// 	} else if (!/([A-Za-z._-]{0,})\d\w+/.test(password)) {
+// 		//funkar ej med endast siffror eller endast 1 siffra...
+// 		const passwordError = {
+// 			empty: false,
+// 			tooShort: false,
+// 			format: true,
+// 			notMatching: false,
+// 		};
+// 		console.log('från function' + passwordError);
+// 		return passwordError;
+// 	} else if (password !== passwordToConfirm) {
+// 		const passwordError = {
+// 			empty: false,
+// 			tooShort: false,
+// 			format: false,
+// 			notMatching: true,
+// 		};
+// 		console.log('från function' + passwordError);
+// 		return passwordError;
+// 	} else {
+// 		const passwordError = {
+// 			empty: false,
+// 			tooShort: false,
+// 			format: false,
+// 			notMatching: false,
+// 		};
+// 		console.log('från function' + passwordError);
+// 		return passwordError;
+// 	}
+// };
