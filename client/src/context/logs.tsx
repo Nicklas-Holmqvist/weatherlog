@@ -53,17 +53,17 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     // Hämtar alla logs
     const fetchLogs = async () => {
         await fetch('/api/logs', options.fetchLogs)
-            .then(function (res) {
+            .then((res) => {
                 if (res.status === 400) {
                     return;
                 }
                 return res.json();
             })
-            .then(function (data) {
+            .then((data) => {
                 setLogs(data)
                 console.log(data)
             })
-            .catch(function (err) {
+            .catch((err) => {
                 console.error(err);
             });
     };
@@ -71,7 +71,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     // Skapar en log
     const addPost = async () => {   
         await fetch('/api/logs/register', options.addPost)
-        .catch(function (err) {
+        .catch((err) => {
             console.error(err);
         });
     };
@@ -80,7 +80,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     const editPost = async () => {  
         const logId = "61c1cf0f934272f160fffbca"
         await fetch(`/api/logs/${logId}`, options.editPost)
-        .catch(function (err) {
+        .catch((err) => {
             console.error(err);
         });
     };
@@ -89,7 +89,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     const deletePost = async () => {  
         const logId = "61c1cf0f934272f160fffbca"
         await fetch(`/api/logs/${logId}`, options.deletePost)
-        .catch(function (err) {
+        .catch((err) => {
             console.error(err);
         });
     };

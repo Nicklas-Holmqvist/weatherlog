@@ -75,59 +75,59 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 
     const fetchUser = async () => {
         await fetch('/api/logs', options.addUser)
-            .then(function (res) {
+            .then((res) => {
                 if (res.status === 400) {
                     return;
                 }
                 return res.json();
             })
-            .then(function (data) {
+            .then((data) => {
                 setUsers(data)
                 console.log(data)
             })
-            .catch(function (err) {
+            .catch((err) => {
                 console.error(err);
             });
     };
 
     const addUser = async () => {          
         await fetch('/api/user/register', options.addUser)
-        .catch(function (err) {
+        .catch((err) => {
             console.error(err);
         });
     };
 
     const addUserInfo = async () => {   
         await fetch('/api/user/addUserInfo', options.addUserInfo)
-        .catch(function (err) {
+        .catch((err) => {
             console.error(err);
         });
     };
 
     const editUser = async () => {          
         await fetch(`/api/user/edit`, options.editUser)
-        .catch(function (err) {
+        .catch((err) => {
             console.error(err);
         });
     };
 
     const changePassword = async () => {       
         await fetch(`/api/user/changePassword`, options.changePassword)
-        .catch(function (err) {
+        .catch((err) => {
             console.error(err);
         });
     };
 
     const logout = async () => {   
         await fetch(`/api/user/logout`, options.logout)
-        .catch(function (err) {
+        .catch((err) => {
             console.error(err);
         });
     };
 
     const deleteUser = async () => {   
         await fetch(`/api/user/delete`, options.deleteUser)
-        .catch(function (err) {
+        .catch((err) => {
             console.error(err);
         });
     };
