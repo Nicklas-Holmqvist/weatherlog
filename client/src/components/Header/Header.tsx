@@ -21,11 +21,14 @@ export const Header = () => {
 		isPathLoginOrRegister();
 	});
 
+	// const reloadWindow = () => window.location.reload;
+
 	const isPathLoginOrRegister = () => {
 		if (
 			window.location.pathname === '/login' ||
 			window.location.pathname === '/register'
 		) {
+			// reloadWindow();
 			return true;
 		} else {
 			return false;
