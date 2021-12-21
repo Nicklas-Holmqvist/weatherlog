@@ -3,8 +3,9 @@ const LogModel = require('./model')
 
 // Get all logs from api
 exports.getLogs = async (req, res) => {
+    const user = req.cookies.user
     try {
-        const logs = await LogModel.find({}).populate('user');
+        const logs = await LogModel.find({}).exists(user).populate('user');
         res.status(200).json(logs)
     } catch (error) {
         res.status(503).json('No database connection')
@@ -46,14 +47,12 @@ exports.createLog = async (req, res) => {
     if (!dateExist) {     
         try {
             const log = await LogModel.create(newLog)
-            res.status(201).json(log)
+            res.status(201).json('Log was created!')
         } catch (error) {
             res.status(400).json(error)
         }
-    } else {
-        let errors = { msg: '' }
-        errors.msg = 'Date is already logged!'        
-        res.status(400).json({ errors })
+    } else {      
+        res.status(400).json('Date is already logged!')
     }
 }
 

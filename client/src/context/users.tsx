@@ -9,7 +9,7 @@ type Context = {
     deleteUser: () => void,
     changePassword: () => void,
     fetchUser: () => void,
-    addUser: () => void,
+    createUser: () => void,
     addUserInfo: () => void,
     editUser: () => void,  
     setInputs: (e:string) => void,  
@@ -36,30 +36,60 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
             [e.target.name]: value
         })     
     }
-
+    
     // Dummy data för att skapa en ny användare
     const newUser = {
         email: "b@b.se",
         password: "123"
     }
-
+    
     // Dummy data för att lägga till information på en användare
     const userInfo = {
         firstName: "Bertil",
         lastName: "Bertilsson",
         city: "Borås",
     }
-
+    
     // Dummy data för att ändra information på en användare
     const newUserInfo = {
         firstName: "Albin",
         lastName: "Albinsson",
         city: "Alingsås",
     }
+    
+        const options = {
+            fetchUser: {
+                method: 'get'
+            },
+            createUser: {
+                method: "post",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(newUser),
+            },
+            addInformation: {
+                method: "post",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(userInfo),
+            },
+            editUser: {
+                method: "put",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(newUserInfo),
+            },
+            changePassword: {
+                method: "put",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(newPassword),
+            },
+            deleteuser: {
+                method: "delete",
+                headers: {"Content-Type": "application/json"}
+            },
+        }
 
     // Hämtar alla användarna
     const fetchUser = async () => {
-        await fetch('/api/logs', {method: 'get'})
+        await fetch('/api/logs', options.fetchUser)
             .then((res) =>  {
                 if (res.status === 400) {
                     return;
@@ -68,7 +98,6 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
             })
             .then((data) =>  {
                 setUsers(data)
-                console.log(data)
             })
             .catch((err) =>  {
                 console.error(err);
@@ -76,46 +105,51 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
     };
 
     // Skapar en användare
-    const addUser = async () => {   
-        const options = {
-            method: "post",
-            headers: {
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newUser),
-        };
-        await fetch('/api/user/register', options)
+    const createUser = async () => { 
+        await fetch('/api/user/register', options.createUser)
+        .then((res) => {
+            if (res.status === 503) {
+                return;
+            }
+            return res.json();
+        })
+        .then((data) => {
+            console.log(data)
+        })
         .catch((err) =>  {
             console.error(err);
         });
     };
     
     // Lägger till information på en användare
-    const addUserInfo = async () => {   
-        const options = {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userInfo),
-        };
-        await fetch('/api/user/addUserInfo', options)
+    const addUserInfo = async () => {
+        await fetch('/api/user/addUserInfo', options.addInformation)
+        .then((res) => {
+            if (res.status === 400) {
+                return;
+            }
+            return res.json();
+        })
+        .then((data) => {
+            console.log(data)
+        })
         .catch((err) =>  {
-            console.log('error')
             console.error(err);
         });
     };
 
     // Ändra informationen på en användare
-    const editUser = async () => {   
-        const options = {
-            method: "put",
-            headers: {
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newUserInfo),
-        };
-        await fetch(`/api/user/edit`, options)
+    const editUser = async () => {           
+        await fetch(`/api/user/edit`, options.editUser)
+        .then((res) => {
+            if (res.status === 400) {
+                return;
+            }
+            return res.json();
+        })
+        .then((data) => {
+            console.log(data)
+        })
         .catch((err) =>  {
             console.error(err);
         });
@@ -123,29 +157,33 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 
     // Ändra lösenord
     const changePassword = async () => {   
-        const options = {
-            method: "put",
-            headers: {
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newPassword),
-        };
-
-        await fetch(`/api/user/changePassword`, options)
+        await fetch(`/api/user/changePassword`, options.changePassword)
+        .then((res) => {
+            if (res.status === 400) {
+                return;
+            }
+            return res.json();
+        })
+        .then((data) => {
+            console.log(data)
+        })
         .catch((err) =>  {
             console.error(err);
         });
     };
 
     // Ta bort en användare
-    const deleteUser = async () => {   
-        const options = {
-            method: "delete",
-            headers: {
-            "Content-Type": "application/json",
-            },
-        };
-        await fetch(`/api/user/delete`, options)
+    const deleteUser = async () => {        
+        await fetch(`/api/user/delete`, options.deleteuser)
+        .then((res) => {
+            if (res.status === 400) {
+                return;
+            }
+            return res.json();
+        })
+        .then((data) => {
+            console.log(data)
+        })
         .catch((err) =>  {
             console.error(err);
         });
@@ -156,7 +194,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
     });
 
     return (
-        <UsersContext.Provider value={{ Users, test, deleteUser, changePassword, fetchUser, addUser, addUserInfo, editUser, newPassword, setInputs }}>
+        <UsersContext.Provider value={{ Users, test, deleteUser, changePassword, fetchUser, createUser, addUserInfo, editUser, newPassword, setInputs }}>
             {children}
         </UsersContext.Provider>
     )

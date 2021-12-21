@@ -6,7 +6,7 @@ export const LogsContext = createContext<Context>(undefined!);
 type Context = {
     logs: Logs[],
     test: string,
-    addPost: () => void
+    createLog: (e:any) => void
     editPost: () => void
     deletePost: () => void
 }
@@ -14,7 +14,7 @@ type Context = {
 export const LogsProvider: FunctionComponent = ({ children }) => {
     const [logs, setLogs] = useState<Logs[]>([])
     const test = "Logs context fungerar"
-
+    
     // Dummy information för en log
     const postLog = {
         airFeeling: "Kyligt",
@@ -29,9 +29,35 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         weather: "String",
     }
 
+    const options = {
+        fetchLogs: {
+            method: 'get'
+        },
+        createLog: {
+            method: "post",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify(postLog),
+        },
+        editPost: {
+            method: "put",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify(postLog),
+        },
+        deletePost: {
+            method: "delete",
+            headers: {
+            "Content-Type": "application/json",
+            },
+        }
+    }
+
     // Hämtar alla logs
     const fetchLogs = async () => {
-        await fetch('/api/logs', {method: 'get'})
+        await fetch('/api/logs', options.fetchLogs)
             .then((res) => {
                 if (res.status === 400) {
                     return;
@@ -40,7 +66,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             })
             .then((data) => {
                 setLogs(data)
-                console.log(data)
             })
             .catch((err) =>  {
                 console.error(err);
@@ -48,15 +73,18 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     };
 
     // Skapar en log
-    const addPost = async () => {   
-        const options = {
-            method: "post",
-            headers: {
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify(postLog),
-        };
-        await fetch('/api/logs/register', options)
+    const createLog = async (e:any) => {
+        await fetch('/api/logs/register', options.createLog)
+        .then((res) => {
+            console.log(res)
+            if (res.status === 400) {
+                return;
+            }
+            return res.json();
+        })
+        .then((data) => {
+            console.log(data)
+        })
         .catch((err) =>  {
             console.error(err);
         });
@@ -64,30 +92,35 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 
     // Ändra en log
     const editPost = async () => {   
-        const options = {
-            method: "put",
-            headers: {
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify(postLog),
-        };
         const logId = "61b9d185bd5038e17fc353a2"
-        await fetch(`/api/logs/${logId}`, options)
+        await fetch(`/api/logs/${logId}`, options.editPost)
+        .then((res) => {
+            if (res.status === 400) {
+                return;
+            }
+            return res.json();
+        })
+        .then((data) => {
+            console.log(data)
+        })
         .catch((err) =>  {
             console.error(err);
         });
     };
 
     // Ta bort log
-    const deletePost = async () => {   
-        const options = {
-            method: "delete",
-            headers: {
-            "Content-Type": "application/json",
-            },
-        };
+    const deletePost = async () => {          
         const logId = "61b9d185bd5038e17fc353a2"
-        await fetch(`/api/logs/${logId}`, options)
+        await fetch(`/api/logs/${logId}`, options.fetchLogs)
+        .then((res) => {
+            if (res.status === 400) {
+                return;
+            }
+            return res.json();
+        })
+        .then((data) => {
+            console.log(data)
+        })
         .catch((err) =>  {
             console.error(err);
         });
@@ -98,7 +131,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     });
 
     return (
-        <LogsContext.Provider value={{ logs, test, addPost, editPost, deletePost }}>
+        <LogsContext.Provider value={{ logs, test, createLog, editPost, deletePost }}>
             {children}
         </LogsContext.Provider>
     )

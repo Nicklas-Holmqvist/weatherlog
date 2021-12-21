@@ -76,6 +76,7 @@ exports.addInfo = async (req, res) => {
 
 // Log in
 exports.login = async (req, res) => {
+    console.log(req)
 	const { email, password } = req.body;
 	let errors = { email: '', password: '' };
 
@@ -180,9 +181,9 @@ exports.deleteUser = async (req, res) => {
         try {
             await UserModel.findByIdAndRemove({ _id: user })
             res.status(201).json(getUser)
-    } catch (error) {
-        res.status(400).json(error)
-    }
+        } catch (error) {
+            res.status(400).json(error)
+        }
     } else {
         let errors = { msg: '' }
         errors.msg = 'No user exist!'        
