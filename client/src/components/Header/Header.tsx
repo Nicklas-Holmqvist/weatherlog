@@ -38,7 +38,7 @@ export const Header = () => {
 	return isPathLoginOrRegister() ? null : mobile ? (
 		<Grid item container component="header" className={classes.mobileHeader}>
 			<Grid item className={classes.mobileLeft}>
-				<IconButton size="large" edge="start" color="inherit" aria-label="menu">
+				<IconButton size="medium" edge="start" color="inherit" aria-label="menu">
 					<Menu />
 				</IconButton>
 				<img src={logo} alt="Logo" className={classes.mobileLogo} />
