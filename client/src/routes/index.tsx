@@ -1,4 +1,11 @@
-import { HomePage, RegisterPage, ExamplePage, LoginPage, Api } from '../pages';
+import {
+	HomePage,
+	RegisterPage,
+	ExamplePage,
+	LoginPage,
+	Api,
+	LandingPage,
+} from '../pages';
 
 export const routes = [
 	{
@@ -20,6 +27,10 @@ export const routes = [
 	{
 		path: '/api',
 		element: <Api />,
+	},
+	{
+		path: '/home',
+		element: <LandingPage />,
 	},
 ];
 
