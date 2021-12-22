@@ -3,6 +3,7 @@ import { AddRounded, HistoryRounded } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
 import { WeatherCard } from 'src/components';
+import { weatherEnum } from 'src/utils';
 import useStyles from './styles';
 
 export const LandingPage = () => {
@@ -45,7 +46,7 @@ export const LandingPage = () => {
 				<WeatherCard
 					temp={17}
 					date={{ day: 26, month: 'april' }}
-					weather="Sol"
+					weather={weatherEnum.SNOW_SHOWER}
 					wind={4}
 					precipitation={0.4}
 				/>

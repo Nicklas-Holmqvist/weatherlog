@@ -1,7 +1,6 @@
 import { Grid, Typography } from '@material-ui/core';
-import { WbSunnyOutlined } from '@material-ui/icons';
-import { dotToCommaConverter } from 'src/utils';
 
+import { dotToCommaConverter, GetWeatherIcon } from 'src/utils';
 import useStyles from './styles';
 
 interface IWeatherCard {
@@ -32,7 +31,9 @@ export const WeatherCard = ({
 				<Typography variant="body1">{month}</Typography>
 			</Grid>
 			<Typography variant="h3">{`${temp}°C`}</Typography>
-			<WbSunnyOutlined fontSize="large" />
+			{/* getWeatherIcon(weather) weather = weatherEnum.___, strängen som den returnerar används för att bestämma bild med switch */}
+			{/* <Sun className={classes.icon} /> */}
+			{GetWeatherIcon(weather)}
 			<Grid item className={classes.unitContainer}>
 				<Typography variant="h3">{wind}</Typography>
 				<Typography variant="h5" className={classes.unit}>

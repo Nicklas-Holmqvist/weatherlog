@@ -32,4 +32,7 @@ export default makeStyles((theme) => ({
 		color: theme.palette.grey[500],
 		marginLeft: 8,
 	},
+	icon: {
+		width: 50,
+	},
 }));
