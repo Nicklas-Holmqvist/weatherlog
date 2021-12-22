@@ -1,40 +1,17 @@
-import { Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@material-ui/core';
+import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@material-ui/core';
 import { useLogsContext } from '../../context/logs';
-import React, { useState } from 'react'
+import React from 'react'
 import useStyles from './style';
-import { Logs } from '../../types/Logs'
 
-const Create = (e:any) => {
+const Create = () => {
 
     const classes = useStyles();
     const createLog = useLogsContext()
-
-    const [logValue, setLogValue] = useState<Logs>({
-        airFeeling: "",
-        airpressure: "",
-        date: "",
-        description: "",
-        humidity: "",
-        precipitation: "",
-        temperature: "",
-        user: "",
-        windDirection: "",
-        windSpeed: "",
-        weather: ""
-    })
+    const onChange = useLogsContext()
+    const logs = useLogsContext()
 
     const create = () => {
-        createLog.addPost(logValue)
-    }
-
-    /** Handle the input changes */
-    function handleChange(e:any) {
-        const value = e.target.value;
-
-        setLogValue({
-            ...logValue,
-            [e.target.name]: value
-        })     
+        createLog.addPost()
     }
 
     return (
@@ -50,7 +27,7 @@ const Create = (e:any) => {
 				margin="dense"
 				size="small"				
 				label="Datum"
-				onChange={handleChange}
+				onChange={(e) => (onChange.handleChange(e))}
 				required
 			/>
             <Grid container direction="row">
@@ -62,18 +39,18 @@ const Create = (e:any) => {
                     margin="dense"
                     size="small"				
                     label="Temp"
-                    onChange={handleChange}
+                    onChange={(e) => (onChange.handleChange(e))}
                     required
                 />
-                <Grid container direction="row">
+                <FormControl>
                     <InputLabel>Vädret</InputLabel>
                     <Select
                         name="weather"
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={logValue.weather}
+                        value={logs.logValue.weather}
                         label="Vädret"
-                        onChange={handleChange}
+                        onChange={(e) =>(onChange.handleChange(e))}
                     >
                         <MenuItem value={'clear'}>Klart</MenuItem>
                         <MenuItem value={'semi-clear'}>Halvklart</MenuItem>
@@ -86,7 +63,7 @@ const Create = (e:any) => {
                         <MenuItem value={'snowfall'}>Snöfall</MenuItem>
                         <MenuItem value={'fog'}>Dimma</MenuItem>
                     </Select>
-                </Grid>
+                </FormControl>
             </Grid>
             <TextField
                 name="description"
@@ -94,7 +71,7 @@ const Create = (e:any) => {
                 multiline
                 rows={4}
                 variant="standard"
-                onChange={handleChange}
+                onChange={(e) => (onChange.handleChange(e))}
             />
             <Grid container direction="row">
                 <TextField
@@ -104,17 +81,17 @@ const Create = (e:any) => {
                     margin="dense"
                     size="small"				
                     label="Vindstyrka"
-                    onChange={handleChange}
+                    onChange={(e) => (onChange.handleChange(e))}
                 />
-                <Grid direction="row">
+                <FormControl>
                     <InputLabel>Vindriktning</InputLabel>
                     <Select
                         name="windDirection"
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={logValue.windDirection}
                         label="Vädret"
-                        onChange={handleChange}
+                        value={logs.logValue.windDirection}
+                        onChange={(e) => (onChange.handleChange(e))}
                     >
                         <MenuItem value={'noWind'}>Vindstilla</MenuItem>
                         <MenuItem value={'n'}>Norr</MenuItem>
@@ -126,7 +103,7 @@ const Create = (e:any) => {
                         <MenuItem value={'w'}>Väst</MenuItem>
                         <MenuItem value={'nw'}>Nordväst</MenuItem>
                     </Select>
-                </Grid>
+                </FormControl>
             </Grid>
             <Grid container direction="row">
                 <TextField
@@ -137,7 +114,7 @@ const Create = (e:any) => {
                     size="small"
                     
                     label="Vindkänsla"
-                    onChange={handleChange}
+                    onChange={(e) => (onChange.handleChange(e))}
                 />
                 <TextField
                     name="airpressure"
@@ -147,7 +124,7 @@ const Create = (e:any) => {
                     size="small"
                     
                     label="Lufttryck"
-                    onChange={handleChange}
+                    onChange={(e) => (onChange.handleChange(e))}
                 />
             </Grid>
             <Grid container direction="row">
@@ -159,7 +136,7 @@ const Create = (e:any) => {
                     size="small"
                     
                     label="Nederbörd"
-                    onChange={handleChange}
+                    onChange={(e) => (onChange.handleChange(e))}
                 />
                 <TextField
                     name="humidity"
@@ -169,10 +146,10 @@ const Create = (e:any) => {
                     size="small"
                     
                     label="Luftfuktighet"
-                    onChange={handleChange}
+                    onChange={(e) => (onChange.handleChange(e))}
                 />
             </Grid>
-            <button onClick={create}>Skapa log</button>
+            <Button onClick={create}>Skapa log</Button>
         </Grid>
     )
 }

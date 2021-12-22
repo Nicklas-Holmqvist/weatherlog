@@ -4,16 +4,18 @@ import { Logs } from '../types/Logs'
 export const LogsContext = createContext<Context>(undefined!);
     
 type Context = {
-    logs: Logs,
-    test: string,
-    addPost: (e: Logs) => void
+    logValue: Logs
+    addPost: () => void
     editPost: () => void
     deletePost: () => void
     fetchLogs: () => void
+    handleChange: (e:any) => void
 }
 
 export const LogsProvider: FunctionComponent = ({ children }) => {
-    const [logs, setLogs] = useState<Logs>({
+    const [logs, setLogs] = useState<Logs[]>()
+
+    const [logValue, setLogValue] = useState<Logs>({
         airFeeling: "",
         airpressure: "",
         date: "",
@@ -26,22 +28,16 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         windSpeed: "",
         weather: ""
     })
-    const test = "Logs context fungerar"
 
-    // Dummy information för en log
-    const postLog = {
-        airFeeling: "Kyligt",
-        airpressure: "String",
-        date: "987",
-        description: "String",
-        humidity: "String",
-        precipitation: "String",
-        temperature: "17",
-        windDirection: "String",
-        windSpeed: "String",
-        weather: "String",
+    const handleChange = (e:any) => {
+        const value = e.target.value;
+
+        setLogValue({
+            ...logValue,
+            [e.target.name]: value
+        })     
     }
-
+    
     const options = {
         fetchLogs: {
             method: 'get',
@@ -49,12 +45,12 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         addPost: {
             method: "post",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(postLog),
+            body: JSON.stringify(logValue),
         },
         editPost: {
             method: "put",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(postLog),
+            body: JSON.stringify(logValue),
         },
         deletePost: {
             method: "delete",
@@ -81,15 +77,8 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     };
 
     // Skapar en log
-    const addPost = async (e:Logs) => {   
-
-        const addPost = {
-            method: "post",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(e),
-        }
-
-        await fetch('/api/logs/register', addPost)
+    const addPost = async () => { 
+        await fetch('/api/logs/register', options.addPost)
         .catch((err) => {
             console.error(err);
         });
@@ -115,10 +104,18 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 
     useEffect(() => {
         // fetchLogs();
-    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
 
     return (
-        <LogsContext.Provider value={{ logs, test, addPost, editPost, deletePost, fetchLogs }}>
+        <LogsContext.Provider value={{ 
+                addPost, 
+                editPost, 
+                deletePost, 
+                fetchLogs, 
+                handleChange, 
+                logValue 
+            }}>
             {children}
         </LogsContext.Provider>
     )
