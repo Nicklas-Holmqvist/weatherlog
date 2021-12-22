@@ -1,5 +1,6 @@
 import { Grid, Typography } from '@material-ui/core';
 import { WbSunnyOutlined } from '@material-ui/icons';
+import { dotToCommaConverter } from 'src/utils';
 
 import useStyles from './styles';
 
@@ -39,7 +40,9 @@ export const WeatherCard = ({
 				</Typography>
 			</Grid>
 			<Grid item className={classes.unitContainer}>
-				<Typography variant="h3">{precipitation}</Typography>
+				<Typography variant="h3">
+					{dotToCommaConverter(precipitation.toString())}
+				</Typography>
 				<Typography variant="h5" className={classes.unit}>
 					mm
 				</Typography>

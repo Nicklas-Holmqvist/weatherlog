@@ -24,6 +24,6 @@ export default makeStyles((theme) => ({
 		color: theme.palette.grey[500],
 		display: 'flex',
 		alignItems: 'center',
-		justifyContent: 'space-evenly',
+		justifyContent: 'space-between',
 	},
 }));

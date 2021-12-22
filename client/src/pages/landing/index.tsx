@@ -47,7 +47,7 @@ export const LandingPage = () => {
 					date={{ day: 26, month: 'april' }}
 					weather="Sol"
 					wind={4}
-					precipitation={0.5}
+					precipitation={0.4}
 				/>
 			</Grid>
 		</Grid>
