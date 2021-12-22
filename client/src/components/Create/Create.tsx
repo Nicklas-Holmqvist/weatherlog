@@ -1,13 +1,13 @@
 import { Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@material-ui/core';
+import { useLogsContext } from '../../context/logs';
 import React, { useState } from 'react'
 import useStyles from './style';
 import { Logs } from '../../types/Logs'
 
-
-
 const Create = (e:any) => {
 
     const classes = useStyles();
+    const createLog = useLogsContext()
 
     const [logValue, setLogValue] = useState<Logs>({
         airFeeling: "",
@@ -24,19 +24,18 @@ const Create = (e:any) => {
     })
 
     const create = () => {
-        console.log(logValue)
+        createLog.addPost(logValue)
     }
 
-        /** Handle the input changes */
-        function handleChange(e:any) {
-            console.log(e)
-            const value = e.target.value;
-    
-            setLogValue({
-                ...logValue,
-                [e.target.name]: value
-            })     
-        }
+    /** Handle the input changes */
+    function handleChange(e:any) {
+        const value = e.target.value;
+
+        setLogValue({
+            ...logValue,
+            [e.target.name]: value
+        })     
+    }
 
     return (
         <Grid container direction="column" className={classes.container}>

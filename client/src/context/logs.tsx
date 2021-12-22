@@ -4,16 +4,28 @@ import { Logs } from '../types/Logs'
 export const LogsContext = createContext<Context>(undefined!);
     
 type Context = {
-    logs: Logs[],
+    logs: Logs,
     test: string,
-    addPost: () => void
+    addPost: (e: Logs) => void
     editPost: () => void
     deletePost: () => void
     fetchLogs: () => void
 }
 
 export const LogsProvider: FunctionComponent = ({ children }) => {
-    const [logs, setLogs] = useState<Logs[]>([])
+    const [logs, setLogs] = useState<Logs>({
+        airFeeling: "",
+        airpressure: "",
+        date: "",
+        description: "",
+        humidity: "",
+        precipitation: "",
+        temperature: "",
+        user: "",
+        windDirection: "",
+        windSpeed: "",
+        weather: ""
+    })
     const test = "Logs context fungerar"
 
     // Dummy information för en log
@@ -69,8 +81,15 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     };
 
     // Skapar en log
-    const addPost = async () => {   
-        await fetch('/api/logs/register', options.addPost)
+    const addPost = async (e:Logs) => {   
+
+        const addPost = {
+            method: "post",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(e),
+        }
+
+        await fetch('/api/logs/register', addPost)
         .catch((err) => {
             console.error(err);
         });
