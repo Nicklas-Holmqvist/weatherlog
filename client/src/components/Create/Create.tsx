@@ -23,10 +23,13 @@ const Create = (e:any) => {
         weather: ""
     })
 
+    const create = () => {
+        console.log(logValue)
+    }
+
         /** Handle the input changes */
         function handleChange(e:any) {
-            // console.log(e)
-            console.log(logValue)
+            console.log(e)
             const value = e.target.value;
     
             setLogValue({
@@ -51,7 +54,7 @@ const Create = (e:any) => {
 				onChange={handleChange}
 				required
 			/>
-            <Grid direction="row">
+            <Grid container direction="row">
                 <TextField
                     name="temperature"
                     helperText=""
@@ -63,9 +66,10 @@ const Create = (e:any) => {
                     onChange={handleChange}
                     required
                 />
-                <Grid direction="row">
+                <Grid container direction="row">
                     <InputLabel>Vädret</InputLabel>
                     <Select
+                        name="weather"
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={logValue.weather}
@@ -91,8 +95,9 @@ const Create = (e:any) => {
                 multiline
                 rows={4}
                 variant="standard"
+                onChange={handleChange}
             />
-            <Grid direction="row">
+            <Grid container direction="row">
                 <TextField
                     name="windSpeed"
                     helperText=""
@@ -105,6 +110,7 @@ const Create = (e:any) => {
                 <Grid direction="row">
                     <InputLabel>Vindriktning</InputLabel>
                     <Select
+                        name="windDirection"
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={logValue.windDirection}
@@ -123,9 +129,9 @@ const Create = (e:any) => {
                     </Select>
                 </Grid>
             </Grid>
-            <Grid direction="row">
+            <Grid container direction="row">
                 <TextField
-                    name="windFeeling"
+                    name="airFeeling"
                     helperText=""
                     variant="standard"
                     margin="dense"
@@ -145,7 +151,7 @@ const Create = (e:any) => {
                     onChange={handleChange}
                 />
             </Grid>
-            <Grid direction="row">
+            <Grid container direction="row">
                 <TextField
                     name="precipitation"
                     helperText=""
