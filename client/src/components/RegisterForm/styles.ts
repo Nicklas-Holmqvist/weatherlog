@@ -46,10 +46,19 @@ export default makeStyles((theme) => ({
 		alignSelf: 'end',
 		fontSize: 14,
 	},
-	createAccount: {
-		marginTop: 24,
-		textDecoration: 'underline',
+	link: {
 		textAlign: 'center',
 		color: theme.palette.common.black,
+		textDecoration: 'none',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		marginTop: 24,
+	},
+	arrow: {
+		margin: '0 6px',
+	},
+	clickableLink: {
+		textDecoration: 'underline',
 	},
 }));

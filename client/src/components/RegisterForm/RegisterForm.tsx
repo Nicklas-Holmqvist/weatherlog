@@ -6,7 +6,11 @@ import {
 	TextField,
 	Typography,
 } from '@material-ui/core';
-import { AccountCircleRounded, LockOutlined } from '@material-ui/icons';
+import {
+	AccountCircleRounded,
+	ArrowForwardRounded,
+	LockOutlined,
+} from '@material-ui/icons';
 import { Link, useNavigate } from 'react-router-dom';
 
 import useStyles from './styles';
@@ -222,9 +226,15 @@ export const RegisterForm = () => {
 			>
 				Skapa konto
 			</Button>
-			<Link to="/login" className={classes.createAccount}>
-				<Typography variant="subtitle1">Logga in här</Typography>
-			</Link>
+			<Grid item className={classes.link}>
+				<Typography variant="subtitle1">Har du redan ett konto?</Typography>
+				<ArrowForwardRounded className={classes.arrow} />
+				<Link to="/login">
+					<Typography variant="subtitle1" className={classes.clickableLink}>
+						Logga in här
+					</Typography>
+				</Link>
+			</Grid>
 		</Grid>
 	);
 };
