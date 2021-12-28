@@ -12,6 +12,9 @@ export default makeStyles((theme) => ({
 	wrapper: {
 		maxWidth: 1400,
 		padding: '0 40px',
+		[theme.breakpoints.down('sm')]: {
+			padding: '0 20px',
+		},
 		justifyContent: 'space-between',
 		alignItems: 'center',
 	},
@@ -28,7 +31,7 @@ export default makeStyles((theme) => ({
 		height: 50,
 		backgroundColor: theme.palette.grey[100],
 		boxShadow: '0px 4px 8px rgba(180, 180, 180, 0.27)',
-		padding: '0 20px',
+		padding: '0 14px',
 	},
 	mobileLeft: {
 		display: 'flex',

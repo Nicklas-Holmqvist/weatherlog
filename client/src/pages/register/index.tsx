@@ -1,5 +1,5 @@
 import { Grid } from '@material-ui/core';
-import { RegisterForm } from 'src/components/RegisterForm';
+import { RegisterForm } from 'src/components';
 
 import useStyles from './styles';
 import logo from './weatherlog-logo.svg';
