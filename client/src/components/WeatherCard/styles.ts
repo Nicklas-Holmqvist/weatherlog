@@ -32,7 +32,7 @@ export default makeStyles((theme) => ({
 			borderBottomLeftRadius: 8,
 		},
 		[theme.breakpoints.down(450)]: {
-			width: 12,
+			width: 10,
 			borderTopLeftRadius: 6,
 			borderBottomLeftRadius: 6,
 		},
