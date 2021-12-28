@@ -88,38 +88,38 @@ export const LandingPage = () => {
 			<Grid item container direction="column">
 				<WeatherCard
 					temp={17}
-					date={{ day: 7, month: 'april' }}
+					date={{ day: 29, month: 'april' }}
 					weather={weatherEnum.OVERCAST}
-					wind={4}
+					wind={5}
 					precipitation={0.4}
 				/>
 				<WeatherCard
 					temp={21}
-					date={{ day: 27, month: 'april' }}
+					date={{ day: 30, month: 'april' }}
 					weather={weatherEnum.SUN}
 					wind={4}
-					precipitation={0.4}
+					precipitation={0}
 				/>
 				<WeatherCard
 					temp={20}
-					date={{ day: 28, month: 'april' }}
+					date={{ day: 1, month: 'maj' }}
 					weather={weatherEnum.THUNDER}
-					wind={4}
-					precipitation={0.4}
+					wind={12}
+					precipitation={1.5}
 				/>
 				<WeatherCard
 					temp={-16}
-					date={{ day: 29, month: 'april' }}
+					date={{ day: 2, month: 'maj' }}
 					weather={weatherEnum.SNOWFALL}
-					wind={4}
-					precipitation={0.4}
+					wind={3}
+					precipitation={4.7}
 				/>
 				<WeatherCard
 					temp={8}
-					date={{ day: 30, month: 'april' }}
+					date={{ day: 3, month: 'maj' }}
 					weather={weatherEnum.RAIN_SHOWER}
-					wind={4}
-					precipitation={0.4}
+					wind={6}
+					precipitation={10.4}
 				/>
 			</Grid>
 		</Grid>

@@ -8,6 +8,9 @@ export default makeStyles((theme) => ({
 		[theme.breakpoints.down('sm')]: {
 			padding: '0 20px',
 		},
+		[theme.breakpoints.down(450)]: {
+			padding: '0 14px',
+		},
 		marginTop: 40,
 	},
 	pageHeader: {
