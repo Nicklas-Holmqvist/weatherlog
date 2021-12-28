@@ -15,5 +15,10 @@ export interface Logs {
 export interface LogDate {
         day: string,
         month: string,
-        year: string
+        year: number
+}
+
+export interface MonthName {
+        number: string,
+        name: string
 }

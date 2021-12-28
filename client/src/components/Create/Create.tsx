@@ -10,50 +10,65 @@ const Create = () => {
     const onChange = useLogsContext()
     const logs = useLogsContext()
     const logDate = useLogsContext().logDate
+    const numberOfMonths = useLogsContext().numberOfMonths
+    const numberOfDays = useLogsContext().numberOfDays
 
+    /** Component in month dropdown */
+    const monthList = numberOfMonths.map((month) => <MenuItem value={month.number}>{month.name}</MenuItem>);
+    /** Component in day dropdown */
+    const dayList = numberOfDays.map((day) => <MenuItem value={day}>{day}</MenuItem>);
+    
     const create = () => {
         createLog.addPost()
     }
-    console.log(logDate, logs.logValue)
 
     return (
         <Grid container direction="column" className={classes.container}>
             <Typography>
                 Skapa inlägg
-            </Typography>            
-            <TextField
-                name="year"
-				helperText=""
-				variant="standard"
-                className={classes.input}
-                value = {logDate?.year}
-				margin="dense"
-				size="small"	
-				onChange={(e) => (onChange.handleChange(e))}
-				required
-			/>
-            <TextField
-                name="month"
-				helperText=""
-				variant="standard"
-                className={classes.input}
-                value = {logDate?.month}
-				margin="dense"
-				size="small"	
-				onChange={(e) => (onChange.handleChange(e))}
-				required
-			/>
-            <TextField
-                name="day"
-				helperText=""
-				variant="standard"
-                className={classes.input}
-                value = {logDate?.day}
-				margin="dense"
-				size="small"
-				onChange={(e) => (onChange.handleChange(e))}
-				required
-			/>
+            </Typography>      
+            <Grid container direction="row">
+                <FormControl>
+                    <Select
+                        name="year"
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={logDate?.year}
+                        onChange={(e) =>(onChange.handleChange(e))}
+                    >
+                        <MenuItem value={'2015'}>2015</MenuItem>
+                        <MenuItem value={'2016'}>2016</MenuItem>
+                        <MenuItem value={'2017'}>2017</MenuItem>
+                        <MenuItem value={'2018'}>2018</MenuItem>
+                        <MenuItem value={'2019'}>2019</MenuItem>
+                        <MenuItem value={'2020'}>2020</MenuItem>
+                        <MenuItem value={'2021'}>2021</MenuItem>
+                        <MenuItem value={'2022'}>2022</MenuItem>
+                    </Select>
+                </FormControl>     
+                <FormControl>
+                    <Select
+                        name="month"
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={logDate?.month}
+                        onChange={(e) =>(onChange.handleChange(e))}
+                    >
+                        {monthList}
+                    </Select>
+                </FormControl>     
+                <FormControl>
+                    <Select
+                        name="day"
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={logDate?.day}
+                        onChange={(e) =>(onChange.handleChange(e))}
+                    >
+                        {dayList}
+                    </Select>
+                </FormControl>   
+            </Grid>     
             <Grid container direction="row">
                 <TextField
                     name="temperature"
