@@ -2,6 +2,7 @@ import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typ
 import { useLogsContext } from '../../context/logs';
 import React from 'react'
 import useStyles from './style';
+import { Month } from '../../types/Logs'
 
 const Create = () => {
 
@@ -12,9 +13,11 @@ const Create = () => {
     const logDate = useLogsContext().logDate
     const numberOfMonths = useLogsContext().numberOfMonths
     const numberOfDays = useLogsContext().numberOfDays
+    const numberMonth = useLogsContext().numberMonths
+    const MonthName = Month
 
     /** Component in month dropdown */
-    const monthList = numberOfMonths.map((month) => <MenuItem value={month.number}>{month.name}</MenuItem>);
+    const monthList = numberMonth.map((month) => <MenuItem value={month}>{MonthName[month]}</MenuItem>);
     /** Component in day dropdown */
     const dayList = numberOfDays.map((day) => <MenuItem value={day}>{day}</MenuItem>);
     

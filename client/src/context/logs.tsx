@@ -8,6 +8,7 @@ type Context = {
     logDate: LogDate
     numberOfMonths: MonthName[]
     numberOfDays: string[]
+    numberMonths: number[]
     addPost: () => void
     editPost: () => void
     deletePost: () => void
@@ -46,6 +47,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     })
 
     /** Month in a year */
+    const numberMonths: number[] = [1,2,3,4,5,6,7,8,9,10,11,12]
     const numberOfMonths: MonthName[] = [{number:"01",
                                         name: "Jan"},
                                         {number:"02",
@@ -109,12 +111,18 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             [name]: value
         })     
     }
+
+    const addZero = (e:any) => {
+        if(e < 10) {
+            return (`0${e}`).toString()
+        } else return e.toString() 
+    }
     
     /** Sets the data from logDate to logValue.date */
     useEffect(() => {
         setLogValue({
             ...logValue,
-            date: `${logDate.year}${logDate.month}${logDate.day.toString()}`
+            date: `${logDate.year}${addZero(logDate.month)}${logDate.day.toString()}`
         }) 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [logDate])
@@ -200,7 +208,8 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 logValue,
                 logDate,
                 numberOfMonths,
-                numberOfDays
+                numberOfDays,
+                numberMonths
             }}>
             {children}
         </LogsContext.Provider>
