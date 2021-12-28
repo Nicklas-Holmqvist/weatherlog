@@ -17,7 +17,6 @@ export const LandingPage = () => {
 	const classes = useStyles();
 	const mobile = useMediaQuery(theme.breakpoints.down(540));
 
-	// header ska ha space-between el space-evenly precis som kortet, sen marginRight lika mycket som temp-rutan är bred
 	return (
 		<Grid item container className={classes.container}>
 			<Grid item container className={classes.pageHeader}>

@@ -36,8 +36,6 @@ export default makeStyles((theme) => ({
 		display: 'grid',
 		gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr',
 		justifyItems: 'center',
-		// alignItems: 'center',
-		// justifyContent: 'space-between',
 	},
 	tableTitleText: {
 		[theme.breakpoints.down(450)]: {
