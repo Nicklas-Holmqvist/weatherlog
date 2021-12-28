@@ -1,14 +1,13 @@
 import React, { useState, useContext, createContext, FunctionComponent, useEffect } from 'react'
-import { Logs, LogDate, MonthName } from '../types/Logs'
+import { Logs, LogDate } from '../types/Logs'
 
 export const LogsContext = createContext<Context>(undefined!);
     
 type Context = {
     logValue: Logs,
     logDate: LogDate
-    numberOfMonths: MonthName[]
-    numberOfDays: string[]
-    numberMonths: number[]
+    numberOfMonths: number[]
+    numberOfDays: number[]
     addPost: () => void
     editPost: () => void
     deletePost: () => void
@@ -18,24 +17,22 @@ type Context = {
 
 export const LogsProvider: FunctionComponent = ({ children }) => {
     const d = new Date()
-
+    
     /** Contains all the users logs */
     const [logs, setLogs] = useState<Logs[]>()
     
     /** The object of dates dropdowns on create log */
     const [logDate, setLogDate] = useState<LogDate>({
-        day: d.getDate().toString(),
-        month: (d.getMonth()+1).toString(),
+        day: d.getDate(),
+        month: (d.getMonth()+1),
         year: d.getFullYear(),
     })
-
-    console.log(logDate)
-
+    
     /** The object that will be created in backend */
     const [logValue, setLogValue] = useState<Logs>({
         airFeeling: "",
         airpressure: "",
-        date: logDate.year + logDate.month + logDate.day,
+        date: `${logDate.year}${logDate.month}${logDate.day}`,
         description: "",
         humidity: "",
         precipitation: "",
@@ -45,46 +42,22 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         windSpeed: "",
         weather: ""
     })
-
+    
     /** Month in a year */
-    const numberMonths: number[] = [1,2,3,4,5,6,7,8,9,10,11,12]
-    const numberOfMonths: MonthName[] = [{number:"01",
-                                        name: "Jan"},
-                                        {number:"02",
-                                        name: "Feb"},
-                                        {number:"03",
-                                        name: "Mar"},
-                                        {number:"04",
-                                        name: "Apr"},
-                                        {number:"05",
-                                        name: "Maj"},
-                                        {number:"06",
-                                        name: "Jun"},
-                                        {number:"07",
-                                        name: "Jul"},
-                                        {number:"08",
-                                        name: "Aug"},
-                                        {number:"09",
-                                        name: "Sep"},
-                                        {number:"10",
-                                        name: "Okt"},
-                                        {number:"11",
-                                        name: "Nov"},
-                                        {number:"12",
-                                        name: "Dec"},]
-
+    const numberOfMonths: number[] = [1,2,3,4,5,6,7,8,9,10,11,12]
+    
     /** Empty array that will contain days in a month, sets in "setDayInMonth" */
-    const [numberOfDays, setNumberOfDays] = useState<string[]>([])
-
+    const [numberOfDays, setNumberOfDays] = useState<number[]>([])
+    /** Gets the value of selected month */
+    const getDays = new Date(logDate.year, logDate.month, 0).getDate()
+    
     /** Creates an array of days in choosed month */
     const setDayInMonth = () => {
-        const getDays = new Date(logDate.year, Number(logDate.month), 0).getDate()
 
-        let days = []
+        let days:number[] = []
 
         for(let i = 1; i < getDays+1; i++) {
-            if(i < 10) days.push((`0${i}`).toString())
-            else days.push(i.toString())   
+            days.push(i)   
             setNumberOfDays(days)  
         }           
     }
@@ -98,8 +71,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         const value = e.target.value;
         const name = e.target.name;
 
-        if(name === "year" || name === "month" || name === "day") {
-            
+        if(name === "year" || name === "month" || name === "day") {            
             setLogDate({
                 ...logDate,
                 [name]: value
@@ -112,6 +84,11 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         })     
     }
 
+    /**
+     * Function that adds a zero infront of single digits
+     * @param e date values
+     * @returns 
+     */
     const addZero = (e:any) => {
         if(e < 10) {
             return (`0${e}`).toString()
@@ -122,7 +99,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     useEffect(() => {
         setLogValue({
             ...logValue,
-            date: `${logDate.year}${addZero(logDate.month)}${logDate.day.toString()}`
+            date: `${logDate.year}${addZero(logDate.month)}${addZero(logDate.day)}`
         }) 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [logDate])
@@ -209,7 +186,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 logDate,
                 numberOfMonths,
                 numberOfDays,
-                numberMonths
             }}>
             {children}
         </LogsContext.Provider>

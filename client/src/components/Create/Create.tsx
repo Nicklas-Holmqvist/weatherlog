@@ -13,11 +13,10 @@ const Create = () => {
     const logDate = useLogsContext().logDate
     const numberOfMonths = useLogsContext().numberOfMonths
     const numberOfDays = useLogsContext().numberOfDays
-    const numberMonth = useLogsContext().numberMonths
     const MonthName = Month
 
     /** Component in month dropdown */
-    const monthList = numberMonth.map((month) => <MenuItem value={month}>{MonthName[month]}</MenuItem>);
+    const monthList = numberOfMonths.map((month) => <MenuItem value={month}>{MonthName[month]}</MenuItem>);
     /** Component in day dropdown */
     const dayList = numberOfDays.map((day) => <MenuItem value={day}>{day}</MenuItem>);
     

@@ -13,8 +13,8 @@ export interface Logs {
 }
 
 export interface LogDate {
-        day: string,
-        month: string,
+        day: number,
+        month: number,
         year: number
 }
 
