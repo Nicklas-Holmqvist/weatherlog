@@ -6,12 +6,12 @@ import {
 	useMediaQuery,
 	IconButton,
 } from '@material-ui/core';
-import { ExitToAppRounded, Menu } from '@material-ui/icons';
-// import { useNavigate } from 'react-router-dom';
+import { ExitToAppRounded } from '@material-ui/icons';
 
 import theme from 'src/theme';
 import useStyles from './styles';
 import logo from './weatherlog-mini-logo.svg';
+import { MenuIcon } from 'src/utils';
 
 export const Header = () => {
 	const classes = useStyles();
@@ -38,8 +38,13 @@ export const Header = () => {
 	return isPathLoginOrRegister() ? null : mobile ? (
 		<Grid item container component="header" className={classes.mobileHeader}>
 			<Grid item className={classes.mobileLeft}>
-				<IconButton size="medium" edge="start" color="inherit" aria-label="menu">
-					<Menu />
+				<IconButton
+					size="medium"
+					edge="start"
+					color="inherit"
+					aria-label="menu"
+				>
+					<MenuIcon />
 				</IconButton>
 				<img src={logo} alt="Logo" className={classes.mobileLogo} />
 			</Grid>

@@ -19,6 +19,8 @@ import se from '../icons/se.svg';
 import e from '../icons/e.svg';
 import ne from '../icons/ne.svg';
 
+import menu from '../icons/menu.svg';
+
 interface IIcon {
 	className?: string;
 }
@@ -99,4 +101,8 @@ export const East = ({ className }: IIcon) => {
 
 export const NorthEast = ({ className }: IIcon) => {
 	return <img className={className} src={ne} alt="Nordöstlig"></img>;
+};
+
+export const MenuIcon = ({ className }: IIcon) => {
+	return <img className={className} src={menu} alt="Meny"></img>;
 };
