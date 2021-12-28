@@ -11,3 +11,9 @@ export interface Logs {
         windSpeed: String
         weather: String
 }
+
+export interface LogDate {
+        day: string,
+        month: string,
+        year: string
+}

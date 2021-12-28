@@ -1,10 +1,11 @@
 import React, { useState, useContext, createContext, FunctionComponent, useEffect } from 'react'
-import { Logs } from '../types/Logs'
+import { Logs, LogDate } from '../types/Logs'
 
 export const LogsContext = createContext<Context>(undefined!);
     
 type Context = {
-    logValue: Logs
+    logValue: Logs,
+    logDate: LogDate,
     addPost: () => void
     editPost: () => void
     deletePost: () => void
@@ -13,12 +14,20 @@ type Context = {
 }
 
 export const LogsProvider: FunctionComponent = ({ children }) => {
+    const d = new Date()
+
     const [logs, setLogs] = useState<Logs[]>()
+    
+    const [logDate, setLogDate] = useState<LogDate>({
+        day: d.getDate().toString(),
+        month: d.getMonth().toString(),
+        year: d.getFullYear().toString(),
+    })
 
     const [logValue, setLogValue] = useState<Logs>({
         airFeeling: "",
         airpressure: "",
-        date: "",
+        date: logDate.year + logDate.month + logDate.day,
         description: "",
         humidity: "",
         precipitation: "",
@@ -31,13 +40,29 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 
     const handleChange = (e:any) => {
         const value = e.target.value;
+        const name = e.target.name;
+
+        if(name === "year" || name === "month" || name === "day") {
+            setLogDate({
+                ...logDate,
+                [name]: value
+            })  
+            return
+        }
 
         setLogValue({
             ...logValue,
-            [e.target.name]: value
+            [name]: value
         })     
     }
     
+    useEffect(() => {
+        setLogValue({
+            ...logValue,
+            date: logDate.year + logDate.month + logDate.day
+        }) 
+    }, [logDate])
+
     const options = {
         fetchLogs: {
             method: 'get',
@@ -78,6 +103,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 
     // Skapar en log
     const addPost = async () => { 
+
         await fetch('/api/logs/register', options.addPost)
         .catch((err) => {
             console.error(err);
@@ -114,7 +140,8 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 deletePost, 
                 fetchLogs, 
                 handleChange, 
-                logValue 
+                logValue,
+                logDate
             }}>
             {children}
         </LogsContext.Provider>

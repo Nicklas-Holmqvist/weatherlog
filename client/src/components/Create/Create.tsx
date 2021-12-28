@@ -9,10 +9,12 @@ const Create = () => {
     const createLog = useLogsContext()
     const onChange = useLogsContext()
     const logs = useLogsContext()
+    const logDate = useLogsContext().logDate
 
     const create = () => {
         createLog.addPost()
     }
+    console.log(logDate, logs.logValue)
 
     return (
         <Grid container direction="column" className={classes.container}>
@@ -20,13 +22,35 @@ const Create = () => {
                 Skapa inlägg
             </Typography>            
             <TextField
-                name="date"
+                name="year"
 				helperText=""
 				variant="standard"
                 className={classes.input}
+                value = {logDate?.year}
 				margin="dense"
-				size="small"				
-				label="Datum"
+				size="small"	
+				onChange={(e) => (onChange.handleChange(e))}
+				required
+			/>
+            <TextField
+                name="month"
+				helperText=""
+				variant="standard"
+                className={classes.input}
+                value = {logDate?.month}
+				margin="dense"
+				size="small"	
+				onChange={(e) => (onChange.handleChange(e))}
+				required
+			/>
+            <TextField
+                name="day"
+				helperText=""
+				variant="standard"
+                className={classes.input}
+                value = {logDate?.day}
+				margin="dense"
+				size="small"
 				onChange={(e) => (onChange.handleChange(e))}
 				required
 			/>
