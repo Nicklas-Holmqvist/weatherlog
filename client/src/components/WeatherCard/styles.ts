@@ -77,6 +77,20 @@ export default makeStyles((theme) => ({
 			width: 26,
 		},
 	},
+	arrowIcon: {
+		width: 40,
+		display: 'flex',
+		alignContent: 'center',
+		[theme.breakpoints.only('sm')]: {
+			width: 32,
+		},
+		[theme.breakpoints.only('xs')]: {
+			width: 26,
+		},
+		[theme.breakpoints.down(450)]: {
+			width: 16,
+		},
+	},
 	wind: {
 		display: 'flex',
 		alignItems: 'flex-end',
@@ -100,7 +114,7 @@ export default makeStyles((theme) => ({
 		[theme.breakpoints.down(450)]: {
 			marginLeft: 3,
 			fontSize: 16,
-			marginBottom: 3,
+			marginBottom: 4,
 		},
 	},
 }));

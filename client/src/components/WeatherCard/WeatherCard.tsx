@@ -1,7 +1,12 @@
 import { Grid, Typography, useMediaQuery } from '@material-ui/core';
 import theme from 'src/theme';
 
-import { dotToCommaConverter, GetWeatherIcon, getTempColor } from 'src/utils';
+import {
+	dotToCommaConverter,
+	GetWeatherIcon,
+	GetWindDirection,
+	getTempColor,
+} from 'src/utils';
 import useStyles from './styles';
 
 interface IWeatherCard {
@@ -11,7 +16,10 @@ interface IWeatherCard {
 		month: string;
 	};
 	weather: string;
-	wind: number;
+	wind: {
+		speed?: number;
+		direction: string;
+	};
 	precipitation: number;
 }
 
@@ -19,7 +27,7 @@ export const WeatherCard = ({
 	temp,
 	date: { day, month },
 	weather,
-	wind,
+	wind: { speed, direction },
 	precipitation,
 }: IWeatherCard) => {
 	const classes = useStyles();
@@ -79,11 +87,13 @@ export const WeatherCard = ({
 							: 'h3'
 					}
 				>
-					{wind}
+					{speed || GetWindDirection(direction)}
 				</Typography>
-				<Typography variant="h5" className={classes.unit}>
-					m/s
-				</Typography>
+				{speed && (
+					<Typography variant="h5" className={classes.unit}>
+						m/s
+					</Typography>
+				)}
 			</Grid>
 			<Grid item className={classes.precipitation}>
 				<Typography

@@ -10,8 +10,16 @@ import {
 	Sun,
 	Thunder,
 	Rain,
+	North,
+	West,
+	SouthWest,
+	NorthWest,
+	South,
+	SouthEast,
+	East,
+	NorthEast,
 } from '.';
-import { weatherEnum } from './enums';
+import { directionEnum, weatherEnum } from './enums';
 import useStyles from '../components/WeatherCard/styles';
 
 export const GetWeatherIcon = (weather: string) => {
@@ -41,5 +49,29 @@ export const GetWeatherIcon = (weather: string) => {
 			return <Hail className={classes.icon} />;
 		default:
 			return <Sun className={classes.icon} />;
+	}
+};
+
+export const GetWindDirection = (direction: string) => {
+	const classes = useStyles();
+	switch (direction) {
+		case directionEnum.N:
+			return <North className={classes.arrowIcon} />;
+		case directionEnum.NW:
+			return <NorthWest className={classes.arrowIcon} />;
+		case directionEnum.W:
+			return <West className={classes.arrowIcon} />;
+		case directionEnum.SW:
+			return <SouthWest className={classes.arrowIcon} />;
+		case directionEnum.S:
+			return <South className={classes.arrowIcon} />;
+		case directionEnum.SE:
+			return <SouthEast className={classes.arrowIcon} />;
+		case directionEnum.E:
+			return <East className={classes.arrowIcon} />;
+		case directionEnum.NE:
+			return <NorthEast className={classes.arrowIcon} />;
+		default:
+			return <North className={classes.arrowIcon} />;
 	}
 };

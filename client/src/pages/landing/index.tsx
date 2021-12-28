@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 import { WeatherCard } from 'src/components';
 import theme from 'src/theme';
-import { weatherEnum } from 'src/utils';
+import { directionEnum, weatherEnum } from 'src/utils';
 import useStyles from './styles';
 
 export const LandingPage = () => {
@@ -90,35 +90,35 @@ export const LandingPage = () => {
 					temp={17}
 					date={{ day: 29, month: 'april' }}
 					weather={weatherEnum.OVERCAST}
-					wind={5}
+					wind={{ speed: 8, direction: 'se' }}
 					precipitation={0.4}
 				/>
 				<WeatherCard
 					temp={21}
 					date={{ day: 30, month: 'april' }}
 					weather={weatherEnum.SUN}
-					wind={4}
+					wind={{ speed: 8, direction: 'se' }}
 					precipitation={0}
 				/>
 				<WeatherCard
 					temp={20}
 					date={{ day: 1, month: 'maj' }}
 					weather={weatherEnum.THUNDER}
-					wind={12}
+					wind={{ speed: 8, direction: 'se' }}
 					precipitation={1.5}
 				/>
 				<WeatherCard
 					temp={-16}
 					date={{ day: 2, month: 'maj' }}
 					weather={weatherEnum.SNOWFALL}
-					wind={3}
+					wind={{ direction: directionEnum.S }}
 					precipitation={4.7}
 				/>
 				<WeatherCard
 					temp={8}
 					date={{ day: 3, month: 'maj' }}
 					weather={weatherEnum.RAIN_SHOWER}
-					wind={6}
+					wind={{ speed: 8, direction: 'se' }}
 					precipitation={10.4}
 				/>
 			</Grid>
