@@ -1,3 +1,4 @@
+import { MenuItem } from '@material-ui/core';
 import React, { useState, useContext, createContext, FunctionComponent, useEffect } from 'react'
 import { Logs, LogDate } from '../types/Logs'
 
@@ -5,7 +6,9 @@ export const LogsContext = createContext<Context>(undefined!);
     
 type Context = {
     logValue: Logs,
-    logDate: LogDate,
+    logDate: LogDate
+    numberOfMonths: string[]
+    numberOfDays: string[]
     addPost: () => void
     editPost: () => void
     deletePost: () => void
@@ -19,15 +22,15 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     const [logs, setLogs] = useState<Logs[]>()
     
     const [logDate, setLogDate] = useState<LogDate>({
-        day: d.getDate().toString(),
-        month: d.getMonth().toString(),
-        year: d.getFullYear().toString(),
+        day: d.getDate(),
+        month: (d.getMonth()+1),
+        year: d.getFullYear(),
     })
 
     const [logValue, setLogValue] = useState<Logs>({
         airFeeling: "",
         airpressure: "",
-        date: logDate.year + logDate.month + logDate.day,
+        date: (logDate.year + logDate.month + logDate.day).toString(),
         description: "",
         humidity: "",
         precipitation: "",
@@ -37,6 +40,24 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         windSpeed: "",
         weather: ""
     })
+
+    const numberOfMonths: string[] = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+    const [numberOfDays, setNumberOfDays] = useState<string[]>([])    
+
+    const setDayInMonth = () => {
+        const getDays = new Date(logDate.year, logDate.month, 0).getDate()
+
+        let days = []
+        days = [...numberOfDays]
+
+        for(let i = 1; i < getDays; i++) {
+            if(i < 10) days.push((`0${i}`).toString())
+            else days.push(i.toString())   
+            setNumberOfDays(days)  
+        }        
+    }
+
+    console.log(numberOfDays)
 
     const handleChange = (e:any) => {
         const value = e.target.value;
@@ -59,9 +80,13 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     useEffect(() => {
         setLogValue({
             ...logValue,
-            date: logDate.year + logDate.month + logDate.day
+            date: (logDate.year + logDate.month + logDate.day).toString()
         }) 
     }, [logDate])
+
+    useEffect(() => {
+        setDayInMonth()
+    },[logDate.month])
 
     const options = {
         fetchLogs: {
@@ -139,9 +164,11 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 editPost, 
                 deletePost, 
                 fetchLogs, 
-                handleChange, 
+                handleChange,
                 logValue,
-                logDate
+                logDate,
+                numberOfMonths,
+                numberOfDays
             }}>
             {children}
         </LogsContext.Provider>
