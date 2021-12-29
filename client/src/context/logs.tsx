@@ -95,7 +95,15 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         } else return e.toString() 
     }
 
-    
+    /**
+     * Sorts incoming logs per date and sets the variable logs
+     * @param e incoming data från GET logs api
+     */
+    const sortLogs = (e:ILogs[]) => {
+        setLogs(e.sort((a:any, b:any) => {
+            return a.date - b.date
+        }))
+    }
     
     /** Sets the data from logDate to logValue.date */
     useEffect(() => {
@@ -145,9 +153,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 return res.json();
             })
             .then((data) => {
-                setLogs(data.sort((a:any, b:any) => {
-                    return a.date - b.date
-                }))
+                sortLogs(data)                
             })
             .catch((err) => {
                 console.error(err);
