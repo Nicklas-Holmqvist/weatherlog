@@ -4,8 +4,10 @@ const LogModel = require('./model')
 // Get all logs from api
 exports.getLogs = async (req, res) => {
     const user = req.cookies.user
+    const month = 201805
     try {
-        const logs = await (LogModel.find({user:user})).populate('user');
+        const logs = await (LogModel.find({ $and: [{user:user, date: { $gte: month }}, { date: {$lt: (month+1)}} ]})).populate('user');
+        console.log(logs)
         res.status(200).json(logs)
     } catch (error) {
         res.status(503).json('No login')

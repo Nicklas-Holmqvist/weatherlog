@@ -29,6 +29,7 @@ const Diagram = () => {
     }
     const getDiagramLabels = () => {
         
+        
     }
 
     const splitDate = (date:ILogs, start:number, end:number) => {
