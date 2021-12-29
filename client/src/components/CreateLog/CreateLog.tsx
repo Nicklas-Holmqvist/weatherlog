@@ -1,10 +1,11 @@
-import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@material-ui/core';
-import { useLogsContext } from '../../context/logs';
 import React from 'react'
-import useStyles from './style';
-import { Month } from '../../types/Logs'
+import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@material-ui/core';
 
-const Create = () => {
+import { useLogsContext } from '../../context/logs';
+import { monthEnum } from '../../utils/enums/monthEnum'
+import useStyles from './style';
+
+const CreateLog = () => {
 
     const classes = useStyles();
     const createLog = useLogsContext()
@@ -13,7 +14,7 @@ const Create = () => {
     const logDate = useLogsContext().logDate
     const numberOfMonths = useLogsContext().numberOfMonths
     const numberOfDays = useLogsContext().numberOfDays
-    const MonthName = Month
+    const MonthName = monthEnum
 
     /** Component in month dropdown */
     const monthList = numberOfMonths.map((month) => <MenuItem value={month}>{MonthName[month]}</MenuItem>);
@@ -195,4 +196,4 @@ const Create = () => {
     )
 }
 
-export default Create
+export default CreateLog

@@ -1,11 +1,11 @@
 import React, { useState, useContext, createContext, FunctionComponent, useEffect } from 'react'
-import { Logs, LogDate } from '../types/Logs'
+import { ILogs, ILogDate } from '../types/Logs'
 
 export const LogsContext = createContext<Context>(undefined!);
     
 type Context = {
-    logValue: Logs,
-    logDate: LogDate
+    logValue: ILogs,
+    logDate: ILogDate
     numberOfMonths: number[]
     numberOfDays: number[]
     addPost: () => void
@@ -19,17 +19,17 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     const d = new Date()
     
     /** Contains all the users logs */
-    const [logs, setLogs] = useState<Logs[]>()
+    const [logs, setLogs] = useState<ILogs[]>()
     
     /** The object of dates dropdowns on create log */
-    const [logDate, setLogDate] = useState<LogDate>({
+    const [logDate, setLogDate] = useState<ILogDate>({
         day: d.getDate(),
         month: (d.getMonth()+1),
         year: d.getFullYear(),
     })
     
     /** The object that will be created in backend */
-    const [logValue, setLogValue] = useState<Logs>({
+    const [logValue, setLogValue] = useState<ILogs>({
         airFeeling: "",
         airpressure: "",
         date: `${logDate.year}${logDate.month}${logDate.day}`,

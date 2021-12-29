@@ -1,13 +1,13 @@
 import { Grid } from '@material-ui/core';
-import Create from 'src/components/Create/Create';
+import CreateLog from 'src/components/CreateLog/CreateLog';
 
-export const CreateLog = () => {
+export const CreateLogPage = () => {
 
 	return (
 		<Grid container>
-            <Create />
+            <CreateLog />
 		</Grid>
 	);
 };
 
-export default CreateLog;
+export default CreateLogPage;

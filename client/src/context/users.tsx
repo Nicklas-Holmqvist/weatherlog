@@ -1,10 +1,10 @@
 import React, { useState, useContext, createContext, FunctionComponent, useEffect } from 'react'
-import { Users } from '../types/Users'
+import { IUsers } from '../types/Users'
 
 export const UsersContext = createContext<Context>(undefined!);
 
 type Context = {
-    Users: Users[],
+    Users: IUsers[],
     test: string,
     deleteUser: () => void,
     changePassword: () => void,
@@ -16,7 +16,7 @@ type Context = {
 }
 
 export const UsersProvider: FunctionComponent = ({ children }) => {
-    const [Users, setUsers] = useState<Users[]>([])
+    const [Users, setUsers] = useState<IUsers[]>([])
     const test = "Users context fungerar"
 
     const newUser = {
