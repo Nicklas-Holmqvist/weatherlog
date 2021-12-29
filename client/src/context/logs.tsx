@@ -97,6 +97,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     
     /** Sets the data from logDate to logValue.date */
     useEffect(() => {
+        fetchLogs()
         setLogValue({
             ...logValue,
             date: `${logDate.year}${addZero(logDate.month)}${addZero(logDate.day)}`
@@ -174,7 +175,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             console.error(err);
         });
     };
-
+    
     return (
         <LogsContext.Provider value={{ 
                 addPost, 
