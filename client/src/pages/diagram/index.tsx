@@ -1,5 +1,6 @@
 import { Grid } from '@material-ui/core';
-import Diagram from 'src/components/Diagram/Diagram';
+
+import Diagram from '../../components/Diagram/Diagram';
 
 export const DiagramPage = () => {
 
