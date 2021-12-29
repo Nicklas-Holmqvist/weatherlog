@@ -1,4 +1,12 @@
-import { HomePage, RegisterPage, ExamplePage, LoginPage, Api, CreateLog } from '../pages';
+import {
+	HomePage,
+	RegisterPage,
+	ExamplePage,
+	LoginPage,
+	Api,
+	LandingPage,
+	CreateLog
+} from '../pages';
 
 export const routes = [
 	{
@@ -24,6 +32,10 @@ export const routes = [
 	{
 		path: '/createlog',
 		element: <CreateLog />,
+	},
+	{
+		path: '/home',
+		element: <LandingPage />,
 	},
 ];
 
