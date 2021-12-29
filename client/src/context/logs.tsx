@@ -94,9 +94,13 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             return (`0${e}`).toString()
         } else return e.toString() 
     }
+
+    
     
     /** Sets the data from logDate to logValue.date */
     useEffect(() => {
+        fetchLogs()
+        console.log(logs)
         setLogValue({
             ...logValue,
             date: `${logDate.year}${addZero(logDate.month)}${addZero(logDate.day)}`
@@ -141,8 +145,9 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 return res.json();
             })
             .then((data) => {
-                setLogs(data)
-                console.log(data)
+                setLogs(data.sort((a:any, b:any) => {
+                    return a.date - b.date
+                }))
             })
             .catch((err) => {
                 console.error(err);
