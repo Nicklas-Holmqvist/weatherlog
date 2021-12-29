@@ -104,6 +104,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             return a.date - b.date
         }))
     }
+
     
     /** Sets the data from logDate to logValue.date */
     useEffect(() => {
@@ -151,7 +152,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 return res.json();
             })
             .then((data) => {
-                sortLogs(data)     
+                sortLogs(data) 
             })
             .catch((err) => {
                 console.error(err);
