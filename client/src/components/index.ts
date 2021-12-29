@@ -4,3 +4,4 @@ export * from './LoginForm';
 export * from './CreateLog';
 export * from './RegisterForm';
 export * from './WeatherCard';
+export * from './Diagram';

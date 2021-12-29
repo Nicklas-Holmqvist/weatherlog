@@ -4,14 +4,14 @@ import { ILogs, ILogDate } from '../types/Logs'
 export const LogsContext = createContext<Context>(undefined!);
     
 type Context = {
+    logs: ILogs[],
     logValue: ILogs,
-    logDate: ILogDate
-    numberOfMonths: number[]
-    numberOfDays: number[]
-    addPost: () => void
-    editPost: () => void
-    deletePost: () => void
-    fetchLogs: () => void
+    logDate: ILogDate,
+    numberOfMonths: number[],
+    numberOfDays: number[],
+    addPost: () => void,
+    editPost: () => void,
+    deletePost: () => void,
     handleChange: (e:any) => void
 }
 
@@ -19,7 +19,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     const d = new Date()
     
     /** Contains all the users logs */
-    const [logs, setLogs] = useState<ILogs[]>()
+    const [logs, setLogs] = useState<ILogs[]>([])
     
     /** The object of dates dropdowns on create log */
     const [logDate, setLogDate] = useState<ILogDate>({
@@ -142,8 +142,8 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     }
 
     // Hämtar alla logs
-    const fetchLogs = async () => {
-        await fetch('/api/logs', options.fetchLogs)
+    useEffect(() => {
+        fetch('/api/logs', options.fetchLogs)
             .then((res) => {
                 if (res.status === 400) {
                     return;
@@ -151,12 +151,13 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 return res.json();
             })
             .then((data) => {
-                sortLogs(data)                
+                sortLogs(data)     
             })
             .catch((err) => {
                 console.error(err);
             });
-    };
+    },[])
+    
 
     // Skapar en log
     const addPost = async () => { 
@@ -164,7 +165,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         .catch((err) => {
             console.error(err);
         });
-        fetchLogs()
     };
 
     // Ändra en log
@@ -174,7 +174,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         .catch((err) => {
             console.error(err);
         });
-        fetchLogs()
     };
 
     // Ta bort log
@@ -184,7 +183,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         .catch((err) => {
             console.error(err);
         });
-        fetchLogs()
     };
     
     return (
@@ -192,8 +190,8 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 addPost, 
                 editPost, 
                 deletePost, 
-                fetchLogs, 
                 handleChange,
+                logs,
                 logValue,
                 logDate,
                 numberOfMonths,

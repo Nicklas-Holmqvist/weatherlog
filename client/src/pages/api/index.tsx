@@ -20,7 +20,6 @@ export const Api = () => {
 		</Grid>
 		<Grid container>
 			<Typography variant="h4">Log API</Typography>
-			<button onClick={log.fetchLogs}>Hämta logs</button>
 			{/* <button onClick={log.addPost}>Skapa log</button> */}
 			<button onClick={log.editPost}>Edit log</button>
 			<button onClick={log.deletePost}>Ta bort log</button>
