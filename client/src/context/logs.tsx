@@ -107,8 +107,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     
     /** Sets the data from logDate to logValue.date */
     useEffect(() => {
-        fetchLogs()
-        console.log(logs)
         setLogValue({
             ...logValue,
             date: `${logDate.year}${addZero(logDate.month)}${addZero(logDate.day)}`
@@ -166,6 +164,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         .catch((err) => {
             console.error(err);
         });
+        fetchLogs()
     };
 
     // Ändra en log
@@ -175,6 +174,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         .catch((err) => {
             console.error(err);
         });
+        fetchLogs()
     };
 
     // Ta bort log
@@ -184,6 +184,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         .catch((err) => {
             console.error(err);
         });
+        fetchLogs()
     };
     
     return (
