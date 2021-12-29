@@ -18,11 +18,6 @@ export interface LogDate {
         year: number
 }
 
-export interface MonthName {
-        number: string,
-        name: string
-}
-
 export enum Month {
         Jan = 1,
         Feb = 2,
