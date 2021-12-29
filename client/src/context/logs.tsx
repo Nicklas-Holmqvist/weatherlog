@@ -174,7 +174,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             console.error(err);
         });
     };
-
+    
     return (
         <LogsContext.Provider value={{ 
                 addPost, 
