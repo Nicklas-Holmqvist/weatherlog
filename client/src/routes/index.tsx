@@ -1,4 +1,4 @@
-import LogPage from 'src/pages/log';
+import DailyOverviewPage from 'src/pages/log';
 import {
 	HomePage,
 	RegisterPage,
@@ -35,7 +35,7 @@ export const routes = [
 	},
 	{
 		path: '/log',
-		element: <LogPage />,
+		element: <DailyOverviewPage />,
 	},
 ];
 

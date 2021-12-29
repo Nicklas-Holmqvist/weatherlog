@@ -6,4 +6,7 @@ export default makeStyles((theme) => ({
 		margin: '0 auto',
 		padding: '0 40px',
 	},
+	title: {
+		marginTop: 40,
+	},
 }));

@@ -4,7 +4,7 @@ export default makeStyles((theme) => ({
 	container: {
 		width: '100%',
 		height: 100,
-		backgroundColor: theme.palette.grey[200],
+		backgroundColor: '#f2f2f2',
 		borderRadius: 12,
 		alignItems: 'center',
 		justifyContent: 'space-between',

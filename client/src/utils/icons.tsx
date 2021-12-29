@@ -10,6 +10,8 @@ import snowyRain from '../icons/snowy-rain.svg';
 import sun from '../icons/sun.svg';
 import thunder from '../icons/thunder.svg';
 
+import wind from '../icons/wind.svg';
+
 import n from '../icons/n.svg';
 import nw from '../icons/nw.svg';
 import w from '../icons/w.svg';
@@ -20,6 +22,12 @@ import e from '../icons/e.svg';
 import ne from '../icons/ne.svg';
 
 import menu from '../icons/menu.svg';
+
+import cold from '../icons/cold.svg';
+import cool from '../icons/cool.svg';
+import neutral from '../icons/neutral.svg';
+import mild from '../icons/mild.svg';
+import warm from '../icons/warm.svg';
 
 interface IIcon {
 	className?: string;
@@ -105,4 +113,24 @@ export const NorthEast = ({ className }: IIcon) => {
 
 export const MenuIcon = ({ className }: IIcon) => {
 	return <img className={className} src={menu} alt="Meny"></img>;
+};
+
+export const ColdBar = ({ className }: IIcon) => {
+	return <img className={className} src={cold} alt="Kylig"></img>;
+};
+export const CoolBar = ({ className }: IIcon) => {
+	return <img className={className} src={cool} alt="Sval"></img>;
+};
+export const NeutralBar = ({ className }: IIcon) => {
+	return <img className={className} src={neutral} alt="Behaglig"></img>;
+};
+export const MildBar = ({ className }: IIcon) => {
+	return <img className={className} src={mild} alt="Mild"></img>;
+};
+export const WarmBar = ({ className }: IIcon) => {
+	return <img className={className} src={warm} alt="Varm"></img>;
+};
+
+export const Wind = ({ className }: IIcon) => {
+	return <img className={className} src={wind} alt="Vind"></img>;
 };
