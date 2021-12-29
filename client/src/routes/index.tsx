@@ -5,7 +5,8 @@ import {
 	LoginPage,
 	Api,
 	LandingPage,
-	CreateLogPage
+	CreateLogPage,
+	DiagramPage
 } from '../pages';
 
 export const routes = [
@@ -32,6 +33,10 @@ export const routes = [
 	{
 		path: '/create-log',
 		element: <CreateLogPage />,
+	},
+	{
+		path: '/diagram',
+		element: <DiagramPage />,
 	},
 	{
 		path: '/home',
