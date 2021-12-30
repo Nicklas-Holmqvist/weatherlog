@@ -10,30 +10,63 @@ export default makeStyles((theme) => ({
 		marginTop: 25,
 		overflow: 'hidden',
 		borderRadius: 26,
+		[theme.breakpoints.down(1281)]: {
+			maxHeight: 300,
+		},
 	},
 	leftContainer: {
 		backgroundColor: theme.palette.common.white,
 		width: '25%',
 		height: '100%',
 		padding: '30px 20px',
+		[theme.breakpoints.down(1281)]: {
+			alignContent: 'start',
+			padding: '15px 12px',
+		},
 	},
 	rightContainer: {
 		backgroundColor: '#f2f2f2',
 		width: '75%',
 		height: '100%',
 		padding: '30px 40px',
+		[theme.breakpoints.down(1281)]: {
+			alignContent: 'start',
+			padding: '20px 30px',
+		},
 	},
 	dateContainer: {
 		height: 'fit-content',
 		justifyContent: 'space-evenly',
+		flexWrap: 'nowrap',
+		alignItems: 'center',
+		[theme.breakpoints.down(1281)]: {
+			marginBottom: 4,
+		},
+	},
+	date: {
+		whiteSpace: 'nowrap',
+		[theme.breakpoints.down(1281)]: {
+			fontSize: 34,
+		},
+	},
+	arrow: {
+		margin: '0 10px',
 	},
 	weatherIcon: {
 		width: '70%',
 		margin: '30px auto 70px auto',
+		[theme.breakpoints.down(1281)]: {
+			width: 50,
+			margin: 0,
+		},
 	},
 	temp: {
 		fontWeight: 200,
 		marginRight: 8,
+		[theme.breakpoints.down(1281)]: {
+			fontSize: 36,
+			fontWeight: 300,
+		},
 	},
 	tempColor: {
 		width: 20,
@@ -45,29 +78,61 @@ export default makeStyles((theme) => ({
 		justifyContent: 'space-between',
 		padding: '0 20px',
 		marginBottom: 6,
+		[theme.breakpoints.down(1281)]: {
+			marginTop: 6,
+			marginBottom: 8,
+		},
 	},
 	divider: {
 		width: 'calc(100% - 40px)',
 		margin: '12px auto',
+		[theme.breakpoints.down(1281)]: {
+			width: 'calc(100% - 40px)',
+			margin: '6px auto',
+		},
 	},
 	location: {
 		marginBottom: 6,
 	},
+	list: {
+		paddingBottom: 0,
+	},
+	listItem: {
+		padding: '0 16px',
+	},
+	listIcon: {
+		[theme.breakpoints.down(1281)]: {
+			width: 22,
+		},
+	},
 	cardContainer: {
 		display: 'grid',
+		gap: 30,
 		gridTemplateColumns: '1fr 1fr 1fr',
 		gridTemplateRows: '1fr 1fr',
-		gap: 30,
+		[theme.breakpoints.down(1281)]: {
+			gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr',
+			gridTemplateRows: '1fr',
+			columnGap: 12,
+		},
 	},
 	notesAndButtons: {
 		display: 'grid',
+		columnGap: 30,
 		gridTemplateColumns: '1fr 1fr 1fr',
 		gridTemplateRows: '1fr',
-		columnGap: 30,
 		marginBottom: 30,
+		height: 'fit-content',
+		[theme.breakpoints.down(1281)]: {
+			gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr',
+			columnGap: 12,
+		},
 	},
 	notes: {
 		gridArea: '1 / 1 / 2 / 3',
+		[theme.breakpoints.down(1281)]: {
+			gridArea: '1 / 1 / 2 / 6',
+		},
 	},
 	notesTitle: {
 		textDecoration: 'underline',
@@ -78,6 +143,9 @@ export default makeStyles((theme) => ({
 		display: 'flex',
 		justifyContent: 'end',
 		alignItems: 'start',
+		[theme.breakpoints.down(1281)]: {
+			gridArea: '1 / 6 / 2 / 7',
+		},
 	},
 	iconButton: {
 		justifySelf: 'end',

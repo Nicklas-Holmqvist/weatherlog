@@ -7,6 +7,7 @@ import {
 	ListItemIcon,
 	ListItemText,
 	Typography,
+	useMediaQuery,
 } from '@material-ui/core';
 import {
 	ArrowBackRounded,
@@ -29,10 +30,12 @@ import {
 	Wind,
 } from 'src/utils';
 import useStyles from './styles';
-import { windFeelEnum } from 'src/utils/enums';
+import { windFeelEnum } from 'src/utils';
+import theme from 'src/theme';
 
 export const DesktopDailyOverview = () => {
 	const classes = useStyles();
+	const laptopScreen = useMediaQuery(theme.breakpoints.down(1281));
 
 	return (
 		<Grid item container className={classes.root}>
@@ -40,42 +43,48 @@ export const DesktopDailyOverview = () => {
 			<Grid item container direction="column" className={classes.leftContainer}>
 				{/* vänstersidan */}
 				<Grid item container className={classes.dateContainer}>
-					<IconButton className={classes.iconButton}>
+					<IconButton className={classes.arrow}>
 						<ArrowBackRounded />
 					</IconButton>
-					<Typography variant="h3">23 maj</Typography>
-					<IconButton className={classes.iconButton}>
+					<Typography variant="h3" className={classes.date}>
+						23 maj
+					</Typography>
+					<IconButton className={classes.arrow}>
 						<ArrowForwardRounded />
 					</IconButton>
 				</Grid>
-				<SemiClear className={classes.weatherIcon} />
+				{laptopScreen && <Divider className={classes.divider} />}
+				{!laptopScreen && <SemiClear className={classes.weatherIcon} />}
 				<Grid item container direction="column">
 					<Grid item container className={classes.tempAndColorContainer}>
 						<Typography variant="h3" className={classes.temp}>
 							17°C
 						</Typography>
-						<Grid
-							className={classes.tempColor}
-							style={{ backgroundColor: getTempColor(17) }}
-						/>
+						{laptopScreen && <SemiClear className={classes.weatherIcon} />}
+						{!laptopScreen && (
+							<Grid
+								className={classes.tempColor}
+								style={{ backgroundColor: getTempColor(17) }}
+							/>
+						)}
 					</Grid>
 					<Divider className={classes.divider} />
-					<List dense>
+					<List dense className={classes.list}>
 						<ListItem className={classes.location}>
 							<ListItemIcon>
 								<PlaceRounded color="secondary" />
 							</ListItemIcon>
 							<Typography variant="subtitle1">Göteborg</Typography>
 						</ListItem>
-						<ListItem>
+						<ListItem className={classes.listItem}>
 							<ListItemIcon>
-								<SemiClear />
+								<SemiClear className={classes.listIcon} />
 							</ListItemIcon>
 							<ListItemText secondary="Halvklart" />
 						</ListItem>
-						<ListItem>
+						<ListItem className={classes.listItem}>
 							<ListItemIcon>
-								<Wind />
+								<Wind className={classes.listIcon} />
 							</ListItemIcon>
 							<ListItemText secondary="Varm" />
 						</ListItem>
