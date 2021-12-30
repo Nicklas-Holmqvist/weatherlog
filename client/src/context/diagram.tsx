@@ -1,6 +1,7 @@
 import React, { useState, useContext, createContext, FunctionComponent, useEffect } from 'react'
 
 import { useLogsContext } from './logs';
+import { getTempColor } from 'src/utils';
 import { ILogs} from '../types/Logs'
 
 export const DiagramContext = createContext<Context>(undefined!);
@@ -42,7 +43,7 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
     //     })     
     // }
 
-    const splitUpMonths = () => {
+    const splitUpYearMonths = () => {
         let month:any = []
         for(let i = 0; i < logs.length; i++) {
             month.push(splitDate(logs[i], 0, 6))
@@ -54,30 +55,34 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
                 uniqueMonths.push(m)
             }
         })
-        setDiagramMonth(uniqueMonths)   
+        setDiagramMonth(uniqueMonths)
     }   
     
-    const prepairDiagramData = (e:any) => {
-        let data:string[] = []        
+    const prepairDiagramData = (e:ILogs[]) => {
+        let data:string[] = []  
+        let label:string[] = []  
+        let color:string[] = []
+
         for(let i = 0; i < e.length; i++) {
-            data.push(splitDate(e[i], 6, 8))
+
+            label.push(splitDate(e[i], 6, 8))
+            data.push(e[i].temperature.toString())
+            color.push(getTempColor(parseInt(e[i].temperature))!)
         }
-        setDiagramData(data.sort((a:any, b:any) => {
+        setDiagramData(data)
+        setDiagramLabel(data.sort((a:any, b:any) => {
             return a - b
         }))
-        console.log(data)
+        setBackgroundcolor(color)
     }
 
     const splitDate = (date:ILogs, start:number, end:number) => {
-        console.log(date.date)
         return date.date.substring(start, end)        
     }
 
-    
-
     useEffect(() => {       
         setLogs(logContext)
-        splitUpMonths()
+        splitUpYearMonths()
       },[logContext, logs])
 
     const getDiagramUrl = (e:any) => {
