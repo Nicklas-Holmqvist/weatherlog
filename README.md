@@ -20,5 +20,7 @@ They are connected with proxy in the client/package.json
 - From - "start": "npm-run-all --parallel client server"
 - To - "start": "node server"
 - Run - npm run client:build
+- Push main to git
 - Run - git push heroku HEAD:master
 - Change back "start" for liveview coding
+- See changeLog for heroku - heroku logs --tail
