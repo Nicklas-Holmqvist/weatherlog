@@ -12,10 +12,6 @@ const Diagram = () => {
     const diagramContext = useDiagramsContext()
     const setApiParam = useDiagramsContext().getDiagramUrl
     // console.log(diagramContext)
-        
-    const [diagramData, setDiagramData] = useState<number[]>([])
-    const [diagramLabel, setDiagramLabel] = useState<string[]>([])
-    const [diagramBackgroundcolor, setBackgroundcolor] = useState<string[]>([])
 
     const click = () => {
         setApiParam(id)

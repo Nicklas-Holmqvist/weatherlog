@@ -5,8 +5,7 @@ import { ILogs} from '../types/Logs'
 
 export const DiagramContext = createContext<Context>(undefined!);
     
-type Context = {
-    diagramData: ILogs[],    
+type Context = {  
     getDiagramUrl: (e:any) => void,
     // handleChange: (e:any) => void
 }
@@ -15,8 +14,11 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
     
     const logContext = useLogsContext().logs
     const [logs, setLogs] = useState<ILogs[]>(logContext)
-    const [diagramData, setDiagramData] = useState<ILogs[]>([])
+    const [ApiData, setApiData] = useState<ILogs[]>([])
     const [diagramMonth, setDiagramMonth] = useState<string[]>([])
+    const [diagramData, setDiagramData] = useState<string[]>([])
+    const [diagramLabel, setDiagramLabel] = useState<string[]>([])
+    const [diagramBackgroundcolor, setBackgroundcolor] = useState<string[]>([])
 
     // /**
     //  * Handle input changes on create log page
@@ -52,15 +54,28 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
                 uniqueMonths.push(m)
             }
         })
-        setDiagramMonth(uniqueMonths)       
+        setDiagramMonth(uniqueMonths)   
+    }   
+    
+    const prepairDiagramData = (e:any) => {
+        let data:string[] = []        
+        for(let i = 0; i < e.length; i++) {
+            data.push(splitDate(e[i], 6, 8))
+        }
+        setDiagramData(data.sort((a:any, b:any) => {
+            return a - b
+        }))
+        console.log(data)
     }
 
     const splitDate = (date:ILogs, start:number, end:number) => {
+        console.log(date.date)
         return date.date.substring(start, end)        
     }
 
-    useEffect(() => {    
-        console.log(diagramData)    
+    
+
+    useEffect(() => {       
         setLogs(logContext)
         splitUpMonths()
       },[logContext, logs])
@@ -80,7 +95,8 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
                 return res.json();
             })
             .then(function (data) {
-                setDiagramData(data)
+                setApiData(data)
+                prepairDiagramData(data)
                 console.log(data)
             })
             .catch(function (err) {
@@ -90,7 +106,6 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
     
     return (
         <DiagramContext.Provider value={{ 
-            diagramData,
             getDiagramUrl
             }}>
             {children}

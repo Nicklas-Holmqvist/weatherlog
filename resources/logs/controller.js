@@ -5,7 +5,7 @@ const LogModel = require('./model')
 exports.getLogs = async (req, res) => {
     const user = req.cookies.user
     try {
-        const logs = await (LogModel.find({user:user, date: { $gte: month }})).populate('user');
+        const logs = await (LogModel.find({user:user})).populate('user');
         res.status(200).json(logs)
     } catch (error) {
         res.status(503).json('No login')
