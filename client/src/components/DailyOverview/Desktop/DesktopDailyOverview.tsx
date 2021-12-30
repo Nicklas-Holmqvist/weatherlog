@@ -99,7 +99,7 @@ export const DesktopDailyOverview = () => {
 						<Typography variant="subtitle1" className={classes.notesTitle}>
 							Anteckningar
 						</Typography>
-						<Typography variant="body1">
+						<Typography variant="body1" className={classes.notesBody}>
 							Lorem ipsum, dolor sit amet consectetur adipisicing elit.
 							Necessitatibus, eos qui quam velit labore molestias, libero
 							explicabo, temporibus deleniti sint sapiente et vel. Repellat eum,
@@ -116,7 +116,6 @@ export const DesktopDailyOverview = () => {
 					</Grid>
 				</Grid>
 				<Grid item container className={classes.cardContainer}>
-					{/* card container */}
 					<DataCard
 						label={dataEnum.WIND_DIRECTION}
 						windDirection={directionEnum.SE}
@@ -132,8 +131,8 @@ export const DesktopDailyOverview = () => {
 					/>
 					<DataCard
 						label={dataEnum.WIND_FEEL}
-						data={windFeelEnum.MILD}
-						bottomInfo={GetBottomInfo(dataEnum.WIND_FEEL, windFeelEnum.MILD)!}
+						data={windFeelEnum.NEUTRAL}
+						bottomInfo={GetBottomInfo(dataEnum.WIND_FEEL, windFeelEnum.NEUTRAL)!}
 					/>
 					<DataCard
 						label={dataEnum.PRECIPITATION}

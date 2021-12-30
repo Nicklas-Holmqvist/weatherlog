@@ -81,7 +81,7 @@ export default makeStyles((theme) => ({
 		width: 40,
 		display: 'flex',
 		alignContent: 'center',
-		[theme.breakpoints.only('sm')]: {
+		[theme.breakpoints.down(1281)]: {
 			width: 32,
 		},
 		[theme.breakpoints.only('xs')]: {

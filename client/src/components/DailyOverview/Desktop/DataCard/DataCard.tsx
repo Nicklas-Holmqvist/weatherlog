@@ -49,7 +49,9 @@ export const DataCard = ({
 					</>
 				)}
 			</Grid>
-			<Typography variant="subtitle2">{bottomInfo}</Typography>
+			<Typography variant="subtitle2" className={classes.bottomInfo}>
+				{bottomInfo}
+			</Typography>
 		</Grid>
 	);
 };

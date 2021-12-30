@@ -31,7 +31,7 @@ export default makeStyles((theme) => ({
 		padding: '30px 40px',
 		[theme.breakpoints.down(1281)]: {
 			alignContent: 'start',
-			padding: '20px 30px',
+			padding: '16px 25px',
 		},
 	},
 	dateContainer: {
@@ -51,6 +51,7 @@ export default makeStyles((theme) => ({
 	},
 	arrow: {
 		margin: '0 10px',
+		color: theme.palette.common.black,
 	},
 	weatherIcon: {
 		width: '70%',
@@ -113,7 +114,7 @@ export default makeStyles((theme) => ({
 		[theme.breakpoints.down(1281)]: {
 			gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr',
 			gridTemplateRows: '1fr',
-			columnGap: 12,
+			columnGap: 10,
 		},
 	},
 	notesAndButtons: {
@@ -126,6 +127,7 @@ export default makeStyles((theme) => ({
 		[theme.breakpoints.down(1281)]: {
 			gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr',
 			columnGap: 12,
+			marginBottom: 16,
 		},
 	},
 	notes: {
@@ -137,6 +139,9 @@ export default makeStyles((theme) => ({
 	notesTitle: {
 		textDecoration: 'underline',
 		marginBottom: 6,
+	},
+	notesBody: {
+		fontSize: '16px',
 	},
 	iconButtons: {
 		gridArea: '1 / 3 / 2 / 4',
