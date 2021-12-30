@@ -151,7 +151,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 return res.json();
             })
             .then((data) => {
-                sortLogs(data)     
+                sortLogs(data) 
             })
             .catch((err) => {
                 console.error(err);
