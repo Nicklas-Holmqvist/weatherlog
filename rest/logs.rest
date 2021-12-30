@@ -2,6 +2,10 @@ GET http://localhost:5000/api/logs/
 
 ###
 
+GET http://localhost:5000/api/diagram/202112
+
+###
+
 POST http://localhost:5000/api/logs/register 
 Content-Type: application/json
 
