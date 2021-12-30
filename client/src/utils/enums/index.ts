@@ -1,2 +1,4 @@
-export * from './weatherEnum';
+export * from './dataEnum';
 export * from './directionEnum';
+export * from './weatherEnum';
+export * from './windFeelEnum';

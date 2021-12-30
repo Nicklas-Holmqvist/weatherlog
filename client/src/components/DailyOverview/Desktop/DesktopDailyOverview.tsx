@@ -18,8 +18,10 @@ import {
 
 import { DataCard } from './DataCard';
 import {
+	dataEnum,
 	directionEnum,
 	dotToCommaConverter,
+	GetBottomInfo,
 	getTempColor,
 	Overcast,
 	SemiClear,
@@ -27,6 +29,7 @@ import {
 	Wind,
 } from 'src/utils';
 import useStyles from './styles';
+import { windFeelEnum } from 'src/utils/enums';
 
 export const DesktopDailyOverview = () => {
 	const classes = useStyles();
@@ -106,38 +109,40 @@ export const DesktopDailyOverview = () => {
 				<Grid item container className={classes.cardContainer}>
 					{/* card container */}
 					<DataCard
-						label="Vindriktning"
-						windDirection={directionEnum.SW}
-						bottomInfo="Över normalt" // getWindDirectionString(dataEnum.WIND_DIRECTION, data)
+						label={dataEnum.WIND_DIRECTION}
+						windDirection={directionEnum.SE}
+						bottomInfo={
+							GetBottomInfo(dataEnum.WIND_DIRECTION, directionEnum.SE)!
+						}
 					/>
 					<DataCard
-						label="Vindstyrka"
-						data={12}
+						label={dataEnum.WIND_SPEED}
+						data={5}
 						unit="m/s"
-						bottomInfo="Över normalt" // getBottomInfo(dataEnum.WIND_SPEED, data)
+						bottomInfo={GetBottomInfo(dataEnum.WIND_SPEED, 5)!}
 					/>
 					<DataCard
-						label="Vindkänsla"
-						data="Varm"
-						bottomInfo={<WarmBar className={classes.bar} />} // getTempBar(windFeelEnum.COLD)
+						label={dataEnum.WIND_FEEL}
+						data={windFeelEnum.MILD}
+						bottomInfo={GetBottomInfo(dataEnum.WIND_FEEL, windFeelEnum.MILD)!}
 					/>
 					<DataCard
-						label="Nederbörd"
-						data={dotToCommaConverter('0.5')}
+						label={dataEnum.PRECIPITATION}
+						data={dotToCommaConverter((1.2).toString())}
 						unit="mm"
-						bottomInfo="Under normalt" // getBottomInfo(dataEnum.PRECIPITATION, data)
+						bottomInfo={GetBottomInfo(dataEnum.PRECIPITATION, 1.2)!}
 					/>
 					<DataCard
-						label="Lufttryck"
+						label={dataEnum.AIR_PRESSURE}
 						data={1001}
 						unit="hPa"
-						bottomInfo="Normalt" // getBottomInfo(dataEnum.AIR_PRESSURE, data)
+						bottomInfo={GetBottomInfo(dataEnum.AIR_PRESSURE, 1001)!}
 					/>
 					<DataCard
-						label="Luftfuktighet"
-						data={92}
+						label={dataEnum.HUMIDITY}
+						data={96}
 						unit="%"
-						bottomInfo="Normalt" // getBottomInfo(dataEnum.HUMIDITY, data)
+						bottomInfo={GetBottomInfo(dataEnum.HUMIDITY, 96)!}
 					/>
 				</Grid>
 			</Grid>
