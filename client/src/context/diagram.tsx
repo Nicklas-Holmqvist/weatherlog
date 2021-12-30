@@ -8,6 +8,9 @@ export const DiagramContext = createContext<Context>(undefined!);
     
 type Context = {  
     getDiagramUrl: (e:any) => void,
+    diagramData: number[],
+    diagramLabel: string[],
+    diagramBackgroundcolor: string[]
 }
 
 export const DiagramProvider: FunctionComponent = ({ children }) => {
@@ -16,7 +19,7 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
     const [logs, setLogs] = useState<ILogs[]>(logContext)
     const [ApiData, setApiData] = useState<ILogs[]>([])
     const [diagramMonth, setDiagramMonth] = useState<string[]>([])
-    const [diagramData, setDiagramData] = useState<string[]>([])
+    const [diagramData, setDiagramData] = useState<number[]>([])
     const [diagramLabel, setDiagramLabel] = useState<string[]>([])
     const [diagramBackgroundcolor, setBackgroundcolor] = useState<string[]>([])
 
@@ -40,18 +43,18 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
      * @param e API-response
      */
     const prepairDiagramData = (e:ILogs[]) => {
-        let data:string[] = []  
+        let data:number[] = []  
         let label:string[] = []  
         let color:string[] = []
         setApiData(e)
         
         for(let i = 0; i < e.length; i++) {
+            data.push(parseInt(e[i].temperature))
             label.push(splitDate(e[i], 6, 8))
-            data.push(e[i].temperature.toString())
             color.push(getTempColor(parseInt(e[i].temperature))!)
         }
         setDiagramData(data)
-        setDiagramLabel(data.sort((a:any, b:any) => {
+        setDiagramLabel(label.sort((a:any, b:any) => {
             return a - b
         }))
         setBackgroundcolor(color)
@@ -99,7 +102,10 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
     
     return (
         <DiagramContext.Provider value={{ 
-            getDiagramUrl
+            getDiagramUrl,
+            diagramData,
+            diagramLabel,
+            diagramBackgroundcolor
             }}>
             {children}
         </DiagramContext.Provider>
