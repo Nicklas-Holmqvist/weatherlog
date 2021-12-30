@@ -8,7 +8,6 @@ export const DiagramContext = createContext<Context>(undefined!);
     
 type Context = {  
     getDiagramUrl: (e:any) => void,
-    // handleChange: (e:any) => void
 }
 
 export const DiagramProvider: FunctionComponent = ({ children }) => {
@@ -20,28 +19,6 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
     const [diagramData, setDiagramData] = useState<string[]>([])
     const [diagramLabel, setDiagramLabel] = useState<string[]>([])
     const [diagramBackgroundcolor, setBackgroundcolor] = useState<string[]>([])
-
-    // /**
-    //  * Handle input changes on create log page
-    //  * @param e value from inpufields in create log
-    //  * @returns 
-    //  */
-    //  const handleChange = (e:any) => {
-    //     const value = e.target.value;
-    //     const name = e.target.name;
-
-    //     if(name === "year" || name === "month" || name === "day") {            
-    //         setLogDate({
-    //             ...logDate,
-    //             [name]: value
-    //         })  
-    //         return
-    //     }
-    //     setLogValue({
-    //         ...logValue,
-    //         [name]: value
-    //     })     
-    // }
 
     const splitUpYearMonths = () => {
         let month:any = []
@@ -58,13 +35,17 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
         setDiagramMonth(uniqueMonths)
     }   
     
+    /**
+     * Prepare the API-response and split it up to the necessary arrays to be viewed in the diagram
+     * @param e API-response
+     */
     const prepairDiagramData = (e:ILogs[]) => {
         let data:string[] = []  
         let label:string[] = []  
         let color:string[] = []
-
+        setApiData(e)
+        
         for(let i = 0; i < e.length; i++) {
-
             label.push(splitDate(e[i], 6, 8))
             data.push(e[i].temperature.toString())
             color.push(getTempColor(parseInt(e[i].temperature))!)
@@ -74,8 +55,16 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
             return a - b
         }))
         setBackgroundcolor(color)
+        console.log(data, label, color)
     }
 
+    /**
+     * Splits the date-string 8 digits, ex 20210101
+     * @param date string
+     * @param start where to start, after choosed digit
+     * @param end where to end, you want the last two, you choose 8 and get "01"
+     * @returns 
+     */
     const splitDate = (date:ILogs, start:number, end:number) => {
         return date.date.substring(start, end)        
     }
@@ -83,6 +72,7 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
     useEffect(() => {       
         setLogs(logContext)
         splitUpYearMonths()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       },[logContext, logs])
 
     const getDiagramUrl = (e:any) => {
@@ -100,9 +90,7 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
                 return res.json();
             })
             .then(function (data) {
-                setApiData(data)
                 prepairDiagramData(data)
-                console.log(data)
             })
             .catch(function (err) {
                 console.error(err);
