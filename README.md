@@ -22,3 +22,4 @@ They are connected with proxy in the client/package.json
 - Run - npm run client:build
 - Run - git push heroku HEAD:master
 - Change back "start" for liveview coding
+- To check heroku log - heroku logs --tail
