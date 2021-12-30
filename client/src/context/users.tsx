@@ -83,7 +83,6 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
             })
             .then((data) => {
                 setUsers(data)
-                console.log(data)
             })
             .catch((err) => {
                 console.error(err);

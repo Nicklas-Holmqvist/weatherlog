@@ -12,7 +12,6 @@ const Diagram = () => {
     const [diagramMonth, setDiagramMonth] = useState<string[]>([])
     const [diagramBackgroundcolor, setBackgroundcolor] = useState<string[]>([])
 
-
     const splitUpMonths = () => {
         let month:any = []
         for(let i = 0; i < logs.length; i++) {
@@ -26,10 +25,6 @@ const Diagram = () => {
             }
         })
         setDiagramMonth(uniqueMonths)       
-    }
-    const getDiagramLabels = () => {
-        
-        
     }
 
     const splitDate = (date:ILogs, start:number, end:number) => {

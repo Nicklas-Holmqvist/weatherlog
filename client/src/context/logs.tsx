@@ -152,7 +152,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             })
             .then((data) => {
                 sortLogs(data) 
-                console.log(data)
             })
             .catch((err) => {
                 console.error(err);

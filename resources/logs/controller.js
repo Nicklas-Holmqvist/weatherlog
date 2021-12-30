@@ -106,7 +106,6 @@ exports.changeLog = async (req, res) => {
         try {
             await LogModel.findByIdAndUpdate({ _id: log }, newLog)
             res.status(200).json('Log has been updated!')
-            console.log(newLog)
         } catch (error) {
             res.status(400).json(error)
     }
