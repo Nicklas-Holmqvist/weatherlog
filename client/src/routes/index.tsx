@@ -35,7 +35,7 @@ export const routes = [
 		element: <CreateLogPage />,
 	},
 	{
-		path: '/diagram',
+		path: '/diagram/:id',
 		element: <DiagramPage />,
 	},
 	{
