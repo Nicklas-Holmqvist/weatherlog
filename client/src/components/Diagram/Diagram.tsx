@@ -3,7 +3,6 @@ import { useParams } from 'react-router'
 import { useNavigate } from "react-router-dom"
 
 import { useDiagramsContext } from 'src/context/diagram'; 
-import { useLogsContext } from '../../context/logs';
 import GetMonthName from '../../utils/getMonthName';
 
 import useStyles from './style';
@@ -103,8 +102,8 @@ const Diagram = () => {
             backgroundColor: 'rgb(0, 0, 204)',
             borderColor: '#0000CC',
             tension: 0.3,
-            pointRadius: 6,      
-            borderWidth: 1    
+            pointRadius: 2,      
+            borderWidth: 2    
           },
         ],
       };
