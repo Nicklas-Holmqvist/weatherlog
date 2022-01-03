@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
+import { useNavigate } from "react-router-dom"
 
 import { useLogsContext } from '../../context/logs';
 import { useDiagramsContext } from 'src/context/diagram'; 
@@ -17,7 +18,7 @@ import {
     Legend,
   } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { Grid } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
   
   ChartJS.register(
     CategoryScale,
@@ -33,12 +34,31 @@ const Diagram = () => {
 
     const classes = useStyles()
     const {id} = useParams();
+    let navigate = useNavigate();
 
-    const {diagramData, diagramLabel, diagramBackgroundcolor} = useDiagramsContext()
+    const {diagramData, diagramLabel, diagramBackgroundcolor, diagramMonth} = useDiagramsContext()
     const setApiParam = useDiagramsContext().getDiagramUrl
     const [temp, setTemp] = useState<number[]>(diagramData)
     const [labels, setLabels] = useState<string[]>(diagramLabel)
     const [color, setColor] = useState<any[] | any>(diagramBackgroundcolor)
+
+    const prevMonth = () => {
+      const oldMonth:any = id
+      const findOld = diagramMonth.indexOf(oldMonth)
+            
+      if(findOld !== -1) {
+        navigate(`/diagram/${diagramMonth[findOld-1]}`)
+      } 
+    }
+
+    const nextMonth = () => {
+      const oldMonth:any = id
+      const findOld = diagramMonth.indexOf(oldMonth)
+            
+      if(findOld !== -1) {
+        navigate(`/diagram/${diagramMonth[findOld+1]}`)
+      } 
+    }
 
     useEffect(() => {
         setApiParam(id)
@@ -85,6 +105,8 @@ const Diagram = () => {
     return (
     <Grid container direction="column" className={classes.diagramContainer}>
       <p>{id}</p>
+      <Button onClick={prevMonth}>Bakåt</Button>
+      <Button onClick={nextMonth}>Framåt</Button>
       <Grid container className={classes.diagram}>
         <Line options={options} data={data} />
       </Grid>

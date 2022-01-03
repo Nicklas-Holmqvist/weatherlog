@@ -10,11 +10,11 @@ type Context = {
     getDiagramUrl: (e:any) => void,
     diagramData: number[],
     diagramLabel: string[],
-    diagramBackgroundcolor: any[]
+    diagramBackgroundcolor: any[],
+    diagramMonth:string[]
 }
 
 export const DiagramProvider: FunctionComponent = ({ children }) => {
-
     
     const logContext = useLogsContext().logs
     const [logs, setLogs] = useState<ILogs[]>(logContext)
@@ -106,7 +106,8 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
             getDiagramUrl,
             diagramData,
             diagramLabel,
-            diagramBackgroundcolor
+            diagramBackgroundcolor,
+            diagramMonth
             }}>
             {children}
         </DiagramContext.Provider>
