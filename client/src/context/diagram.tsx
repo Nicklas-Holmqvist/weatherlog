@@ -1,7 +1,7 @@
 import React, { useState, useContext, createContext, FunctionComponent, useEffect } from 'react'
 
 import { useLogsContext } from './logs';
-import { getTempColor } from 'src/utils';
+import { getDiagramColor } from '../utils/getDiagramColor';
 import { ILogs} from '../types/Logs'
 
 export const DiagramContext = createContext<Context>(undefined!);
@@ -10,10 +10,11 @@ type Context = {
     getDiagramUrl: (e:any) => void,
     diagramData: number[],
     diagramLabel: string[],
-    diagramBackgroundcolor: string[]
+    diagramBackgroundcolor: any[]
 }
 
 export const DiagramProvider: FunctionComponent = ({ children }) => {
+
     
     const logContext = useLogsContext().logs
     const [logs, setLogs] = useState<ILogs[]>(logContext)
@@ -21,7 +22,7 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
     const [diagramMonth, setDiagramMonth] = useState<string[]>([])
     const [diagramData, setDiagramData] = useState<number[]>([])
     const [diagramLabel, setDiagramLabel] = useState<string[]>([])
-    const [diagramBackgroundcolor, setBackgroundcolor] = useState<string[]>([])
+    const [diagramBackgroundcolor, setBackgroundcolor] = useState<any[]>([])
 
     const splitUpYearMonths = () => {
         let month:any = []
@@ -45,13 +46,13 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
     const prepairDiagramData = (e:ILogs[]) => {
         let data:number[] = []  
         let label:string[] = []  
-        let color:string[] = []
+        let color:any[] = []
         setApiData(e)
         
         for(let i = 0; i < e.length; i++) {
             data.push(parseInt(e[i].temperature))
             label.push(splitDate(e[i], 6, 8))
-            color.push(getTempColor(parseInt(e[i].temperature))!)
+            color.push(getDiagramColor(parseInt(e[i].temperature))!)
         }
         setDiagramData(data)
         setDiagramLabel(label.sort((a:any, b:any) => {

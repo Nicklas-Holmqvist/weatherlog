@@ -4,6 +4,8 @@ import { useParams } from 'react-router'
 import { useLogsContext } from '../../context/logs';
 import { useDiagramsContext } from 'src/context/diagram'; 
 
+import useStyles from './style';
+
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -15,6 +17,7 @@ import {
     Legend,
   } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { Grid } from '@material-ui/core';
   
   ChartJS.register(
     CategoryScale,
@@ -28,13 +31,14 @@ import { Line } from 'react-chartjs-2';
 
 const Diagram = () => {
 
+    const classes = useStyles()
     const {id} = useParams();
 
     const {diagramData, diagramLabel, diagramBackgroundcolor} = useDiagramsContext()
     const setApiParam = useDiagramsContext().getDiagramUrl
     const [temp, setTemp] = useState<number[]>(diagramData)
     const [labels, setLabels] = useState<string[]>(diagramLabel)
-    const [color, setColor] = useState<string[]>(diagramBackgroundcolor)
+    const [color, setColor] = useState<any[] | any>(diagramBackgroundcolor)
 
     useEffect(() => {
         setApiParam(id)
@@ -50,7 +54,7 @@ const Diagram = () => {
 
     console.log(temp, labels, color)
     const options = {
-        responsive: false,
+        responsive: true,
         plugins: {
           legend: {
             position: 'top' as const,
@@ -59,7 +63,7 @@ const Diagram = () => {
             display: false,
             text: 'Chart.js Line Chart',
           },
-        },
+        }
       };
 
     const data = {
@@ -69,15 +73,23 @@ const Diagram = () => {
             {
             label: '',
             data: temp,
-            color: color,
+            backgroundColor: color,
+            borderColor: 'rgba(0, 0, 0, 0.5',
+            tension: 0.3,
+            pointRadius: 6,      
+            borderWidth: 1    
           },
         ],
       };
 
-    return <>
-    <p>{id}</p>
-     <Line options={options} data={data} />;
-    </>
+    return (
+    <Grid container direction="column" className={classes.diagramContainer}>
+      <p>{id}</p>
+      <Grid container className={classes.diagram}>
+        <Line options={options} data={data} />
+      </Grid>
+    </Grid>
+    )
 }
 
 export default Diagram
