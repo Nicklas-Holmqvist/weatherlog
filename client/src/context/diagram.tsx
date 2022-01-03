@@ -12,6 +12,7 @@ type Context = {
     diagramLabel: string[],
     diagramBackgroundcolor: any[],
     diagramMonth:string[]
+    diagramPrec: number[],
 }
 
 export const DiagramProvider: FunctionComponent = ({ children }) => {
@@ -23,6 +24,7 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
     const [diagramData, setDiagramData] = useState<number[]>([])
     const [diagramLabel, setDiagramLabel] = useState<string[]>([])
     const [diagramBackgroundcolor, setBackgroundcolor] = useState<any[]>([])
+    const [diagramPrec, setDiagramPrec] = useState<number[]>([])
 
     const splitUpYearMonths = () => {
         let month:any = []
@@ -47,19 +49,21 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
         let data:number[] = []  
         let label:string[] = []  
         let color:any[] = []
+        let precipitation:number[] = []
         setApiData(e)
         
         for(let i = 0; i < e.length; i++) {
             data.push(parseInt(e[i].temperature))
             label.push(splitDate(e[i], 6, 8))
             color.push(getDiagramColor(parseInt(e[i].temperature))!)
+            precipitation.push(Number(e[i].precipitation))
         }
         setDiagramData(data)
         setDiagramLabel(label.sort((a:any, b:any) => {
             return a - b
         }))
         setBackgroundcolor(color)
-        console.log(data, label, color)
+        setDiagramPrec(precipitation)
     }
 
     /**
@@ -107,7 +111,8 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
             diagramData,
             diagramLabel,
             diagramBackgroundcolor,
-            diagramMonth
+            diagramMonth,
+            diagramPrec
             }}>
             {children}
         </DiagramContext.Provider>

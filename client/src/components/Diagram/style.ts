@@ -8,6 +8,14 @@ export default makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    header: {
+        display: 'flex',
+        height: '5rem',
+        width: '25rem',
+        alignItems: 'end',
+        justifyContent: 'space-between',
+        paddingBottom: '0.5rem'
+    },
     diagram: {
         width: '80rem'
     }
