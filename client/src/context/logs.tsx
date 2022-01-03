@@ -10,8 +10,10 @@ type Context = {
     numberOfMonths: number[],
     numberOfDays: number[],
     addPost: () => void,
-    editPost: () => void,
+    getLog: (id:any) => void
+    editPost: (id:any) => void,
     deletePost: () => void,
+    getLogUrl: (e:any) => void,
     handleChange: (e:any) => void
 }
 
@@ -60,6 +62,10 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             days.push(i)   
             setNumberOfDays(days)  
         }           
+    }
+
+    const getLogUrl = (e:any) => {
+        getLog(e)
     }
 
     /**
@@ -125,6 +131,9 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         fetchLogs: {
             method: 'get',
         },
+        getLog: {
+            method: "get",
+        },
         addPost: {
             method: "post",
             headers: {"Content-Type": "application/json"},
@@ -159,6 +168,23 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     },[])
     
 
+    // Hämtar en log
+    const getLog = async (id:any) => { 
+        await fetch(`/api/log/${id}`, options.getLog)
+            .then((res) => {
+                if (res.status === 400) {
+                    return;
+                }
+                return res.json();
+            })
+            .then((data) => {
+                setLogValue(data)
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
+
     // Skapar en log
     const addPost = async () => { 
         await fetch('/api/logs/register', options.addPost)
@@ -168,9 +194,8 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     };
 
     // Ändra en log
-    const editPost = async () => {  
-        const logId = "61c1cf0f934272f160fffbca"
-        await fetch(`/api/logs/${logId}`, options.editPost)
+    const editPost = async (id:any) => {
+        await fetch(`/api/logs/${id}`, options.editPost)
         .catch((err) => {
             console.error(err);
         });
@@ -191,6 +216,8 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 editPost, 
                 deletePost, 
                 handleChange,
+                getLog,
+                getLogUrl,
                 logs,
                 logValue,
                 logDate,

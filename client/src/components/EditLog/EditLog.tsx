@@ -4,12 +4,14 @@ import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typ
 import { useLogsContext } from '../../context/logs';
 import { monthEnum } from '../../utils/enums/monthEnum'
 import useStyles from './style';
+import { useParams } from 'react-router-dom';
 
 const EditLog = () => {
 
     const classes = useStyles();
     const createLog = useLogsContext()
     const onChange = useLogsContext()
+    const getLog = useLogsContext()
     const {logValue, logDate, numberOfMonths, numberOfDays } = useLogsContext()
     const MonthName = monthEnum
 
@@ -17,9 +19,14 @@ const EditLog = () => {
     const monthList = numberOfMonths.map((month) => <MenuItem value={month}>{MonthName[month]}</MenuItem>);
     /** Component in day dropdown */
     const dayList = numberOfDays.map((day) => <MenuItem value={day}>{day}</MenuItem>);
+
+    const {id}:any = useParams();
     
     const create = () => {
-        createLog.addPost()
+        createLog.editPost(id)
+    }
+    const fetch = () => {
+        getLog.getLog(id)
     }
 
     return (
@@ -72,6 +79,7 @@ const EditLog = () => {
             <Grid container direction="row">
                 <TextField
                     name="temperature"
+                    value={logValue.temperature}
                     helperText=""
                     variant="standard"
                     className={classes.input}
@@ -106,6 +114,7 @@ const EditLog = () => {
             </Grid>
             <TextField
                 name="description"
+                value={logValue.description}
                 label="Beskrivning"
                 multiline
                 rows={4}
@@ -115,6 +124,7 @@ const EditLog = () => {
             <Grid container direction="row">
                 <TextField
                     name="windSpeed"
+                    value={logValue.windSpeed}
                     helperText=""
                     variant="standard"
                     margin="dense"
@@ -147,6 +157,7 @@ const EditLog = () => {
             <Grid container direction="row">
                 <TextField
                     name="airFeeling"
+                    value={logValue.airFeeling}
                     helperText=""
                     variant="standard"
                     margin="dense"
@@ -157,6 +168,7 @@ const EditLog = () => {
                 />
                 <TextField
                     name="airpressure"
+                    value={logValue.airpressure}
                     helperText=""
                     variant="standard"
                     margin="dense"
@@ -169,26 +181,27 @@ const EditLog = () => {
             <Grid container direction="row">
                 <TextField
                     name="precipitation"
+                    value={logValue.precipitation}
                     helperText=""
                     variant="standard"
                     margin="dense"
-                    size="small"
-                    
+                    size="small"                    
                     label="Nederbörd"
                     onChange={(e) => (onChange.handleChange(e))}
                 />
                 <TextField
                     name="humidity"
+                    value={logValue.humidity}
                     helperText=""
                     variant="standard"
                     margin="dense"
-                    size="small"
-                    
+                    size="small"                    
                     label="Luftfuktighet"
                     onChange={(e) => (onChange.handleChange(e))}
                 />
             </Grid>
             <Button onClick={create}>Skapa log</Button>
+            <Button onClick={fetch}>hämta</Button>
         </Grid>
     )
 }
