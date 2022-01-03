@@ -20,7 +20,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     
     /** Contains all the users logs */
     const [logs, setLogs] = useState<ILogs[]>([])
-    
+
     /** The object of dates dropdowns on create log */
     const [logDate, setLogDate] = useState<ILogDate>({
         day: d.getDate(),
