@@ -10,10 +10,7 @@ const CreateLog = () => {
     const classes = useStyles();
     const createLog = useLogsContext()
     const onChange = useLogsContext()
-    const logs = useLogsContext()
-    const logDate = useLogsContext().logDate
-    const numberOfMonths = useLogsContext().numberOfMonths
-    const numberOfDays = useLogsContext().numberOfDays
+    const { logValue, logDate, numberOfMonths, numberOfDays} = useLogsContext()
     const MonthName = monthEnum
 
     /** Component in month dropdown */
@@ -75,6 +72,7 @@ const CreateLog = () => {
             <Grid container direction="row">
                 <TextField
                     name="temperature"
+                    value={logValue.temperature}
                     helperText=""
                     variant="standard"
                     className={classes.input}
@@ -90,7 +88,7 @@ const CreateLog = () => {
                         name="weather"
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={logs.logValue.weather}
+                        value={logValue.weather}
                         label="Vädret"
                         onChange={(e) =>(onChange.handleChange(e))}
                     >
@@ -109,6 +107,7 @@ const CreateLog = () => {
             </Grid>
             <TextField
                 name="description"
+                value={logValue.description}
                 label="Beskrivning"
                 multiline
                 rows={4}
@@ -118,6 +117,7 @@ const CreateLog = () => {
             <Grid container direction="row">
                 <TextField
                     name="windSpeed"
+                    value={logValue.windSpeed}
                     helperText=""
                     variant="standard"
                     margin="dense"
@@ -132,7 +132,7 @@ const CreateLog = () => {
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         label="Vädret"
-                        value={logs.logValue.windDirection}
+                        value={logValue.windDirection}
                         onChange={(e) => (onChange.handleChange(e))}
                     >
                         <MenuItem value={'noWind'}>Vindstilla</MenuItem>
@@ -150,21 +150,21 @@ const CreateLog = () => {
             <Grid container direction="row">
                 <TextField
                     name="airFeeling"
+                    value={logValue.airFeeling}
                     helperText=""
                     variant="standard"
                     margin="dense"
-                    size="small"
-                    
+                    size="small"                    
                     label="Vindkänsla"
                     onChange={(e) => (onChange.handleChange(e))}
                 />
                 <TextField
                     name="airpressure"
+                    value={logValue.airpressure}
                     helperText=""
                     variant="standard"
                     margin="dense"
-                    size="small"
-                    
+                    size="small"                    
                     label="Lufttryck"
                     onChange={(e) => (onChange.handleChange(e))}
                 />
@@ -172,21 +172,21 @@ const CreateLog = () => {
             <Grid container direction="row">
                 <TextField
                     name="precipitation"
+                    value={logValue.precipitation}
                     helperText=""
                     variant="standard"
                     margin="dense"
-                    size="small"
-                    
+                    size="small"                    
                     label="Nederbörd"
                     onChange={(e) => (onChange.handleChange(e))}
                 />
                 <TextField
                     name="humidity"
+                    value={logValue.humidity}
                     helperText=""
                     variant="standard"
                     margin="dense"
-                    size="small"
-                    
+                    size="small"                    
                     label="Luftfuktighet"
                     onChange={(e) => (onChange.handleChange(e))}
                 />

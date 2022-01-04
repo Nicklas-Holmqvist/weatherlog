@@ -224,6 +224,26 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         .catch((err) => {
             console.error(err);
         });
+        setLogValue(
+            {
+                airFeeling: "",
+                airpressure: "",
+                date: `${d.getDate()}${d.getMonth()+1}${d.getFullYear()}`,
+                description: "",
+                humidity: "",
+                precipitation: "",
+                temperature: "",
+                user: "",
+                windDirection: "",
+                windSpeed: "",
+                weather: ""
+            }
+        )
+        setLogDate({
+            day: d.getDate(),
+            month: (d.getMonth()+1),
+            year: d.getFullYear(),
+        })
     };
 
     // Ändra en log
@@ -232,6 +252,21 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         .catch((err) => {
             console.error(err);
         });
+        setLog(
+            {
+                airFeeling: "",
+                airpressure: "",
+                date: "",
+                description: "",
+                humidity: "",
+                precipitation: "",
+                temperature: "",
+                user: "",
+                windDirection: "",
+                windSpeed: "",
+                weather: ""
+            }
+        )
     };
 
     // Ta bort log
