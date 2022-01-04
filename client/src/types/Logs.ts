@@ -5,7 +5,7 @@ export interface ILogs {
         description: String
         humidity: String
         precipitation: String
-        temperature: String
+        temperature: string
         user: String
         windDirection: String
         windSpeed: String

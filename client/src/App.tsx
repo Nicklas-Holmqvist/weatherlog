@@ -1,7 +1,9 @@
 import { ThemeProvider } from '@material-ui/core/styles';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
+
 import { LogsProvider } from './context/logs';
 import { UsersProvider } from './context/users';
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { DiagramProvider } from './context/diagram';
 
 import './App.css';
 import theme from './theme';
@@ -13,15 +15,17 @@ function App() {
 		<ThemeProvider theme={theme}>
 				<LogsProvider>
 					<UsersProvider>
-						<BrowserRouter>
-							<Header />
-							<Routes>
-								{routes.map(({ path, element }, key) => (
-									<Route path={path} element={element} key={key} />
-								))}
-							</Routes>
-							<Footer />
-						</BrowserRouter>
+						<DiagramProvider>
+							<BrowserRouter>
+								<Header />
+								<Routes>
+									{routes.map(({ path, element }, key) => (
+										<Route path={path} element={element} key={key} />
+									))}
+								</Routes>
+								<Footer />
+							</BrowserRouter>
+						</DiagramProvider>
 					</UsersProvider>
 				</LogsProvider>
 		</ThemeProvider>
