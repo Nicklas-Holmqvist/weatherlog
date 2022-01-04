@@ -1,8 +1,9 @@
 import { ThemeProvider } from '@material-ui/core/styles';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
+
 import { LogsProvider } from './context/logs';
 import { UsersProvider } from './context/users';
 import { DiagramProvider } from './context/diagram';
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
 
 import './App.css';
 import theme from './theme';

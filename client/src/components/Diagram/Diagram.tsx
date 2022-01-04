@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { useNavigate } from "react-router-dom"
-
-import { useDiagramsContext } from 'src/context/diagram'; 
-import GetMonthName from '../../utils/getMonthName';
-
-import useStyles from './style';
+import { Line } from 'react-chartjs-2';
+import { Button, Grid, Typography } from '@material-ui/core';
 
 import {
     Chart as ChartJS,
@@ -16,9 +13,12 @@ import {
     Title,
     Tooltip,
     Legend,
-  } from 'chart.js';
-import { Line } from 'react-chartjs-2';
-import { Button, Grid, Typography } from '@material-ui/core';
+  } from 'chart.js';  
+
+  import { useDiagramsContext } from 'src/context/diagram'; 
+
+  import GetMonthName from '../../utils/getMonthName';
+  import useStyles from './style';
   
   ChartJS.register(
     CategoryScale,
