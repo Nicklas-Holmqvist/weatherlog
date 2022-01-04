@@ -8,7 +8,6 @@ type Context = {
     password: IPassword,
     deleteUser: () => void,
     changePassword: () => void,
-    fetchUser: () => void,
     addUser: () => void,
     addUserInfo: () => void,
     editUser: () => void,    
@@ -89,8 +88,8 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
         },
     }
 
-    const fetchUser = async () => {
-        await fetch('/api/user', options.fetchUser)
+    useEffect(() => {
+        fetch('/api/user', options.fetchUser)
             .then((res) => {
                 if (res.status === 400) {
                     return;
@@ -103,7 +102,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
             .catch((err) => {
                 console.error(err);
             });
-    };
+    },[]);
 
     const addUser = async () => {          
         await fetch('/api/user/register', options.addUser)
@@ -148,18 +147,13 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
         });
     };
 
-    useEffect(() => {
-        // fetchUser()
-    });
-
     return (
         <UsersContext.Provider value={
             { 
                 user,
                 password,
                 deleteUser, 
-                changePassword, 
-                fetchUser, 
+                changePassword,
                 addUser, 
                 addUserInfo, 
                 editUser, 
