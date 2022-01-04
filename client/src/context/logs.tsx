@@ -5,6 +5,7 @@ export const LogsContext = createContext<Context>(undefined!);
     
 type Context = {
     logs: ILogs[],
+    landingLogs: ILogs[],
     logValue: ILogs,
     log: ILogs,
     logDate: ILogDate,
@@ -60,6 +61,8 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         windSpeed: "",
         weather: ""
     })
+
+    const [landingLogs, setLandingLogs] = useState<ILogs[]>([])
 
     /** The object that will be created in backend */
     const [log, setLog] = useState<ILogs>(emptyLog)
@@ -144,6 +147,19 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             return a.date - b.date
         }))
     }
+
+    const createLandingLogs = (e:ILogs[]) => {
+
+        let logLength = e.length
+
+        let logs:ILogs[] = []
+
+        for(let i = 0; i < 5; i++) {
+            logs.push(e[logLength-1])   
+            setLandingLogs(logs)
+            logLength--  
+        }      
+    }
     
     /** Sets the data from logDate to logValue.date */
     useEffect(() => {
@@ -195,6 +211,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             })
             .then((data) => {
                 sortLogs(data) 
+                createLandingLogs(data)
             })
             .catch((err) => {
                 console.error(err);
@@ -213,7 +230,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             })
             .then((data) => {
                 setLog(data)
-                console.log(data)
             })
             .catch((err) => {
                 console.error(err);
@@ -263,6 +279,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 getLogUrl,
                 logs,
                 log,
+                landingLogs,
                 logValue,
                 logDate,
                 numberOfMonths,

@@ -13,9 +13,13 @@ import theme from 'src/theme';
 import { directionEnum, weatherEnum } from 'src/utils';
 import useStyles from './styles';
 
+import { useLogsContext } from '../../context/logs';
+
 export const LandingPage = () => {
 	const classes = useStyles();
 	const mobile = useMediaQuery(theme.breakpoints.down(540));
+
+	const { landingLogs } = useLogsContext()
 
 	return (
 		<Grid item container className={classes.container}>
@@ -85,41 +89,22 @@ export const LandingPage = () => {
 				</Grid>
 			</Grid>
 			<Grid item container direction="column">
-				<WeatherCard
-					temp={17}
-					date={{ day: 29, month: 'april' }}
-					weather={weatherEnum.OVERCAST}
-					wind={{ speed: 8, direction: 'se' }}
-					precipitation={0.4}
-				/>
-				<WeatherCard
+				{landingLogs.map((day) => 
+					<WeatherCard
+						temp={parseInt(day.temperature)}
+						date={{ day: 29, month: 'april' }}
+						weather={weatherEnum.OVERCAST}
+						wind={{ speed: 8, direction: 'se' }}
+						precipitation={Number(day.precipitation)}
+					/>
+				)}				
+				{/* <WeatherCard
 					temp={21}
 					date={{ day: 30, month: 'april' }}
 					weather={weatherEnum.SUN}
 					wind={{ speed: 8, direction: 'se' }}
 					precipitation={0}
-				/>
-				<WeatherCard
-					temp={20}
-					date={{ day: 1, month: 'maj' }}
-					weather={weatherEnum.THUNDER}
-					wind={{ speed: 8, direction: 'se' }}
-					precipitation={1.5}
-				/>
-				<WeatherCard
-					temp={-16}
-					date={{ day: 2, month: 'maj' }}
-					weather={weatherEnum.SNOWFALL}
-					wind={{ direction: directionEnum.S }}
-					precipitation={4.7}
-				/>
-				<WeatherCard
-					temp={8}
-					date={{ day: 3, month: 'maj' }}
-					weather={weatherEnum.RAIN_SHOWER}
-					wind={{ speed: 8, direction: 'se' }}
-					precipitation={10.4}
-				/>
+				/> */}
 			</Grid>
 		</Grid>
 	);
