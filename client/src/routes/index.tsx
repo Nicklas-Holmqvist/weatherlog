@@ -44,7 +44,7 @@ export const routes = [
 		element: <LandingPage />,
 	},
 	{
-		path: '/edit-log/:id',
+		path: '/log/:id',
 		element: <EditLogPage />,
 	},
 ];

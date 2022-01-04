@@ -7,7 +7,6 @@ import { useLogsContext } from '../../context/logs';
 import GetMonthName from '../../utils/getMonthName';
 import useStyles from './style';
 
-
 const EditLog = () => {
 
     const classes = useStyles();
@@ -27,8 +26,7 @@ const EditLog = () => {
     }
     const fetch = () => {
         getLog.getLog(id)
-    }
-    
+    }    
 
     return (
         <Grid container direction="column" className={classes.container}>
@@ -164,8 +162,8 @@ const EditLog = () => {
                     onChange={(e) => (onChange.handleEditChange(e))}
                 />
             </Grid>
-            <Button onClick={create}>Skapa log</Button>
-            <Button onClick={fetch}>hämta</Button>
+            <Button onClick={create}>Spara ändringar</Button>
+            <Button onClick={fetch}>Hämta</Button>
         </Grid>
     )
 }
