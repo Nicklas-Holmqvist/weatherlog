@@ -21,6 +21,20 @@ type Context = {
 
 export const LogsProvider: FunctionComponent = ({ children }) => {
     const d = new Date()
+
+    const emptyLog:ILogs = {
+        airFeeling: "",
+        airpressure: "",
+        date: "",
+        description: "",
+        humidity: "",
+        precipitation: "",
+        temperature: "",
+        user: "",
+        windDirection: "",
+        windSpeed: "",
+        weather: ""
+    }
     
     /** Contains all the users logs */
     const [logs, setLogs] = useState<ILogs[]>([])
@@ -48,19 +62,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     })
 
     /** The object that will be created in backend */
-    const [log, setLog] = useState<ILogs>({
-        airFeeling: "",
-        airpressure: "",
-        date: "",
-        description: "",
-        humidity: "",
-        precipitation: "",
-        temperature: "",
-        user: "",
-        windDirection: "",
-        windSpeed: "",
-        weather: ""
-    })
+    const [log, setLog] = useState<ILogs>(emptyLog)
     
     /** Month in a year */
     const numberOfMonths: number[] = [1,2,3,4,5,6,7,8,9,10,11,12]
@@ -224,21 +226,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         .catch((err) => {
             console.error(err);
         });
-        setLogValue(
-            {
-                airFeeling: "",
-                airpressure: "",
-                date: `${d.getDate()}${d.getMonth()+1}${d.getFullYear()}`,
-                description: "",
-                humidity: "",
-                precipitation: "",
-                temperature: "",
-                user: "",
-                windDirection: "",
-                windSpeed: "",
-                weather: ""
-            }
-        )
+        setLogValue(emptyLog)
         setLogDate({
             day: d.getDate(),
             month: (d.getMonth()+1),
@@ -252,21 +240,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         .catch((err) => {
             console.error(err);
         });
-        setLog(
-            {
-                airFeeling: "",
-                airpressure: "",
-                date: "",
-                description: "",
-                humidity: "",
-                precipitation: "",
-                temperature: "",
-                user: "",
-                windDirection: "",
-                windSpeed: "",
-                weather: ""
-            }
-        )
+        setLog(emptyLog)
     };
 
     // Ta bort log
