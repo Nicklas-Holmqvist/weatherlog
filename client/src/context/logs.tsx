@@ -6,6 +6,7 @@ export const LogsContext = createContext<Context>(undefined!);
 type Context = {
     logs: ILogs[],
     logValue: ILogs,
+    log: ILogs,
     logDate: ILogDate,
     numberOfMonths: number[],
     numberOfDays: number[],
@@ -15,6 +16,7 @@ type Context = {
     deletePost: () => void,
     getLogUrl: (e:any) => void,
     handleChange: (e:any) => void
+    handleEditChange: (e:any) => void
 }
 
 export const LogsProvider: FunctionComponent = ({ children }) => {
@@ -35,6 +37,21 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         airFeeling: "",
         airpressure: "",
         date: `${logDate.year}${logDate.month}${logDate.day}`,
+        description: "",
+        humidity: "",
+        precipitation: "",
+        temperature: "",
+        user: "",
+        windDirection: "",
+        windSpeed: "",
+        weather: ""
+    })
+
+    /** The object that will be created in backend */
+    const [log, setLog] = useState<ILogs>({
+        airFeeling: "",
+        airpressure: "",
+        date: "",
         description: "",
         humidity: "",
         precipitation: "",
@@ -91,6 +108,21 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     }
 
     /**
+     * Handle input changes on create log page
+     * @param e value from inpufields in create log
+     * @returns 
+     */
+    const handleEditChange = (e:any) => {
+        const value = e.target.value;
+        const name = e.target.name;
+
+        setLog({
+            ...log,
+            [name]: value
+        })     
+    }
+
+    /**
      * Function that adds a zero infront of single digits
      * @param e date values
      * @returns 
@@ -142,7 +174,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         editPost: {
             method: "put",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(logValue),
+            body: JSON.stringify(log),
         },
         deletePost: {
             method: "delete",
@@ -178,7 +210,8 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 return res.json();
             })
             .then((data) => {
-                setLogValue(data)
+                setLog(data)
+                console.log(data)
             })
             .catch((err) => {
                 console.error(err);
@@ -216,9 +249,11 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 editPost, 
                 deletePost, 
                 handleChange,
+                handleEditChange,
                 getLog,
                 getLogUrl,
                 logs,
+                log,
                 logValue,
                 logDate,
                 numberOfMonths,

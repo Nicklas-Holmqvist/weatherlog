@@ -1,10 +1,12 @@
 import React from 'react'
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@material-ui/core';
+import { useParams } from 'react-router-dom';
 
 import { useLogsContext } from '../../context/logs';
-import { monthEnum } from '../../utils/enums/monthEnum'
+
+import GetMonthName from '../../utils/getMonthName';
 import useStyles from './style';
-import { useParams } from 'react-router-dom';
+
 
 const EditLog = () => {
 
@@ -12,15 +14,13 @@ const EditLog = () => {
     const createLog = useLogsContext()
     const onChange = useLogsContext()
     const getLog = useLogsContext()
-    const {logValue, logDate, numberOfMonths, numberOfDays } = useLogsContext()
-    const MonthName = monthEnum
-
-    /** Component in month dropdown */
-    const monthList = numberOfMonths.map((month) => <MenuItem value={month}>{MonthName[month]}</MenuItem>);
-    /** Component in day dropdown */
-    const dayList = numberOfDays.map((day) => <MenuItem value={day}>{day}</MenuItem>);
+    const { log } = useLogsContext()
 
     const {id}:any = useParams();
+
+    const year:string = log.date.substring(0,4)
+    const month:any = GetMonthName(log.date.substring(4,6))
+    const day:any = log.date.substring(6,8)
     
     const create = () => {
         createLog.editPost(id)
@@ -28,6 +28,7 @@ const EditLog = () => {
     const fetch = () => {
         getLog.getLog(id)
     }
+    
 
     return (
         <Grid container direction="column" className={classes.container}>
@@ -35,58 +36,21 @@ const EditLog = () => {
                 Ändra inlägg
             </Typography>      
             <Grid container direction="row">
-                <FormControl>
-                    <Select
-                        name="year"
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={logDate?.year}
-                        onChange={(e) =>(onChange.handleChange(e))}
-                    >
-                        <MenuItem value={'2015'}>2015</MenuItem>
-                        <MenuItem value={'2016'}>2016</MenuItem>
-                        <MenuItem value={'2017'}>2017</MenuItem>
-                        <MenuItem value={'2018'}>2018</MenuItem>
-                        <MenuItem value={'2019'}>2019</MenuItem>
-                        <MenuItem value={'2020'}>2020</MenuItem>
-                        <MenuItem value={'2021'}>2021</MenuItem>
-                        <MenuItem value={'2022'}>2022</MenuItem>
-                    </Select>
-                </FormControl>     
-                <FormControl>
-                    <Select
-                        name="month"
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={logDate?.month}
-                        onChange={(e) =>(onChange.handleChange(e))}
-                    >
-                        {monthList}
-                    </Select>
-                </FormControl>     
-                <FormControl>
-                    <Select
-                        name="day"
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={logDate?.day}
-                        onChange={(e) =>(onChange.handleChange(e))}
-                    >
-                        {dayList}
-                    </Select>
-                </FormControl>   
+                <Typography variant="h4">{year}</Typography>
+                <Typography variant="h4">{month}</Typography>
+                <Typography variant="h4">{day}</Typography>
             </Grid>     
             <Grid container direction="row">
                 <TextField
                     name="temperature"
-                    value={logValue.temperature}
+                    value={log.temperature}
                     helperText=""
                     variant="standard"
                     className={classes.input}
                     margin="dense"
                     size="small"				
                     label="Temp"
-                    onChange={(e) => (onChange.handleChange(e))}
+                    onChange={(e) => (onChange.handleEditChange(e))}
                     required
                 />
                 <FormControl>
@@ -95,9 +59,9 @@ const EditLog = () => {
                         name="weather"
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={logValue.weather}
+                        value={log.weather}
                         label="Vädret"
-                        onChange={(e) =>(onChange.handleChange(e))}
+                        onChange={(e) =>(onChange.handleEditChange(e))}
                     >
                         <MenuItem value={'clear'}>Klart</MenuItem>
                         <MenuItem value={'semi-clear'}>Halvklart</MenuItem>
@@ -114,23 +78,23 @@ const EditLog = () => {
             </Grid>
             <TextField
                 name="description"
-                value={logValue.description}
+                value={log.description}
                 label="Beskrivning"
                 multiline
                 rows={4}
                 variant="standard"
-                onChange={(e) => (onChange.handleChange(e))}
+                onChange={(e) => (onChange.handleEditChange(e))}
             />
             <Grid container direction="row">
                 <TextField
                     name="windSpeed"
-                    value={logValue.windSpeed}
+                    value={log.windSpeed}
                     helperText=""
                     variant="standard"
                     margin="dense"
                     size="small"				
                     label="Vindstyrka"
-                    onChange={(e) => (onChange.handleChange(e))}
+                    onChange={(e) => (onChange.handleEditChange(e))}
                 />
                 <FormControl>
                     <InputLabel>Vindriktning</InputLabel>
@@ -139,8 +103,8 @@ const EditLog = () => {
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         label="Vädret"
-                        value={logValue.windDirection}
-                        onChange={(e) => (onChange.handleChange(e))}
+                        value={log.windDirection}
+                        onChange={(e) => (onChange.handleEditChange(e))}
                     >
                         <MenuItem value={'noWind'}>Vindstilla</MenuItem>
                         <MenuItem value={'n'}>Norr</MenuItem>
@@ -157,47 +121,47 @@ const EditLog = () => {
             <Grid container direction="row">
                 <TextField
                     name="airFeeling"
-                    value={logValue.airFeeling}
+                    value={log.airFeeling}
                     helperText=""
                     variant="standard"
                     margin="dense"
                     size="small"
                     
                     label="Vindkänsla"
-                    onChange={(e) => (onChange.handleChange(e))}
+                    onChange={(e) => (onChange.handleEditChange(e))}
                 />
                 <TextField
                     name="airpressure"
-                    value={logValue.airpressure}
+                    value={log.airpressure}
                     helperText=""
                     variant="standard"
                     margin="dense"
                     size="small"
                     
                     label="Lufttryck"
-                    onChange={(e) => (onChange.handleChange(e))}
+                    onChange={(e) => (onChange.handleEditChange(e))}
                 />
             </Grid>
             <Grid container direction="row">
                 <TextField
                     name="precipitation"
-                    value={logValue.precipitation}
+                    value={log.precipitation}
                     helperText=""
                     variant="standard"
                     margin="dense"
                     size="small"                    
                     label="Nederbörd"
-                    onChange={(e) => (onChange.handleChange(e))}
+                    onChange={(e) => (onChange.handleEditChange(e))}
                 />
                 <TextField
                     name="humidity"
-                    value={logValue.humidity}
+                    value={log.humidity}
                     helperText=""
                     variant="standard"
                     margin="dense"
                     size="small"                    
                     label="Luftfuktighet"
-                    onChange={(e) => (onChange.handleChange(e))}
+                    onChange={(e) => (onChange.handleEditChange(e))}
                 />
             </Grid>
             <Button onClick={create}>Skapa log</Button>
