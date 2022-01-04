@@ -5,3 +5,8 @@ export interface IUsers {
 	firstName?: String,
 	lastName?: String,
 }
+
+export interface IPassword {
+	oldPassword: String,
+	newPassword: String
+}

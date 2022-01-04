@@ -10,15 +10,10 @@ const Settings = () => {
     const classes = useStyles()
 
     const getUser = useUsersContext().fetchUser
-    const { user } = useUsersContext()
-
-    const changeSettings = () => {
-        getUser()
-    }
-
-    const changePassword = () => {
-
-    }
+    const handleChange = useUsersContext().handleChange
+    const editUser = useUsersContext().editUser
+    const changePassword = useUsersContext().changePassword
+    const { user, password } = useUsersContext()
 
     return (
         <Grid container direction="column" className={classes.settingsContainer}>            
@@ -32,7 +27,7 @@ const Settings = () => {
                     margin="dense"
                     size="small"				
                     label="Förnamn"
-                    onChange={(e) => ("")}
+                    onChange={(e) => (handleChange(e))}
                 />
                 <TextField
                     name="lastName"
@@ -42,7 +37,7 @@ const Settings = () => {
                     margin="dense"
                     size="small"				
                     label="Efternamn"
-                    onChange={(e) => ("")}
+                    onChange={(e) => (handleChange(e))}
                 />
                 <TextField
                     name="city"
@@ -52,12 +47,34 @@ const Settings = () => {
                     margin="dense"
                     size="small"				
                     label="Ort"
-                    onChange={(e) => ("")}
+                    onChange={(e) => (handleChange(e))}
                 />
-                <Button onClick={changeSettings}>Bekräfta</Button>
+                <Button onClick={getUser}>Hämta användare</Button>
+                <Button onClick={editUser}>Bekräfta</Button>
             </Grid>
             <Grid container direction="column">
                 <Typography variant="h4">Byt lösenord</Typography> 
+                <TextField
+                    name="oldPassword"
+                    value={password.oldPassword}
+                    helperText=""
+                    variant="standard"
+                    margin="dense"
+                    size="small"				
+                    label="Gamla lösenordet"
+                    onChange={(e) => (handleChange(e))}
+                />
+                <TextField
+                    name="newPassword"
+                    value={password.newPassword}
+                    helperText=""
+                    variant="standard"
+                    margin="dense"
+                    size="small"				
+                    label="Nya lösenordet"
+                    onChange={(e) => (handleChange(e))}
+                />
+
                 <Button onClick={changePassword}>Bekräfta</Button>
             </Grid>
         </Grid>
