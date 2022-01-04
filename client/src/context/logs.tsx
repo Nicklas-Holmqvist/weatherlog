@@ -6,21 +6,39 @@ export const LogsContext = createContext<Context>(undefined!);
 type Context = {
     logs: ILogs[],
     logValue: ILogs,
+    log: ILogs,
     logDate: ILogDate,
     numberOfMonths: number[],
     numberOfDays: number[],
     addPost: () => void,
-    editPost: () => void,
+    getLog: (id:any) => void
+    editPost: (id:any) => void,
     deletePost: () => void,
+    getLogUrl: (e:any) => void,
     handleChange: (e:any) => void
+    handleEditChange: (e:any) => void
 }
 
 export const LogsProvider: FunctionComponent = ({ children }) => {
     const d = new Date()
+
+    const emptyLog:ILogs = {
+        airFeeling: "",
+        airpressure: "",
+        date: "",
+        description: "",
+        humidity: "",
+        precipitation: "",
+        temperature: "",
+        user: "",
+        windDirection: "",
+        windSpeed: "",
+        weather: ""
+    }
     
     /** Contains all the users logs */
     const [logs, setLogs] = useState<ILogs[]>([])
-    
+
     /** The object of dates dropdowns on create log */
     const [logDate, setLogDate] = useState<ILogDate>({
         day: d.getDate(),
@@ -42,6 +60,9 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         windSpeed: "",
         weather: ""
     })
+
+    /** The object that will be created in backend */
+    const [log, setLog] = useState<ILogs>(emptyLog)
     
     /** Month in a year */
     const numberOfMonths: number[] = [1,2,3,4,5,6,7,8,9,10,11,12]
@@ -62,6 +83,10 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         }           
     }
 
+    const getLogUrl = (e:any) => {
+        getLog(e)
+    }
+
     /**
      * Handle input changes on create log page
      * @param e value from inpufields in create log
@@ -80,6 +105,21 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         }
         setLogValue({
             ...logValue,
+            [name]: value
+        })     
+    }
+
+    /**
+     * Handle input changes on create log page
+     * @param e value from inpufields in create log
+     * @returns 
+     */
+    const handleEditChange = (e:any) => {
+        const value = e.target.value;
+        const name = e.target.name;
+
+        setLog({
+            ...log,
             [name]: value
         })     
     }
@@ -125,6 +165,9 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         fetchLogs: {
             method: 'get',
         },
+        getLog: {
+            method: "get",
+        },
         addPost: {
             method: "post",
             headers: {"Content-Type": "application/json"},
@@ -133,7 +176,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         editPost: {
             method: "put",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(logValue),
+            body: JSON.stringify(log),
         },
         deletePost: {
             method: "delete",
@@ -159,21 +202,45 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     },[])
     
 
+    // Hämtar en log
+    const getLog = async (id:any) => { 
+        await fetch(`/api/log/${id}`, options.getLog)
+            .then((res) => {
+                if (res.status === 400) {
+                    return;
+                }
+                return res.json();
+            })
+            .then((data) => {
+                setLog(data)
+                console.log(data)
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
+
     // Skapar en log
     const addPost = async () => { 
         await fetch('/api/logs/register', options.addPost)
         .catch((err) => {
             console.error(err);
         });
+        setLogValue(emptyLog)
+        setLogDate({
+            day: d.getDate(),
+            month: (d.getMonth()+1),
+            year: d.getFullYear(),
+        })
     };
 
     // Ändra en log
-    const editPost = async () => {  
-        const logId = "61c1cf0f934272f160fffbca"
-        await fetch(`/api/logs/${logId}`, options.editPost)
+    const editPost = async (id:any) => {
+        await fetch(`/api/logs/${id}`, options.editPost)
         .catch((err) => {
             console.error(err);
         });
+        setLog(emptyLog)
     };
 
     // Ta bort log
@@ -191,7 +258,11 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 editPost, 
                 deletePost, 
                 handleChange,
+                handleEditChange,
+                getLog,
+                getLogUrl,
                 logs,
+                log,
                 logValue,
                 logDate,
                 numberOfMonths,

@@ -6,4 +6,5 @@ export * from './login';
 export * from './register';
 export * from './api';
 export * from './createLog';
+export * from './editLog';
 export * from './diagram';

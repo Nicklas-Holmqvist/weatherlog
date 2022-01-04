@@ -12,6 +12,18 @@ exports.getLogs = async (req, res) => {
     }       
 }
 
+// Get log from api
+exports.getLog = async (req, res) => {
+    const log = req.params.id
+    const user = req.cookies.user
+    try {
+        const logs = await (LogModel.findById(log)).populate('user');
+        res.status(200).json(logs)
+    } catch (error) {
+        res.status(503).json('No login')
+    }       
+}
+
 // Get all days in month for diagram
 exports.getDiagram = async (req, res) => {
     const user = req.cookies.user

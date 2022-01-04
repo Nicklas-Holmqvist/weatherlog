@@ -2,6 +2,10 @@ GET http://localhost:5000/api/logs/
 
 ###
 
+GET http://localhost:5000/api/log/61cc289a7452b30b6ce4dd88
+
+###
+
 GET http://localhost:5000/api/diagram/202112
 
 ###
@@ -24,7 +28,7 @@ Content-Type: application/json
 
 ### 
 
-PUT http://localhost:5000/api/logs/61bc81a3393aa0444c06af83
+PUT http://localhost:5000/api/logs/61cc289a7452b30b6ce4dd88
 Content-Type: application/json
 
 {
