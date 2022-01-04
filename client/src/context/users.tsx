@@ -4,8 +4,7 @@ import { IUsers } from '../types/Users'
 export const UsersContext = createContext<Context>(undefined!);
 
 type Context = {
-    Users: IUsers[],
-    test: string,
+    user: IUsers,
     deleteUser: () => void,
     changePassword: () => void,
     fetchUser: () => void,
@@ -16,8 +15,13 @@ type Context = {
 }
 
 export const UsersProvider: FunctionComponent = ({ children }) => {
-    const [Users, setUsers] = useState<IUsers[]>([])
-    const test = "Users context fungerar"
+    const [user, setUser] = useState<IUsers>({
+        email: "",
+        password: "",
+        city: "",
+        firstName: "",
+        lastName: "",
+    })
 
     const newUser = {
         email: "b@b.se",
@@ -51,7 +55,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
         addUserInfo: {
             method: "post",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(userInfo),
+            body: JSON.stringify(user),
         },
         editUser: {
             method: "put",
@@ -74,7 +78,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
     }
 
     const fetchUser = async () => {
-        await fetch('/api/logs', options.addUser)
+        await fetch('/api/user', options.fetchUser)
             .then((res) => {
                 if (res.status === 400) {
                     return;
@@ -82,7 +86,8 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
                 return res.json();
             })
             .then((data) => {
-                setUsers(data)
+                setUser(data)
+                console.log(data)
             })
             .catch((err) => {
                 console.error(err);
@@ -136,8 +141,19 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
     });
 
     return (
-        <UsersContext.Provider value={{ Users, test, deleteUser, changePassword, fetchUser, addUser, addUserInfo, editUser, logout }}>
-            {children}
+        <UsersContext.Provider value={
+            { 
+                user,
+                deleteUser, 
+                changePassword, 
+                fetchUser, 
+                addUser, 
+                addUserInfo, 
+                editUser, 
+                logout 
+            }
+        }>
+        {children}
         </UsersContext.Provider>
     )
 };

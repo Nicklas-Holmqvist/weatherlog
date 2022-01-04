@@ -8,3 +8,4 @@ export * from './api';
 export * from './createLog';
 export * from './editLog';
 export * from './diagram';
+export * from './settings';

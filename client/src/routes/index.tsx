@@ -7,7 +7,8 @@ import {
 	LandingPage,
 	CreateLogPage,
 	DiagramPage,
-	EditLogPage
+	EditLogPage,
+	SettingsPage
 } from '../pages';
 
 export const routes = [
@@ -46,6 +47,10 @@ export const routes = [
 	{
 		path: '/log/:id',
 		element: <EditLogPage />,
+	},
+	{
+		path: '/settings',
+		element: <SettingsPage />,
 	},
 ];
 
