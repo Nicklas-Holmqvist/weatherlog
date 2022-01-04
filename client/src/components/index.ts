@@ -6,3 +6,4 @@ export * from './EditLog';
 export * from './RegisterForm';
 export * from './WeatherCard';
 export * from './Diagram';
+export * from './Settings';

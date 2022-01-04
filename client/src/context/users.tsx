@@ -1,44 +1,59 @@
 import React, { useState, useContext, createContext, FunctionComponent, useEffect } from 'react'
-import { IUsers } from '../types/Users'
+import { IUsers, IPassword } from '../types/Users'
 
 export const UsersContext = createContext<Context>(undefined!);
 
 type Context = {
-    Users: IUsers[],
-    test: string,
+    user: IUsers,
+    password: IPassword,
     deleteUser: () => void,
     changePassword: () => void,
-    fetchUser: () => void,
     addUser: () => void,
     addUserInfo: () => void,
     editUser: () => void,    
     logout: () => void,    
+    handleChange: (e:any) => void,    
 }
 
 export const UsersProvider: FunctionComponent = ({ children }) => {
-    const [Users, setUsers] = useState<IUsers[]>([])
-    const test = "Users context fungerar"
 
-    const newUser = {
-        email: "b@b.se",
-        password: "123"
+    const emptyUser = {
+        email: "",
+        password: "",
+        city: "",
+        firstName: "",
+        lastName: "",
     }
 
-    const userInfo = {
-        firstName: "Bertil",
-        lastName: "Bertilsson",
-        city: "Borås",
+    const emptyPassword = {
+        oldPassword: "",
+        newPassword: ""
     }
 
-    const newUserInfo = {
-        firstName: "Albin",
-        lastName: "Albinsson",
-        city: "Alingsås",
-    }
+    const [user, setUser] = useState<IUsers>(emptyUser)
 
-    const newPassword = {
-        oldPassword: "123",
-        newPassword: "1234"
+    const [password, setPassword] = useState<IPassword>(emptyPassword)
+
+    /**
+     * Handle input changes in setting page
+     * @param e value from inpufields in settings page
+     * @returns 
+     */
+    const handleChange = (e:any) => {
+        const value = e.target.value;
+        const name = e.target.name;
+
+        if(name === "oldPassword" || name === "newPassword"){
+            setPassword({
+                ...password,
+                [name]: value
+            })
+        }
+
+        setUser({
+            ...user,
+            [name]: value
+        })     
     }
 
     const options = {
@@ -46,22 +61,22 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
         addUser: {
             method: "post",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(newUser),
+            body: JSON.stringify(""),
         },
         addUserInfo: {
             method: "post",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(userInfo),
+            body: JSON.stringify(user),
         },
         editUser: {
             method: "put",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(newUserInfo),
+            body: JSON.stringify(user),
         },
         changePassword: {
             method: "put",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(newPassword),
+            body: JSON.stringify(password),
         },
         logout: {
             method: "post",
@@ -73,8 +88,8 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
         },
     }
 
-    const fetchUser = async () => {
-        await fetch('/api/logs', options.addUser)
+    useEffect(() => {
+        fetch('/api/user', options.fetchUser)
             .then((res) => {
                 if (res.status === 400) {
                     return;
@@ -82,12 +97,12 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
                 return res.json();
             })
             .then((data) => {
-                setUsers(data)
+                setUser(data)
             })
             .catch((err) => {
                 console.error(err);
             });
-    };
+    },[]);
 
     const addUser = async () => {          
         await fetch('/api/user/register', options.addUser)
@@ -115,6 +130,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
         .catch((err) => {
             console.error(err);
         });
+        setPassword(emptyPassword)
     };
 
     const logout = async () => {   
@@ -131,13 +147,21 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
         });
     };
 
-    useEffect(() => {
-        // fetchUser()
-    });
-
     return (
-        <UsersContext.Provider value={{ Users, test, deleteUser, changePassword, fetchUser, addUser, addUserInfo, editUser, logout }}>
-            {children}
+        <UsersContext.Provider value={
+            { 
+                user,
+                password,
+                deleteUser, 
+                changePassword,
+                addUser, 
+                addUserInfo, 
+                editUser, 
+                logout,
+                handleChange
+            }
+        }>
+        {children}
         </UsersContext.Provider>
     )
 };
