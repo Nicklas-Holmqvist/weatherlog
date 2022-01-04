@@ -12,9 +12,27 @@ export default makeStyles((theme) => ({
 		alignItems: 'center',
 		justifyContent: 'center',
 		zIndex: 100,
+		[theme.breakpoints.down(800)]: {
+			padding: '0 24px',
+		},
+		[theme.breakpoints.down(450)]: {
+			padding: '0 16px',
+			height: 40,
+		},
 	},
 	link: {
-		margin: '0 30px',
+		margin: '0 10px',
 		textDecoration: 'none',
+		[theme.breakpoints.down(450)]: {
+			margin: '0 14px',
+			// fontSize: 12,
+		},
+	},
+	text: {
+		margin: '0 10px',
+		[theme.breakpoints.down(450)]: {
+			fontSize: 13,
+			margin: 0,
+		},
 	},
 }));

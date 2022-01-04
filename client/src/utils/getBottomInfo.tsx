@@ -8,7 +8,6 @@ import {
 	WarmBar,
 } from '.';
 import { windFeelEnum } from './enums/windFeelEnum';
-
 import useStyles from 'src/components/DailyOverview/Desktop/styles';
 
 export const GetBottomInfo = (field: string, value: number | string) => {
@@ -44,22 +43,16 @@ export const GetBottomInfo = (field: string, value: number | string) => {
 	if (field === dataEnum.WIND_FEEL) {
 		switch (value) {
 			case windFeelEnum.COLD:
-				console.log('cold');
 				return <ColdBar className={classes.bar} />;
 			case windFeelEnum.COOL:
-				console.log('cool');
 				return <CoolBar className={classes.bar} />;
 			case windFeelEnum.NEUTRAL:
-				console.log('neutral');
 				return <NeutralBar className={classes.bar} />;
 			case windFeelEnum.MILD:
-				console.log('mild');
 				return <MildBar className={classes.bar} />;
 			case windFeelEnum.WARM:
-				console.log('warm');
 				return <WarmBar className={classes.bar} />;
 			default:
-				console.log('default');
 				return <NeutralBar className={classes.bar} />;
 		}
 	}

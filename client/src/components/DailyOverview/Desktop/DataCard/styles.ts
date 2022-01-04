@@ -28,7 +28,8 @@ export default makeStyles((theme) => ({
 		fontWeight: 200,
 		marginRight: 8,
 		[theme.breakpoints.down(1281)]: {
-			fontSize: 32,
+			fontSize: 30,
+			marginRight: 5,
 		},
 	},
 	unit: {
@@ -36,7 +37,7 @@ export default makeStyles((theme) => ({
 		fontSize: 26,
 		marginBottom: 1,
 		[theme.breakpoints.down(1281)]: {
-			fontSize: 22,
+			fontSize: 21,
 		},
 	},
 	data: {

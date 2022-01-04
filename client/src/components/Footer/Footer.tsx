@@ -11,11 +11,13 @@ export const Footer = () => {
 			{footerLinks.map((link) => {
 				return (
 					<Link to={link.path} className={classes.link}>
-						<Typography variant="subtitle1">{link.label}</Typography>
+						<Typography variant="subtitle1" className={classes.text}>
+							{link.label}
+						</Typography>
 					</Link>
 				);
 			})}
-			<Typography variant="body1" className={classes.link}>
+			<Typography variant="body1" className={classes.text}>
 				Copyright © Vädernördarna | 2021
 			</Typography>
 		</Grid>
