@@ -49,15 +49,13 @@ const Diagram = () => {
     const month:any = GetMonthName(id.substring(4,6))
 
     const prevMonth = () => {     
-      if(findOld !== -1) return navigate(`/diagram/${diagramMonth[findOld-1]}`)
-      if(findOld === -1) return
       if(findOld === 1) return navigate(`/diagram/${diagramMonth[diagramLength-1]}`)
+      if(findOld !== -1) return navigate(`/diagram/${diagramMonth[findOld-1]}`)
     }
 
     const nextMonth = () => {
-      if(findOld !== -1) return navigate(`/diagram/${diagramMonth[findOld+1]}`)
-      if(findOld === -1) return
       if(findOld === (diagramLength-1)) return navigate(`/diagram/${diagramMonth[1]}`)
+      if(findOld !== -1) return navigate(`/diagram/${diagramMonth[findOld+1]}`)
     }
 
     useEffect(() => {
