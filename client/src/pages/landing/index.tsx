@@ -23,26 +23,10 @@ export const LandingPage = () => {
 
 	const { landingLogs, logs } = useLogsContext()
 
-	const [logList, setLogList] = useState<ILogs[]>(logs)
-
-	const createLandingLogs = (e:ILogs[]) => {
-        let logLength = e.length
-        let sortedList = e.sort((a:any, b:any) => {
-            return a.date - b.date
-        })
-
-        let logs:ILogs[] = []
-
-        for(let i = 0; i < 5; i++) {
-            logs.push(sortedList[logLength-1])   
-            setLogList(logs)
-            logLength--  
-        }    
-    }
+	const [logList, setLogList] = useState<ILogs[]>(landingLogs)
 
 	useEffect(() => {
-		createLandingLogs(logs)
-		console.log(landingLogs)
+		setLogList(landingLogs)
 	})
 
 	return (
@@ -118,7 +102,7 @@ export const LandingPage = () => {
 						key={day.date.toString()}
 						temp={parseInt(day.temperature)}
 						date={{ day: 29, month: 'april' }}
-						weather={weatherEnum.OVERCAST}
+						weather={day.weather.toString()}
 						wind={{ speed: 8, direction: 'se' }}
 						precipitation={Number(day.precipitation)}
 					/>
