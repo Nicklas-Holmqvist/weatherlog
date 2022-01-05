@@ -1,8 +1,6 @@
-import React from 'react';
 import { Button, Grid, TextField, Typography } from '@material-ui/core';
 
 import { useUsersContext } from '../../../context/users';
-
 import useStyles from './styles';
 
 export const SettingsPassword = () => {
@@ -13,31 +11,48 @@ export const SettingsPassword = () => {
 	const { password } = useUsersContext();
 
 	return (
-		<Grid container direction="column" className={classes.settingsContainer}>
-			<Grid container direction="column">
-				<Typography variant="h4">Byt lösenord</Typography>
-				<TextField
-					name="oldPassword"
-					value={password.oldPassword}
-					helperText=""
-					variant="standard"
-					margin="dense"
-					size="small"
-					label="Gamla lösenordet"
-					onChange={(e) => handleChange(e)}
-				/>
-				<TextField
-					name="newPassword"
-					value={password.newPassword}
-					helperText=""
-					variant="standard"
-					margin="dense"
-					size="small"
-					label="Nya lösenordet"
-					onChange={(e) => handleChange(e)}
-				/>
-				<Button onClick={changePassword}>Ändra lösenord</Button>
+		<Grid container direction="column" className={classes.root}>
+			<Typography variant="h5" className={classes.title}>
+				Lösenord
+			</Typography>
+			<Grid container item className={classes.textFieldContainer}>
+				<Grid item>
+					<Typography variant="subtitle1">Nuvarande lösenord</Typography>
+					<TextField
+						fullWidth
+						name="oldPassword"
+						value={password.oldPassword}
+						helperText=""
+						variant="outlined"
+						margin="dense"
+						size="small"
+						className={classes.textField}
+						onChange={(e) => handleChange(e)}
+					/>
+				</Grid>
+				<Grid item>
+					<Typography variant="subtitle1">Nytt lösenord</Typography>
+					<TextField
+						fullWidth
+						name="newPassword"
+						value={password.newPassword}
+						helperText=""
+						variant="outlined"
+						margin="dense"
+						size="small"
+						onChange={(e) => handleChange(e)}
+						className={classes.textField}
+					/>
+				</Grid>
 			</Grid>
+			<Button
+				onClick={changePassword}
+				variant="contained"
+				disableElevation
+				className={classes.button}
+			>
+				Ändra lösenord
+			</Button>
 		</Grid>
 	);
 };
