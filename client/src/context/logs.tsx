@@ -5,6 +5,7 @@ export const LogsContext = createContext<Context>(undefined!);
     
 type Context = {
     logs: ILogs[],
+    landingLogs: ILogs[],
     logValue: ILogs,
     log: ILogs,
     logDate: ILogDate,
@@ -17,6 +18,7 @@ type Context = {
     getLogUrl: (e:any) => void,
     handleChange: (e:any) => void
     handleEditChange: (e:any) => void
+    getAllLogs: () => void
 }
 
 export const LogsProvider: FunctionComponent = ({ children }) => {
@@ -60,6 +62,8 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         windSpeed: "",
         weather: ""
     })
+
+    const [landingLogs, setLandingLogs] = useState<ILogs[]>([])
 
     /** The object that will be created in backend */
     const [log, setLog] = useState<ILogs>(emptyLog)
@@ -144,6 +148,22 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             return a.date - b.date
         }))
     }
+
+    const createLandingLogs = (e:ILogs[]) => {
+        let logLength = e.length
+        let sortedList = e.sort((a:any, b:any) => {
+            return a.date - b.date
+        })
+
+        let logs:ILogs[] = []
+
+        for(let i = 0; i < 5; i++) {
+            if(logLength === 0) return
+            logs.push(sortedList[logLength-1])   
+            setLandingLogs(logs)
+            logLength--  
+        }  
+    }
     
     /** Sets the data from logDate to logValue.date */
     useEffect(() => {
@@ -184,9 +204,9 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         },
     }
 
-    // Hämtar alla logs
-    useEffect(() => {
-        fetch('/api/logs', options.fetchLogs)
+    // Fetch all logss
+    const getAllLogs = async () => {
+        await fetch('/api/logs', options.fetchLogs)
             .then((res) => {
                 if (res.status === 400) {
                     return;
@@ -194,13 +214,13 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 return res.json();
             })
             .then((data) => {
-                sortLogs(data) 
+                sortLogs(data)
+                createLandingLogs(data)
             })
             .catch((err) => {
                 console.error(err);
             });
-    },[])
-    
+    }
 
     // Hämtar en log
     const getLog = async (id:any) => { 
@@ -213,7 +233,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             })
             .then((data) => {
                 setLog(data)
-                console.log(data)
             })
             .catch((err) => {
                 console.error(err);
@@ -261,8 +280,10 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 handleEditChange,
                 getLog,
                 getLogUrl,
+                getAllLogs,
                 logs,
                 log,
+                landingLogs,
                 logValue,
                 logDate,
                 numberOfMonths,
