@@ -86,6 +86,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     const getLogUrl = (e:any) => {
         getLog(e)
     }
+    console.log(logs)
 
     /**
      * Handle input changes on create log page
