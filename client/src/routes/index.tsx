@@ -1,4 +1,3 @@
-import DailyOverviewPage from 'src/pages/log';
 import {
 	HomePage,
 	RegisterPage,
@@ -8,6 +7,7 @@ import {
 	LandingPage,
 	CreateLogPage,
 	DiagramPage,
+	DailyOverviewPage,
 	EditLogPage,
 	SettingsPage,
 } from '../pages';

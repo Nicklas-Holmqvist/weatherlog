@@ -3,6 +3,7 @@ export * from './example';
 export * from './home';
 export * from './landing';
 export * from './login';
+export * from './log';
 export * from './register';
 export * from './api';
 export * from './createLog';
