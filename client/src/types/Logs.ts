@@ -1,4 +1,5 @@
 export interface ILogs {
+        _id?: String
         airFeeling: String
         airpressure: String
         date: String
