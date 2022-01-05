@@ -2,7 +2,7 @@ GET http://localhost:5000/api/logs/
 
 ###
 
-GET http://localhost:5000/api/log/61cc289a7452b30b6ce4dd88
+GET http://localhost:5000/api/log/61d5ac69a1348da439dd133e
 
 ###
 
@@ -17,7 +17,7 @@ Content-Type: application/json
     "airFeeling": "Skylig,",
     "airpressure": "1024",
     "description": "Vädret har varit växlande med lite regnskurar",
-    "date": "102548",
+    "date": "20220106",
     "humidity": "64",
     "precipitation": "4",
     "temperature": "14",
@@ -28,7 +28,7 @@ Content-Type: application/json
 
 ### 
 
-PUT http://localhost:5000/api/logs/61cc289a7452b30b6ce4dd88
+PUT http://localhost:5000/api/logs/61d5ac69a1348da439dd133e
 Content-Type: application/json
 
 {
