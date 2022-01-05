@@ -16,12 +16,20 @@ exports.getLogs = async (req, res) => {
 exports.getLog = async (req, res) => {
     const log = req.params.id
     const user = req.cookies.user
-    try {
-        const logs = await (LogModel.findById(log)).populate('user');
-        res.status(200).json(logs)
-    } catch (error) {
-        res.status(503).json('No login')
-    }       
+    
+    const logs = await (LogModel.findOne({_id:log}).find({user:user}).populate('user'));
+
+    if(logs.length !== 0) {
+        try {
+            res.status(200).json(logs)
+        } catch (error) {
+            res.status(503).json('No login')
+        } 
+    } else {
+        let errors = { msg: '' }
+        errors.msg = 'No login!'        
+        res.status(400).json({ errors })
+    }
 }
 
 // Get all days in month for diagram
@@ -33,10 +41,12 @@ exports.getDiagram = async (req, res) => {
         res.status(200).json(logs)
     } catch (error) {
         res.status(503).json('No login')
-    }       
+    } 
 }
 
 exports.createLog = async (req, res) => {
+    const cookie = req.cookies.user
+    
     const { 
         airFeeling,
         airpressure,
@@ -50,8 +60,7 @@ exports.createLog = async (req, res) => {
         windSpeed
     } = req.body
     
-    const cookie = req.cookies.user
-    const dateExist = await LogModel.exists({ date: date });
+    const dateExist = await LogModel.find({user:cookie}).findOne({date:date});
     
     const newLog = {
         airFeeling: airFeeling,
@@ -98,7 +107,7 @@ exports.changeLog = async (req, res) => {
         windSpeed
     } = req.body
 
-    const getLog = await LogModel.findById(log).exists({user:user});
+    const getLog = await LogModel.find({user:user}).findOne({_id: log});
     
     const newLog = {
         airFeeling: airFeeling,

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
 	Button,
 	Grid,
@@ -8,14 +9,29 @@ import {
 import { AddRounded, HistoryRounded } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
+import { NoLog } from '../../components/NoLog/NoLog'
 import { WeatherCard } from 'src/components';
 import theme from 'src/theme';
-import { directionEnum, weatherEnum } from 'src/utils';
 import useStyles from './styles';
+
+import { useLogsContext } from '../../context/logs';
+import { ILogs } from 'src/types/Logs';
+import GetMonthName from '../../utils/getMonthName';
 
 export const LandingPage = () => {
 	const classes = useStyles();
 	const mobile = useMediaQuery(theme.breakpoints.down(540));
+
+	const getAllLogs = useLogsContext().getAllLogs
+	const { landingLogs } = useLogsContext()
+
+	const [logList, setLogList] = useState<ILogs[]>(landingLogs)
+
+	useEffect(() => {
+		setLogList(landingLogs)
+		getAllLogs()
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[landingLogs])	
 
 	return (
 		<Grid item container className={classes.container}>
@@ -57,6 +73,9 @@ export const LandingPage = () => {
 					</Link>
 				</Grid>
 			</Grid>
+			{logList.length === 0 ? 
+				<NoLog />
+				 :
 			<Grid item container className={classes.tableHeader}>
 				<Grid item>
 					<Typography variant="body1" className={classes.tableTitleText}>
@@ -84,42 +103,18 @@ export const LandingPage = () => {
 					</Typography>
 				</Grid>
 			</Grid>
-			<Grid item container direction="column">
-				<WeatherCard
-					temp={17}
-					date={{ day: 29, month: 'april' }}
-					weather={weatherEnum.OVERCAST}
-					wind={{ speed: 8, direction: 'se' }}
-					precipitation={0.4}
-				/>
-				<WeatherCard
-					temp={21}
-					date={{ day: 30, month: 'april' }}
-					weather={weatherEnum.SUN}
-					wind={{ speed: 8, direction: 'se' }}
-					precipitation={0}
-				/>
-				<WeatherCard
-					temp={20}
-					date={{ day: 1, month: 'maj' }}
-					weather={weatherEnum.THUNDER}
-					wind={{ speed: 8, direction: 'se' }}
-					precipitation={1.5}
-				/>
-				<WeatherCard
-					temp={-16}
-					date={{ day: 2, month: 'maj' }}
-					weather={weatherEnum.SNOWFALL}
-					wind={{ direction: directionEnum.S }}
-					precipitation={4.7}
-				/>
-				<WeatherCard
-					temp={8}
-					date={{ day: 3, month: 'maj' }}
-					weather={weatherEnum.RAIN_SHOWER}
-					wind={{ speed: 8, direction: 'se' }}
-					precipitation={10.4}
-				/>
+				}
+			<Grid item container direction="column">					 
+				{logList.map((d:ILogs) => 
+					<WeatherCard
+						key={d._id?.toString()} 
+						temp={parseInt(d.temperature)}
+						date={{ day:d.date.substring(6,8).toString(), month: GetMonthName(d.date.substring(4,6).toString())! }}
+						weather={d.weather.toString()}
+						wind={{ speed: d.windSpeed.toString(), direction: d.windDirection.toString() }}
+						precipitation={Number(d.precipitation)}
+					/>
+				)}				
 			</Grid>
 		</Grid>
 	);

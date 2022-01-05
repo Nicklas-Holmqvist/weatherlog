@@ -12,12 +12,12 @@ import useStyles from './styles';
 interface IWeatherCard {
 	temp: number;
 	date: {
-		day: number;
+		day: string;
 		month: string;
 	};
 	weather: string;
 	wind: {
-		speed?: number;
+		speed?: string;
 		direction: string;
 	};
 	precipitation: number;
