@@ -9,6 +9,7 @@ import {
 import { AddRounded, HistoryRounded } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
+import { NoLog } from '../../components/NoLog/NoLog'
 import { WeatherCard } from 'src/components';
 import theme from 'src/theme';
 import useStyles from './styles';
@@ -22,13 +23,14 @@ export const LandingPage = () => {
 	const mobile = useMediaQuery(theme.breakpoints.down(540));
 
 	const getAllLogs = useLogsContext().getAllLogs
-	const { landingLogs, logs } = useLogsContext()
+	const { landingLogs } = useLogsContext()
 
 	const [logList, setLogList] = useState<ILogs[]>(landingLogs)
 
 	useEffect(() => {
 		setLogList(landingLogs)
 		getAllLogs()
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[landingLogs])	
 
 	return (
@@ -71,6 +73,9 @@ export const LandingPage = () => {
 					</Link>
 				</Grid>
 			</Grid>
+			{logList.length === 0 ? 
+				<NoLog />
+				 :
 			<Grid item container className={classes.tableHeader}>
 				<Grid item>
 					<Typography variant="body1" className={classes.tableTitleText}>
@@ -98,7 +103,8 @@ export const LandingPage = () => {
 					</Typography>
 				</Grid>
 			</Grid>
-			<Grid item container direction="column">
+				}
+			<Grid item container direction="column">					 
 				{logList.map((d:ILogs) => 
 					<WeatherCard
 						key={d._id?.toString()} 
@@ -108,7 +114,7 @@ export const LandingPage = () => {
 						wind={{ speed: d.windSpeed.toString(), direction: d.windDirection.toString() }}
 						precipitation={Number(d.precipitation)}
 					/>
-				)}
+				)}				
 			</Grid>
 		</Grid>
 	);

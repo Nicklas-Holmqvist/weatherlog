@@ -158,10 +158,11 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         let logs:ILogs[] = []
 
         for(let i = 0; i < 5; i++) {
+            if(logLength === 0) return
             logs.push(sortedList[logLength-1])   
             setLandingLogs(logs)
             logLength--  
-        }    
+        }  
     }
     
     /** Sets the data from logDate to logValue.date */
