@@ -32,30 +32,30 @@ import {
 
 const Diagram = () => {
 
+    let navigate = useNavigate(); 
     const classes = useStyles()
     const {id}:any = useParams();
-    let navigate = useNavigate();
 
-    const {diagramData, diagramLabel, diagramBackgroundcolor, diagramMonth, diagramPrec} = useDiagramsContext()
     const setApiParam = useDiagramsContext().getDiagramUrl
+    const {diagramData, diagramLabel, diagramBackgroundcolor, diagramMonth, diagramPrec} = useDiagramsContext()
+
     const [temp, setTemp] = useState<number[]>(diagramData)
     const [labels, setLabels] = useState<string[]>(diagramLabel)
     const [color, setColor] = useState<any[] | any>(diagramBackgroundcolor)
 
+    const diagramLength = diagramMonth.length
     const findOld = diagramMonth.indexOf(id)
     const year:string = id.substring(0,4)
     const month:any = GetMonthName(id.substring(4,6))
 
-    const prevMonth = () => {            
-      if(findOld !== -1) {
-        navigate(`/diagram/${diagramMonth[findOld-1]}`)
-      } 
+    const prevMonth = () => {     
+      if(findOld === 1) return navigate(`/diagram/${diagramMonth[diagramLength-1]}`)
+      if(findOld !== -1) return navigate(`/diagram/${diagramMonth[findOld-1]}`)
     }
 
     const nextMonth = () => {
-      if(findOld !== -1) {
-        navigate(`/diagram/${diagramMonth[findOld+1]}`)
-      } 
+      if(findOld === (diagramLength-1)) return navigate(`/diagram/${diagramMonth[1]}`)
+      if(findOld !== -1) return navigate(`/diagram/${diagramMonth[findOld+1]}`)
     }
 
     useEffect(() => {
