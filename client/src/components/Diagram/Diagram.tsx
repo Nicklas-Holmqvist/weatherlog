@@ -48,15 +48,17 @@ const Diagram = () => {
     const year:string = id.substring(0,4)
     const month:any = GetMonthName(id.substring(4,6))
 
+    console.log(diagramMonth)
     const prevMonth = () => {     
-      if(findOld === 1) return navigate(`/diagram/${diagramMonth[diagramLength-1]}`)
-      if(findOld !== -1) return navigate(`/diagram/${diagramMonth[findOld-1]}`)
+      if(findOld === 0) return navigate(`/diagram/${diagramMonth[diagramLength-1]}`)
+      if(findOld !== -1) return navigate(`/diagram/${diagramMonth[findOld-1]}`)      
     }
 
     const nextMonth = () => {
       if(findOld === (diagramLength-1)) return navigate(`/diagram/${diagramMonth[1]}`)
-      if(findOld !== -1) return navigate(`/diagram/${diagramMonth[findOld+1]}`)
+      if(findOld !== -1) return navigate(`/diagram/${diagramMonth[findOld+1]}`)      
     }
+
 
     useEffect(() => {
         setApiParam(id)
@@ -111,10 +113,10 @@ const Diagram = () => {
     return (
     <Grid container direction="column" className={classes.diagramContainer}>
       <Grid container direction="row" className={classes.header}>
-        <Button onClick={prevMonth}>Bakåt</Button>
+        {diagramLength > 1 ? <Button onClick={prevMonth}>Bakåt</Button> : ''}        
         <Typography variant="h4">{year}</Typography> 
         <Typography variant="h4">{month}</Typography> 
-        <Button onClick={nextMonth}>Framåt</Button>
+        {diagramLength > 1 ? <Button onClick={nextMonth}>Framåt</Button> : ''}        
       </Grid>
       <Grid container className={classes.diagram}>
         <Line options={options} data={data} />
