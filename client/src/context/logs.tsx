@@ -204,7 +204,23 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         },
     }
 
-    // Fetch all logss
+    useEffect(() => {
+        fetch('/api/logs', options.fetchLogs)
+            .then((res) => {
+                if (res.status === 400) {
+                    return;
+                }
+                return res.json();
+            })
+            .then((data) => {
+                sortLogs(data) 
+                createLandingLogs(data)
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    },[])
+
     const getAllLogs = async () => {
         await fetch('/api/logs', options.fetchLogs)
             .then((res) => {
@@ -215,7 +231,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             })
             .then((data) => {
                 sortLogs(data)
-                createLandingLogs(data)
             })
             .catch((err) => {
                 console.error(err);
