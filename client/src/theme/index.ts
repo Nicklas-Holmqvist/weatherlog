@@ -61,7 +61,7 @@ export const theme = createTheme({
 		},
 		h2: {
 			fontWeight: 600,
-			fontSize: 46,
+			fontSize: 40,
 			color: '#333',
 			zIndex: 1,
 			fontFamily: FONT_SECONDARY,

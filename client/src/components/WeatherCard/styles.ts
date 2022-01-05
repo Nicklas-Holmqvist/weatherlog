@@ -4,7 +4,7 @@ export default makeStyles((theme) => ({
 	container: {
 		width: '100%',
 		height: 100,
-		backgroundColor: theme.palette.grey[200],
+		backgroundColor: '#f2f2f2',
 		borderRadius: 12,
 		alignItems: 'center',
 		justifyContent: 'space-between',
@@ -81,7 +81,7 @@ export default makeStyles((theme) => ({
 		width: 40,
 		display: 'flex',
 		alignContent: 'center',
-		[theme.breakpoints.only('sm')]: {
+		[theme.breakpoints.down(1281)]: {
 			width: 32,
 		},
 		[theme.breakpoints.only('xs')]: {
@@ -89,6 +89,17 @@ export default makeStyles((theme) => ({
 		},
 		[theme.breakpoints.down(450)]: {
 			width: 16,
+		},
+	},
+	bigArrowIcon: {
+		width: 40,
+		display: 'flex',
+		alignContent: 'center',
+		[theme.breakpoints.down(1281)]: {
+			width: 28,
+		},
+		[theme.breakpoints.down(450)]: {
+			width: 24,
 		},
 	},
 	wind: {

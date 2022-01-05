@@ -1,3 +1,4 @@
+export * from './DailyOverview';
 export * from './Footer';
 export * from './Header';
 export * from './LoginForm';

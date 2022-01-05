@@ -6,18 +6,18 @@ import {
 	useMediaQuery,
 	IconButton,
 } from '@material-ui/core';
-import { ExitToAppRounded, Menu } from '@material-ui/icons';
-// import { useNavigate } from 'react-router-dom';
+import { ExitToAppRounded } from '@material-ui/icons';
 
 import theme from 'src/theme';
 import useStyles from './styles';
 import logo from './weatherlog-mini-logo.svg';
-import { useUsersContext } from '../../context/users'
+import { MenuIcon } from 'src/utils';
+import { useUsersContext } from '../../context/users';
 
 export const Header = () => {
 	const classes = useStyles();
 	const mobile = useMediaQuery(theme.breakpoints.only('xs'));
-	const { user } = useUsersContext()
+	const { user } = useUsersContext();
 
 	useEffect(() => {
 		isPathLoginOrRegister();
@@ -40,8 +40,13 @@ export const Header = () => {
 	return isPathLoginOrRegister() ? null : mobile ? (
 		<Grid item container component="header" className={classes.mobileHeader}>
 			<Grid item className={classes.mobileLeft}>
-				<IconButton size="medium" edge="start" color="inherit" aria-label="menu">
-					<Menu />
+				<IconButton
+					size="medium"
+					edge="start"
+					color="inherit"
+					aria-label="menu"
+				>
+					<MenuIcon />
 				</IconButton>
 				<img src={logo} alt="Logo" className={classes.mobileLogo} />
 			</Grid>
@@ -58,7 +63,11 @@ export const Header = () => {
 				<Grid item className={classes.left}>
 					<img src={logo} alt="Logo" />
 					<Typography variant="body1" className={classes.name}>
-						{user.firstName} {user.lastName}, {user.city}
+						{`${user?.firstName || 'Greger'} ${
+							user?.lastName || 'Grindberg'
+						}, ${user?.city || ' Jukkasjärvi'}`}
+						{/* {user?.firstName || 'Greger'} {user?.lastName || 'Grindberg'},
+						{user?.city || ' Jukkasjärvi'} */}
 					</Typography>
 				</Grid>
 				<Grid item>
