@@ -91,7 +91,7 @@ export const SettingsUser = () => {
 				<Grid item container className={classes.removeAccountContainer}>
 					<Grid item>
 						<Typography variant="subtitle1">Ta bort konto</Typography>
-						<Typography variant="body2">
+						<Typography variant="body2" className={classes.removeAccountText}>
 							När du tar bort ditt konto försvinner det och datan du sparat för
 							alltid! Detta kan inte ångras
 						</Typography>

@@ -27,6 +27,7 @@ export const SettingsPassword = () => {
 						margin="dense"
 						size="small"
 						className={classes.textField}
+						type="password"
 						onChange={(e) => handleChange(e)}
 					/>
 				</Grid>
@@ -40,8 +41,9 @@ export const SettingsPassword = () => {
 						variant="outlined"
 						margin="dense"
 						size="small"
-						onChange={(e) => handleChange(e)}
 						className={classes.textField}
+						type="password"
+						onChange={(e) => handleChange(e)}
 					/>
 				</Grid>
 			</Grid>

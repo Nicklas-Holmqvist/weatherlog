@@ -10,6 +10,7 @@ export default makeStyles((theme) => ({
 		transform: 'translate(-50%, -50%)',
 		borderRadius: 16,
 		maxWidth: 450,
+		minWidth: 300,
 	},
 	title: {
 		marginBottom: 10,

@@ -6,6 +6,13 @@ export default makeStyles((theme) => ({
 		backgroundColor: theme.palette.grey[100],
 		padding: '36px 40px 26px 40px',
 		borderRadius: 20,
+		[theme.breakpoints.down(880)]: {
+			marginTop: 16,
+		},
+		[theme.breakpoints.down(450)]: {
+			padding: '28px 20px 16px 20px',
+			marginBottom: 40,
+		},
 	},
 	title: {
 		marginBottom: 18,
@@ -16,6 +23,11 @@ export default makeStyles((theme) => ({
 		gridTemplateColumns: '1fr 1fr',
 		gridTemplateRows: '1fr 1fr',
 		columnGap: 20,
+		[theme.breakpoints.down(550)]: {
+			gridTemplateColumns: '1fr',
+			gridTemplateRows: '1fr 1fr 1fr 1fr',
+			rowGap: 4,
+		},
 	},
 	textField: {
 		[`& fieldset`]: {
@@ -50,6 +62,9 @@ export default makeStyles((theme) => ({
 		'&:hover': {
 			backgroundColor: theme.palette.grey[800],
 		},
+		[theme.breakpoints.down(450)]: {
+			width: '100%',
+		},
 	},
 	removeAccountButton: {
 		borderRadius: 6,
@@ -63,10 +78,24 @@ export default makeStyles((theme) => ({
 			backgroundColor: theme.palette.error.main,
 			color: theme.palette.common.white,
 		},
+		[theme.breakpoints.down(880)]: {
+			marginTop: 16,
+		},
+		[theme.breakpoints.down(450)]: {
+			width: '100%',
+		},
 	},
 	removeAccountContainer: {
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'space-between',
+	},
+	removeAccountText: {
+		[theme.breakpoints.down(1240)]: {
+			maxWidth: 400,
+		},
+		[theme.breakpoints.down(880)]: {
+			maxWidth: 'unset',
+		},
 	},
 }));

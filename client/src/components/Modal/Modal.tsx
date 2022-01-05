@@ -1,7 +1,6 @@
 import { Box, Typography, Modal, Button } from '@material-ui/core';
-import { useState } from 'react';
-// import { useUsersContext } from 'src/context/users';
 
+// import { useUsersContext } from 'src/context/users';
 import useStyles from './styles';
 
 interface IModalPopup {
@@ -15,7 +14,6 @@ interface IModalPopup {
 
 export const ModalPopup = ({ open, handleClose }: IModalPopup) => {
 	const classes = useStyles();
-	// const [isOpen, setIsOpen] = useState(open);
 
 	// const deleteAccount = useUsersContext().deleteUser
 
@@ -46,7 +44,7 @@ export const ModalPopup = ({ open, handleClose }: IModalPopup) => {
 		</Modal>
 		// <Modal
 		// 	open={open}
-		// 	onClose={() => setOpen(false)}
+		// 	onClose={handleClose}
 		// 	aria-labelledby="modal-modal-title"
 		// 	aria-describedby="modal-modal-description"
 		// >

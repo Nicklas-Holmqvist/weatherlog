@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
-import {
-	List,
-	Grid,
-	ListItem,
-	ListItemText,
-	Typography,
-} from '@material-ui/core';
+import { Grid, Typography, useMediaQuery } from '@material-ui/core';
 
 import useStyles from './styles';
 import { SettingsUser } from './SettingsUser';
 import { SettingsPassword } from './SettingsPassword';
+import { DesktopSettingsList } from './DesktopSettingsList';
+import theme from 'src/theme';
+import { MobileSettingsList } from './MobileSettingsList';
 
 const Settings = () => {
 	const classes = useStyles();
 	const [active, setActive] = useState(1);
+	const smallScreen = useMediaQuery(theme.breakpoints.down(880));
+
+	const handleSetActive = () => {
+		if (active === 1) setActive(2);
+		if (active === 2) setActive(1);
+	};
 
 	return (
 		<Grid item container className={classes.root}>
@@ -21,44 +24,12 @@ const Settings = () => {
 				Inställningar
 			</Typography>
 			<Grid item container className={classes.grid}>
-				<Grid item container className={classes.listContainer}>
-					<List className={classes.list} dense>
-						<ListItem
-							className={`${classes.listItem} ${
-								active === 1 && classes.active
-							}`}
-							onClick={() => setActive(1)}
-						>
-							<ListItemText>
-								<Typography
-									variant="subtitle2"
-									className={`${classes.listItemText} ${
-										active === 1 && classes.activeListItemText
-									}`}
-								>
-									Konto
-								</Typography>
-							</ListItemText>
-						</ListItem>
-						<ListItem
-							className={`${classes.listItem} ${
-								active === 2 && classes.active
-							}`}
-							onClick={() => setActive(2)}
-						>
-							<ListItemText>
-								<Typography
-									variant="subtitle2"
-									className={`${classes.listItemText} ${
-										active === 2 && classes.activeListItemText
-									}`}
-								>
-									Lösenord
-								</Typography>
-							</ListItemText>
-						</ListItem>
-					</List>
-				</Grid>
+				{smallScreen ? (
+					<MobileSettingsList active={active} setActive={handleSetActive} />
+				) : (
+					<DesktopSettingsList active={active} setActive={handleSetActive} />
+				)}
+				{/* <DesktopSettingsList active={active} setActive={handleSetActive} /> */}
 				<Grid item container>
 					{active === 1 ? <SettingsUser /> : <SettingsPassword />}
 				</Grid>
