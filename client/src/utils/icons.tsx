@@ -12,6 +12,8 @@ import thunder from '../icons/thunder.svg';
 
 import wind from '../icons/wind.svg';
 
+import noData from '../icons/no-data.svg';
+
 import n from '../icons/n.svg';
 import nw from '../icons/nw.svg';
 import w from '../icons/w.svg';
@@ -133,4 +135,7 @@ export const WarmBar = ({ className }: IIcon) => {
 
 export const Wind = ({ className }: IIcon) => {
 	return <img className={className} src={wind} alt="Vind"></img>;
+};
+export const NoData = ({ className }: IIcon) => {
+	return <img className={className} src={noData} alt="Ingen data"></img>;
 };

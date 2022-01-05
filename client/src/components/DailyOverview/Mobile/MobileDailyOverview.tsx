@@ -82,20 +82,24 @@ export const MobileDailyOverview = () => {
 			<Grid item container className={classes.cardContainer}>
 				<MobileDataCard
 					label={dataEnum.WIND_DIRECTION}
-					windDirection={directionEnum.NE}
+					windDirection={directionEnum.NE || '-'}
 				/>
 				<MobileDataCard label={dataEnum.WIND_SPEED} data={12} unit="m/s" />
 				<MobileDataCard
 					label={dataEnum.WIND_FEEL}
-					data={windFeelEnum.NEUTRAL}
+					data={windFeelEnum.NEUTRAL || '-'}
 				/>
 				<MobileDataCard
 					label={dataEnum.PRECIPITATION}
-					data={dotToCommaConverter((5.6).toString())}
+					data={dotToCommaConverter((5.6).toString()) || '-'}
 					unit="mm"
 				/>
-				<MobileDataCard label={dataEnum.AIR_PRESSURE} data={1000} unit="hPa" />
-				<MobileDataCard label={dataEnum.HUMIDITY} data={93} unit="%" />
+				<MobileDataCard
+					label={dataEnum.AIR_PRESSURE}
+					data={1000 || '-'}
+					unit="hPa"
+				/>
+				<MobileDataCard label={dataEnum.HUMIDITY} data={93 || '-'} unit="%" />
 			</Grid>
 		</Grid>
 	);

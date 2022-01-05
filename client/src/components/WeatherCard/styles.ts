@@ -91,6 +91,17 @@ export default makeStyles((theme) => ({
 			width: 16,
 		},
 	},
+	bigArrowIcon: {
+		width: 40,
+		display: 'flex',
+		alignContent: 'center',
+		[theme.breakpoints.down(1281)]: {
+			width: 28,
+		},
+		[theme.breakpoints.down(450)]: {
+			width: 24,
+		},
+	},
 	wind: {
 		display: 'flex',
 		alignItems: 'flex-end',

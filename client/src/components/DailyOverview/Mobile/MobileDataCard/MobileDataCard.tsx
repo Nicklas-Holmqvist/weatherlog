@@ -34,7 +34,7 @@ export const MobileDataCard = ({
 			<Grid container item direction="column" className={classes.container}>
 				<Grid container item className={classes.data}>
 					{windDirection ? (
-						GetWindDirection(windDirection)
+						GetWindDirection(windDirection, 'large')
 					) : (
 						<>
 							<Typography

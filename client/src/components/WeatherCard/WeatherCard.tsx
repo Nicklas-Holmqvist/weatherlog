@@ -87,7 +87,7 @@ export const WeatherCard = ({
 							: 'h3'
 					}
 				>
-					{speed || GetWindDirection(direction)}
+					{speed || GetWindDirection(direction, 'small')}
 				</Typography>
 				{speed && (
 					<Typography variant="h5" className={classes.unit}>

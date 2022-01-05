@@ -36,7 +36,7 @@ export const DataCard = ({
 			<Grid container item className={classes.data}>
 				{windDirection ? (
 					<Grid item className={classes.windBackground}>
-						{GetWindDirection(windDirection)}
+						{GetWindDirection(windDirection, 'large')}
 					</Grid>
 				) : (
 					<>
