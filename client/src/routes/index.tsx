@@ -1,3 +1,4 @@
+import DailyOverviewPage from 'src/pages/log';
 import {
 	HomePage,
 	RegisterPage,
@@ -8,7 +9,7 @@ import {
 	CreateLogPage,
 	DiagramPage,
 	EditLogPage,
-	SettingsPage
+	SettingsPage,
 } from '../pages';
 
 export const routes = [
@@ -43,6 +44,10 @@ export const routes = [
 	{
 		path: '/home',
 		element: <LandingPage />,
+	},
+	{
+		path: '/log',
+		element: <DailyOverviewPage />,
 	},
 	{
 		path: '/log/:id',
