@@ -18,6 +18,7 @@ type Context = {
     getLogUrl: (e:any) => void,
     handleChange: (e:any) => void
     handleEditChange: (e:any) => void
+    getAllLogs: () => void
 }
 
 export const LogsProvider: FunctionComponent = ({ children }) => {
@@ -219,7 +220,22 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 console.error(err);
             });
     },[])
-    
+
+    const getAllLogs = async () => {
+        await fetch('/api/logs', options.fetchLogs)
+            .then((res) => {
+                if (res.status === 400) {
+                    return;
+                }
+                return res.json();
+            })
+            .then((data) => {
+                sortLogs(data)
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    }
 
     // Hämtar en log
     const getLog = async (id:any) => { 
@@ -279,6 +295,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 handleEditChange,
                 getLog,
                 getLogUrl,
+                getAllLogs,
                 logs,
                 log,
                 landingLogs,

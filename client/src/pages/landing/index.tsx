@@ -11,23 +11,25 @@ import { Link } from 'react-router-dom';
 
 import { WeatherCard } from 'src/components';
 import theme from 'src/theme';
-import { directionEnum, weatherEnum } from 'src/utils';
 import useStyles from './styles';
 
 import { useLogsContext } from '../../context/logs';
 import { ILogs } from 'src/types/Logs';
+import GetMonthName from '../../utils/getMonthName';
 
 export const LandingPage = () => {
 	const classes = useStyles();
 	const mobile = useMediaQuery(theme.breakpoints.down(540));
 
+	const getAllLogs = useLogsContext().getAllLogs
 	const { landingLogs, logs } = useLogsContext()
 
 	const [logList, setLogList] = useState<ILogs[]>(landingLogs)
 
 	useEffect(() => {
 		setLogList(landingLogs)
-	})
+		getAllLogs()
+	},[landingLogs])	
 
 	return (
 		<Grid item container className={classes.container}>
@@ -97,23 +99,16 @@ export const LandingPage = () => {
 				</Grid>
 			</Grid>
 			<Grid item container direction="column">
-				{logList.map((day) => 
+				{logList.map((d:ILogs) => 
 					<WeatherCard
-						key={day.date.toString()}
-						temp={parseInt(day.temperature)}
-						date={{ day: 29, month: 'april' }}
-						weather={day.weather.toString()}
-						wind={{ speed: 8, direction: 'se' }}
-						precipitation={Number(day.precipitation)}
+						key={d._id?.toString()} 
+						temp={parseInt(d.temperature)}
+						date={{ day:d.date.substring(6,8).toString(), month: GetMonthName(d.date.substring(4,6).toString())! }}
+						weather={d.weather.toString()}
+						wind={{ speed: d.windSpeed.toString(), direction: d.windDirection.toString() }}
+						precipitation={Number(d.precipitation)}
 					/>
-				)}				
-				{/* <WeatherCard
-					temp={21}
-					date={{ day: 30, month: 'april' }}
-					weather={weatherEnum.SUN}
-					wind={{ speed: 8, direction: 'se' }}
-					precipitation={0}
-				/> */}
+				)}
 			</Grid>
 		</Grid>
 	);
