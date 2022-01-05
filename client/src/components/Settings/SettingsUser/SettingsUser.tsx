@@ -22,7 +22,9 @@ export const SettingsUser = () => {
 
 	return (
 		<>
-			{showModal && <ModalPopup />}
+			{showModal && (
+				<ModalPopup open={true} handleClose={() => setShowModal(false)} />
+			)}
 			<Grid container direction="column" className={classes.root}>
 				<Typography variant="h5" className={classes.title}>
 					Konto

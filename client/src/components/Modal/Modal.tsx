@@ -4,23 +4,25 @@ import { useState } from 'react';
 
 import useStyles from './styles';
 
-// interface IModalPopup {
-// 	title: string;
-// 	body: string;
-// 	buttonText: string;
-// 	onClick: () => void;
-// }
+interface IModalPopup {
+	// title: string;
+	// body: string;
+	// buttonText: string;
+	// onClick: () => void;
+	open: boolean;
+	handleClose: () => void;
+}
 
-export const ModalPopup = () => {
+export const ModalPopup = ({ open, handleClose }: IModalPopup) => {
 	const classes = useStyles();
-	const [open, setOpen] = useState(true);
+	// const [isOpen, setIsOpen] = useState(open);
 
 	// const deleteAccount = useUsersContext().deleteUser
 
 	return (
 		<Modal
 			open={open}
-			onClose={() => setOpen(false)}
+			onClose={handleClose}
 			aria-labelledby="modal-modal-title"
 			aria-describedby="modal-modal-description"
 		>
@@ -58,9 +60,5 @@ export const ModalPopup = () => {
 		// </Modal>
 	);
 };
-
-// Är du säker på att du vill ta bort ditt konto?
-// Detta kan inte ångras. Tar du bort ditt konto försvinner även all data kopplat till ditt konto, för alltid!
-// Ta bort konto
 
 export default ModalPopup;
