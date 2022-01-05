@@ -47,11 +47,11 @@ export const LoginForm = () => {
 			}));
 			return;
 		}
-
 		fetchUser();
 	};
 
 	const fetchUser = async () => {
+		
 		const options = {
 			method: 'POST',
 			headers: {

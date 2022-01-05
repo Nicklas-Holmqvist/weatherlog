@@ -12,10 +12,12 @@ import theme from 'src/theme';
 import useStyles from './styles';
 import logo from './weatherlog-mini-logo.svg';
 import { MenuIcon } from 'src/utils';
+import { useUsersContext } from '../../context/users';
 
 export const Header = () => {
 	const classes = useStyles();
 	const mobile = useMediaQuery(theme.breakpoints.only('xs'));
+	const { user } = useUsersContext();
 
 	useEffect(() => {
 		isPathLoginOrRegister();
@@ -61,7 +63,7 @@ export const Header = () => {
 				<Grid item className={classes.left}>
 					<img src={logo} alt="Logo" />
 					<Typography variant="body1" className={classes.name}>
-						Hans Gustavsson, Göteborg
+						{user.firstName} {user.lastName}, {user.city}
 					</Typography>
 				</Grid>
 				<Grid item>

@@ -4,9 +4,10 @@ const bcrypt = require('bcrypt');
 
 // Get all products from api
 exports.getUsers = async (req, res) => {
+    const cookie = req.cookies.user
 	try {
-		const users = await UserModel.find({});
-		res.status(200).json(users);
+		const user = await UserModel.findById(cookie);
+		res.status(200).json(user);
 	} catch (error) {
 		res.status(503).json('No database connection');
 	}
