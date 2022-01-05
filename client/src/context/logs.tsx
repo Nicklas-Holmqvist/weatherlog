@@ -158,7 +158,8 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             logs.push(e[logLength-1])   
             setLandingLogs(logs)
             logLength--  
-        }      
+        }    
+        console.log(logs)  
     }
     
     /** Sets the data from logDate to logValue.date */

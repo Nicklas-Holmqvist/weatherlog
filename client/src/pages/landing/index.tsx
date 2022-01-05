@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
 	Button,
 	Grid,
@@ -14,12 +15,21 @@ import { directionEnum, weatherEnum } from 'src/utils';
 import useStyles from './styles';
 
 import { useLogsContext } from '../../context/logs';
+import { ILogs } from 'src/types/Logs';
 
 export const LandingPage = () => {
 	const classes = useStyles();
 	const mobile = useMediaQuery(theme.breakpoints.down(540));
 
 	const { landingLogs } = useLogsContext()
+
+	const [logs, setLogs] = useState<ILogs[]>(landingLogs)
+
+	useEffect(() => {
+		setLogs(landingLogs)
+		console.log(landingLogs)
+		console.log(logs)
+	},[logs, landingLogs])
 
 	return (
 		<Grid item container className={classes.container}>
@@ -89,8 +99,9 @@ export const LandingPage = () => {
 				</Grid>
 			</Grid>
 			<Grid item container direction="column">
-				{landingLogs.map((day) => 
+				{logs.map((day) => 
 					<WeatherCard
+						key={day.date.toString()}
 						temp={parseInt(day.temperature)}
 						date={{ day: 29, month: 'april' }}
 						weather={weatherEnum.OVERCAST}
