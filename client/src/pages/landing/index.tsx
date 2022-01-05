@@ -21,15 +21,29 @@ export const LandingPage = () => {
 	const classes = useStyles();
 	const mobile = useMediaQuery(theme.breakpoints.down(540));
 
-	const { landingLogs } = useLogsContext()
+	const { landingLogs, logs } = useLogsContext()
 
-	const [logs, setLogs] = useState<ILogs[]>(landingLogs)
+	const [logList, setLogList] = useState<ILogs[]>(logs)
+
+	const createLandingLogs = (e:ILogs[]) => {
+        let logLength = e.length
+        let sortedList = e.sort((a:any, b:any) => {
+            return a.date - b.date
+        })
+
+        let logs:ILogs[] = []
+
+        for(let i = 0; i < 5; i++) {
+            logs.push(sortedList[logLength-1])   
+            setLogList(logs)
+            logLength--  
+        }    
+    }
 
 	useEffect(() => {
-		setLogs(landingLogs)
+		createLandingLogs(logs)
 		console.log(landingLogs)
-		console.log(logs)
-	},[logs, landingLogs])
+	})
 
 	return (
 		<Grid item container className={classes.container}>
@@ -99,7 +113,7 @@ export const LandingPage = () => {
 				</Grid>
 			</Grid>
 			<Grid item container direction="column">
-				{logs.map((day) => 
+				{logList.map((day) => 
 					<WeatherCard
 						key={day.date.toString()}
 						temp={parseInt(day.temperature)}
