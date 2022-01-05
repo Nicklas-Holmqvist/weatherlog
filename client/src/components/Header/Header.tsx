@@ -63,7 +63,11 @@ export const Header = () => {
 				<Grid item className={classes.left}>
 					<img src={logo} alt="Logo" />
 					<Typography variant="body1" className={classes.name}>
-						{user.firstName} {user.lastName}, {user.city}
+						{`${user?.firstName || 'Greger'} ${
+							user?.lastName || 'Grindberg'
+						}, ${user?.city || ' Jukkasjärvi'}`}
+						{/* {user?.firstName || 'Greger'} {user?.lastName || 'Grindberg'},
+						{user?.city || ' Jukkasjärvi'} */}
 					</Typography>
 				</Grid>
 				<Grid item>
