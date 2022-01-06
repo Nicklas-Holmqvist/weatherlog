@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
+import { Button, Grid, IconButton, Typography, useMediaQuery } from '@material-ui/core';
+import { AddRounded, Home } from '@material-ui/icons';
 import { Line } from 'react-chartjs-2';
-import { Button, Grid, Typography } from '@material-ui/core';
 
 import {
     Chart as ChartJS,
@@ -15,25 +16,27 @@ import {
     Legend,
   } from 'chart.js';  
 
-  import { useDiagramsContext } from 'src/context/diagram'; 
+import { useDiagramsContext } from 'src/context/diagram'; 
 
-  import GetMonthName from '../../utils/getMonthName';
-  import useStyles from './style';
-  
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-  );
+import theme from 'src/theme';
+import useStyles from './style';
+import GetMonthName from '../../utils/getMonthName';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const Diagram = () => {
 
     let navigate = useNavigate(); 
     const classes = useStyles()
+    const mobile = useMediaQuery(theme.breakpoints.down(540));
     const {id}:any = useParams();
 
     const setApiParam = useDiagramsContext().getDiagramUrl
@@ -48,73 +51,127 @@ const Diagram = () => {
     const year:string = id.substring(0,4)
     const month:any = GetMonthName(id.substring(4,6))
 
+    /** Change to earlier month in diagram or back to last when at end */
     const prevMonth = () => {     
-      if(findOld === 1) return navigate(`/diagram/${diagramMonth[diagramLength-1]}`)
-      if(findOld !== -1) return navigate(`/diagram/${diagramMonth[findOld-1]}`)
+      if(findOld === 0) return navigate(`/diagram/${diagramMonth[diagramLength-1]}`)
+      if(findOld !== -1) return navigate(`/diagram/${diagramMonth[findOld-1]}`)      
     }
 
+    /** Change to next month in diagram or back to first when at end */
     const nextMonth = () => {
       if(findOld === (diagramLength-1)) return navigate(`/diagram/${diagramMonth[1]}`)
-      if(findOld !== -1) return navigate(`/diagram/${diagramMonth[findOld+1]}`)
+      if(findOld !== -1) return navigate(`/diagram/${diagramMonth[findOld+1]}`)      
     }
 
+    /** Sends the params to the diagram api to fetch the data for month */
     useEffect(() => {
-        setApiParam(id)
-        
+        setApiParam(id)        
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[id])
 
+    /** Updates the diagram when page is first visited or refreshed */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         setTemp(diagramData)
         setLabels(diagramLabel)
         setColor(diagramBackgroundcolor)
     })
 
+    /** Options for the diagram */
     const options = {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'top' as const,
-          },
-          title: {
-            display: false,
-            text: 'Chart.js Line Chart',
-          },
-        }
-      };
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top' as const,
+        },
+        title: {
+          display: false,
+          text: '',
+        },
+      }
+    };
 
+    /** Data for the diagram */
     const data = {
-        type: 'line',
-        labels,
-        datasets: [
-            {
-            label: 'Temperatur',
-            data: temp,
-            backgroundColor: color,
-            borderColor: 'rgba(0, 0, 0, 0.5',
-            tension: 0.3,
-            pointRadius: 6,      
-            borderWidth: 1    
-          },
+      type: 'line',
+      labels,
+      datasets: [
           {
-            label: 'Nederbörd',
-            data: diagramPrec,
-            backgroundColor: 'rgb(0, 0, 204)',
-            borderColor: '#0000CC',
-            tension: 0.3,
-            pointRadius: 2,      
-            borderWidth: 2    
-          },
-        ],
-      };
+          label: 'Temperatur',
+          data: temp,
+          backgroundColor: color,
+          borderColor: 'rgba(0, 0, 0, 0.5',
+          tension: 0.3,
+          pointRadius: 6,      
+          borderWidth: 1    
+        },
+        {
+          label: 'Nederbörd',
+          data: diagramPrec,
+          backgroundColor: 'rgb(0, 0, 204)',
+          borderColor: '#0000CC',
+          tension: 0.3,
+          pointRadius: 2,      
+          borderWidth: 2    
+        },
+      ],
+    };
 
     return (
     <Grid container direction="column" className={classes.diagramContainer}>
       <Grid container direction="row" className={classes.header}>
-        <Button onClick={prevMonth}>Bakåt</Button>
-        <Typography variant="h4">{year}</Typography> 
-        <Typography variant="h4">{month}</Typography> 
-        <Button onClick={nextMonth}>Framåt</Button>
+        <Typography variant="h2" className={classes.pageTitle}>
+					Historik
+				</Typography>
+        <Grid item direction="row" className={classes.dates}>
+          <Button 
+            onClick={prevMonth}
+            disabled={diagramLength <= 1}
+          >
+            Bakåt
+          </Button>   
+          <Typography variant="h4">{year}</Typography> 
+          <Typography variant="h4">{month}</Typography> 
+          <Button 
+            onClick={nextMonth}
+            disabled={diagramLength <= 1}
+          >
+            Framåt
+          </Button>      
+        </Grid>
+        <Grid item>
+					<Link to="/home" className={classes.disableUnderline}>
+						{mobile ? (
+							<IconButton>
+								<Home />
+							</IconButton>
+						) : (
+							<Button
+								variant="text"
+								endIcon={<Home />}
+								disableElevation
+								className={`${classes.disableUnderline} ${classes.mr}`}
+							>
+								Hem
+							</Button>
+						)}
+					</Link>
+					<Link to="/create-log" className={classes.disableUnderline}>
+						{mobile ? (
+							<IconButton>
+								<AddRounded />
+							</IconButton>
+						) : (
+							<Button
+								variant="contained"
+								endIcon={<AddRounded />}
+								disableElevation
+							>
+								Skapa
+							</Button>
+						)}
+					</Link>
+				</Grid>
       </Grid>
       <Grid container className={classes.diagram}>
         <Line options={options} data={data} />
