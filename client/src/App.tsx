@@ -13,21 +13,21 @@ import { Footer, Header } from './components';
 function App() {
 	return (
 		<ThemeProvider theme={theme}>
-				<LogsProvider>
-					<UsersProvider>
-						<DiagramProvider>
-							<BrowserRouter>
-								<Header />
-								<Routes>
-									{routes.map(({ path, element }, key) => (
-										<Route path={path} element={element} key={key} />
-									))}
-								</Routes>
-								<Footer />
-							</BrowserRouter>
-						</DiagramProvider>
-					</UsersProvider>
-				</LogsProvider>
+			<LogsProvider>
+				<UsersProvider>
+					<DiagramProvider>
+						<BrowserRouter>
+							<Header />
+							<Routes>
+								{routes.map(({ path, element }, key) => (
+									<Route path={path} element={element} key={key} />
+								))}
+							</Routes>
+							{/* <Footer /> */}
+						</BrowserRouter>
+					</DiagramProvider>
+				</UsersProvider>
+			</LogsProvider>
 		</ThemeProvider>
 	);
 }
