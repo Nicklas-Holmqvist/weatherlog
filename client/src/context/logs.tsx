@@ -63,6 +63,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         weather: ""
     })
 
+    /** The list of 5 that are mapped out in "home" */
     const [landingLogs, setLandingLogs] = useState<ILogs[]>([])
 
     /** The object that will be created in backend */
@@ -87,6 +88,10 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         }           
     }
 
+    /**
+     * Fetch the param to fetch the right date from api
+     * @param e param from '/log/*date*
+     */
     const getLogUrl = (e:any) => {
         getLog(e)
     }
@@ -149,6 +154,11 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         }))
     }
 
+    /**
+     * 
+     * @param e data from api
+     * @returns a sorted list of logs by date
+     */
     const createLandingLogs = (e:ILogs[]) => {
         let logLength = e.length
         let sortedList = e.sort((a:any, b:any) => {
@@ -221,6 +231,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             });
     },[])
 
+    /** Fetch all users logs */
     const getAllLogs = async () => {
         await fetch('/api/logs', options.fetchLogs)
             .then((res) => {
@@ -237,7 +248,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             });
     }
 
-    // Hämtar en log
+    /** Fetch one log by date as ID */
     const getLog = async (id:any) => { 
         await fetch(`/api/log/${id}`, options.getLog)
             .then((res) => {
@@ -255,7 +266,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             });
     };
 
-    // Skapar en log
+    /** Create a log */
     const addPost = async () => { 
         await fetch('/api/logs/register', options.addPost)
         .catch((err) => {
@@ -269,7 +280,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         })
     };
 
-    // Ändra en log
+    /** Edit a log */
     const editPost = async (id:any) => {
         await fetch(`/api/logs/${id}`, options.editPost)
         .catch((err) => {
@@ -278,7 +289,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         setLog(emptyLog)
     };
 
-    // Ta bort log
+    /** Remove a log */
     const deletePost = async () => {  
         const logId = "61c1cf0f934272f160fffbca"
         await fetch(`/api/logs/${logId}`, options.deletePost)
