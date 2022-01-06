@@ -8,4 +8,5 @@ export * from './RegisterForm';
 export * from './WeatherCard';
 export * from './Diagram';
 export * from './Settings';
+export * from './Modal';
 export * from './NoLog';

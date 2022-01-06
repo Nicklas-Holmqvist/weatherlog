@@ -4,7 +4,7 @@ import { DesktopDailyOverview, MobileDailyOverview } from 'src/components';
 import theme from 'src/theme';
 import useStyles from './styles';
 
-const DailyOverviewPage = () => {
+export const DailyOverviewPage = () => {
 	const classes = useStyles();
 	const smallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 

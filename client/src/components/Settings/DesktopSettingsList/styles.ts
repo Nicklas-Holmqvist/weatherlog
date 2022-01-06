@@ -1,29 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
-	root: {
-		padding: '0 40px',
-		maxWidth: 1400,
-		margin: '0 auto',
-		[theme.breakpoints.down(880)]: {
-			padding: '0 20px',
-		},
-	},
-	title: {
-		marginTop: 30,
-		[theme.breakpoints.down(880)]: {
-			marginBottom: 12,
-		},
-	},
-	grid: {
-		display: 'grid',
-		gridTemplateColumns: '1fr 4fr',
-		gridTemplateRows: '1fr',
-		[theme.breakpoints.down(880)]: {
-			gridTemplateColumns: '1fr',
-			gridTemplateRows: 'auto 1fr',
-		},
-	},
 	listContainer: {
 		paddingRight: 30,
 		[theme.breakpoints.down(880)]: {
