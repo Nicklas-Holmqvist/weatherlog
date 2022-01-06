@@ -1,3 +1,5 @@
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import {
 	Divider,
 	Grid,
@@ -17,6 +19,8 @@ import {
 	PlaceRounded,
 } from '@material-ui/icons';
 
+import { ILogs } from '../../../types/Logs'
+import { useLogsContext } from 'src/context/logs';
 import { DataCard } from './DataCard';
 import {
 	dataEnum,
@@ -36,6 +40,17 @@ import theme from 'src/theme';
 export const DesktopDailyOverview = () => {
 	const classes = useStyles();
 	const laptopScreen = useMediaQuery(theme.breakpoints.down(1281));
+	const { log } = useLogsContext()
+
+	const id = useParams().id
+	const [userLog, setUserLog] = useState<ILogs>(log)
+
+	const getLog = useLogsContext().getLog
+
+	useEffect(() => {
+		getLog(id)
+		setUserLog(log)
+	},[userLog])
 
 	return (
 		<Grid item container className={classes.root}>

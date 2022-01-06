@@ -248,6 +248,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             })
             .then((data) => {
                 setLog(data)
+                console.log(data)
             })
             .catch((err) => {
                 console.error(err);
