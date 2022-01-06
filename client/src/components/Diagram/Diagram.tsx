@@ -113,10 +113,20 @@ const Diagram = () => {
     return (
     <Grid container direction="column" className={classes.diagramContainer}>
       <Grid container direction="row" className={classes.header}>
-        {diagramLength > 1 ? <Button onClick={prevMonth}>Bakåt</Button> : ''}        
+        <Button 
+          onClick={prevMonth}
+          disabled={diagramLength <= 1}
+        >
+          Bakåt
+        </Button>   
         <Typography variant="h4">{year}</Typography> 
         <Typography variant="h4">{month}</Typography> 
-        {diagramLength > 1 ? <Button onClick={nextMonth}>Framåt</Button> : ''}        
+        <Button 
+          onClick={nextMonth}
+          disabled={diagramLength <= 1}
+        >
+          Framåt
+        </Button>      
       </Grid>
       <Grid container className={classes.diagram}>
         <Line options={options} data={data} />
