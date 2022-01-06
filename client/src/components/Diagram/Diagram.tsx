@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { useNavigate } from "react-router-dom"
+import { Link } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Button, Grid, IconButton, Typography, useMediaQuery } from '@material-ui/core';
+import { AddRounded, HistoryRounded, Home } from '@material-ui/icons';
 
 import {
     Chart as ChartJS,
@@ -18,6 +20,7 @@ import {
   import { useDiagramsContext } from 'src/context/diagram'; 
 
   import GetMonthName from '../../utils/getMonthName';
+  import theme from 'src/theme';
   import useStyles from './style';
   
   ChartJS.register(
@@ -34,6 +37,7 @@ const Diagram = () => {
 
     let navigate = useNavigate(); 
     const classes = useStyles()
+    const mobile = useMediaQuery(theme.breakpoints.down(540));
     const {id}:any = useParams();
 
     const setApiParam = useDiagramsContext().getDiagramUrl
@@ -80,7 +84,7 @@ const Diagram = () => {
           },
           title: {
             display: false,
-            text: 'Chart.js Line Chart',
+            text: '',
           },
         }
       };
@@ -113,20 +117,58 @@ const Diagram = () => {
     return (
     <Grid container direction="column" className={classes.diagramContainer}>
       <Grid container direction="row" className={classes.header}>
-        <Button 
-          onClick={prevMonth}
-          disabled={diagramLength <= 1}
-        >
-          Bakåt
-        </Button>   
-        <Typography variant="h4">{year}</Typography> 
-        <Typography variant="h4">{month}</Typography> 
-        <Button 
-          onClick={nextMonth}
-          disabled={diagramLength <= 1}
-        >
-          Framåt
-        </Button>      
+        <Typography variant="h2" className={classes.pageTitle}>
+					Historik
+				</Typography>
+        <Grid item direction="row" className={classes.dates}>
+          <Button 
+            onClick={prevMonth}
+            disabled={diagramLength <= 1}
+          >
+            Bakåt
+          </Button>   
+          <Typography variant="h4">{year}</Typography> 
+          <Typography variant="h4">{month}</Typography> 
+          <Button 
+            onClick={nextMonth}
+            disabled={diagramLength <= 1}
+          >
+            Framåt
+          </Button>      
+        </Grid>
+        <Grid item>
+					<Link to="/home" className={classes.disableUnderline}>
+						{mobile ? (
+							<IconButton>
+								<Home />
+							</IconButton>
+						) : (
+							<Button
+								variant="text"
+								endIcon={<Home />}
+								disableElevation
+								className={`${classes.disableUnderline} ${classes.mr}`}
+							>
+								Hem
+							</Button>
+						)}
+					</Link>
+					<Link to="/create-log" className={classes.disableUnderline}>
+						{mobile ? (
+							<IconButton>
+								<AddRounded />
+							</IconButton>
+						) : (
+							<Button
+								variant="contained"
+								endIcon={<AddRounded />}
+								disableElevation
+							>
+								Skapa
+							</Button>
+						)}
+					</Link>
+				</Grid>
       </Grid>
       <Grid container className={classes.diagram}>
         <Line options={options} data={data} />
