@@ -46,7 +46,7 @@ exports.getDiagram = async (req, res) => {
     const user = req.cookies.user
     const month = Number(req.params.id)
     try {
-        const logs = await (LogModel.find({ $and: [{user:user, date: { $gte: month }}, { date: {$lt: (month+1)}} ]})).sort({date: -1}).populate('user');
+        const logs = await (LogModel.find({ $and: [{user:user, date: { $gte: month }}, { date: {$lt: (month+1)}} ]})).sort({date: 1}).populate('user');
         res.status(200).json(logs)
     } catch (error) {
         res.status(503).json('No login')

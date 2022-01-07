@@ -17,9 +17,9 @@ type Context = {
 
 export const DiagramProvider: FunctionComponent = ({ children }) => {
     
-    const logContext = useLogsContext().logs
+    // const logContext = useLogsContext().logs
     const { historyMonths } = useLogsContext()
-    const [logs, setLogs] = useState<ILogs[]>(logContext)
+    // const [logs, setLogs] = useState<ILogs[]>(logContext)
     const [diagramMonth, setDiagramMonth] = useState<string[]>(historyMonths)
     const [diagramData, setDiagramData] = useState<number[]>([])
     const [diagramLabel, setDiagramLabel] = useState<string[]>([])
@@ -65,10 +65,10 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
         setDiagramMonth(historyMonths)
     })
 
-    useEffect(() => {       
-        setLogs(logContext)        
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      },[logContext, logs])
+    // useEffect(() => {       
+    //     setLogs(logContext)        
+    //   // eslint-disable-next-line react-hooks/exhaustive-deps
+    //   },[logContext, logs])
 
     const getDiagramUrl = (e:any) => {
         fetchDiagram(e)
@@ -86,6 +86,7 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
             })
             .then(function (data) {
                 prepairDiagramData(data)
+                console.log(data)
             })
             .catch(function (err) {
                 console.error(err);
