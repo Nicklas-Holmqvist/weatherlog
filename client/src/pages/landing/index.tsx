@@ -14,7 +14,6 @@ import { WeatherCard } from 'src/components';
 import theme from 'src/theme';
 import useStyles from './styles';
 
-import { useLogsContext } from '../../context/logs';
 import { useDiagramsContext } from '../../context/diagram';
 import { ILogs } from 'src/types/Logs';
 import GetMonthName from '../../utils/getMonthName';
@@ -23,20 +22,37 @@ export const LandingPage = () => {
 	const classes = useStyles();
 	const mobile = useMediaQuery(theme.breakpoints.down(540));
 
-	const getAllLogs = useLogsContext().getAllLogs
-	const { landingLogs } = useLogsContext()
 	const { diagramMonth } = useDiagramsContext()
 
-	const [logList, setLogList] = useState<ILogs[]>(landingLogs)
+	const [logList, setLogList] = useState<ILogs[]>([])
 	const [history, setHistory] = useState<string[]>(diagramMonth)
 
 	useEffect(() => {
-		setLogList(landingLogs)
 		setHistory(diagramMonth)
-		getAllLogs()
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[landingLogs])	
-	console.log(landingLogs)
+	},[logList])	
+
+	useEffect(() => {
+		/** Fetch all users logs */
+		const getAllLogs = async () => {
+			await fetch('/api/home', {
+				method: 'get',
+			},)
+			.then((res) => {
+				if (res.status === 400) {
+					return;
+				}
+				return res.json();
+			})
+			.then((data) => {
+				setLogList(data)
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+		}
+		getAllLogs()
+	},[])
 
 	return (
 		<Grid item container className={classes.container}>

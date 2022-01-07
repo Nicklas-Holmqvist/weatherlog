@@ -4,6 +4,7 @@ const router = express.Router();
 const { authUser } = require('../auth/controller')
 
 router.get("/api/logs/", authUser, controller.getLogs);
+router.get("/api/home/", authUser, controller.getFive);
 router.get("/api/log/:id", authUser, controller.getLog);
 router.post("/api/logs/register", controller.createLog);
 router.get("/api/diagram/:id", controller.getDiagram);

@@ -11,6 +11,17 @@ exports.getLogs = async (req, res) => {
         res.status(503).json('No login')
     }       
 }
+// Get all logs from api
+exports.getFive = async (req, res) => {
+    const user = req.cookies.user
+    try {
+        const logs = await (LogModel.find({user:user})).sort({date: -1}).limit(5).populate('user');
+        console.log(logs)
+        res.status(200).json(logs)
+    } catch (error) {
+        res.status(503).json('No login')
+    }       
+}
 
 // Get log from api
 exports.getLog = async (req, res) => {

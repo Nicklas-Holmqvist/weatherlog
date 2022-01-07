@@ -29,10 +29,7 @@ export const Header = () => {
 	const runLogout = () => {
 		logOut()
 		navigateTo('/login')
-		reloadWindow();
 	}
-
-	const reloadWindow = () => window.location.reload;
 
 	const isPathLoginOrRegister = () => {
 		if (
