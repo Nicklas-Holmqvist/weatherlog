@@ -10,9 +10,10 @@ import useStyles from './style';
 const EditLog = () => {
 
     const classes = useStyles();
-    const createLog = useLogsContext()
+    const editPost = useLogsContext().editPost
     const onChange = useLogsContext()
     const getLog = useLogsContext()
+    const getLogs = useLogsContext().getLogs
     const { log } = useLogsContext()
 
     const {id}:any = useParams();
@@ -21,8 +22,9 @@ const EditLog = () => {
     const month:any = GetMonthName(log.date.substring(4,6))
     const day:any = log.date.substring(6,8)
     
-    const create = () => {
-        createLog.editPost(id)
+    const edit = () => {
+        editPost(id)
+        getLogs()
     }
     const fetch = () => {
         getLog.getLog(id)
@@ -162,7 +164,7 @@ const EditLog = () => {
                     onChange={(e) => (onChange.handleEditChange(e))}
                 />
             </Grid>
-            <Button onClick={create}>Spara ändringar</Button>
+            <Button onClick={edit}>Spara ändringar</Button>
             <Button onClick={fetch}>Hämta</Button>
         </Grid>
     )

@@ -11,6 +11,7 @@ const CreateLog = () => {
     const classes = useStyles();
     const createLog = useLogsContext()
     const onChange = useLogsContext()
+    const getLogs = useLogsContext().getLogs
     const { logValue, logDate, numberOfMonths, numberOfDays} = useLogsContext()
     const MonthName = monthEnum
 
@@ -24,6 +25,7 @@ const CreateLog = () => {
     const create = () => {
         createLog.addPost()
         navigateTo('/home');
+        getLogs()
     }
 
     return (
