@@ -17,9 +17,7 @@ type Context = {
 
 export const DiagramProvider: FunctionComponent = ({ children }) => {
     
-    // const logContext = useLogsContext().logs
     const { historyMonths } = useLogsContext()
-    // const [logs, setLogs] = useState<ILogs[]>(logContext)
     const [diagramMonth, setDiagramMonth] = useState<string[]>(historyMonths)
     const [diagramData, setDiagramData] = useState<number[]>([])
     const [diagramLabel, setDiagramLabel] = useState<string[]>([])
