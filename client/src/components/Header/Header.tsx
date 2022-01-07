@@ -7,6 +7,7 @@ import {
 	IconButton,
 } from '@material-ui/core';
 import { ExitToAppRounded } from '@material-ui/icons';
+import { useNavigate } from "react-router-dom"
 
 import theme from 'src/theme';
 import useStyles from './styles';
@@ -17,13 +18,21 @@ import { useUsersContext } from '../../context/users';
 export const Header = () => {
 	const classes = useStyles();
 	const mobile = useMediaQuery(theme.breakpoints.only('xs'));
+	const logOut = useUsersContext().logout
 	const { user } = useUsersContext();
+	const navigateTo = useNavigate()
 
 	useEffect(() => {
 		isPathLoginOrRegister();
 	});
 
-	// const reloadWindow = () => window.location.reload;
+	const runLogout = () => {
+		logOut()
+		navigateTo('/login')
+		reloadWindow();
+	}
+
+	const reloadWindow = () => window.location.reload;
 
 	const isPathLoginOrRegister = () => {
 		if (
@@ -71,7 +80,7 @@ export const Header = () => {
 					</Typography>
 				</Grid>
 				<Grid item>
-					<Button endIcon={<ExitToAppRounded />}>Logga ut</Button>
+					<Button onClick={runLogout} endIcon={<ExitToAppRounded />}>Logga ut</Button>
 				</Grid>
 			</Grid>
 		</Grid>

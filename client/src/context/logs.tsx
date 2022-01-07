@@ -213,7 +213,24 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             headers: {"Content-Type": "application/json"},
         },
     }
-
+    
+    /** Fetch all users logs */
+    const getAllLogs = async () => {
+        await fetch('/api/logs', options.fetchLogs)
+        .then((res) => {
+            if (res.status === 400) {
+                return;
+            }
+            return res.json();
+        })
+        .then((data) => {
+            sortLogs(data)
+        })
+        .catch((err) => {
+            console.error(err);
+        });
+    }
+    
     useEffect(() => {
         fetch('/api/logs', options.fetchLogs)
             .then((res) => {
@@ -230,23 +247,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 console.error(err);
             });
     },[])
-
-    /** Fetch all users logs */
-    const getAllLogs = async () => {
-        await fetch('/api/logs', options.fetchLogs)
-            .then((res) => {
-                if (res.status === 400) {
-                    return;
-                }
-                return res.json();
-            })
-            .then((data) => {
-                sortLogs(data)
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    }
 
     /** Fetch one log by date as ID */
     const getLog = async (id:any) => { 
@@ -277,7 +277,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             day: d.getDate(),
             month: (d.getMonth()+1),
             year: d.getFullYear(),
-        })
+        })        
     };
 
     /** Edit a log */

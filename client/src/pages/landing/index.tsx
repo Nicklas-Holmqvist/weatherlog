@@ -15,6 +15,7 @@ import theme from 'src/theme';
 import useStyles from './styles';
 
 import { useLogsContext } from '../../context/logs';
+import { useDiagramsContext } from '../../context/diagram';
 import { ILogs } from 'src/types/Logs';
 import GetMonthName from '../../utils/getMonthName';
 
@@ -24,14 +25,18 @@ export const LandingPage = () => {
 
 	const getAllLogs = useLogsContext().getAllLogs
 	const { landingLogs } = useLogsContext()
+	const { diagramMonth } = useDiagramsContext()
 
 	const [logList, setLogList] = useState<ILogs[]>(landingLogs)
+	const [history, setHistory] = useState<string[]>(diagramMonth)
 
 	useEffect(() => {
 		setLogList(landingLogs)
+		setHistory(diagramMonth)
 		getAllLogs()
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[landingLogs])	
+	console.log(landingLogs)
 
 	return (
 		<Grid item container className={classes.container}>
@@ -40,7 +45,7 @@ export const LandingPage = () => {
 					Senaste dagarna
 				</Typography>
 				<Grid item>
-					<Link to="/example" className={classes.disableUnderline}>
+					<Link to={`/diagram/${history[history.length-1]}`} className={classes.disableUnderline}>
 						{mobile ? (
 							<IconButton>
 								<HistoryRounded />
@@ -56,7 +61,7 @@ export const LandingPage = () => {
 							</Button>
 						)}
 					</Link>
-					<Link to="/" className={classes.disableUnderline}>
+					<Link to="/create-log" className={classes.disableUnderline}>
 						{mobile ? (
 							<IconButton>
 								<AddRounded />

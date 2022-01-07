@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@material-ui/core';
+import { useNavigate } from 'react-router-dom';
 
 import { useLogsContext } from '../../context/logs';
 import { monthEnum } from '../../utils/enums/monthEnum'
@@ -13,6 +14,8 @@ const CreateLog = () => {
     const { logValue, logDate, numberOfMonths, numberOfDays} = useLogsContext()
     const MonthName = monthEnum
 
+    const navigateTo = useNavigate()
+
     /** Component in month dropdown */
     const monthList = numberOfMonths.map((month) => <MenuItem value={month}>{MonthName[month]}</MenuItem>);
     /** Component in day dropdown */
@@ -20,6 +23,7 @@ const CreateLog = () => {
     
     const create = () => {
         createLog.addPost()
+        navigateTo('/home');
     }
 
     return (

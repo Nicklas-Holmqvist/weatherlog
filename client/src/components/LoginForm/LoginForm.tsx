@@ -9,11 +9,14 @@ import {
 import { AccountCircleRounded, LockOutlined } from '@material-ui/icons';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { useLogsContext } from '../../context/logs';
+
 import useStyles from './styles';
 
 export const LoginForm = () => {
 	const classes = useStyles();
 	const navigateTo = useNavigate();
+	const fetchUserLogs = useLogsContext().getAllLogs
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -80,7 +83,8 @@ export const LoginForm = () => {
 			}
 
 			if (data.user) {
-				navigateTo('/example');
+				fetchUserLogs()
+				navigateTo('/home');
 			}
 		} catch (error) {
 			console.log(error);
