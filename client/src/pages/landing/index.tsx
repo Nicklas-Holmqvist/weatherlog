@@ -106,14 +106,16 @@ export const LandingPage = () => {
 				}
 			<Grid item container direction="column">					 
 				{logList.map((d:ILogs) => 
-					<WeatherCard
-						key={d._id?.toString()} 
-						temp={parseInt(d.temperature)}
-						date={{ day:d.date.substring(6,8).toString(), month: GetMonthName(d.date.substring(4,6).toString())! }}
-						weather={d.weather.toString()}
-						wind={{ speed: d.windSpeed.toString(), direction: d.windDirection.toString() }}
-						precipitation={Number(d.precipitation)}
-					/>
+					<Link to={`/log/${d.date}`} className={classes.disableUnderline}>
+						<WeatherCard
+							key={d._id?.toString()} 
+							temp={parseInt(d.temperature)}
+							date={{ day:d.date.substring(6,8).toString(), month: GetMonthName(d.date.substring(4,6).toString())! }}
+							weather={d.weather.toString()}
+							wind={{ speed: d.windSpeed.toString(), direction: d.windDirection.toString() }}
+							precipitation={Number(d.precipitation)}
+						/>
+					</Link>
 				)}				
 			</Grid>
 		</Grid>

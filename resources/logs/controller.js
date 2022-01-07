@@ -17,9 +17,8 @@ exports.getLog = async (req, res) => {
     const log = req.params.id
     const user = req.cookies.user
     
-    const logs = await (LogModel.findOne({_id:log}).find({user:user}).populate('user'));
-
-    if(logs.length !== 0) {
+    const logs = await (LogModel.find({user:user}).findOne({date:log}).populate('user'));
+    if(logs !== null) {
         try {
             res.status(200).json(logs)
         } catch (error) {

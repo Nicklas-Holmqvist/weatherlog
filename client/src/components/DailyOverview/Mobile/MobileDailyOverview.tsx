@@ -1,10 +1,16 @@
 import { Grid, IconButton, Typography } from '@material-ui/core';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router'
 import {
 	ArrowBackRounded,
 	ArrowForwardRounded,
 	DeleteRounded,
 	EditRounded,
 } from '@material-ui/icons';
+
+import { useLogsContext } from '../../../context/logs';
+import { ILogs } from 'src/types/Logs';
+
 import {
 	dataEnum,
 	directionEnum,
@@ -14,11 +20,21 @@ import {
 	windFeelEnum,
 } from 'src/utils';
 import { MobileDataCard } from './MobileDataCard';
-
 import useStyles from './styles';
 
 export const MobileDailyOverview = () => {
 	const classes = useStyles();
+	const { log } = useLogsContext()
+
+	const id = useParams().id
+	const [userLog, setUserLog] = useState<ILogs>(log)
+
+	const getLog = useLogsContext().getLog
+
+	useEffect(() => {
+		getLog(id)
+		setUserLog(log)
+	},[userLog])
 
 	return (
 		<Grid container item>

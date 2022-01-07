@@ -2,7 +2,7 @@ GET http://localhost:5000/api/logs/
 
 ###
 
-GET http://localhost:5000/api/log/61d5ac69a1348da439dd133e
+GET http://localhost:5000/api/log/20220115
 
 ###
 

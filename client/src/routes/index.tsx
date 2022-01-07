@@ -46,7 +46,7 @@ export const routes = [
 		element: <LandingPage />,
 	},
 	{
-		path: '/log',
+		path: '/log/:id',
 		element: <DailyOverviewPage />,
 	},
 	{
