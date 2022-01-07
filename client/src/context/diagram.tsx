@@ -18,28 +18,14 @@ type Context = {
 export const DiagramProvider: FunctionComponent = ({ children }) => {
     
     const logContext = useLogsContext().logs
+    const { historyMonths } = useLogsContext()
     const [logs, setLogs] = useState<ILogs[]>(logContext)
     const [ApiData, setApiData] = useState<ILogs[]>([])
-    const [diagramMonth, setDiagramMonth] = useState<string[]>([])
+    const [diagramMonth, setDiagramMonth] = useState<string[]>(historyMonths)
     const [diagramData, setDiagramData] = useState<number[]>([])
     const [diagramLabel, setDiagramLabel] = useState<string[]>([])
     const [diagramBackgroundcolor, setBackgroundcolor] = useState<any[]>([])
     const [diagramPrec, setDiagramPrec] = useState<number[]>([])
-
-    const splitUpYearMonths = () => {
-        let month:any = []
-        for(let i = 0; i < logs.length; i++) {
-            month.push(splitDate(logs[i], 0, 6))
-        }
-
-        let uniqueMonths:any = []
-        month.forEach((m:string) => {
-            if(!uniqueMonths.includes(m)) {
-                uniqueMonths.push(m)
-            }
-        })
-        setDiagramMonth(uniqueMonths)
-    }   
     
     /**
      * Prepare the API-response and split it up to the necessary arrays to be viewed in the diagram
@@ -77,9 +63,12 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
         return date.date.substring(start, end)        
     }
 
+    useEffect(() => {
+        setDiagramMonth(historyMonths)
+    })
+
     useEffect(() => {       
-        setLogs(logContext)
-        splitUpYearMonths()
+        setLogs(logContext)        
       // eslint-disable-next-line react-hooks/exhaustive-deps
       },[logContext, logs])
 

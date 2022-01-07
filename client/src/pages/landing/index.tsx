@@ -14,7 +14,7 @@ import { WeatherCard } from 'src/components';
 import theme from 'src/theme';
 import useStyles from './styles';
 
-import { useDiagramsContext } from '../../context/diagram';
+import { useLogsContext } from '../../context/logs';
 import { ILogs } from 'src/types/Logs';
 import GetMonthName from '../../utils/getMonthName';
 
@@ -22,15 +22,19 @@ export const LandingPage = () => {
 	const classes = useStyles();
 	const mobile = useMediaQuery(theme.breakpoints.down(540));
 
-	const { diagramMonth } = useDiagramsContext()
+	const { historyMonths } = useLogsContext()
 
 	const [logList, setLogList] = useState<ILogs[]>([])
-	const [history, setHistory] = useState<string[]>(diagramMonth)
+	const [history, setHistory] = useState<string[]>(historyMonths)
 
 	useEffect(() => {
-		setHistory(diagramMonth)
+		setHistory(historyMonths)
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[logList])	
+	})	
+
+	useEffect(() => {
+		// splitUpYearMonths()
+	},[logList])
 
 	useEffect(() => {
 		/** Fetch all users logs */

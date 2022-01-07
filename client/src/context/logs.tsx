@@ -2,6 +2,8 @@ import React, { useState, useContext, createContext, FunctionComponent, useEffec
 
 import { ILogs, ILogDate } from '../types/Logs'
 
+import { useDiagramsContext } from 'src/context/diagram'; 
+
 export const LogsContext = createContext<Context>(undefined!);
     
 type Context = {
@@ -11,6 +13,7 @@ type Context = {
     logDate: ILogDate,
     numberOfMonths: number[],
     numberOfDays: number[],
+    historyMonths:string[],
     addPost: () => void,
     getLogs: () => void
     getLog: (id:any) => void
@@ -23,6 +26,7 @@ type Context = {
 
 export const LogsProvider: FunctionComponent = ({ children }) => {
     const d = new Date()
+    const updateHistory = useDiagramsContext()
 
     const emptyLog:ILogs = {
         airFeeling: "",
@@ -68,6 +72,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     
     /** Month in a year */
     const numberOfMonths: number[] = [1,2,3,4,5,6,7,8,9,10,11,12]
+    const [historyMonths, setHistoryMonths] = useState<string[]>([])
     
     /** Empty array that will contain days in a month, sets in "setDayInMonth" */
     const [numberOfDays, setNumberOfDays] = useState<number[]>([])
@@ -140,6 +145,25 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             return (`0${e}`).toString()
         } else return e.toString() 
     }
+
+    const splitUpYearMonths = (e:ILogs[]) => {
+        let month:any = []
+        for(let i = 0; i < e.length; i++) {
+            month.push(splitDate(e[i], 0, 6))
+        }
+
+        let uniqueMonths:any = []
+        month.forEach((m:string) => {
+            if(!uniqueMonths.includes(m)) {
+                uniqueMonths.push(m)
+            }
+        })
+        setHistoryMonths(uniqueMonths)
+    }   
+
+    const splitDate = (date:ILogs, start:number, end:number) => {
+        return date.date.substring(start, end)        
+    }
     
     /** Sets the data from logDate to logValue.date */
     useEffect(() => {
@@ -189,14 +213,14 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             return res.json();
         })
         .then((data) => {
-            setLogs(data) 
-            console.log(data)
+            setLogs(data)
+            splitUpYearMonths(data)
         })
         .catch((err) => {
             console.error(err);
         });
     }
-    /** Fetch all users logs att refresh */
+    /** Fetch all users logs at refresh */
     useEffect(() => {
         getLogs()
     },[])
@@ -212,7 +236,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             })
             .then((data) => {
                 setLog(data)
-                console.log(data)
             })
             .catch((err) => {
                 console.error(err);
@@ -267,6 +290,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 logDate,
                 numberOfMonths,
                 numberOfDays,
+                historyMonths
             }}>
             {children}
         </LogsContext.Provider>
