@@ -9,12 +9,13 @@ import {
 import { AddRounded, HistoryRounded } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
+import { useLogsContext } from '../../context/logs';
 import { NoLog } from '../../components/NoLog/NoLog'
 import { WeatherCard } from 'src/components';
+
 import theme from 'src/theme';
 import useStyles from './styles';
 
-import { useLogsContext } from '../../context/logs';
 import { ILogs } from 'src/types/Logs';
 import GetMonthName from '../../utils/getMonthName';
 
@@ -31,10 +32,6 @@ export const LandingPage = () => {
 		setHistory(historyMonths)
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	})	
-
-	useEffect(() => {
-		// splitUpYearMonths()
-	},[logList])
 
 	useEffect(() => {
 		/** Fetch all users logs */

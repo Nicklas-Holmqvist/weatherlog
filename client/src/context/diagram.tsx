@@ -20,7 +20,6 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
     const logContext = useLogsContext().logs
     const { historyMonths } = useLogsContext()
     const [logs, setLogs] = useState<ILogs[]>(logContext)
-    const [ApiData, setApiData] = useState<ILogs[]>([])
     const [diagramMonth, setDiagramMonth] = useState<string[]>(historyMonths)
     const [diagramData, setDiagramData] = useState<number[]>([])
     const [diagramLabel, setDiagramLabel] = useState<string[]>([])
@@ -36,7 +35,6 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
         let label:string[] = []  
         let color:any[] = []
         let precipitation:number[] = []
-        setApiData(e)
         
         for(let i = 0; i < e.length; i++) {
             data.push(parseInt(e[i].temperature))
