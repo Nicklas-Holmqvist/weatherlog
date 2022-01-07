@@ -52,13 +52,13 @@ const Diagram = () => {
     const month:any = GetMonthName(id.substring(4,6))
 
     /** Change to earlier month in diagram or back to last when at end */
-    const prevMonth = () => {     
+    const nextMonth = () => {     
       if(findOld === 0) return navigate(`/diagram/${diagramMonth[diagramLength-1]}`)
       if(findOld !== -1) return navigate(`/diagram/${diagramMonth[findOld-1]}`)      
     }
 
     /** Change to next month in diagram or back to first when at end */
-    const nextMonth = () => {
+    const prevMonth = () => {
       if(findOld === (diagramLength-1)) return navigate(`/diagram/${diagramMonth[1]}`)
       if(findOld !== -1) return navigate(`/diagram/${diagramMonth[findOld+1]}`)      
     }

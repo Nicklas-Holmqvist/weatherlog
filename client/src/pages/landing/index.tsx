@@ -61,7 +61,7 @@ export const LandingPage = () => {
 					Senaste dagarna
 				</Typography>
 				<Grid item>
-					<Link to={`/diagram/${history[history.length-1]}`} className={classes.disableUnderline}>
+					<Link to={`/diagram/${history[0]}`} className={classes.disableUnderline}>
 						{mobile ? (
 							<IconButton>
 								<HistoryRounded />
