@@ -61,14 +61,10 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
         return date.date.substring(start, end)        
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         setDiagramMonth(historyMonths)
     })
-
-    // useEffect(() => {       
-    //     setLogs(logContext)        
-    //   // eslint-disable-next-line react-hooks/exhaustive-deps
-    //   },[logContext, logs])
 
     const getDiagramUrl = (e:any) => {
         fetchDiagram(e)

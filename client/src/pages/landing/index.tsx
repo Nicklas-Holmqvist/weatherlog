@@ -28,9 +28,9 @@ export const LandingPage = () => {
 	const [logList, setLogList] = useState<ILogs[]>([])
 	const [history, setHistory] = useState<string[]>(historyMonths)
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => {
 		setHistory(historyMonths)
-	// eslint-disable-next-line react-hooks/exhaustive-deps
 	})	
 
 	useEffect(() => {

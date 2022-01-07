@@ -2,8 +2,6 @@ import React, { useState, useContext, createContext, FunctionComponent, useEffec
 
 import { ILogs, ILogDate } from '../types/Logs'
 
-import { useDiagramsContext } from 'src/context/diagram'; 
-
 export const LogsContext = createContext<Context>(undefined!);
     
 type Context = {
@@ -26,7 +24,6 @@ type Context = {
 
 export const LogsProvider: FunctionComponent = ({ children }) => {
     const d = new Date()
-    const updateHistory = useDiagramsContext()
 
     const emptyLog:ILogs = {
         airFeeling: "",
@@ -223,6 +220,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
     /** Fetch all users logs at refresh */
     useEffect(() => {
         getLogs()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     /** Fetch one log by date as ID */
