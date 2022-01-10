@@ -1,7 +1,7 @@
 import React from 'react'
 
-export const NoPage = () => {
+export const ErrorPage = () => {
     return <h1>Du har hamlat lite fel!</h1>
 }
 
-export default NoPage
+export default ErrorPage

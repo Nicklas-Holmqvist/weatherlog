@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 
 import { useAuthContext } from '../context/auth';
 
-import { NoPage } from '../components/';
-import { Footer, Header } from '../components';
+import { ErrorPage } from '../components/';
+import { Header } from '../components';
 import {routes, authRoutes} from '../routes';
 import { LandingPage, LoginPage } from '../pages';
 
@@ -25,9 +25,8 @@ export const NoLog = () => {
                 {auth === undefined ? <Route path='/' element={<LoginPage />} /> : <Route path='/' element={<LandingPage />}	/>}
                 {routes.map(({ path, element }, key) => (<Route path={path} element={element} key={key} />))}							
                 {auth ? authRoutes.map(({ path, element }, key) => (<Route path={path} element={element} key={key} />)) : <Route path='/' element={<LoginPage />} />}								
-                <Route path='*' element={<NoPage />} />
+                <Route path='*' element={<ErrorPage />} />
             </Routes>
-            {/* <Footer /> */}
         </BrowserRouter>
     );
 };
