@@ -10,3 +10,5 @@ export * from './Diagram';
 export * from './Settings';
 export * from './Modal';
 export * from './NoLog';
+export * from './ErrorPage';
+export * from './Layout';

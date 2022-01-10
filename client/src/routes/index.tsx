@@ -28,11 +28,14 @@ export const routes = [
 	{
 		path: '/register',
 		element: <RegisterPage />,
-	},
+	},		
 	{
 		path: '/api',
 		element: <Api />,
 	},
+];
+
+export const authRoutes = [
 	{
 		path: '/create-log',
 		element: <CreateLogPage />,
@@ -57,6 +60,6 @@ export const routes = [
 		path: '/settings',
 		element: <SettingsPage />,
 	},
-];
+]
 
-export default routes;
+
