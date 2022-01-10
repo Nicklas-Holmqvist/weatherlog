@@ -47,8 +47,10 @@ export const LandingPage = () => {
 			})
 			.then((data) => {
 				setLogList(data)
+				console.log(data)
 			})
 			.catch((err) => {
+				console.log(err)
 				console.error(err);
 			});
 		}

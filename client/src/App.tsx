@@ -5,12 +5,15 @@ import { LogsProvider } from './context/logs';
 import { UsersProvider } from './context/users';
 import { DiagramProvider } from './context/diagram';
 
+import { NoPage } from './components';
 import './App.css';
 import theme from './theme';
-import routes from './routes';
+import {routes, authRoutes} from './routes';
 import { Footer, Header } from './components';
+import { LandingPage, LoginPage } from './pages';
 
 function App() {
+	const user = true
 	return (
 		<ThemeProvider theme={theme}>
 			<LogsProvider>
@@ -19,9 +22,10 @@ function App() {
 						<BrowserRouter>
 							<Header />
 							<Routes>
-								{routes.map(({ path, element }, key) => (
-									<Route path={path} element={element} key={key} />
-								))}
+								{!user ? <Route path='/' element={<LoginPage />} /> : <Route path='/' element={<LandingPage />}	/>}
+								{routes.map(({ path, element }, key) => (<Route path={path} element={element} key={key} />))}							
+								{user ? authRoutes.map(({ path, element }, key) => (<Route path={path} element={element} key={key} />)) : <Route path='/' element={<LoginPage />} />}								
+								<Route path='*' element={<NoPage />} />
 							</Routes>
 							{/* <Footer /> */}
 						</BrowserRouter>
