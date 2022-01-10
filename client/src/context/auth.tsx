@@ -4,6 +4,7 @@ export const AuthContext = createContext<Context>(undefined!);
     
 type Context = {  
     isAuth:boolean
+    loading:boolean
     handleAuth: (e:any) => void,
     logout: () => void,   
 }
@@ -11,6 +12,7 @@ type Context = {
 export const AuthProvider: FunctionComponent = ({ children }) => {
     
     const [isAuth, setIsAuth] = useState<any>(undefined) 
+    const [loading, setLoading] = useState<boolean>(true)
     
     const handleAuth = (e:any) => {
         setIsAuth(e)
@@ -36,6 +38,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
             return res.json();
         })
         .then(function (data) {
+            setTimeout(()=>setLoading(false), 500)            
             if(data !== undefined) setIsAuth(data)
             else setIsAuth(data)
         })
@@ -48,6 +51,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
     return (
         <AuthContext.Provider value={{ 
             isAuth,
+            loading,
             handleAuth,
             logout
             }}>

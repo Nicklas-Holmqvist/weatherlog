@@ -4,29 +4,36 @@ import { useEffect, useState } from 'react';
 
 import { useAuthContext } from '../context/auth';
 
-import { ErrorPage } from '../components';
+import { ErrorPage, Loading } from '../components';
 import { Header } from '../components';
 import {routes, authRoutes} from './index';
 import { LandingPage, LoginPage } from '../pages';
 
 export const Layout = () => {
     
-	const { isAuth } = useAuthContext()
+	const { isAuth, loading } = useAuthContext()
 	const [auth, setAuth] = useState<any>(undefined)
+	const [isLoading, setIsLoading] = useState<any>(true)
 
 	useEffect(()=> {
 		setAuth(isAuth)
+		setIsLoading(loading)
 	})
     
 	return (
         <BrowserRouter>
             <Header />
-            <Routes>
-                {auth === undefined ? <Route path='/' element={<LoginPage />} /> : <Route path='/' element={<LandingPage />}	/>}
+            {isLoading 
+                ? <Loading />
+                :
+            <Routes>                
+                {auth === undefined ? <Route path='/' element={<LoginPage />} /> : <Route path='/' element={<LandingPage />}/>}
                 {routes.map(({ path, element }, key) => (<Route path={path} element={element} key={key} />))}							
                 {auth ? authRoutes.map(({ path, element }, key) => (<Route path={path} element={element} key={key} />)) : <Route path='/' element={<LoginPage />} />}								
                 <Route path='*' element={<ErrorPage />} />
+                
             </Routes>
+            }
         </BrowserRouter>
     );
 };
