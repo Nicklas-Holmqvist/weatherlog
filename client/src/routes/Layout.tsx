@@ -4,12 +4,12 @@ import { useEffect, useState } from 'react';
 
 import { useAuthContext } from '../context/auth';
 
-import { ErrorPage } from '../components/';
+import { ErrorPage } from '../components';
 import { Header } from '../components';
-import {routes, authRoutes} from '../routes';
+import {routes, authRoutes} from './index';
 import { LandingPage, LoginPage } from '../pages';
 
-export const NoLog = () => {
+export const Layout = () => {
     
 	const { isAuth } = useAuthContext()
 	const [auth, setAuth] = useState<any>(undefined)
@@ -31,4 +31,4 @@ export const NoLog = () => {
     );
 };
 
-export default NoLog;
+export default Layout;

@@ -5,7 +5,7 @@ import { UsersProvider } from './context/users';
 import { DiagramProvider } from './context/diagram';
 import { AuthProvider } from './context/auth';
 
-import Routes from './routes/Routes';
+import Layout from './routes/Layout';
 
 import './App.css';
 import theme from './theme';
@@ -18,7 +18,7 @@ function App() {
 				<LogsProvider>
 					<UsersProvider>
 						<DiagramProvider>
-							<Routes />
+							<Layout />
 						</DiagramProvider>
 					</UsersProvider>
 				</LogsProvider>
