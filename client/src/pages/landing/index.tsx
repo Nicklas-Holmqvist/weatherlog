@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 import { useLogsContext } from '../../context/logs';
 import { NoLog } from '../../components/NoLog/NoLog'
-import { WeatherCard } from 'src/components';
+import { Loading, WeatherCard } from '../../components';
 
 import theme from 'src/theme';
 import useStyles from './styles';
@@ -27,6 +27,7 @@ export const LandingPage = () => {
 
 	const [logList, setLogList] = useState<ILogs[]>([])
 	const [history, setHistory] = useState<string[]>(historyMonths)
+	const [isLoading, setIsLoading] = useState<any>(true)
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => {
@@ -47,6 +48,7 @@ export const LandingPage = () => {
 			})
 			.then((data) => {
 				setLogList(data)
+				setIsLoading(false)
 			})
 			.catch((err) => {
 				console.error(err);
@@ -95,7 +97,9 @@ export const LandingPage = () => {
 					</Link>
 				</Grid>
 			</Grid>
-			{logList.length === 0 ? 
+			{isLoading ? <Loading/> 
+			:
+			logList?.length === 0 ? 
 				<NoLog />
 				 :
 			<Grid item container className={classes.tableHeader}>
@@ -140,6 +144,8 @@ export const LandingPage = () => {
 					</Link>
 				)}				
 			</Grid>
+			
+			
 		</Grid>
 	);
 };
