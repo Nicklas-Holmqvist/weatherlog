@@ -1,24 +1,25 @@
 import React, { useState, useContext, createContext, FunctionComponent, useEffect } from 'react'
+
 import { ILogs, ILogDate } from '../types/Logs'
 
 export const LogsContext = createContext<Context>(undefined!);
     
 type Context = {
     logs: ILogs[],
-    landingLogs: ILogs[],
     logValue: ILogs,
     log: ILogs,
     logDate: ILogDate,
     numberOfMonths: number[],
     numberOfDays: number[],
+    historyMonths:string[],
     addPost: () => void,
+    getLogs: () => void
     getLog: (id:any) => void
     editPost: (id:any) => void,
     deletePost: () => void,
     getLogUrl: (e:any) => void,
     handleChange: (e:any) => void
     handleEditChange: (e:any) => void
-    getAllLogs: () => void
 }
 
 export const LogsProvider: FunctionComponent = ({ children }) => {
@@ -63,14 +64,12 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         weather: ""
     })
 
-    /** The list of 5 that are mapped out in "home" */
-    const [landingLogs, setLandingLogs] = useState<ILogs[]>([])
-
     /** The object that will be created in backend */
     const [log, setLog] = useState<ILogs>(emptyLog)
     
     /** Month in a year */
     const numberOfMonths: number[] = [1,2,3,4,5,6,7,8,9,10,11,12]
+    const [historyMonths, setHistoryMonths] = useState<string[]>([])
     
     /** Empty array that will contain days in a month, sets in "setDayInMonth" */
     const [numberOfDays, setNumberOfDays] = useState<number[]>([])
@@ -144,35 +143,23 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         } else return e.toString() 
     }
 
-    /**
-     * Sorts incoming logs per date and sets the variable logs
-     * @param e incoming data från GET logs api
-     */
-    const sortLogs = (e:ILogs[]) => {
-        setLogs(e.sort((a:any, b:any) => {
-            return a.date - b.date
-        }))
-    }
+    const splitUpYearMonths = (e:ILogs[]) => {
+        let month:any = []
+        for(let i = 0; i < e.length; i++) {
+            month.push(splitDate(e[i], 0, 6))
+        }
 
-    /**
-     * 
-     * @param e data from api
-     * @returns a sorted list of logs by date
-     */
-    const createLandingLogs = (e:ILogs[]) => {
-        let logLength = e.length
-        let sortedList = e.sort((a:any, b:any) => {
-            return a.date - b.date
+        let uniqueMonths:any = []
+        month.forEach((m:string) => {
+            if(!uniqueMonths.includes(m)) {
+                uniqueMonths.push(m)
+            }
         })
+        setHistoryMonths(uniqueMonths)
+    }   
 
-        let logs:ILogs[] = []
-
-        for(let i = 0; i < 5; i++) {
-            if(logLength === 0) return
-            logs.push(sortedList[logLength-1])   
-            setLandingLogs(logs)
-            logLength--  
-        }  
+    const splitDate = (date:ILogs, start:number, end:number) => {
+        return date.date.substring(start, end)        
     }
     
     /** Sets the data from logDate to logValue.date */
@@ -214,39 +201,27 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         },
     }
 
-    useEffect(() => {
-        fetch('/api/logs', options.fetchLogs)
-            .then((res) => {
-                if (res.status === 400) {
-                    return;
-                }
-                return res.json();
-            })
-            .then((data) => {
-                sortLogs(data) 
-                createLandingLogs(data)
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    },[])
-
-    /** Fetch all users logs */
-    const getAllLogs = async () => {
+    const getLogs = async () => {
         await fetch('/api/logs', options.fetchLogs)
-            .then((res) => {
-                if (res.status === 400) {
-                    return;
-                }
-                return res.json();
-            })
-            .then((data) => {
-                sortLogs(data)
-            })
-            .catch((err) => {
-                console.error(err);
-            });
+        .then((res) => {
+            if (res.status === 400) {
+                return;
+            }
+            return res.json();
+        })
+        .then((data) => {
+            setLogs(data)
+            splitUpYearMonths(data)
+        })
+        .catch((err) => {
+            console.error(err);
+        });
     }
+    /** Fetch all users logs at refresh */
+    useEffect(() => {
+        getLogs()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
 
     /** Fetch one log by date as ID */
     const getLog = async (id:any) => { 
@@ -259,7 +234,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             })
             .then((data) => {
                 setLog(data)
-                console.log(data)
             })
             .catch((err) => {
                 console.error(err);
@@ -277,7 +251,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
             day: d.getDate(),
             month: (d.getMonth()+1),
             year: d.getFullYear(),
-        })
+        })        
     };
 
     /** Edit a log */
@@ -306,15 +280,15 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
                 handleChange,
                 handleEditChange,
                 getLog,
+                getLogs,
                 getLogUrl,
-                getAllLogs,
                 logs,
                 log,
-                landingLogs,
                 logValue,
                 logDate,
                 numberOfMonths,
                 numberOfDays,
+                historyMonths
             }}>
             {children}
         </LogsContext.Provider>

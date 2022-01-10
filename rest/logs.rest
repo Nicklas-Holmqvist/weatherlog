@@ -1,6 +1,9 @@
 GET http://localhost:5000/api/logs/
 
 ###
+GET http://localhost:5000/api/home/
+
+###
 
 GET http://localhost:5000/api/log/20220115
 

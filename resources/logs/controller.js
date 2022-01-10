@@ -5,7 +5,17 @@ const LogModel = require('./model')
 exports.getLogs = async (req, res) => {
     const user = req.cookies.user
     try {
-        const logs = await (LogModel.find({user:user})).populate('user');
+        const logs = await (LogModel.find({user:user})).sort({date: -1}).populate('user');
+        res.status(200).json(logs)
+    } catch (error) {
+        res.status(503).json('No login')
+    }       
+}
+// Get all logs from api
+exports.getFive = async (req, res) => {
+    const user = req.cookies.user
+    try {
+        const logs = await (LogModel.find({user:user})).sort({date: -1}).limit(5).populate('user');
         res.status(200).json(logs)
     } catch (error) {
         res.status(503).json('No login')
@@ -36,7 +46,7 @@ exports.getDiagram = async (req, res) => {
     const user = req.cookies.user
     const month = Number(req.params.id)
     try {
-        const logs = await (LogModel.find({ $and: [{user:user, date: { $gte: month }}, { date: {$lt: (month+1)}} ]})).populate('user');
+        const logs = await (LogModel.find({ $and: [{user:user, date: { $gte: month }}, { date: {$lt: (month+1)}} ]})).sort({date: 1}).populate('user');
         res.status(200).json(logs)
     } catch (error) {
         res.status(503).json('No login')

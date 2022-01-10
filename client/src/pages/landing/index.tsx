@@ -9,12 +9,13 @@ import {
 import { AddRounded, HistoryRounded } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
+import { useLogsContext } from '../../context/logs';
 import { NoLog } from '../../components/NoLog/NoLog'
 import { WeatherCard } from 'src/components';
+
 import theme from 'src/theme';
 import useStyles from './styles';
 
-import { useLogsContext } from '../../context/logs';
 import { ILogs } from 'src/types/Logs';
 import GetMonthName from '../../utils/getMonthName';
 
@@ -22,16 +23,37 @@ export const LandingPage = () => {
 	const classes = useStyles();
 	const mobile = useMediaQuery(theme.breakpoints.down(540));
 
-	const getAllLogs = useLogsContext().getAllLogs
-	const { landingLogs } = useLogsContext()
+	const { historyMonths } = useLogsContext()
 
-	const [logList, setLogList] = useState<ILogs[]>(landingLogs)
+	const [logList, setLogList] = useState<ILogs[]>([])
+	const [history, setHistory] = useState<string[]>(historyMonths)
+
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	useEffect(() => {
+		setHistory(historyMonths)
+	})	
 
 	useEffect(() => {
-		setLogList(landingLogs)
+		/** Fetch all users logs */
+		const getAllLogs = async () => {
+			await fetch('/api/home', {
+				method: 'get',
+			},)
+			.then((res) => {
+				if (res.status === 400) {
+					return;
+				}
+				return res.json();
+			})
+			.then((data) => {
+				setLogList(data)
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+		}
 		getAllLogs()
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[landingLogs])	
+	},[])
 
 	return (
 		<Grid item container className={classes.container}>
@@ -40,7 +62,7 @@ export const LandingPage = () => {
 					Senaste dagarna
 				</Typography>
 				<Grid item>
-					<Link to="/example" className={classes.disableUnderline}>
+					<Link to={`/diagram/${history[0]}`} className={classes.disableUnderline}>
 						{mobile ? (
 							<IconButton>
 								<HistoryRounded />
@@ -56,7 +78,7 @@ export const LandingPage = () => {
 							</Button>
 						)}
 					</Link>
-					<Link to="/" className={classes.disableUnderline}>
+					<Link to="/create-log" className={classes.disableUnderline}>
 						{mobile ? (
 							<IconButton>
 								<AddRounded />
