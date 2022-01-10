@@ -2,12 +2,13 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
-import { useAuthContext } from '../context/auth';
+import { useAuthContext } from '../../context/auth';
 
-import { ErrorPage, Loading } from '../components';
-import { Header } from '../components';
-import {routes, authRoutes} from './index';
-import { LandingPage, LoginPage } from '../pages';
+import { Loading } from '../Loading/'
+import { ErrorPage } from '..';
+import { Header } from '..';
+import {routes, authRoutes} from '../../routes/index';
+import { LandingPage, LoginPage } from '../../pages';
 
 export const Layout = () => {
     
