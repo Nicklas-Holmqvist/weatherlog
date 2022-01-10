@@ -14,11 +14,12 @@ import useStyles from './styles';
 import logo from './weatherlog-mini-logo.svg';
 import { MenuIcon } from 'src/utils';
 import { useUsersContext } from '../../context/users';
+import { useAuthContext } from '../../context/auth';
 
 export const Header = () => {
 	const classes = useStyles();
 	const mobile = useMediaQuery(theme.breakpoints.only('xs'));
-	const logOut = useUsersContext().logout
+	const logOut = useAuthContext().logout
 	const { user } = useUsersContext();
 	const navigateTo = useNavigate()
 
@@ -28,7 +29,7 @@ export const Header = () => {
 
 	const handleRunLogout = () => {
 		logOut()
-		navigateTo('/login')
+		navigateTo('/')
 	}
 
 	const isPathLoginOrRegister = () => {

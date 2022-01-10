@@ -60,6 +60,5 @@ export const authRoutes = [
 		path: '/settings',
 		element: <SettingsPage />,
 	},
-
 ]
 

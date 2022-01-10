@@ -6,8 +6,8 @@ const { authUser } = require('../auth/controller')
 router.get("/api/logs/", authUser, controller.getLogs);
 router.get("/api/home/", authUser, controller.getFive);
 router.get("/api/log/:id", authUser, controller.getLog);
-router.post("/api/logs/register", controller.createLog);
-router.get("/api/diagram/:id", controller.getDiagram);
+router.post("/api/logs/register", authUser, controller.createLog);
+router.get("/api/diagram/:id", authUser, controller.getDiagram);
 router.put("/api/logs/:id", authUser, controller.changeLog);
 router.delete("/api/logs/:id", authUser, controller.deleteLog);
 
