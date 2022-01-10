@@ -9,6 +9,6 @@ export default makeStyles((theme) => ({
 		alignItems: 'center'
 	},
 	circle:{
-		color:'#0000FF'
+		color:'#000000'
 	}
 }));
