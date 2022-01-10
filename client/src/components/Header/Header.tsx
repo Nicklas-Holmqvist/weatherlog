@@ -26,7 +26,7 @@ export const Header = () => {
 		isPathLoginOrRegister();
 	});
 
-	const runLogout = () => {
+	const handleRunLogout = () => {
 		logOut()
 		navigateTo('/login')
 	}
@@ -77,7 +77,7 @@ export const Header = () => {
 					</Typography>
 				</Grid>
 				<Grid item>
-					<Button onClick={runLogout} endIcon={<ExitToAppRounded />}>Logga ut</Button>
+					<Button onClick={handleRunLogout} endIcon={<ExitToAppRounded />}>Logga ut</Button>
 				</Grid>
 			</Grid>
 		</Grid>

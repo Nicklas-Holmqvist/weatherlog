@@ -28,7 +28,7 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
      * Prepare the API-response and split it up to the necessary arrays to be viewed in the diagram
      * @param e API-response
      */
-    const prepairDiagramData = (e:ILogs[]) => {
+    const handlePrepareDiagramData = (e:ILogs[]) => {
         let data:number[] = []  
         let label:string[] = []  
         let color:any[] = []
@@ -79,7 +79,7 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
                 return res.json();
             })
             .then(function (data) {
-                prepairDiagramData(data)
+                handlePrepareDiagramData(data)
                 console.log(data)
             })
             .catch(function (err) {
