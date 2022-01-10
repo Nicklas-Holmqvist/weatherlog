@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 import { useLogsContext } from '../../context/logs';
 import { NoLog } from '../../components/NoLog/NoLog'
-import { Loading, WeatherCard } from 'src/components';
+import { Loading, WeatherCard } from '../../components';
 
 import theme from 'src/theme';
 import useStyles from './styles';
