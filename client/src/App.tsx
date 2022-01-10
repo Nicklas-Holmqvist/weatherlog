@@ -5,7 +5,7 @@ import { UsersProvider } from './context/users';
 import { DiagramProvider } from './context/diagram';
 import { AuthProvider } from './context/auth';
 
-import Layout from './routes/Layout';
+import {Layout} from './components';
 
 import './App.css';
 import theme from './theme';
