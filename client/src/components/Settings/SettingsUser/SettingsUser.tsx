@@ -20,6 +20,32 @@ export const SettingsUser = () => {
 
 	const [showModal, setShowModal] = useState(false);
 
+	const handleEditAccount = () => {
+
+		if (user.firstName === '' && user.firstName.length <= 2)  {
+			console.log(user.firstName)
+			return
+		}
+		if (user.lastName === '')  {
+			console.log(user.lastName)
+			return
+		}
+		if (user.city === '')  {
+			console.log(user.city)
+			return
+		}
+		if (!user.email?.toString().includes('@' && '.')) {
+			console.log(2, user.email)
+			return
+		}
+		if (user.email === '')  {
+			console.log(1, user.email)
+			return
+		}
+		
+		editUser()
+	}
+
 	return (
 		<>
 			{showModal && (
@@ -107,7 +133,7 @@ export const SettingsUser = () => {
 				</Grid>
 				<Divider className={classes.divider} />
 				<Button
-					onClick={editUser}
+					onClick={handleEditAccount}
 					variant="contained"
 					disableElevation
 					className={classes.button}

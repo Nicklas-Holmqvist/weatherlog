@@ -100,11 +100,6 @@ export const RegisterForm = () => {
 			return;
 		}
 
-		// setEmailError(testEmailForErrors(user.email)!);
-		// setPasswordError(
-		// 	testPasswordForErrors(user.password, user.passwordToConfirm)!
-		// );
-
 		fetchUser();
 	};
 

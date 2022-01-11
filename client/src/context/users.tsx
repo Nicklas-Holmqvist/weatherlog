@@ -48,13 +48,12 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
                 [name]: value
             })
         }
-        console.log(name, value)
         setUser({
             ...user,
             [name]: value
         })     
     }
-
+    
     const options = {
         fetchUser: {method: 'get'},
         addUser: {
@@ -113,7 +112,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
         });
     };
 
-    const editUser = async () => {          
+    const editUser = async () => {       
         await fetch(`/api/user/edit`, options.editUser)
         .catch((err) => {
             console.error(err);
