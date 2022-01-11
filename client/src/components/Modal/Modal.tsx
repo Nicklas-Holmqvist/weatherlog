@@ -18,10 +18,10 @@ export const ModalPopup = ({ open, handleClose }: IModalPopup) => {
 	const logout = useAuthContext().logout
 
 	const handleDeleteAccount = () => {
+		deleteAccount()
 		logout()
 		navigateTo('/')
 		handleClose()
-		deleteAccount()
 	}
 
 	return (
