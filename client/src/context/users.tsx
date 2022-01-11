@@ -1,11 +1,13 @@
 import React, { useState, useContext, createContext, FunctionComponent, useEffect } from 'react'
-import { IUsers, IPassword } from '../types/Users'
+import { IUsers, IPassword, IChangePassword } from '../types/Users'
 
 export const UsersContext = createContext<Context>(undefined!);
 
 type Context = {
     user: IUsers,
     password: IPassword,
+    errorMessage:{newPassword: string, oldPassword: string}
+    error:{newPassword: boolean, oldPassword: boolean}
     deleteUser: () => void,
     changePassword: () => void,
     addUser: () => void,
@@ -29,9 +31,28 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
         newPassword: ""
     }
 
+    const emptyErrorMessage = {
+        oldPassword: "",
+        newPassword: ""
+    }
+
+    const emptyError = {
+        oldPassword: false,
+        newPassword: false
+    }
+
     const [user, setUser] = useState<IUsers>(emptyUser)
 
     const [password, setPassword] = useState<IPassword>(emptyPassword)
+
+    const [errorMessage, setErrorMessage] = useState({
+		oldPassword: '',
+		newPassword: '',
+	});
+	const [error, setError] = useState({
+		oldPassword: false,
+		newPassword: false,
+	});
 
     /**
      * Handle input changes in setting page
@@ -54,6 +75,31 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
         })     
     }
     
+    const handleErrorChangePassword = (e:IChangePassword) => {
+        if(e.code === 400) {
+			setError((oldstate) => ({
+				...oldstate,
+				oldPassword: true,
+			}));
+			setErrorMessage((oldstate) => ({
+				...oldstate,
+				oldPassword: e.msg.toString(),
+			}));
+			return
+		}
+        if(e.code === 401) {
+			setError((oldstate) => ({
+				...oldstate,
+				newPassword: true,
+			}));
+			setErrorMessage((oldstate) => ({
+				...oldstate,
+				newPassword: e.msg.toString(),
+			}));
+			return
+		}
+    }
+
     const options = {
         fetchUser: {method: 'get'},
         addUser: {
@@ -121,6 +167,16 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 
     const changePassword = async () => {       
         await fetch(`/api/user/changePassword`, options.changePassword)
+        .then((res) => {
+            if (res.status === 400) {
+            }
+            return res.json();
+        })
+        .then((data) => {
+            setErrorMessage(emptyErrorMessage)
+            setError(emptyError)
+            handleErrorChangePassword(data)
+        })
         .catch((err) => {
             console.error(err);
         });
@@ -139,6 +195,8 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
             { 
                 user,
                 password,
+                error,
+                errorMessage,
                 deleteUser, 
                 changePassword,
                 addUser, 
