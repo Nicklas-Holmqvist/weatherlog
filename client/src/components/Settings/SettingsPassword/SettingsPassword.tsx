@@ -1,7 +1,7 @@
 import { Button, Grid, TextField, Typography } from '@material-ui/core';
-import { useState } from 'react';
 
 import { useUsersContext } from '../../../context/users';
+
 import useStyles from './styles';
 
 export const SettingsPassword = () => {
@@ -10,10 +10,6 @@ export const SettingsPassword = () => {
 	const handleChange = useUsersContext().handleChange;
 	const changePassword = useUsersContext().changePassword;
 	const { password, error, errorMessage } = useUsersContext();
-
-	const handleChangeError = () => {		
-		changePassword()
-	}
 
 	return (
 		<Grid container direction="column" className={classes.root}>
@@ -55,7 +51,7 @@ export const SettingsPassword = () => {
 				</Grid>
 			</Grid>
 			<Button
-				onClick={handleChangeError}
+				onClick={changePassword}
 				variant="contained"
 				disableElevation
 				className={classes.button}

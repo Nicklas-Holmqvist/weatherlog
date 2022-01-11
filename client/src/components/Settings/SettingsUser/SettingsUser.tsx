@@ -6,9 +6,10 @@ import {
 	Typography,
 } from '@material-ui/core';
 import { useState } from 'react';
-import { ModalPopup } from 'src/components';
 
 import { useUsersContext } from '../../../context/users';
+import { ModalPopup } from 'src/components';
+
 import useStyles from './styles';
 
 export const SettingsUser = () => {
@@ -24,13 +25,12 @@ export const SettingsUser = () => {
 		firstName: '',
 		lastName: '',
 		city: '',
-		email: '',
+		
 	});
 	const [error, setError] = useState({
 		firstName: false,
 		lastName: false,
 		city: false,
-		email: false,
 	});
 
 	const handleEditAccount = () => {
@@ -95,15 +95,14 @@ export const SettingsUser = () => {
 			firstName: '',
 			lastName: '',
 			city: '',
-			email: '',
+			
 		})
 		setError({
 			firstName: false,
 			lastName: false,
 			city: false,
-			email: false,
+			
 		})		
-
 		editUser()
 	}
 
@@ -112,13 +111,11 @@ export const SettingsUser = () => {
 			firstName: '',
 			lastName: '',
 			city: '',
-			email: '',
 		})
 		setError({
 			firstName: false,
 			lastName: false,
 			city: false,
-			email: false,
 		})		
 	}
 
@@ -180,23 +177,6 @@ export const SettingsUser = () => {
 							size="small"
 							onChange={(e) => handleChange(e)}
 							className={`${classes.textField} ${classes.marginTop}`}
-							required
-						/>
-					</Grid>
-					<Grid item className={classes.marginTop}>
-						<Typography variant="subtitle1">Email</Typography>
-						<TextField
-							fullWidth
-							error={error.email}
-							name="email"
-							value={user?.email}
-							placeholder='Fyll i email'
-							helperText={errorMessage.email}
-							variant="outlined"
-							margin="dense"
-							size="small"
-							onChange={(e) => handleChange(e)}
-							className={classes.textField}
 							required
 						/>
 					</Grid>

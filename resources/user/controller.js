@@ -95,7 +95,6 @@ exports.login = async (req, res) => {
 		if (err.message === 'incorrect password') {
 			errors.password = 'Fel lösenord';
 		}
-
 		res.status(400).json({ errors });
 	}
 };
@@ -107,28 +106,37 @@ exports.editUser = async (req, res) => {
         firstName,
         lastName,
         city,
-        email
     } = req.body
     
     const getUser = await UserModel.findById(user);
-    
+    // const checkNewEmail = await UserModel.find({_id:{ $ne: user}}).findOne({email:email})
+   
     const newUser = {
         firstName: firstName,
 		lastName: lastName,
 		city: city,
-        email: email
     }
+
+    // let errors = { errorMessage: '',
+    //             error: false}   
     
-    if (getUser) {     
+    // if(checkNewEmail !== null){
+    //     errors.errorMessage ='Email finns redan registrerat'
+    //     errors.error = true
+    //     return res.status(400).json(errors)
+    // } 
+    if (getUser) {             
         try {           
+            // errors.errorMessage = ''
+            // errors.error = false
 			await UserModel.findByIdAndUpdate({ _id: user }, newUser)
-			res.status(200).json('User has been updated!')
+			res.status(200).json('Uppdaterat')
         } catch (error) {
             res.status(400).json(error)
     }
     } else {
-        let errors = { msg: '' }        
-        errors.msg = 'The user does not exist'        
+        let errors = { errorMessage: '' }        
+        errors.errorMessage = 'The user does not exist'        
         res.status(400).json({ errors })
     }
 }

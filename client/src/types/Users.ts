@@ -1,6 +1,6 @@
 export interface IUsers {
 	email?: String,
-	password: string,
+	password?: string,
 	city?: String,
 	firstName?: String,
 	lastName?: String,
