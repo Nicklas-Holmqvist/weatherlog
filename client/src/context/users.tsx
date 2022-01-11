@@ -48,7 +48,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
                 [name]: value
             })
         }
-
+        console.log(name, value)
         setUser({
             ...user,
             [name]: value

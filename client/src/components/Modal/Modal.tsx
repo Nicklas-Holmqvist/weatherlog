@@ -20,8 +20,8 @@ export const ModalPopup = ({ open, handleClose }: IModalPopup) => {
 	const handleDeleteAccount = () => {
 		deleteAccount()
 		logout()
-		navigateTo('/')
 		handleClose()
+		navigateTo('/')
 	}
 
 	return (

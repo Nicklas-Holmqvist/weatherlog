@@ -102,21 +102,23 @@ exports.login = async (req, res) => {
 
 exports.editUser = async (req, res) => {
     const user = req.cookies.user
-
+    
     const { 
         firstName,
         lastName,
-        city
+        city,
+        email
     } = req.body
-
+    
     const getUser = await UserModel.findById(user);
     
     const newUser = {
         firstName: firstName,
 		lastName: lastName,
-		city: city
+		city: city,
+        email: email
     }
-
+    
     if (getUser) {     
         try {           
 			await UserModel.findByIdAndUpdate({ _id: user }, newUser)
