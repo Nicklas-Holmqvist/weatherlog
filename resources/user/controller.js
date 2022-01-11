@@ -109,7 +109,6 @@ exports.editUser = async (req, res) => {
     } = req.body
     
     const getUser = await UserModel.findById(user);
-    // const checkNewEmail = await UserModel.find({_id:{ $ne: user}}).findOne({email:email})
    
     const newUser = {
         firstName: firstName,
@@ -117,18 +116,8 @@ exports.editUser = async (req, res) => {
 		city: city,
     }
 
-    // let errors = { errorMessage: '',
-    //             error: false}   
-    
-    // if(checkNewEmail !== null){
-    //     errors.errorMessage ='Email finns redan registrerat'
-    //     errors.error = true
-    //     return res.status(400).json(errors)
-    // } 
     if (getUser) {             
         try {           
-            // errors.errorMessage = ''
-            // errors.error = false
 			await UserModel.findByIdAndUpdate({ _id: user }, newUser)
 			res.status(200).json('Uppdaterat')
         } catch (error) {
@@ -186,7 +175,7 @@ exports.changePassword = async (req, res) => {
             errors.code = 200    
 			res.status(200).json(errors)
         } catch (error) {
-            res.status(400).json(errors)
+            res.status(400).json(error)
         }
     } else {     
         errors.msg = 'Gamla lösenordet stämmer inte'   

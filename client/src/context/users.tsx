@@ -137,7 +137,12 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
                 return res.json();
             })
             .then((data) => {
-                setUser(data)
+                if(data.firstName === undefined) return
+                setUser({
+                    firstName:data.firstName,
+                    lastName:data.lastName,
+                    city:data.city,
+                })
             })
             .catch((err) => {
                 console.error(err);
@@ -160,15 +165,6 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 
     const editUser = async () => {       
         await fetch(`/api/user/edit`, options.editUser)
-        .then((res) => {
-            if (res) {
-                console.log(res)
-            }
-            return res.json();
-        })
-        .then((data) => {
-            console.log(data)
-        })
         .catch((err) => {
             console.error(err);
         });

@@ -68,29 +68,7 @@ export const SettingsUser = () => {
 			}));
 			return
 		}
-		if (user.email === '')  {
-			setError((oldstate) => ({
-				...oldstate,
-				email: true,
-			}));
-			setErrorMessage((oldstate) => ({
-				...oldstate,
-				email: 'Vänligen ange en korrekt email-adress tex. namn@hej.se',
-			}));
-			return
-		}
-		if (!user.email?.toString().includes('@' && '.')) {
-			setError((oldstate) => ({
-				...oldstate,
-				email: true,
-			}));
-			setErrorMessage((oldstate) => ({
-				...oldstate,
-				email: 'Vänligen ange en korrekt email-adress tex. namn@hej.se',
-			}));
-			return
-		}
-
+		
 		setErrorMessage({
 			firstName: '',
 			lastName: '',
@@ -135,7 +113,7 @@ export const SettingsUser = () => {
 							fullWidth
 							error={error.firstName}
 							name="firstName"
-							value={user?.firstName}
+							value={user.firstName}
 							placeholder='Fyll i ditt namn'
 							helperText={errorMessage.firstName}
 							variant="outlined"
@@ -152,7 +130,7 @@ export const SettingsUser = () => {
 							fullWidth
 							error={error.lastName}
 							name="lastName"
-							value={user?.lastName}
+							value={user.lastName}
 							placeholder='Fyll i ditt efternamn'
 							helperText={errorMessage.lastName}
 							variant="outlined"
@@ -169,7 +147,7 @@ export const SettingsUser = () => {
 							fullWidth
 							error={error.city}
 							name="city"
-							value={user?.city}
+							value={user.city}
 							placeholder='Fyll i registreringsort'
 							helperText={errorMessage.city}
 							variant="outlined"
