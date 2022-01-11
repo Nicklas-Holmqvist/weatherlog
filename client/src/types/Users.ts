@@ -1,18 +1,18 @@
 export interface IUsers {
-	email?: String,
+	email?: string,
 	password?: string,
-	city?: String,
-	firstName?: String,
-	lastName?: String,
+	city?: string,
+	firstName?: string,
+	lastName?: string,
 }
 
 export interface IPassword {
-	oldPassword: String,
-	newPassword: String
+	oldPassword: string,
+	newPassword: string
 }
 
 export interface IChangePassword {
-	msg: String,
+	msg: string,
 	boolean: boolean,
 	code: number
 }
