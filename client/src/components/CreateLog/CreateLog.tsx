@@ -10,7 +10,10 @@ import {
 	TextField,
 	Typography,
 } from '@material-ui/core';
+import { CheckRounded } from '@material-ui/icons';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ILogs } from 'src/types/Logs';
 
 import { useLogsContext } from '../../context/logs';
 import {
@@ -29,7 +32,7 @@ import {
 	windFeelEnum,
 } from '../../utils';
 import useStyles from './styles';
-import { WeatherList } from './WeatherList';
+// import { WeatherList } from './WeatherList';
 
 export const CreateLog = () => {
 	const classes = useStyles();
@@ -38,17 +41,76 @@ export const CreateLog = () => {
 	const getLogs = useLogsContext().getLogs;
 	const { logValue, logDate, numberOfMonths, numberOfDays } = useLogsContext();
 	const MonthName = monthEnum;
+	const [logList, setLogList] = useState<ILogs[]>([]);
+	// const [activeDate, setActiveDate] = useState({
+	// 	year: logDate?.year,
+	// 	month: logDate?.month,
+	// 	day: logDate?.day,
+	// });
+	// let usedDates: any[];
+
+	useEffect(() => {
+		/** Fetch all users logs */
+		const getAllLogs = async () => {
+			await fetch('/api/home', {
+				method: 'get',
+			})
+				.then((res) => {
+					if (res.status === 400) {
+						return;
+					}
+					return res.json();
+				})
+				.then((data) => {
+					setLogList(data);
+				})
+				.catch((err) => {
+					console.error(err);
+				});
+		};
+		getAllLogs();
+	}, []);
 
 	const navigateTo = useNavigate();
+
+	const addZero = (value: number) => {
+		if (value < 9) {
+			return `0${value}`;
+		}
+		return value;
+	};
+
+	const selectedDate = [
+		logDate.year.toString(),
+		addZero(logDate.month),
+		addZero(logDate.day),
+	].join('');
+	// const selectedDate = ['2022', '01', '13'].join('');
+	const usedDates: string[] = [];
+	logList.forEach((log) => {
+		if (selectedDate.includes(log.date.substring(0, 6))) {
+			usedDates.push(log.date.substring(6, 8));
+		}
+		return usedDates;
+	});
+	// console.log(usedDates);
+	console.log(selectedDate + ' from CreateLog');
 
 	/** Component in month dropdown */
 	const monthList = numberOfMonths.map((month) => (
 		<MenuItem value={month}>{MonthName[month]}</MenuItem>
 	));
+
 	/** Component in day dropdown */
-	const dayList = numberOfDays.map((day) => (
-		<MenuItem value={day}>{day}</MenuItem>
-	));
+	const dayList = numberOfDays.map((day) =>
+		!usedDates.includes(day.toString()) ? (
+			<MenuItem value={day}>{day}</MenuItem>
+		) : (
+			<MenuItem disabled value={day}>
+				{day + ' - Inlägg finns'}
+			</MenuItem>
+		)
+	);
 
 	const create = () => {
 		createLog.addPost();
@@ -58,7 +120,9 @@ export const CreateLog = () => {
 
 	return (
 		<Grid item container direction="column" className={classes.root}>
-			<Typography variant="h2" className={classes.title}>Skapa inlägg</Typography>
+			<Typography variant="h2" className={classes.title}>
+				Skapa inlägg
+			</Typography>
 			<Grid item container direction="column">
 				<Typography variant="subtitle1" className={classes.subtitle}>
 					Datum *
@@ -386,9 +450,10 @@ export const CreateLog = () => {
 			</Grid>
 			<Button
 				onClick={create}
+				disableElevation
 				variant="contained"
 				className={classes.button}
-				disableElevation
+				endIcon={<CheckRounded />}
 			>
 				Skapa log
 			</Button>

@@ -10,7 +10,7 @@ import { AddRounded, HistoryRounded } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
 import { useLogsContext } from '../../context/logs';
-import { NoLog } from '../../components/NoLog/NoLog'
+import { NoLog } from '../../components/NoLog/NoLog';
 import { WeatherCard } from 'src/components';
 
 import theme from 'src/theme';
@@ -23,37 +23,45 @@ export const LandingPage = () => {
 	const classes = useStyles();
 	const mobile = useMediaQuery(theme.breakpoints.down(540));
 
-	const { historyMonths } = useLogsContext()
+	const { historyMonths } = useLogsContext();
 
-	const [logList, setLogList] = useState<ILogs[]>([])
-	const [history, setHistory] = useState<string[]>(historyMonths)
+	const [logList, setLogList] = useState<ILogs[]>([]);
+	const [history, setHistory] = useState<string[]>(historyMonths);
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => {
-		setHistory(historyMonths)
-	})	
+		setHistory(historyMonths);
+	});
 
 	useEffect(() => {
 		/** Fetch all users logs */
 		const getAllLogs = async () => {
 			await fetch('/api/home', {
 				method: 'get',
-			},)
-			.then((res) => {
-				if (res.status === 400) {
-					return;
-				}
-				return res.json();
 			})
-			.then((data) => {
-				setLogList(data)
-			})
-			.catch((err) => {
-				console.error(err);
-			});
-		}
-		getAllLogs()
-	},[])
+				.then((res) => {
+					if (res.status === 400) {
+						return;
+					}
+					return res.json();
+				})
+				.then((data) => {
+					setLogList(data);
+				})
+				.catch((err) => {
+					console.error(err);
+				});
+		};
+		getAllLogs();
+	}, []);
+
+	// logList.forEach((log) => {
+	// 	const month = log.date.substring(4, 6).toString();
+	// 	const day = log.date.substring(6, 8).toString();
+	// 	// console.log(month, day);
+	// 	if (month === '01')
+	// 		console.log('i månaden', month, 'är datumet', day, 'upptaget');
+	// });
 
 	return (
 		<Grid item container className={classes.container}>
@@ -62,7 +70,10 @@ export const LandingPage = () => {
 					Senaste dagarna
 				</Typography>
 				<Grid item>
-					<Link to={`/diagram/${history[0]}`} className={classes.disableUnderline}>
+					<Link
+						to={`/diagram/${history[0]}`}
+						className={classes.disableUnderline}
+					>
 						{mobile ? (
 							<IconButton>
 								<HistoryRounded />
@@ -95,50 +106,56 @@ export const LandingPage = () => {
 					</Link>
 				</Grid>
 			</Grid>
-			{logList.length === 0 ? 
+			{logList.length === 0 ? (
 				<NoLog />
-				 :
-			<Grid item container className={classes.tableHeader}>
-				<Grid item>
-					<Typography variant="body1" className={classes.tableTitleText}>
-						Datum
-					</Typography>
+			) : (
+				<Grid item container className={classes.tableHeader}>
+					<Grid item>
+						<Typography variant="body1" className={classes.tableTitleText}>
+							Datum
+						</Typography>
+					</Grid>
+					<Grid item>
+						<Typography variant="body1" className={classes.tableTitleText}>
+							Temperatur
+						</Typography>
+					</Grid>
+					<Grid item>
+						<Typography variant="body1" className={classes.tableTitleText}>
+							Väder
+						</Typography>
+					</Grid>
+					<Grid item>
+						<Typography variant="body1" className={classes.tableTitleText}>
+							Vind
+						</Typography>
+					</Grid>
+					<Grid item>
+						<Typography variant="body1" className={classes.tableTitleText}>
+							Nederbörd
+						</Typography>
+					</Grid>
 				</Grid>
-				<Grid item>
-					<Typography variant="body1" className={classes.tableTitleText}>
-						Temperatur
-					</Typography>
-				</Grid>
-				<Grid item>
-					<Typography variant="body1" className={classes.tableTitleText}>
-						Väder
-					</Typography>
-				</Grid>
-				<Grid item>
-					<Typography variant="body1" className={classes.tableTitleText}>
-						Vind
-					</Typography>
-				</Grid>
-				<Grid item>
-					<Typography variant="body1" className={classes.tableTitleText}>
-						Nederbörd
-					</Typography>
-				</Grid>
-			</Grid>
-				}
-			<Grid item container direction="column">					 
-				{logList.map((d:ILogs) => 
+			)}
+			<Grid item container direction="column">
+				{logList.map((d: ILogs) => (
 					<Link to={`/log/${d.date}`} className={classes.disableUnderline}>
 						<WeatherCard
-							key={d._id?.toString()} 
+							key={d._id?.toString()}
 							temp={parseInt(d.temperature)}
-							date={{ day:d.date.substring(6,8).toString(), month: GetMonthName(d.date.substring(4,6).toString())! }}
+							date={{
+								day: d.date.substring(6, 8).toString(),
+								month: GetMonthName(d.date.substring(4, 6).toString())!,
+							}}
 							weather={d.weather.toString()}
-							wind={{ speed: d.windSpeed.toString(), direction: d.windDirection.toString() }}
+							wind={{
+								speed: d.windSpeed.toString(),
+								direction: d.windDirection.toString(),
+							}}
 							precipitation={Number(d.precipitation)}
 						/>
 					</Link>
-				)}				
+				))}
 			</Grid>
 		</Grid>
 	);
