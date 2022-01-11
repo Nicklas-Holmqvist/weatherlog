@@ -20,30 +20,106 @@ export const SettingsUser = () => {
 
 	const [showModal, setShowModal] = useState(false);
 
-	const handleEditAccount = () => {
+	const [errorMessage, setErrorMessage] = useState({
+		firstName: '',
+		lastName: '',
+		city: '',
+		email: '',
+	});
+	const [error, setError] = useState({
+		firstName: false,
+		lastName: false,
+		city: false,
+		email: false,
+	});
 
+	const handleEditAccount = () => {
+		resetErrors()
 		if (user.firstName === '' && user.firstName.length <= 2)  {
-			console.log(user.firstName)
+			setError((oldstate) => ({
+				...oldstate,
+				firstName: true,
+			}));
+			setErrorMessage((oldstate) => ({
+				...oldstate,
+				firstName: 'Fyll i förnamn, minst 2 tecken',
+			}));
 			return
 		}
 		if (user.lastName === '')  {
-			console.log(user.lastName)
+			setError((oldstate) => ({
+				...oldstate,
+				lastName: true,
+			}));
+			setErrorMessage((oldstate) => ({
+				...oldstate,
+				lastName: 'Fyll i efternamn',
+			}));
 			return
 		}
 		if (user.city === '')  {
-			console.log(user.city)
-			return
-		}
-		if (!user.email?.toString().includes('@' && '.')) {
-			console.log(2, user.email)
+			setError((oldstate) => ({
+				...oldstate,
+				city: true,
+			}));
+			setErrorMessage((oldstate) => ({
+				...oldstate,
+				city: 'Fyll i registreringsort',
+			}));
 			return
 		}
 		if (user.email === '')  {
-			console.log(1, user.email)
+			setError((oldstate) => ({
+				...oldstate,
+				email: true,
+			}));
+			setErrorMessage((oldstate) => ({
+				...oldstate,
+				email: 'Vänligen ange en korrekt email-adress tex. namn@hej.se',
+			}));
 			return
 		}
-		
+		if (!user.email?.toString().includes('@' && '.')) {
+			setError((oldstate) => ({
+				...oldstate,
+				email: true,
+			}));
+			setErrorMessage((oldstate) => ({
+				...oldstate,
+				email: 'Vänligen ange en korrekt email-adress tex. namn@hej.se',
+			}));
+			return
+		}
+
+		setErrorMessage({
+			firstName: '',
+			lastName: '',
+			city: '',
+			email: '',
+		})
+		setError({
+			firstName: false,
+			lastName: false,
+			city: false,
+			email: false,
+		})		
+
 		editUser()
+	}
+
+	const resetErrors = () => {
+		setErrorMessage({
+			firstName: '',
+			lastName: '',
+			city: '',
+			email: '',
+		})
+		setError({
+			firstName: false,
+			lastName: false,
+			city: false,
+			email: false,
+		})		
 	}
 
 	return (
@@ -60,56 +136,68 @@ export const SettingsUser = () => {
 						<Typography variant="subtitle1">Förnamn</Typography>
 						<TextField
 							fullWidth
+							error={error.firstName}
 							name="firstName"
 							value={user?.firstName}
-							helperText=""
+							placeholder='Fyll i ditt namn'
+							helperText={errorMessage.firstName}
 							variant="outlined"
 							margin="dense"
 							size="small"
 							onChange={(e) => handleChange(e)}
 							className={classes.textField}
+							required
 						/>
 					</Grid>
 					<Grid item>
 						<Typography variant="subtitle1">Efternamn</Typography>
 						<TextField
 							fullWidth
+							error={error.lastName}
 							name="lastName"
 							value={user?.lastName}
-							helperText=""
+							placeholder='Fyll i ditt efternamn'
+							helperText={errorMessage.lastName}
 							variant="outlined"
 							margin="dense"
 							size="small"
 							onChange={(e) => handleChange(e)}
 							className={classes.textField}
+							required
 						/>
 					</Grid>
 					<Grid item className={classes.marginTop}>
 						<Typography variant="subtitle1">Ort</Typography>
 						<TextField
 							fullWidth
+							error={error.city}
 							name="city"
 							value={user?.city}
-							helperText=""
+							placeholder='Fyll i registreringsort'
+							helperText={errorMessage.city}
 							variant="outlined"
 							margin="dense"
 							size="small"
 							onChange={(e) => handleChange(e)}
 							className={`${classes.textField} ${classes.marginTop}`}
+							required
 						/>
 					</Grid>
 					<Grid item className={classes.marginTop}>
 						<Typography variant="subtitle1">Email</Typography>
 						<TextField
 							fullWidth
+							error={error.email}
 							name="email"
 							value={user?.email}
-							helperText=""
+							placeholder='Fyll i email'
+							helperText={errorMessage.email}
 							variant="outlined"
 							margin="dense"
 							size="small"
 							onChange={(e) => handleChange(e)}
 							className={classes.textField}
+							required
 						/>
 					</Grid>
 				</Grid>
