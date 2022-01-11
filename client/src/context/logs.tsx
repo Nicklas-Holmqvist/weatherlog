@@ -109,6 +109,11 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		const value = e.target.value;
 		const name = e.target.name;
 
+		// if (value.includes('Inlägg finns')) {
+		// 	console.log(value + 'STOP');
+		// }
+		// console.log(value);
+
 		if (name === 'year' || name === 'month' || name === 'day') {
 			setLogDate({
 				...logDate,
@@ -174,7 +179,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 			...logValue,
 			date: `${logDate.year}${addZero(logDate.month)}${addZero(logDate.day)}`,
 		});
-		console.log(logDate);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [logDate]);
 

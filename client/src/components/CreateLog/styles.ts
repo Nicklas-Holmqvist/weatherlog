@@ -137,4 +137,9 @@ export default makeStyles((theme) => ({
 			gridArea: '2 / 2 / 3 / 3',
 		},
 	},
+	errorText: {
+		fontSize: 12,
+		marginTop: 4,
+		marginLeft: 14,
+	},
 }));

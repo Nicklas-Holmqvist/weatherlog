@@ -42,12 +42,20 @@ export const CreateLog = () => {
 	const { logValue, logDate, numberOfMonths, numberOfDays } = useLogsContext();
 	const MonthName = monthEnum;
 	const [logList, setLogList] = useState<ILogs[]>([]);
-	// const [activeDate, setActiveDate] = useState({
-	// 	year: logDate?.year,
-	// 	month: logDate?.month,
-	// 	day: logDate?.day,
-	// });
-	// let usedDates: any[];
+	const usedDates: string[] = [];
+	const navigateTo = useNavigate();
+	const [errors, setErrors] = useState({
+		date: false,
+		weather: false,
+		temp: false,
+		precipitation: false,
+		windDir: false,
+		windSpeed: false,
+		windFeel: false,
+		airPressure: false,
+		humidity: false,
+		desc: false,
+	});
 
 	useEffect(() => {
 		/** Fetch all users logs */
@@ -71,8 +79,6 @@ export const CreateLog = () => {
 		getAllLogs();
 	}, []);
 
-	const navigateTo = useNavigate();
-
 	const addZero = (value: number) => {
 		if (value < 9) {
 			return `0${value}`;
@@ -85,16 +91,13 @@ export const CreateLog = () => {
 		addZero(logDate.month),
 		addZero(logDate.day),
 	].join('');
-	// const selectedDate = ['2022', '01', '13'].join('');
-	const usedDates: string[] = [];
+
 	logList.forEach((log) => {
 		if (selectedDate.includes(log.date.substring(0, 6))) {
 			usedDates.push(log.date.substring(6, 8));
 		}
 		return usedDates;
 	});
-	// console.log(usedDates);
-	console.log(selectedDate + ' from CreateLog');
 
 	/** Component in month dropdown */
 	const monthList = numberOfMonths.map((month) => (
@@ -106,16 +109,83 @@ export const CreateLog = () => {
 		!usedDates.includes(day.toString()) ? (
 			<MenuItem value={day}>{day}</MenuItem>
 		) : (
-			<MenuItem disabled value={day}>
+			<MenuItem disabled value={day + ' - Inlägg finns'}>
 				{day + ' - Inlägg finns'}
 			</MenuItem>
 		)
 	);
 
-	const create = () => {
-		createLog.addPost();
-		navigateTo('/home');
-		getLogs();
+	const handleCreateLog = () => {
+		setErrors({
+			date: false,
+			weather: false,
+			temp: false,
+			precipitation: false,
+			windDir: false,
+			windSpeed: false,
+			windFeel: false,
+			airPressure: false,
+			humidity: false,
+			desc: false,
+		});
+		console.log(logValue);
+		if (logValue.weather === '') {
+			console.log('weather was caught', logValue.weather);
+			setErrors((oldstate) => ({
+				...oldstate,
+				weather: true,
+			}));
+			return;
+		}
+		if (logValue.temperature === '') {
+			setErrors((oldstate) => ({
+				...oldstate,
+				temp: true,
+			}));
+			return;
+		}
+		if (logValue.precipitation === '') {
+			setErrors((oldstate) => ({
+				...oldstate,
+				precipitation: true,
+			}));
+			return;
+		}
+		if (/^\d+$/.test(logValue.windSpeed.toString())) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				windSpeed: true,
+			}));
+			return;
+		}
+		// if (
+		// 	/^\d+$/.test(logValue.airpressure.toString())
+		// 	// ||
+		// 	// parseInt(logValue.airpressure.toString()) < 900 ||
+		// 	// parseInt(logValue.airpressure.toString()) > 1100
+		// ) {
+		// 	setErrors((oldstate) => ({
+		// 		...oldstate,
+		// 		airPressure: true,
+		// 	}));
+		// 	return;
+		// }
+		// if (
+		// 	/^\d+$/.test(logValue.humidity.toString())
+		// 	// ||
+		// 	// parseInt(logValue.humidity.toString()) < 0 ||
+		// 	// parseInt(logValue.humidity.toString()) > 100
+		// ) {
+		// 	setErrors((oldstate) => ({
+		// 		...oldstate,
+		// 		humidity: true,
+		// 	}));
+		// 	return;
+		// }
+		console.log('yey');
+		// createLog.addPost();
+		// navigateTo('/home');
+		// getLogs();
 	};
 
 	return (
@@ -173,19 +243,29 @@ export const CreateLog = () => {
 								name="day"
 								labelId="demo-simple-select-label"
 								id="demo-simple-select"
+								error={errors.date}
 								value={logDate?.day}
 								onChange={(e) => onChange.handleChange(e)}
 								className={classes.dropdown}
 							>
 								{dayList}
 							</Select>
+							{errors.date && (
+								<Typography
+									variant="body2"
+									color="error"
+									className={classes.errorText}
+								>
+									Ett inlägg finns redan på detta datum
+								</Typography>
+							)}
 						</FormControl>
 					</Grid>
 				</Grid>
 			</Grid>
 			<Grid item container direction="column">
 				<Typography variant="subtitle1" className={classes.subtitle}>
-					Temperatur, väder och nederbörd *
+					Väder, temperatur och nederbörd *
 				</Typography>
 				<Grid item container className={classes.tripleColumns}>
 					<Grid item className={classes.weather}>
@@ -195,6 +275,7 @@ export const CreateLog = () => {
 								name="weather"
 								labelId="demo-simple-select-label"
 								id="demo-simple-select"
+								error={errors.weather}
 								value={logValue.weather}
 								label="Väder"
 								onChange={(e) => onChange.handleChange(e)}
@@ -268,13 +349,24 @@ export const CreateLog = () => {
 									<Typography>Dimma</Typography>
 								</MenuItem>
 							</Select>
+							{errors.weather && (
+								<Typography
+									variant="body2"
+									color="error"
+									className={classes.errorText}
+								>
+									Välj väder
+								</Typography>
+							)}
 						</FormControl>
 					</Grid>
 					<Grid item className={classes.temp}>
 						<TextField
 							name="temperature"
 							value={logValue.temperature}
-							helperText=""
+							type="number"
+							error={errors.temp}
+							helperText={errors.temp && 'Ange temperatur'}
 							variant="outlined"
 							className={classes.input}
 							size="small"
@@ -293,8 +385,10 @@ export const CreateLog = () => {
 					<Grid item className={classes.precipitation}>
 						<TextField
 							name="precipitation"
+							type="number"
 							value={logValue.precipitation}
-							helperText=""
+							error={errors.precipitation}
+							helperText={errors.precipitation && 'Ange nederbörd'}
 							variant="outlined"
 							margin="dense"
 							size="small"
@@ -349,8 +443,10 @@ export const CreateLog = () => {
 					<Grid item>
 						<TextField
 							name="windSpeed"
+							type="number"
 							value={logValue.windSpeed}
-							helperText=""
+							error={errors.windSpeed}
+							helperText={errors.windSpeed && 'Använd endast siffror'}
 							variant="outlined"
 							margin="dense"
 							size="small"
@@ -395,8 +491,12 @@ export const CreateLog = () => {
 					<Grid item>
 						<TextField
 							name="airpressure"
+							type="number"
 							value={logValue.airpressure}
-							helperText=""
+							error={errors.airPressure}
+							helperText={
+								errors.airPressure && 'Ange ett värde mellan 900-1100'
+							}
 							variant="outlined"
 							margin="dense"
 							size="small"
@@ -415,7 +515,9 @@ export const CreateLog = () => {
 						<TextField
 							name="humidity"
 							value={logValue.humidity}
-							helperText=""
+							type="number"
+							error={errors.humidity}
+							helperText={errors.humidity && 'Ange ett värde mellan 0-100'}
 							variant="outlined"
 							margin="dense"
 							size="small"
@@ -449,7 +551,7 @@ export const CreateLog = () => {
 				/>
 			</Grid>
 			<Button
-				onClick={create}
+				onClick={handleCreateLog}
 				disableElevation
 				variant="contained"
 				className={classes.button}
