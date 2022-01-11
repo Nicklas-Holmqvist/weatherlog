@@ -131,7 +131,7 @@ export const RegisterForm = () => {
 					}));
 				}
 			} else {
-				navigateTo('/example');
+				navigateTo('/');
 			}
 		} catch (error) {
 			console.log(error);

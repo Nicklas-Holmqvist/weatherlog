@@ -1,13 +1,11 @@
 import { Box, Typography, Modal, Button } from '@material-ui/core';
+import { useNavigate } from "react-router-dom"
 
-// import { useUsersContext } from 'src/context/users';
+import { useUsersContext } from 'src/context/users';
+import { useAuthContext } from 'src/context/auth';
 import useStyles from './styles';
 
 interface IModalPopup {
-	// title: string;
-	// body: string;
-	// buttonText: string;
-	// onClick: () => void;
 	open: boolean;
 	handleClose: () => void;
 }
@@ -15,7 +13,16 @@ interface IModalPopup {
 export const ModalPopup = ({ open, handleClose }: IModalPopup) => {
 	const classes = useStyles();
 
-	// const deleteAccount = useUsersContext().deleteUser
+	const navigateTo = useNavigate()
+	const deleteAccount = useUsersContext().deleteUser
+	const logout = useAuthContext().logout
+
+	const handleDeleteAccount = () => {
+		logout()
+		navigateTo('/')
+		handleClose()
+		deleteAccount()
+	}
 
 	return (
 		<Modal
@@ -34,7 +41,7 @@ export const ModalPopup = ({ open, handleClose }: IModalPopup) => {
 				</Typography>
 				<Button
 					variant="contained"
-					onClick={() => console.log('trycktes på')}
+					onClick={handleDeleteAccount}
 					className={classes.button}
 					disableElevation
 				>
@@ -42,20 +49,6 @@ export const ModalPopup = ({ open, handleClose }: IModalPopup) => {
 				</Button>
 			</Box>
 		</Modal>
-		// <Modal
-		// 	open={open}
-		// 	onClose={handleClose}
-		// 	aria-labelledby="modal-modal-title"
-		// 	aria-describedby="modal-modal-description"
-		// >
-		// 	<Box>
-		// 		<Typography variant="subtitle1">{title}</Typography>
-		// 		<Typography variant="body2">{body}</Typography>
-		// 		<Button variant="contained" onClick={onClick}>
-		// 			{buttonText}
-		// 		</Button>
-		// 	</Box>
-		// </Modal>
 	);
 };
 

@@ -62,7 +62,7 @@ export const SettingsUser = () => {
 						<Typography variant="subtitle1">Ort</Typography>
 						<TextField
 							fullWidth
-							name="lastName"
+							name="city"
 							value={user?.city}
 							helperText=""
 							variant="outlined"
