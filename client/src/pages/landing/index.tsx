@@ -6,7 +6,11 @@ import {
 	Typography,
 	useMediaQuery,
 } from '@material-ui/core';
-import { AddRounded, HistoryRounded } from '@material-ui/icons';
+import {
+	AddRounded,
+	HistoryRounded,
+	ShowChartRounded,
+} from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
 import { useLogsContext } from '../../context/logs';
@@ -70,12 +74,12 @@ export const LandingPage = () => {
 					>
 						{mobile ? (
 							<IconButton>
-								<HistoryRounded />
+								<ShowChartRounded />
 							</IconButton>
 						) : (
 							<Button
 								variant="text"
-								endIcon={<HistoryRounded />}
+								endIcon={<ShowChartRounded />}
 								disableElevation
 								className={`${classes.disableUnderline} ${classes.mr}`}
 							>

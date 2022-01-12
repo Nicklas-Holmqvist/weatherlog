@@ -46,7 +46,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 	const onChange = useLogsContext();
 	const getLog = useLogsContext();
 	const getLogs = useLogsContext().getLogs;
-	const { log } = useLogsContext();
+	const { editLog } = useLogsContext();
 	const [errors, setErrors] = useState({
 		weather: false,
 		temp: false,
@@ -61,19 +61,16 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 
 	const { id }: any = useParams();
 
-	const year: string = log.date.substring(0, 4);
-	const month: any = GetMonthName(log.date.substring(4, 6));
-	const day: any = log.date.substring(6, 8);
+	const year: string = editLog.date.substring(0, 4);
+	const month: any = GetMonthName(editLog.date.substring(4, 6));
+	const day: any = editLog.date.substring(6, 8);
 
-	const edit = () => {
+	const handleEditLog = () => {
 		editPost(id);
-		getLogs();
+		// geteditLog.getLog(id);
 		setTimeout(() => {
 			handleClose();
 		}, 400);
-	};
-	const fetch = () => {
-		getLog.getLog(id);
 	};
 
 	return (
@@ -110,9 +107,9 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 									labelId="demo-simple-select-label"
 									id="demo-simple-select"
 									error={errors.weather}
-									defaultValue={log.weather}
+									defaultValue={editLog.weather}
 									label="Väder"
-									onChange={(e) => onChange.handleChange(e)}
+									onChange={(e) => onChange.handleEditChange(e)}
 									className={classes.dropdown}
 								>
 									{/* <WeatherList /> */}
@@ -197,7 +194,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 						<Grid item className={classes.temp}>
 							<TextField
 								name="temperature"
-								defaultValue={log.temperature}
+								defaultValue={editLog.temperature}
 								type="number"
 								error={errors.temp}
 								helperText={errors.temp && 'Ange temperatur'}
@@ -206,7 +203,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 								size="small"
 								margin="dense"
 								label="Temp"
-								onChange={(e) => onChange.handleChange(e)}
+								onChange={(e) => onChange.handleEditChange(e)}
 								fullWidth
 								required
 								InputProps={{
@@ -220,14 +217,14 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 							<TextField
 								name="precipitation"
 								type="number"
-								defaultValue={log.precipitation}
+								defaultValue={editLog.precipitation}
 								error={errors.precipitation}
 								helperText={errors.precipitation && 'Ange nederbörd'}
 								variant="outlined"
 								margin="dense"
 								size="small"
 								label="Nederbörd"
-								onChange={(e) => onChange.handleChange(e)}
+								onChange={(e) => onChange.handleEditChange(e)}
 								className={classes.input}
 								fullWidth
 								InputProps={{
@@ -262,8 +259,8 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 									labelId="demo-simple-select-label"
 									id="demo-simple-select"
 									label="Vindriktning"
-									value={log.windDirection}
-									onChange={(e) => onChange.handleChange(e)}
+									defaultValue={editLog.windDirection}
+									onChange={(e) => onChange.handleEditChange(e)}
 									className={classes.dropdown}
 								>
 									<MenuItem value={'noWind'}>Vindstilla</MenuItem>
@@ -282,14 +279,14 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 							<TextField
 								name="windSpeed"
 								type="number"
-								defaultValue={log.windSpeed}
+								defaultValue={editLog.windSpeed}
 								error={errors.windSpeed}
 								helperText={errors.windSpeed && 'Använd endast siffror'}
 								variant="outlined"
 								margin="dense"
 								size="small"
 								label="Vindstyrka"
-								onChange={(e) => onChange.handleChange(e)}
+								onChange={(e) => onChange.handleEditChange(e)}
 								className={classes.input}
 								fullWidth
 								InputProps={{
@@ -313,8 +310,8 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 									labelId="demo-simple-select-label"
 									id="demo-simple-select"
 									label="Vindkänsla"
-									value={log.airFeeling}
-									onChange={(e) => onChange.handleChange(e)}
+									value={editLog.airFeeling}
+									onChange={(e) => onChange.handleEditChange(e)}
 									className={classes.dropdown}
 								>
 									<MenuItem value="cold">{windFeelEnum.COLD}</MenuItem>
@@ -336,7 +333,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 							<TextField
 								name="airpressure"
 								type="number"
-								defaultValue={log.airpressure}
+								defaultValue={editLog.airpressure}
 								error={errors.airPressure}
 								helperText={
 									errors.airPressure && 'Ange ett värde mellan 900-1100'
@@ -345,7 +342,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 								margin="dense"
 								size="small"
 								label="Lufttryck"
-								onChange={(e) => onChange.handleChange(e)}
+								onChange={(e) => onChange.handleEditChange(e)}
 								className={classes.input}
 								fullWidth
 								InputProps={{
@@ -358,7 +355,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 						<Grid item>
 							<TextField
 								name="humidity"
-								defaultValue={log.humidity}
+								defaultValue={editLog.humidity}
 								type="number"
 								error={errors.humidity}
 								helperText={errors.humidity && 'Ange ett värde mellan 0-100'}
@@ -366,7 +363,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 								margin="dense"
 								size="small"
 								label="Luftfuktighet"
-								onChange={(e) => onChange.handleChange(e)}
+								onChange={(e) => onChange.handleEditChange(e)}
 								className={classes.input}
 								fullWidth
 								InputProps={{
@@ -384,19 +381,19 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 					</Typography>
 					<TextField
 						name="description"
-						defaultValue={log.description}
+						defaultValue={editLog.description}
 						label="Beskrivning"
 						multiline
 						rows={4}
 						variant="outlined"
-						onChange={(e) => onChange.handleChange(e)}
+						onChange={(e) => onChange.handleEditChange(e)}
 						className={classes.input}
 						fullWidth
 						margin="dense"
 					/>
 				</Grid>
 				<Button
-					onClick={edit}
+					onClick={handleEditLog}
 					disableElevation
 					variant="contained"
 					className={classes.button}
