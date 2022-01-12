@@ -1,5 +1,7 @@
 import { Box, Typography, Modal, Button } from '@material-ui/core';
+import { useNavigate } from 'react-router-dom';
 
+import { useLogsContext } from 'src/context/logs';
 // import { useUsersContext } from 'src/context/users';
 import useStyles from './styles';
 
@@ -10,10 +12,19 @@ interface IModalPopup {
 	// onClick: () => void;
 	open: boolean;
 	handleClose: () => void;
+	logID: any;
 }
 
-export const DeleteLogModal = ({ open, handleClose }: IModalPopup) => {
+export const DeleteLogModal = ({ open, handleClose, logID }: IModalPopup) => {
 	const classes = useStyles();
+	const deleteLog = useLogsContext().deletePost;
+	const navigateTo = useNavigate();
+
+	const handleDeleteLog = () => {
+		handleClose();
+		deleteLog(logID);
+		navigateTo('/home');
+	};
 
 	return (
 		<Modal
@@ -29,7 +40,7 @@ export const DeleteLogModal = ({ open, handleClose }: IModalPopup) => {
 				<Typography variant="body2">Detta kan inte ångras.</Typography>
 				<Button
 					variant="contained"
-					onClick={() => console.log('trycktes på')}
+					onClick={() => handleDeleteLog()}
 					className={classes.button}
 					disableElevation
 				>

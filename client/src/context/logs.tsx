@@ -23,7 +23,7 @@ type Context = {
 	getLogs: () => void;
 	getLog: (id: any) => void;
 	editPost: (id: any) => void;
-	deletePost: () => void;
+	deletePost: (id: any) => void;
 	getLogUrl: (e: any) => void;
 	handleChange: (e: any) => void;
 	handleEditChange: (e: any) => void;
@@ -270,9 +270,8 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 	};
 
 	/** Remove a log */
-	const deletePost = async () => {
-		const logId = '61c1cf0f934272f160fffbca';
-		await fetch(`/api/logs/${logId}`, options.deletePost).catch((err) => {
+	const deletePost = async (id: any) => {
+		await fetch(`/api/logs/${id}`, options.deletePost).catch((err) => {
 			console.error(err);
 		});
 	};

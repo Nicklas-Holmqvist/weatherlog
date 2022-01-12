@@ -49,6 +49,7 @@ export const MobileDailyOverview = () => {
 				<DeleteLogModal
 					open={true}
 					handleClose={() => setShowDeleteModal(false)}
+					logID={log._id}
 				/>
 			)}
 			<Grid container item>

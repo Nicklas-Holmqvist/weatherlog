@@ -65,6 +65,7 @@ export const DesktopDailyOverview = () => {
 				<DeleteLogModal
 					open={true}
 					handleClose={() => setShowDeleteModal(false)}
+					logID={log._id}
 				/>
 			)}
 			<Grid item container className={classes.root}>
@@ -141,11 +142,17 @@ export const DesktopDailyOverview = () => {
 							</Typography>
 						</Grid>
 						<Grid item className={classes.iconButtons}>
-							<IconButton className={classes.iconButton}>
-								<EditRounded onClick={() => setShowEditModal(true)} />
+							<IconButton
+								className={classes.iconButton}
+								onClick={() => setShowEditModal(true)}
+							>
+								<EditRounded />
 							</IconButton>
-							<IconButton className={classes.iconButton}>
-								<DeleteRounded onClick={() => setShowDeleteModal(true)} />
+							<IconButton
+								className={classes.iconButton}
+								onClick={() => setShowDeleteModal(true)}
+							>
+								<DeleteRounded />
 							</IconButton>
 						</Grid>
 					</Grid>
