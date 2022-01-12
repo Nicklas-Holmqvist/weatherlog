@@ -14,6 +14,7 @@ type Context = {
 	logs: ILogs[];
 	logValue: ILogs;
 	log: ILogs;
+	editLog: ILogs;
 	logDate: ILogDate;
 	numberOfMonths: number[];
 	numberOfDays: number[];
@@ -22,7 +23,7 @@ type Context = {
 	getLogs: () => void;
 	getLog: (id: any) => void;
 	editPost: (id: any) => void;
-	deletePost: () => void;
+	deletePost: (id: any) => void;
 	getLogUrl: (e: any) => void;
 	handleChange: (e: any) => void;
 	handleEditChange: (e: any) => void;
@@ -72,6 +73,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 
 	/** The object that will be created in backend */
 	const [log, setLog] = useState<ILogs>(emptyLog);
+	const [editLog, setEditLog] = useState<ILogs>(emptyLog);
 
 	/** Month in a year */
 	const numberOfMonths: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -120,7 +122,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 			...logValue,
 			[name]: value,
 		});
-		console.log(logDate);
 	};
 
 	/**
@@ -132,8 +133,8 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		const value = e.target.value;
 		const name = e.target.name;
 
-		setLog({
-			...log,
+		setEditLog({
+			...editLog,
 			[name]: value,
 		});
 	};
@@ -199,7 +200,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		editPost: {
 			method: 'put',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(log),
+			body: JSON.stringify(editLog),
 		},
 		deletePost: {
 			method: 'delete',
@@ -240,6 +241,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 			})
 			.then((data) => {
 				setLog(data);
+				setEditLog(data);
 			})
 			.catch((err) => {
 				console.error(err);
@@ -261,16 +263,15 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 
 	/** Edit a log */
 	const editPost = async (id: any) => {
-		await fetch(`/api/logs/${id}`, options.editPost).catch((err) => {
+		await fetch(`/api/logs/${log._id}`, options.editPost).catch((err) => {
 			console.error(err);
 		});
-		setLog(emptyLog);
+		setEditLog(emptyLog);
 	};
 
 	/** Remove a log */
-	const deletePost = async () => {
-		const logId = '61c1cf0f934272f160fffbca';
-		await fetch(`/api/logs/${logId}`, options.deletePost).catch((err) => {
+	const deletePost = async (id: any) => {
+		await fetch(`/api/logs/${id}`, options.deletePost).catch((err) => {
 			console.error(err);
 		});
 	};
@@ -288,6 +289,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 				getLogUrl,
 				logs,
 				log,
+				editLog,
 				logValue,
 				logDate,
 				numberOfMonths,
