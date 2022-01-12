@@ -39,7 +39,7 @@ import getMonthName from '../../../utils/getMonthName'
 import useStyles from './styles';
 import { windFeelEnum, GetWeatherIcon } from 'src/utils';
 import theme from 'src/theme';
-import { NoLog } from '../../NoLog/NoLog'
+import { ErrorPage } from '../../ErrorPage'
 
 export const DesktopDailyOverview = () => {
 	const classes = useStyles();
@@ -71,14 +71,11 @@ export const DesktopDailyOverview = () => {
 	const [day, setDay] = useState<string | undefined>('')
 
 	const getLog = useLogsContext().getLog
-	const getLogs = useLogsContext().getLogs
 
 	const logsLength = logs.length
 	
 	const findDate:any = logs.find(e => e.date === id)
     const findOld = logs.indexOf(findDate)
-	console.log(id)
-	console.log(findDate)
 
 	/** Change to earlier day */
 	const prevDay = () => {  		
@@ -88,8 +85,8 @@ export const DesktopDailyOverview = () => {
 	
 	/** Change to next day */
 	const nextDay = () => {
-	if(findOld === 0) return
-	if(findOld !== -1) return navigateTo(`/log/${logs[findOld-1].date}`)      
+		if(findOld === 0) return
+		if(findOld !== -1) return navigateTo(`/log/${logs[findOld-1].date}`)      
 	}	  
 
 	useEffect(() => {
@@ -108,7 +105,7 @@ export const DesktopDailyOverview = () => {
 
 	return (
 		<>
-		{findDate === undefined ? <NoLog /> :
+		{findDate === undefined ? <ErrorPage /> :
 		<Grid item container className={classes.root}>			
 		{/* huvudcontainer */}
 			<Grid item container direction="column" className={classes.leftContainer}>
@@ -125,7 +122,7 @@ export const DesktopDailyOverview = () => {
 					</IconButton>
 				</Grid>
 				{laptopScreen && <Divider className={classes.divider} />}
-				{!laptopScreen && GetWeatherIcon(userLog.weather, 'large')}
+				{!laptopScreen && GetWeatherIcon(userLog?.weather, 'large')}
 				<Grid item container direction="column">
 					<Grid item container className={classes.tempAndColorContainer}>
 						<Typography variant="h3" className={classes.temp}>
