@@ -6,9 +6,10 @@ import {
 	Typography,
 } from '@material-ui/core';
 import { useState } from 'react';
-import { ModalPopup } from 'src/components';
 
 import { useUsersContext } from '../../../context/users';
+import { ModalPopup } from 'src/components';
+
 import useStyles from './styles';
 
 export const SettingsUser = () => {
@@ -19,6 +20,82 @@ export const SettingsUser = () => {
 	const { user } = useUsersContext();
 
 	const [showModal, setShowModal] = useState(false);
+
+	const [errorMessage, setErrorMessage] = useState({
+		firstName: '',
+		lastName: '',
+		city: '',
+		
+	});
+	const [error, setError] = useState({
+		firstName: false,
+		lastName: false,
+		city: false,
+	});
+
+	const handleEditAccount = () => {
+		resetErrors()
+		if (user.firstName === '' && user.firstName.length <= 2)  {
+			setError((oldstate) => ({
+				...oldstate,
+				firstName: true,
+			}));
+			setErrorMessage((oldstate) => ({
+				...oldstate,
+				firstName: 'Fyll i förnamn, minst 2 tecken',
+			}));
+			return
+		}
+		if (user.lastName === '')  {
+			setError((oldstate) => ({
+				...oldstate,
+				lastName: true,
+			}));
+			setErrorMessage((oldstate) => ({
+				...oldstate,
+				lastName: 'Fyll i efternamn',
+			}));
+			return
+		}
+		if (user.city === '')  {
+			setError((oldstate) => ({
+				...oldstate,
+				city: true,
+			}));
+			setErrorMessage((oldstate) => ({
+				...oldstate,
+				city: 'Fyll i registreringsort',
+			}));
+			return
+		}
+		
+		setErrorMessage({
+			firstName: '',
+			lastName: '',
+			city: '',
+			
+		})
+		setError({
+			firstName: false,
+			lastName: false,
+			city: false,
+			
+		})		
+		editUser()
+	}
+
+	const resetErrors = () => {
+		setErrorMessage({
+			firstName: '',
+			lastName: '',
+			city: '',
+		})
+		setError({
+			firstName: false,
+			lastName: false,
+			city: false,
+		})		
+	}
 
 	return (
 		<>
@@ -34,56 +111,51 @@ export const SettingsUser = () => {
 						<Typography variant="subtitle1">Förnamn</Typography>
 						<TextField
 							fullWidth
+							error={error.firstName}
 							name="firstName"
-							value={user?.firstName}
-							helperText=""
+							value={user.firstName}
+							placeholder='Fyll i ditt namn'
+							helperText={errorMessage.firstName}
 							variant="outlined"
 							margin="dense"
 							size="small"
 							onChange={(e) => handleChange(e)}
 							className={classes.textField}
+							required
 						/>
 					</Grid>
 					<Grid item>
 						<Typography variant="subtitle1">Efternamn</Typography>
 						<TextField
 							fullWidth
+							error={error.lastName}
 							name="lastName"
-							value={user?.lastName}
-							helperText=""
+							value={user.lastName}
+							placeholder='Fyll i ditt efternamn'
+							helperText={errorMessage.lastName}
 							variant="outlined"
 							margin="dense"
 							size="small"
 							onChange={(e) => handleChange(e)}
 							className={classes.textField}
+							required
 						/>
 					</Grid>
 					<Grid item className={classes.marginTop}>
 						<Typography variant="subtitle1">Ort</Typography>
 						<TextField
 							fullWidth
-							name="lastName"
-							value={user?.city}
-							helperText=""
+							error={error.city}
+							name="city"
+							value={user.city}
+							placeholder='Fyll i registreringsort'
+							helperText={errorMessage.city}
 							variant="outlined"
 							margin="dense"
 							size="small"
 							onChange={(e) => handleChange(e)}
 							className={`${classes.textField} ${classes.marginTop}`}
-						/>
-					</Grid>
-					<Grid item className={classes.marginTop}>
-						<Typography variant="subtitle1">Email</Typography>
-						<TextField
-							fullWidth
-							name="email"
-							value={user?.email}
-							helperText=""
-							variant="outlined"
-							margin="dense"
-							size="small"
-							onChange={(e) => handleChange(e)}
-							className={classes.textField}
+							required
 						/>
 					</Grid>
 				</Grid>
@@ -107,7 +179,7 @@ export const SettingsUser = () => {
 				</Grid>
 				<Divider className={classes.divider} />
 				<Button
-					onClick={editUser}
+					onClick={handleEditAccount}
 					variant="contained"
 					disableElevation
 					className={classes.button}

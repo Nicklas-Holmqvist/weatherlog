@@ -9,12 +9,13 @@ import {
 import { ExitToAppRounded } from '@material-ui/icons';
 import { useNavigate } from "react-router-dom"
 
+import { useUsersContext } from '../../context/users';
+import { useAuthContext } from '../../context/auth';
+
 import theme from 'src/theme';
 import useStyles from './styles';
 import logo from './weatherlog-mini-logo.svg';
 import { MenuIcon } from 'src/utils';
-import { useUsersContext } from '../../context/users';
-import { useAuthContext } from '../../context/auth';
 
 export const Header = () => {
 	const classes = useStyles();

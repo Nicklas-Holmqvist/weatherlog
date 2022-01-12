@@ -95,38 +95,37 @@ exports.login = async (req, res) => {
 		if (err.message === 'incorrect password') {
 			errors.password = 'Fel lösenord';
 		}
-
 		res.status(400).json({ errors });
 	}
 };
 
 exports.editUser = async (req, res) => {
     const user = req.cookies.user
-
+    
     const { 
         firstName,
         lastName,
-        city
+        city,
     } = req.body
-
-    const getUser = await UserModel.findById(user);
     
+    const getUser = await UserModel.findById(user);
+   
     const newUser = {
         firstName: firstName,
 		lastName: lastName,
-		city: city
+		city: city,
     }
 
-    if (getUser) {     
+    if (getUser) {             
         try {           
 			await UserModel.findByIdAndUpdate({ _id: user }, newUser)
-			res.status(200).json('User has been updated!')
+			res.status(200).json('Uppdaterat')
         } catch (error) {
             res.status(400).json(error)
     }
     } else {
-        let errors = { msg: '' }        
-        errors.msg = 'The user does not exist'        
+        let errors = { errorMessage: '' }        
+        errors.errorMessage = 'The user does not exist'        
         res.status(400).json({ errors })
     }
 }
@@ -141,25 +140,48 @@ exports.changePassword = async (req, res) => {
 
     const getUser = await UserModel.findById(user);
 	const authUser = await bcrypt.compare(oldPassword, getUser.password);
+	const compareNew = await bcrypt.compare(newPassword, getUser.password);
 	
-    if (authUser) {     
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-		const hashedPassword = await bcrypt.hash(newPassword, 10);
+    let errors = { msg: '',
+                boolean: false,
+                code:'' }   
 
-		const updatedPassword = {
-			password: hashedPassword
+    if (authUser) {   
+
+        const updatedPassword = {
+            password: hashedPassword
 		}
-
+        if (newPassword.length < 6) {
+			errors.msg = 'Lösenordet måste vara minst 6 tecken'   
+            errors.boolean = true   
+            errors.code = 401   
+            res.status(400).json(errors)
+			return;
+		}
+        
+        if(compareNew) {
+            errors.msg = 'Du kan inte använda samma lösenord'   
+            errors.boolean = true   
+            errors.code = 401   
+            res.status(400).json(errors)
+            return
+        }      
         try {           
-			await UserModel.findByIdAndUpdate({ _id: user }, updatedPassword)
-			res.status(200).json('Password has been updated!')
+            await UserModel.findByIdAndUpdate({ _id: user }, updatedPassword)
+            errors.msg = 'Lösenordet har uppdaterats'   
+            errors.boolean = false  
+            errors.code = 200    
+			res.status(200).json(errors)
         } catch (error) {
             res.status(400).json(error)
-    }
-    } else {
-        let errors = { msg: '' }        
-        errors.msg = 'The old password does not match!'        
-        res.status(400).json({ errors })
+        }
+    } else {     
+        errors.msg = 'Gamla lösenordet stämmer inte'   
+        errors.boolean = true       
+        errors.code = 400   
+        res.status(400).json(errors)
     }
 }
 
