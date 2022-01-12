@@ -5,7 +5,7 @@ export default makeStyles((theme) => ({
 		marginTop: 16,
 	},
 	container: {
-		backgroundColor: theme.palette.primary.dark,
+		backgroundColor: theme.palette.grey[300],
 		padding: '12px',
 		borderRadius: 12,
 		width: '100%',

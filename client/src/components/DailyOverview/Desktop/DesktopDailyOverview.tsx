@@ -37,6 +37,7 @@ import useStyles from './styles';
 import { windFeelEnum } from 'src/utils';
 import theme from 'src/theme';
 import EditLogModal from 'src/components/EditLogModal/EditLogModal';
+import { DeleteLogModal } from 'src/components/DeleteLogModal';
 
 export const DesktopDailyOverview = () => {
 	const classes = useStyles();
@@ -45,7 +46,8 @@ export const DesktopDailyOverview = () => {
 
 	const id = useParams().id;
 	const [userLog, setUserLog] = useState<ILogs>(log);
-	const [showModal, setShowModal] = useState(false);
+	const [showEditModal, setShowEditModal] = useState(false);
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
 	const getLog = useLogsContext().getLog;
 
@@ -56,8 +58,14 @@ export const DesktopDailyOverview = () => {
 
 	return (
 		<>
-			{showModal && (
-				<EditLogModal open={true} handleClose={() => setShowModal(false)} />
+			{showEditModal && (
+				<EditLogModal open={true} handleClose={() => setShowEditModal(false)} />
+			)}
+			{showDeleteModal && (
+				<DeleteLogModal
+					open={true}
+					handleClose={() => setShowDeleteModal(false)}
+				/>
 			)}
 			<Grid item container className={classes.root}>
 				{/* huvudcontainer */}
@@ -134,10 +142,10 @@ export const DesktopDailyOverview = () => {
 						</Grid>
 						<Grid item className={classes.iconButtons}>
 							<IconButton className={classes.iconButton}>
-								<EditRounded onClick={() => setShowModal(true)} />
+								<EditRounded onClick={() => setShowEditModal(true)} />
 							</IconButton>
 							<IconButton className={classes.iconButton}>
-								<DeleteRounded />
+								<DeleteRounded onClick={() => setShowDeleteModal(true)} />
 							</IconButton>
 						</Grid>
 					</Grid>

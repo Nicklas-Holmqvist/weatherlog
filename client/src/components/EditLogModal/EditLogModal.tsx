@@ -13,6 +13,7 @@ import {
 	Modal,
 } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
+import { EditRounded, CloseRounded } from '@material-ui/icons';
 
 import { useLogsContext } from '../../context/logs';
 
@@ -33,7 +34,6 @@ import {
 } from '../../utils';
 import GetMonthName from '../../utils/getMonthName';
 import useStyles from './style';
-import { CheckRounded } from '@material-ui/icons';
 
 interface IEditLogModal {
 	open: boolean;
@@ -66,9 +66,11 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 	const day: any = log.date.substring(6, 8);
 
 	const edit = () => {
-		handleClose();
 		editPost(id);
 		getLogs();
+		setTimeout(() => {
+			handleClose();
+		}, 400);
 	};
 	const fetch = () => {
 		getLog.getLog(id);
@@ -82,9 +84,15 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 			aria-describedby="modal-modal-description"
 		>
 			<Grid item container direction="column" className={classes.root}>
-				<Typography variant="h2" className={classes.title}>
-					Ändra inlägg
-				</Typography>
+				<Grid item container className={classes.header}>
+					<Typography variant="h2" className={classes.title}>
+						Ändra inlägg
+					</Typography>
+					<CloseRounded
+						className={classes.closeModalIcon}
+						onClick={() => handleClose()}
+					/>
+				</Grid>
 				<Grid item container direction="column">
 					<Typography variant="subtitle1" className={classes.subtitle}>
 						Väder, temperatur och nederbörd *
@@ -162,7 +170,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 										</ListItemIcon>
 										<Typography>Snö</Typography>
 									</MenuItem>
-									<MenuItem value={'snowfall'}>
+									<MenuItem value={'snow-shower'}>
 										<ListItemIcon className={classes.iconContainer}>
 											<SnowShower className={classes.icon} />
 										</ListItemIcon>
@@ -392,7 +400,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 					disableElevation
 					variant="contained"
 					className={classes.button}
-					endIcon={<CheckRounded />}
+					endIcon={<EditRounded />}
 				>
 					Spara ändringar
 				</Button>

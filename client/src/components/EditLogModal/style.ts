@@ -11,20 +11,39 @@ export default makeStyles((theme) => ({
 		borderRadius: 22,
 		maxWidth: 1000,
 		minWidth: 320,
+		// margin: 10,
+		[theme.breakpoints.down(500)]: {
+			flexWrap: 'nowrap',
+			overflow: 'scroll',
+			borderBottomRightRadius: 0,
+			borderBottomLeftRadius: 0,
+			top: 50,
+			bottom: 0,
+			left: 0,
+			right: 0,
+			transform: 'unset',
+			padding: '30px 16px 4px 16px',
+		},
 	},
 	title: {
 		[theme.breakpoints.down(650)]: {
 			fontSize: 34,
 		},
 	},
+	header: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		width: '100%',
+	},
+	closeModalIcon: {
+		cursor: 'pointer',
+	},
 	tripleColumns: {
 		display: 'grid',
 		gridTemplateColumns: '1fr 1fr 1fr',
 		gridTemplateRows: '1fr',
-		columnGap: 30,
-		[theme.breakpoints.down(900)]: {
-			columnGap: 22,
-		},
+		columnGap: 20,
 		[theme.breakpoints.down(650)]: {
 			gridTemplateColumns: '1fr 1fr',
 			gridTemplateRows: '1fr 1fr',
@@ -54,10 +73,7 @@ export default makeStyles((theme) => ({
 		display: 'grid',
 		gridTemplateColumns: '1fr 1fr',
 		gridTemplateRows: '1fr',
-		columnGap: 30,
-		[theme.breakpoints.down(900)]: {
-			columnGap: 22,
-		},
+		columnGap: 20,
 		[theme.breakpoints.down(650)]: {
 			columnGap: 10,
 		},

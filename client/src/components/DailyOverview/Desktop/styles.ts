@@ -100,6 +100,7 @@ export default makeStyles((theme) => ({
 	},
 	listItem: {
 		padding: '0 16px',
+		margin: '3px 0',
 	},
 	listIcon: {
 		[theme.breakpoints.down(1281)]: {
