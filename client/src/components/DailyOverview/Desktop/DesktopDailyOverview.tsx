@@ -100,8 +100,8 @@ export const DesktopDailyOverview = () => {
 		getLog(id)
 	},[id])
 
-	// console.log(log)
-	// console.log(userLog)
+	console.log(log)
+	console.log(userLog)
 
 	return (
 		<>
@@ -126,13 +126,13 @@ export const DesktopDailyOverview = () => {
 				<Grid item container direction="column">
 					<Grid item container className={classes.tempAndColorContainer}>
 						<Typography variant="h3" className={classes.temp}>
-							{`${userLog.temperature}°C`}
+							{`${userLog?.temperature}°C`}
 						</Typography>
-						{laptopScreen && GetWeatherIcon(userLog.weather, 'large')}
+						{laptopScreen && GetWeatherIcon(userLog?.weather, 'large')}
 						{!laptopScreen && (
 							<Grid
 								className={classes.tempColor}
-								style={{ backgroundColor: getTempColor(parseInt(userLog.temperature)) }}
+								style={{ backgroundColor: getTempColor(parseInt(userLog?.temperature)) }}
 							/>
 						)}
 					</Grid>
@@ -142,19 +142,19 @@ export const DesktopDailyOverview = () => {
 							<ListItemIcon>
 								<PlaceRounded color="secondary" />
 							</ListItemIcon>
-							<Typography variant="subtitle1">{userInfo.city}</Typography>
+							<Typography variant="subtitle1">{userInfo?.city}</Typography>
 						</ListItem>
 						<ListItem className={classes.listItem}>
 							<ListItemIcon>								
-									{GetWeatherIcon(userLog.weather, 'small')}
+									{GetWeatherIcon(userLog.weather === undefined ? '' : userLog.weather, 'small')}
 							</ListItemIcon>
-							<ListItemText secondary={userLog.weather !== '' ? dotToCommaConverter((userLog.weather)) : 'Ej angivit'} />
+							<ListItemText secondary={userLog.weather === undefined ? 'Ej angivit' : userLog?.weather} />
 						</ListItem>
 						<ListItem className={classes.listItem}>
 							<ListItemIcon>
 								<Wind className={classes.listIcon} />
 							</ListItemIcon>
-							<ListItemText secondary={userLog.airFeeling !== '' ? dotToCommaConverter((userLog.airFeeling)) : 'Ingen'} />
+							<ListItemText secondary={userLog?.airFeeling !== '' ? dotToCommaConverter((userLog?.airFeeling)) : 'Ingen'} />
 						</ListItem>
 					</List>
 				</Grid>
@@ -169,7 +169,7 @@ export const DesktopDailyOverview = () => {
 							Anteckningar
 						</Typography>
 						<Typography variant="body1" className={classes.notesBody}>
-							{userLog.description}
+							{userLog?.description}
 						</Typography>
 					</Grid>
 					<Grid item className={classes.iconButtons}>
@@ -192,30 +192,30 @@ export const DesktopDailyOverview = () => {
 					/>
 					<DataCard
 						label={dataEnum.WIND_SPEED}
-						data={userLog.windSpeed !== '' ? userLog.windSpeed : 0}
+						data={userLog?.windSpeed !== '' ? userLog?.windSpeed : 0}
 						unit="m/s"
-						bottomInfo={GetBottomInfo(dataEnum.WIND_SPEED, userLog.windSpeed)!}
+						bottomInfo={GetBottomInfo(dataEnum.WIND_SPEED, userLog?.windSpeed)!}
 					/>
 					<DataCard
 						label={dataEnum.WIND_FEEL}
-						data={userLog.airFeeling !== '' ? dotToCommaConverter((userLog.airFeeling)) : 'Ingen'}
-						bottomInfo={GetBottomInfo(dataEnum.WIND_FEEL, userLog.airFeeling !== '' ? dotToCommaConverter((userLog.airFeeling)) : 0)!}
+						data={userLog?.airFeeling !== '' ? dotToCommaConverter((userLog.airFeeling)) : 'Ingen'}
+						bottomInfo={GetBottomInfo(dataEnum.WIND_FEEL, userLog?.airFeeling !== '' ? dotToCommaConverter((userLog?.airFeeling)) : 0)!}
 					/>
 					<DataCard
 						label={dataEnum.PRECIPITATION}
-						data={userLog.precipitation !== '' ? dotToCommaConverter((userLog.precipitation)) : 0}
+						data={userLog?.precipitation !== '' ? dotToCommaConverter((userLog?.precipitation)) : 0}
 						unit="mm"
-						bottomInfo={GetBottomInfo(dataEnum.PRECIPITATION, userLog.precipitation)!}
+						bottomInfo={GetBottomInfo(dataEnum.PRECIPITATION, userLog?.precipitation)!}
 					/>
 					<DataCard
 						label={dataEnum.AIR_PRESSURE}
-						data={userLog.airpressure !== '' ? userLog.airpressure : 0}
+						data={userLog?.airpressure !== '' ? userLog?.airpressure : 0}
 						unit="hPa"
 						bottomInfo={GetBottomInfo(dataEnum.AIR_PRESSURE, userLog.airpressure !== '' ? userLog.airpressure : '0')!}
 					/>
 					<DataCard
 						label={dataEnum.HUMIDITY}
-						data={userLog.humidity !== '' ? userLog.humidity : 0}
+						data={userLog?.humidity !== '' ? userLog?.humidity : 0}
 						unit="%"
 						bottomInfo={GetBottomInfo(dataEnum.HUMIDITY, userLog.humidity !== '' ? userLog.humidity : 0)!}
 					/>
