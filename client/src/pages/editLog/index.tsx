@@ -1,11 +1,15 @@
 import { Grid } from '@material-ui/core';
-import EditLog from 'src/components/EditLog/EditLog';
+import { useState } from 'react';
+import EditLogModal from 'src/components/EditLogModal/EditLogModal';
 
 export const EditLogPage = () => {
+	const [showModal, setShowModal] = useState(false);
 	return (
-		<Grid container>
-			<EditLog />
-		</Grid>
+		<>
+			{showModal && (
+				<EditLogModal open={true} handleClose={() => setShowModal(false)} />
+			)}
+		</>
 	);
 };
 

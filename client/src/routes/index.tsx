@@ -28,7 +28,7 @@ export const routes = [
 	{
 		path: '/register',
 		element: <RegisterPage />,
-	},		
+	},
 	{
 		path: '/api',
 		element: <Api />,
@@ -60,6 +60,4 @@ export const authRoutes = [
 		path: '/settings',
 		element: <SettingsPage />,
 	},
-]
-
-
+];
