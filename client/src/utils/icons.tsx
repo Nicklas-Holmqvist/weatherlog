@@ -31,6 +31,8 @@ import neutral from '../icons/neutral.svg';
 import mild from '../icons/mild.svg';
 import warm from '../icons/warm.svg';
 
+import error from '../icons/error.svg';
+
 interface IIcon {
 	className?: string;
 }
@@ -138,4 +140,7 @@ export const Wind = ({ className }: IIcon) => {
 };
 export const NoData = ({ className }: IIcon) => {
 	return <img className={className} src={noData} alt="Ingen data"></img>;
+};
+export const Error = ({ className }: IIcon) => {
+	return <img className={className} src={error} alt="Error"></img>;
 };

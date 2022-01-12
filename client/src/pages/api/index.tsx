@@ -15,7 +15,6 @@ export const Api = () => {
 			<button onClick={user.addUserInfo}>Lägg till info</button>
 			<button onClick={user.editUser}>Edit user</button>
 			<button onClick={user.changePassword}>Ändra lösenord</button>
-			<button onClick={user.logout}>Logout</button>
 			<button onClick={user.deleteUser}>Ta bort konto</button>
 		</Grid>
 		<Grid container>

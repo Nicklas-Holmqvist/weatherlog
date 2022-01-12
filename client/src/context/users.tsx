@@ -10,8 +10,7 @@ type Context = {
     changePassword: () => void,
     addUser: () => void,
     addUserInfo: () => void,
-    editUser: () => void,    
-    logout: () => void,    
+    editUser: () => void,     
     handleChange: (e:any) => void,    
 }
 
@@ -78,10 +77,6 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(password),
         },
-        logout: {
-            method: "post",
-            headers: {"Content-Type": "application/json"},
-        },
         deleteUser: {
             method: "delete",
             headers: {"Content-Type": "application/json"},
@@ -133,13 +128,6 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
         setPassword(emptyPassword)
     };
 
-    const logout = async () => {   
-        await fetch(`/api/user/logout`, options.logout)
-        .catch((err) => {
-            console.error(err);
-        });
-    };
-
     const deleteUser = async () => {   
         await fetch(`/api/user/delete`, options.deleteUser)
         .catch((err) => {
@@ -157,7 +145,6 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
                 addUser, 
                 addUserInfo, 
                 editUser, 
-                logout,
                 handleChange
             }
         }>

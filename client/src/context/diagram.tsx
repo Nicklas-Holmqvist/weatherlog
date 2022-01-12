@@ -80,7 +80,6 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
             })
             .then(function (data) {
                 handlePrepareDiagramData(data)
-                console.log(data)
             })
             .catch(function (err) {
                 console.error(err);
