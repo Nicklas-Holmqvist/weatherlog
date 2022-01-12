@@ -55,14 +55,6 @@ export const LandingPage = () => {
 		getAllLogs();
 	}, []);
 
-	// logList.forEach((log) => {
-	// 	const month = log.date.substring(4, 6).toString();
-	// 	const day = log.date.substring(6, 8).toString();
-	// 	// console.log(month, day);
-	// 	if (month === '01')
-	// 		console.log('i månaden', month, 'är datumet', day, 'upptaget');
-	// });
-
 	return (
 		<Grid item container className={classes.container}>
 			<Grid item container className={classes.pageHeader}>

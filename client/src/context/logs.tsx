@@ -109,11 +109,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		const value = e.target.value;
 		const name = e.target.name;
 
-		// if (value.includes('Inlägg finns')) {
-		// 	console.log(value + 'STOP');
-		// }
-		// console.log(value);
-
 		if (name === 'year' || name === 'month' || name === 'day') {
 			setLogDate({
 				...logDate,

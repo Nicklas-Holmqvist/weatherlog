@@ -113,7 +113,6 @@ export const CreateLog = () => {
 		});
 
 		if (logValue.weather === '') {
-			console.log('weather was caught', logValue.weather);
 			setErrors((oldstate) => ({
 				...oldstate,
 				weather: true,
