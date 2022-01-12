@@ -55,6 +55,7 @@ export const GetWeatherIcon = (weather: string, size: string) => {
 
 export const GetWindDirection = (direction: string, size: string) => {
 	const classes = useStyles();
+	
 	switch (direction) {
 		case directionEnum.N:
 			return (

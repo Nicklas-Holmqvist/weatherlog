@@ -47,7 +47,19 @@ export const DesktopDailyOverview = () => {
 	const { user } = useUsersContext()
 
 	const id = useParams().id
-	const [userLog, setUserLog] = useState<ILogs>(log)
+	const [userLog, setUserLog] = useState<ILogs>({
+		airFeeling: "",
+        airpressure: "",
+        date: '',
+        description: "",
+        humidity: "",
+        precipitation: "",
+        temperature: "",
+        user: "",
+        windDirection: "",
+        windSpeed: "",
+        weather: ""
+	})
 	const [userInfo, setUserInfo] = useState<IUsers>({
 		firstName: '',
 		lastName: '',
@@ -58,16 +70,19 @@ export const DesktopDailyOverview = () => {
 
 	const month:string | undefined = getMonthName(userLog.date.substring(4,6))
 	const day:string = userLog.date.substring(6,8)
+	const windDirection = userLog.windDirection
 
 	useEffect(() => {
 		setUserInfo(user)
 		setUserLog(log)
-		console.log(log)
 	})
 	
 	useEffect(()=> {
 		getLog(id)
-	},[userInfo])
+	},[id])
+
+	console.log(log)
+	console.log(userLog)
 
 	return (
 		<Grid item container className={classes.root}>
@@ -147,7 +162,8 @@ export const DesktopDailyOverview = () => {
 				<Grid item container className={classes.cardContainer}>
 					<DataCard
 						label={dataEnum.WIND_DIRECTION}
-						windDirection={directionEnum.SE}
+						//KIKA PÅ LÖSNING!!!
+						windDirection='e'
 						bottomInfo={
 							GetBottomInfo(dataEnum.WIND_DIRECTION, dataEnum.WIND_DIRECTION)!
 						}

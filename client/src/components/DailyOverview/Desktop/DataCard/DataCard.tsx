@@ -5,15 +5,7 @@ import useStyles from './styles';
 
 interface IDataCard {
 	label: string;
-	windDirection?:
-		| directionEnum.N
-		| directionEnum.NW
-		| directionEnum.W
-		| directionEnum.SW
-		| directionEnum.S
-		| directionEnum.SE
-		| directionEnum.E
-		| directionEnum.NE;
+	windDirection?: string;
 	data?: string | number;
 	unit?: string;
 	bottomInfo: string | JSX.Element;
@@ -27,6 +19,8 @@ export const DataCard = ({
 	bottomInfo,
 }: IDataCard) => {
 	const classes = useStyles();
+
+	console.log(windDirection)
 
 	return (
 		<Grid container item direction="column" className={classes.container}>
