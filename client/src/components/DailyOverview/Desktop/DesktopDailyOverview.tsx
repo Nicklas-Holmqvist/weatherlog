@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {
 	Divider,
@@ -43,10 +43,11 @@ import theme from 'src/theme';
 export const DesktopDailyOverview = () => {
 	const classes = useStyles();
 	const laptopScreen = useMediaQuery(theme.breakpoints.down(1281));
-	const { log } = useLogsContext()
+	const { log, logs } = useLogsContext()
 	const { user } = useUsersContext()
+	const navigateTo = useNavigate(); 
 
-	const id = useParams().id
+	const {id}:any = useParams();
 	const [userLog, setUserLog] = useState<ILogs>({
 		airFeeling: "",
         airpressure: "",
@@ -67,10 +68,29 @@ export const DesktopDailyOverview = () => {
 	})
 
 	const getLog = useLogsContext().getLog
+	const getLogs = useLogsContext().getLogs
 
 	const month:string | undefined = getMonthName(userLog.date.substring(4,6))
 	const day:string = userLog.date.substring(6,8)
-	const windDirection = userLog.windDirection
+
+	const logsLength = logs.length
+	
+	const findDate:any = logs.find(e => e.date === id)
+    const findOld = logs.indexOf(findDate)
+
+
+	/** Change to earlier month in diagram or back to last when at end */
+	const prevMonth = () => {  
+		
+		if(findOld === (logsLength-1)) return
+		if(findOld !== -1) return navigateTo(`/log/${logs[findOld+1].date}`)      
+	}
+	
+	/** Change to next month in diagram or back to first when at end */
+	const nextMonth = () => {
+	if(findOld === 0) return
+	if(findOld !== -1) return navigateTo(`/log/${logs[findOld-1].date}`)      
+	}	  
 
 	useEffect(() => {
 		setUserInfo(user)
@@ -81,8 +101,8 @@ export const DesktopDailyOverview = () => {
 		getLog(id)
 	},[id])
 
-	console.log(log)
-	console.log(userLog)
+	// console.log(log)
+	// console.log(userLog)
 
 	return (
 		<Grid item container className={classes.root}>
@@ -90,13 +110,13 @@ export const DesktopDailyOverview = () => {
 			<Grid item container direction="column" className={classes.leftContainer}>
 				{/* vänstersidan */}
 				<Grid item container className={classes.dateContainer}>
-					<IconButton className={classes.arrow}>
+					<IconButton onClick={prevMonth} className={classes.arrow}>
 						<ArrowBackRounded />
 					</IconButton>
 					<Typography variant="h3" className={classes.date}>
 						{day} {month?.substring(0,3)}
 					</Typography>
-					<IconButton className={classes.arrow}>
+					<IconButton onClick={nextMonth} className={classes.arrow}>
 						<ArrowForwardRounded />
 					</IconButton>
 				</Grid>
