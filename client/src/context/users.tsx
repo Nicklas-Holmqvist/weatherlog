@@ -1,11 +1,14 @@
 import React, { useState, useContext, createContext, FunctionComponent, useEffect } from 'react'
-import { IUsers, IPassword } from '../types/Users'
+
+import { IUsers, IPassword, IChangePassword } from '../types/Users'
 
 export const UsersContext = createContext<Context>(undefined!);
 
 type Context = {
     user: IUsers,
     password: IPassword,
+    errorMessage:{newPassword: string, oldPassword: string}
+    error:{newPassword: boolean, oldPassword: boolean},
     deleteUser: () => void,
     changePassword: () => void,
     addUser: () => void,
@@ -16,22 +19,37 @@ type Context = {
 
 export const UsersProvider: FunctionComponent = ({ children }) => {
 
-    const emptyUser = {
-        email: "",
-        password: "",
-        city: "",
-        firstName: "",
-        lastName: "",
-    }
-
     const emptyPassword = {
         oldPassword: "",
         newPassword: ""
     }
 
-    const [user, setUser] = useState<IUsers>(emptyUser)
+    const emptyErrorMessage = {
+        oldPassword: "",
+        newPassword: ""
+    }
+
+    const emptyError = {
+        oldPassword: false,
+        newPassword: false
+    }
+
+    const [user, setUser] = useState<IUsers>({
+        city: "",
+        firstName: "",
+        lastName: "",
+    })
 
     const [password, setPassword] = useState<IPassword>(emptyPassword)
+
+    const [errorMessage, setErrorMessage] = useState({
+		oldPassword: '',
+		newPassword: '',
+	});
+	const [error, setError] = useState({
+		oldPassword: false,
+		newPassword: false,
+	});
 
     /**
      * Handle input changes in setting page
@@ -48,11 +66,38 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
                 [name]: value
             })
         }
-
         setUser({
             ...user,
             [name]: value
         })     
+    }
+    
+    /** Handle incoming errors from ChangePassword API */
+    const handleErrorChangePassword = (e:IChangePassword) => {
+        setErrorMessage(emptyErrorMessage)
+        setError(emptyError)
+        if(e.code === 400) {
+			setError((oldstate) => ({
+				...oldstate,
+				oldPassword: true,
+			}));
+			setErrorMessage((oldstate) => ({
+				...oldstate,
+				oldPassword: e.msg.toString(),
+			}));
+			return
+		}
+        if(e.code === 401) {
+			setError((oldstate) => ({
+				...oldstate,
+				newPassword: true,
+			}));
+			setErrorMessage((oldstate) => ({
+				...oldstate,
+				newPassword: e.msg.toString(),
+			}));
+			return
+		}
     }
 
     const options = {
@@ -92,7 +137,12 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
                 return res.json();
             })
             .then((data) => {
-                setUser(data)
+                if(data.firstName === undefined) return
+                setUser({
+                    firstName:data.firstName,
+                    lastName:data.lastName,
+                    city:data.city,
+                })
             })
             .catch((err) => {
                 console.error(err);
@@ -113,7 +163,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
         });
     };
 
-    const editUser = async () => {          
+    const editUser = async () => {       
         await fetch(`/api/user/edit`, options.editUser)
         .catch((err) => {
             console.error(err);
@@ -122,6 +172,15 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 
     const changePassword = async () => {       
         await fetch(`/api/user/changePassword`, options.changePassword)
+        .then((res) => {
+            if (res.status === 400) {
+                console.log('Lösenord ändrades inte')
+            }
+            return res.json();
+        })
+        .then((data) => {
+            handleErrorChangePassword(data)
+        })
         .catch((err) => {
             console.error(err);
         });
@@ -140,6 +199,8 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
             { 
                 user,
                 password,
+                error,
+                errorMessage,
                 deleteUser, 
                 changePassword,
                 addUser, 

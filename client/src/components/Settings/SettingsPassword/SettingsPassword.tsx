@@ -1,6 +1,7 @@
 import { Button, Grid, TextField, Typography } from '@material-ui/core';
 
 import { useUsersContext } from '../../../context/users';
+
 import useStyles from './styles';
 
 export const SettingsPassword = () => {
@@ -8,7 +9,7 @@ export const SettingsPassword = () => {
 
 	const handleChange = useUsersContext().handleChange;
 	const changePassword = useUsersContext().changePassword;
-	const { password } = useUsersContext();
+	const { password, error, errorMessage } = useUsersContext();
 
 	return (
 		<Grid container direction="column" className={classes.root}>
@@ -20,9 +21,10 @@ export const SettingsPassword = () => {
 					<Typography variant="subtitle1">Nuvarande lösenord</Typography>
 					<TextField
 						fullWidth
+						error={error.oldPassword}
 						name="oldPassword"
 						value={password.oldPassword}
-						helperText=""
+						helperText={errorMessage.oldPassword}
 						variant="outlined"
 						margin="dense"
 						size="small"
@@ -35,9 +37,10 @@ export const SettingsPassword = () => {
 					<Typography variant="subtitle1">Nytt lösenord</Typography>
 					<TextField
 						fullWidth
+						error={error.newPassword}
 						name="newPassword"
 						value={password.newPassword}
-						helperText=""
+						helperText={errorMessage.newPassword}
 						variant="outlined"
 						margin="dense"
 						size="small"

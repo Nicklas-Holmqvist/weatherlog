@@ -1,16 +1,16 @@
 export interface ILogs {
-        _id?: String
-        airFeeling: String
-        airpressure: String
-        date: String
-        description: String
-        humidity: String
-        precipitation: String
+        _id?: string
+        airFeeling: string
+        airpressure: string
+        date: string
+        description: string
+        humidity: string
+        precipitation: string
         temperature: string
-        user: String
-        windDirection: String
-        windSpeed: String
-        weather: String
+        user: string
+        windDirection: string
+        windSpeed: string
+        weather: string
 }
 
 export interface ILogDate {

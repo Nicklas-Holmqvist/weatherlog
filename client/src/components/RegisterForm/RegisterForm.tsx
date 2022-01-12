@@ -13,19 +13,20 @@ import {
 } from '@material-ui/icons';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { useAuthContext } from '../../context/auth';
+
 import useStyles from './styles';
 import {
 	getEmailError,
 	getEmailErrorText,
 	getPasswordError,
 	getPasswordErrorText,
-	// testEmailForErrors,
-	// testPasswordForErrors,
 } from 'src/utils';
 
 export const RegisterForm = () => {
 	const classes = useStyles();
 	const navigateTo = useNavigate();
+	const handleAuth = useAuthContext().handleAuth
 
 	const [user, setUser] = useState({
 		email: '',
@@ -99,11 +100,6 @@ export const RegisterForm = () => {
 			return;
 		}
 
-		// setEmailError(testEmailForErrors(user.email)!);
-		// setPasswordError(
-		// 	testPasswordForErrors(user.password, user.passwordToConfirm)!
-		// );
-
 		fetchUser();
 	};
 
@@ -131,7 +127,8 @@ export const RegisterForm = () => {
 					}));
 				}
 			} else {
-				navigateTo('/example');
+				navigateTo('/');
+				handleAuth(true)
 			}
 		} catch (error) {
 			console.log(error);
