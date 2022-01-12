@@ -20,7 +20,9 @@ import {
 } from '@material-ui/icons';
 
 import { ILogs } from '../../../types/Logs'
+import { IUsers } from '../../../types/Users'
 import { useLogsContext } from 'src/context/logs';
+import { useUsersContext } from 'src/context/users';
 import { DataCard } from './DataCard';
 import {
 	dataEnum,
@@ -33,6 +35,7 @@ import {
 	WarmBar,
 	Wind,
 } from 'src/utils';
+import getMonthName from '../../../utils/getMonthName'
 import useStyles from './styles';
 import { windFeelEnum } from 'src/utils';
 import theme from 'src/theme';
@@ -41,16 +44,30 @@ export const DesktopDailyOverview = () => {
 	const classes = useStyles();
 	const laptopScreen = useMediaQuery(theme.breakpoints.down(1281));
 	const { log } = useLogsContext()
+	const { user } = useUsersContext()
 
 	const id = useParams().id
 	const [userLog, setUserLog] = useState<ILogs>(log)
+	const [userInfo, setUserInfo] = useState<IUsers>({
+		firstName: '',
+		lastName: '',
+		city: ''
+	})
 
 	const getLog = useLogsContext().getLog
 
+	const month:string | undefined = getMonthName(userLog.date.substring(4,6))
+	const day:string = userLog.date.substring(6,8)
+
 	useEffect(() => {
-		getLog(id)
+		setUserInfo(user)
 		setUserLog(log)
-	},[userLog])
+		console.log(log)
+	})
+	
+	useEffect(()=> {
+		getLog(id)
+	},[userInfo])
 
 	return (
 		<Grid item container className={classes.root}>
@@ -62,7 +79,7 @@ export const DesktopDailyOverview = () => {
 						<ArrowBackRounded />
 					</IconButton>
 					<Typography variant="h3" className={classes.date}>
-						23 maj
+						{day} {month?.substring(0,3)}
 					</Typography>
 					<IconButton className={classes.arrow}>
 						<ArrowForwardRounded />
@@ -73,13 +90,13 @@ export const DesktopDailyOverview = () => {
 				<Grid item container direction="column">
 					<Grid item container className={classes.tempAndColorContainer}>
 						<Typography variant="h3" className={classes.temp}>
-							17°C
+							{`${userLog.temperature}°C`}
 						</Typography>
 						{laptopScreen && <SemiClear className={classes.weatherIcon} />}
 						{!laptopScreen && (
 							<Grid
 								className={classes.tempColor}
-								style={{ backgroundColor: getTempColor(17) }}
+								style={{ backgroundColor: getTempColor(parseInt(userLog.temperature)) }}
 							/>
 						)}
 					</Grid>
@@ -89,19 +106,19 @@ export const DesktopDailyOverview = () => {
 							<ListItemIcon>
 								<PlaceRounded color="secondary" />
 							</ListItemIcon>
-							<Typography variant="subtitle1">Göteborg</Typography>
+							<Typography variant="subtitle1">{userInfo.city}</Typography>
 						</ListItem>
 						<ListItem className={classes.listItem}>
 							<ListItemIcon>
 								<SemiClear className={classes.listIcon} />
 							</ListItemIcon>
-							<ListItemText secondary="Halvklart" />
+							<ListItemText secondary={userLog.weather} />
 						</ListItem>
 						<ListItem className={classes.listItem}>
 							<ListItemIcon>
 								<Wind className={classes.listIcon} />
 							</ListItemIcon>
-							<ListItemText secondary="Varm" />
+							<ListItemText secondary={userLog.airFeeling} />
 						</ListItem>
 					</List>
 				</Grid>
@@ -115,10 +132,7 @@ export const DesktopDailyOverview = () => {
 							Anteckningar
 						</Typography>
 						<Typography variant="body1" className={classes.notesBody}>
-							Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-							Necessitatibus, eos qui quam velit labore molestias, libero
-							explicabo, temporibus deleniti sint sapiente et vel. Repellat eum,
-							ea mollitia rem facere exercitationem.
+							{userLog.description}
 						</Typography>
 					</Grid>
 					<Grid item className={classes.iconButtons}>
@@ -135,37 +149,37 @@ export const DesktopDailyOverview = () => {
 						label={dataEnum.WIND_DIRECTION}
 						windDirection={directionEnum.SE}
 						bottomInfo={
-							GetBottomInfo(dataEnum.WIND_DIRECTION, directionEnum.SE)!
+							GetBottomInfo(dataEnum.WIND_DIRECTION, dataEnum.WIND_DIRECTION)!
 						}
 					/>
 					<DataCard
 						label={dataEnum.WIND_SPEED}
-						data={5}
+						data={userLog.windSpeed}
 						unit="m/s"
-						bottomInfo={GetBottomInfo(dataEnum.WIND_SPEED, 5)!}
+						bottomInfo={GetBottomInfo(dataEnum.WIND_SPEED, userLog.windSpeed)!}
 					/>
 					<DataCard
 						label={dataEnum.WIND_FEEL}
-						data={windFeelEnum.NEUTRAL}
+						data={userLog.airFeeling}
 						bottomInfo={GetBottomInfo(dataEnum.WIND_FEEL, windFeelEnum.NEUTRAL)!}
 					/>
 					<DataCard
 						label={dataEnum.PRECIPITATION}
-						data={dotToCommaConverter((1.2).toString())}
+						data={dotToCommaConverter((userLog.precipitation))}
 						unit="mm"
-						bottomInfo={GetBottomInfo(dataEnum.PRECIPITATION, 1.2)!}
+						bottomInfo={GetBottomInfo(dataEnum.PRECIPITATION, userLog.precipitation)!}
 					/>
 					<DataCard
 						label={dataEnum.AIR_PRESSURE}
-						data={1001}
+						data={userLog.airpressure}
 						unit="hPa"
-						bottomInfo={GetBottomInfo(dataEnum.AIR_PRESSURE, 1001)!}
+						bottomInfo={GetBottomInfo(dataEnum.AIR_PRESSURE, userLog.airpressure)!}
 					/>
 					<DataCard
 						label={dataEnum.HUMIDITY}
-						data={96}
+						data={userLog.humidity}
 						unit="%"
-						bottomInfo={GetBottomInfo(dataEnum.HUMIDITY, 96)!}
+						bottomInfo={GetBottomInfo(dataEnum.HUMIDITY, userLog.humidity)!}
 					/>
 				</Grid>
 			</Grid>

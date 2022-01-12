@@ -212,6 +212,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
         .then((data) => {
             setLogs(data)
             splitUpYearMonths(data)
+            console.log(data)
         })
         .catch((err) => {
             console.error(err);

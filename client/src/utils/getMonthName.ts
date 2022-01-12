@@ -1,4 +1,4 @@
-const GetMonthName = (month:string) => {
+const getMonthName = (month:string) => {
     if(month === '01') return 'Januari'
     if(month === '02') return 'Februari'
     if(month === '03') return 'Mars'
@@ -13,4 +13,4 @@ const GetMonthName = (month:string) => {
     if(month === '12') return 'December'
 }
 
-export default GetMonthName
+export default getMonthName
