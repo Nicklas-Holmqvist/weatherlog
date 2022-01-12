@@ -39,9 +39,10 @@ export const CreateLog = () => {
 	const createLog = useLogsContext();
 	const onChange = useLogsContext();
 	const getLogs = useLogsContext().getLogs;
-	const { logValue, logDate, numberOfMonths, numberOfDays } = useLogsContext();
+	const { logValue, logDate, numberOfMonths, numberOfDays, logs } =
+		useLogsContext();
 	const MonthName = monthEnum;
-	const [logList, setLogList] = useState<ILogs[]>([]);
+	// const [logs, setLogs] = useState<ILogs[]>([]);
 	const usedDates: string[] = [];
 	const navigateTo = useNavigate();
 	const [errors, setErrors] = useState({
@@ -59,24 +60,6 @@ export const CreateLog = () => {
 
 	useEffect(() => {
 		/** Fetch all users logs */
-		const getAllLogs = async () => {
-			await fetch('/api/home', {
-				method: 'get',
-			})
-				.then((res) => {
-					if (res.status === 400) {
-						return;
-					}
-					return res.json();
-				})
-				.then((data) => {
-					setLogList(data);
-				})
-				.catch((err) => {
-					console.error(err);
-				});
-		};
-		getAllLogs();
 	}, []);
 
 	const addZero = (value: number) => {
@@ -92,7 +75,7 @@ export const CreateLog = () => {
 		addZero(logDate.day),
 	].join('');
 
-	logList.forEach((log) => {
+	logs.forEach((log) => {
 		if (selectedDate.includes(log.date.substring(0, 6))) {
 			usedDates.push(log.date.substring(6, 8));
 		}
@@ -128,7 +111,7 @@ export const CreateLog = () => {
 			humidity: false,
 			desc: false,
 		});
-		console.log(logValue);
+
 		if (logValue.weather === '') {
 			console.log('weather was caught', logValue.weather);
 			setErrors((oldstate) => ({
@@ -151,13 +134,13 @@ export const CreateLog = () => {
 			}));
 			return;
 		}
-		if (/^\d+$/.test(logValue.windSpeed.toString())) {
-			setErrors((oldstate) => ({
-				...oldstate,
-				windSpeed: true,
-			}));
-			return;
-		}
+		// if (/^\d+$/.test(logValue.windSpeed.toString())) {
+		// 	setErrors((oldstate) => ({
+		// 		...oldstate,
+		// 		windSpeed: true,
+		// 	}));
+		// 	return;
+		// }
 		// if (
 		// 	/^\d+$/.test(logValue.airpressure.toString())
 		// 	// ||
@@ -182,10 +165,9 @@ export const CreateLog = () => {
 		// 	}));
 		// 	return;
 		// }
-		console.log('yey');
-		// createLog.addPost();
-		// navigateTo('/home');
-		// getLogs();
+		createLog.addPost();
+		navigateTo('/home');
+		getLogs();
 	};
 
 	return (
