@@ -1,5 +1,5 @@
 import { Grid, Typography } from '@material-ui/core';
-import { directionEnum, GetWindDirection } from 'src/utils';
+import { GetWindDirection } from 'src/utils';
 
 import useStyles from './styles';
 
