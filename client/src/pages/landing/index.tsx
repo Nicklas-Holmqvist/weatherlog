@@ -8,7 +8,6 @@ import {
 } from '@material-ui/core';
 import {
 	AddRounded,
-	HistoryRounded,
 	ShowChartRounded,
 } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
@@ -38,28 +37,29 @@ export const LandingPage = () => {
 		setHistory(historyMonths);
 	});
 
+	const getFiveLogs = async () => {
+		await fetch('/api/home', {
+			method: 'get',
+		})
+			.then((res) => {
+				if (res.status === 400) {
+					return;
+				}
+				return res.json();
+			})
+			.then((data) => {
+				setLogList(data);
+				setIsLoading(false);
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+	};	
+
 	useEffect(() => {
 		/** Fetch all users logs */
-		const getAllLogs = async () => {
-			await fetch('/api/home', {
-				method: 'get',
-			})
-				.then((res) => {
-					if (res.status === 400) {
-						return;
-					}
-					return res.json();
-				})
-				.then((data) => {
-					setLogList(data);
-					setIsLoading(false);
-				})
-				.catch((err) => {
-					console.error(err);
-				});
-		};
-		getAllLogs();
-	}, []);
+		getFiveLogs();
+	}, [isLoading, history]);
 
 	return (
 		<Grid item container className={classes.container}>
@@ -139,9 +139,8 @@ export const LandingPage = () => {
 			)}
 			<Grid item container direction="column">
 				{logList.map((d: ILogs) => (
-					<Link to={`/log/${d.date}`} className={classes.disableUnderline}>
-						<WeatherCard
-							key={d._id?.toString()}
+					<Link key={d._id} to={`/log/${d.date}`} className={classes.disableUnderline}>
+						<WeatherCard							
 							temp={parseInt(d.temperature)}
 							date={{
 								day: d.date.substring(6, 8).toString(),

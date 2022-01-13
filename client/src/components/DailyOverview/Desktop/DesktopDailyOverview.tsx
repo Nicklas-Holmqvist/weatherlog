@@ -144,7 +144,7 @@ export const DesktopDailyOverview = () => {
 					</Grid>
 					{laptopScreen && <Divider className={classes.divider} />}
 					{!laptopScreen && GetWeatherIcon(userLog?.weather, 'large')}
-					<Grid item container direction="column">
+					<Grid container direction="column">
 						<Grid item container className={classes.tempAndColorContainer}>
 							<Typography variant="h3" className={classes.temp}>
 								{`${userLog?.temperature}°C`}

@@ -253,6 +253,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		await fetch('/api/logs/register', options.addPost).catch((err) => {
 			console.error(err);
 		});
+		getLogs()
 		setLogValue(emptyLog);
 		setLogDate({
 			day: d.getDate(),
@@ -267,6 +268,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 			console.error(err);
 		});
 		setEditLog(emptyLog);
+		getLogs()
 	};
 
 	/** Remove a log */
@@ -274,6 +276,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		await fetch(`/api/logs/${id}`, options.deletePost).catch((err) => {
 			console.error(err);
 		});
+		getLogs()
 	};
 
 	return (
