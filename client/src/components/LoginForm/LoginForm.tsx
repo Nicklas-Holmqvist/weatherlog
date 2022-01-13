@@ -18,8 +18,8 @@ export const LoginForm = () => {
 	const classes = useStyles();
 	const navigateTo = useNavigate();
 
-	const getLogs = useLogsContext().getLogs
-	const handleAuth = useAuthContext().handleAuth
+	const getLogs = useLogsContext().getLogs;
+	const handleAuth = useAuthContext().handleAuth;
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -57,7 +57,6 @@ export const LoginForm = () => {
 	};
 
 	const fetchUser = async () => {
-		
 		const options = {
 			method: 'POST',
 			headers: {
@@ -86,9 +85,10 @@ export const LoginForm = () => {
 			}
 
 			if (data.user) {
+				window.location.reload();
 				navigateTo('/home');
-				getLogs()
-				handleAuth(true)
+				getLogs();
+				handleAuth(true);
 			}
 		} catch (error) {
 			console.log(error);

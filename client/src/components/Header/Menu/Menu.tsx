@@ -1,0 +1,82 @@
+import React, { useEffect, useState } from 'react';
+import {
+	Button,
+	Grid,
+	IconButton,
+	Typography,
+	useMediaQuery,
+} from '@material-ui/core';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowUpwardRounded, ExitToAppRounded } from '@material-ui/icons';
+
+import { useAuthContext } from 'src/context/auth';
+import useStyles from './styles';
+import theme from 'src/theme';
+
+interface IMenu {
+	open: boolean;
+	handleClose: () => void;
+}
+
+export const Menu = ({ handleClose, open }: IMenu) => {
+	const classes = useStyles();
+	const logOut = useAuthContext().logout;
+	const isAuth = useAuthContext().isAuth;
+	const navigateTo = useNavigate();
+	const smallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+	const handleLogout = () => {
+		handleClose();
+		logOut();
+		navigateTo('/');
+		window.location.reload();
+	};
+
+	// const isLoggedIn = () => {
+	// 	console.log('köööör');
+	// setTimeout(() => {
+	// 	console.log('kör settimeout');
+	// 	if (isAuth) {
+	// 		return 'Logga ut';
+	// 	} else {
+	// 		return 'Logga in';
+	// 	}
+	// }, 1000);
+	// };
+
+	return (
+		<Grid
+			item
+			container
+			direction="column"
+			className={open ? classes.container : classes.hidden}
+		>
+			<Grid item container direction="column" className={classes.wrapper}>
+				<IconButton className={classes.closeButton} onClick={handleClose}>
+					<ArrowUpwardRounded className={classes.closeIcon} />
+				</IconButton>
+				<Link to="/home" className={classes.link} onClick={handleClose}>
+					<Typography variant={smallScreen ? 'h4' : 'h3'}>Hem</Typography>
+				</Link>
+				<Link to="/about" className={classes.link} onClick={handleClose}>
+					<Typography variant={smallScreen ? 'h4' : 'h3'}>Om</Typography>
+				</Link>
+				<Link to="/contact" className={classes.link} onClick={handleClose}>
+					<Typography variant={smallScreen ? 'h4' : 'h3'}>Kontakt</Typography>
+				</Link>
+				{isAuth && (
+					<Typography
+						variant="h3"
+						className={classes.logoutLink}
+						onClick={handleLogout}
+					>
+						Logga ut
+						<ExitToAppRounded className={classes.logoutIcon} />
+					</Typography>
+				)}
+			</Grid>
+		</Grid>
+	);
+};
+
+export default Menu;
