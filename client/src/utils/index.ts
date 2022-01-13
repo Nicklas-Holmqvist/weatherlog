@@ -7,3 +7,4 @@ export * from './getDiagramColor';
 export * from './getTempColor';
 export * from './icons';
 export * from './registerErrors';
+export * from './getMonthName';

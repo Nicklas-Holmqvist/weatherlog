@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {
 	Divider,
@@ -19,42 +19,95 @@ import {
 	PlaceRounded,
 } from '@material-ui/icons';
 
-import { ILogs } from '../../../types/Logs';
 import { useLogsContext } from 'src/context/logs';
+import { useUsersContext } from 'src/context/users';
+
+import { ILogs } from '../../../types/Logs'
+import { IUsers } from '../../../types/Users'
+
 import { DataCard } from './DataCard';
 import {
 	dataEnum,
-	directionEnum,
 	dotToCommaConverter,
 	GetBottomInfo,
 	getTempColor,
-	Overcast,
-	SemiClear,
-	WarmBar,
 	Wind,
 } from 'src/utils';
-import useStyles from './styles';
-import { windFeelEnum } from 'src/utils';
-import theme from 'src/theme';
+import { GetWeatherIcon } from 'src/utils';
+import getMonthName from '../../../utils/getMonthName'
+
 import EditLogModal from 'src/components/EditLogModal/EditLogModal';
 import { DeleteLogModal } from 'src/components/DeleteLogModal';
+import { ErrorPage } from '../../ErrorPage'
+
+import theme from 'src/theme';
+import useStyles from './styles';
 
 export const DesktopDailyOverview = () => {
 	const classes = useStyles();
 	const laptopScreen = useMediaQuery(theme.breakpoints.down(1281));
-	const { log } = useLogsContext();
 
-	const id = useParams().id;
-	const [userLog, setUserLog] = useState<ILogs>(log);
+	const { log, logs } = useLogsContext()
+	const { user } = useUsersContext()
+	
+	const navigateTo = useNavigate(); 
+
+	const {id}:any = useParams();
 	const [showEditModal, setShowEditModal] = useState(false);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+	const [userLog, setUserLog] = useState<ILogs>({
+		airFeeling: "",
+        airpressure: "",
+        date: '',
+        description: "",
+        humidity: "",
+        precipitation: "",
+        temperature: "",
+        user: "",
+        windDirection: "",
+        windSpeed: "",
+        weather: ""
+	})
+	const [userInfo, setUserInfo] = useState<IUsers>({
+		firstName: '',
+		lastName: '',
+		city: ''
+	})
+	const [month, setMonth] = useState<string | undefined>('')
+	const [day, setDay] = useState<string | undefined>('')
+
 	const getLog = useLogsContext().getLog;
 
+	const logsLength = logs.length
+	
+	const findDate:any = logs.find(e => e.date === id)
+    const findOld = logs.indexOf(findDate)
+
+	/** Change to earlier day */
+	const prevDay = () => {  		
+		if(findOld === (logsLength-1)) return
+		if(findOld !== -1) return navigateTo(`/log/${logs[findOld+1].date}`)      
+	}
+	
+	/** Change to next day */
+	const nextDay = () => {
+		if(findOld === 0) return
+		if(findOld !== -1) return navigateTo(`/log/${logs[findOld-1].date}`)      
+	}	  
+
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => {
-		getLog(id);
-		setUserLog(log);
-	}, [userLog]);
+		setUserInfo(user)
+		setUserLog(log)
+		setMonth(getMonthName(userLog?.date.substring(4,6)))
+		setDay(userLog?.date.substring(6,8))
+	})
+	
+	useEffect(()=> {
+		getLog(id)
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[id])
 
 	return (
 		<>
@@ -68,6 +121,7 @@ export const DesktopDailyOverview = () => {
 					logID={log._id}
 				/>
 			)}
+			{findDate === undefined ? <ErrorPage /> :
 			<Grid item container className={classes.root}>
 				{/* huvudcontainer */}
 				<Grid
@@ -78,28 +132,28 @@ export const DesktopDailyOverview = () => {
 				>
 					{/* vänstersidan */}
 					<Grid item container className={classes.dateContainer}>
-						<IconButton className={classes.arrow}>
+						<IconButton onClick={prevDay} className={classes.arrow}>
 							<ArrowBackRounded />
 						</IconButton>
 						<Typography variant="h3" className={classes.date}>
-							23 maj
+							{day} {month?.substring(0,3)}
 						</Typography>
-						<IconButton className={classes.arrow}>
+						<IconButton onClick={nextDay} className={classes.arrow}>
 							<ArrowForwardRounded />
 						</IconButton>
 					</Grid>
 					{laptopScreen && <Divider className={classes.divider} />}
-					{!laptopScreen && <SemiClear className={classes.weatherIcon} />}
+					{!laptopScreen && GetWeatherIcon(userLog?.weather, 'large')}
 					<Grid item container direction="column">
 						<Grid item container className={classes.tempAndColorContainer}>
 							<Typography variant="h3" className={classes.temp}>
-								17°C
+								{`${userLog?.temperature}°C`}
 							</Typography>
-							{laptopScreen && <SemiClear className={classes.weatherIcon} />}
+							{laptopScreen && GetWeatherIcon(userLog?.weather, 'large')}
 							{!laptopScreen && (
 								<Grid
 									className={classes.tempColor}
-									style={{ backgroundColor: getTempColor(17) }}
+									style={{ backgroundColor: getTempColor(parseInt(userLog?.temperature)) }}
 								/>
 							)}
 						</Grid>
@@ -109,19 +163,19 @@ export const DesktopDailyOverview = () => {
 								<ListItemIcon>
 									<PlaceRounded color="secondary" />
 								</ListItemIcon>
-								<Typography variant="subtitle1">Göteborg</Typography>
+								<Typography variant="subtitle1">{userInfo?.city}</Typography>
 							</ListItem>
 							<ListItem className={classes.listItem}>
-								<ListItemIcon>
-									<SemiClear className={classes.listIcon} />
+								<ListItemIcon>								
+										{GetWeatherIcon(userLog.weather === undefined ? '' : userLog.weather, 'small')}
 								</ListItemIcon>
-								<ListItemText secondary="Halvklart" />
+								<ListItemText secondary={userLog.weather === undefined ? 'Ej angivit' : userLog?.weather} />
 							</ListItem>
 							<ListItem className={classes.listItem}>
 								<ListItemIcon>
 									<Wind className={classes.listIcon} />
 								</ListItemIcon>
-								<ListItemText secondary="Varm" />
+								<ListItemText secondary={userLog?.airFeeling !== '' ? dotToCommaConverter((userLog?.airFeeling)) : 'Ingen'} />
 							</ListItem>
 						</List>
 					</Grid>
@@ -135,10 +189,7 @@ export const DesktopDailyOverview = () => {
 								Anteckningar
 							</Typography>
 							<Typography variant="body1" className={classes.notesBody}>
-								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-								Necessitatibus, eos qui quam velit labore molestias, libero
-								explicabo, temporibus deleniti sint sapiente et vel. Repellat
-								eum, ea mollitia rem facere exercitationem.
+								{userLog?.description}
 							</Typography>
 						</Grid>
 						<Grid item className={classes.iconButtons}>
@@ -159,45 +210,44 @@ export const DesktopDailyOverview = () => {
 					<Grid item container className={classes.cardContainer}>
 						<DataCard
 							label={dataEnum.WIND_DIRECTION}
-							windDirection={directionEnum.SE}
+							windDirection={userLog.windDirection !== '' ? userLog.windDirection : 'noWind'}
 							bottomInfo={
-								GetBottomInfo(dataEnum.WIND_DIRECTION, directionEnum.SE)!
+								GetBottomInfo(dataEnum.WIND_DIRECTION, userLog.windDirection !== '' ? userLog.windDirection : '')!
 							}
 						/>
 						<DataCard
 							label={dataEnum.WIND_SPEED}
-							data={5}
+							data={userLog?.windSpeed !== '' ? userLog?.windSpeed : 0}
 							unit="m/s"
-							bottomInfo={GetBottomInfo(dataEnum.WIND_SPEED, 5)!}
+							bottomInfo={GetBottomInfo(dataEnum.WIND_SPEED, userLog?.windSpeed)!}
 						/>
 						<DataCard
 							label={dataEnum.WIND_FEEL}
-							data={windFeelEnum.NEUTRAL}
-							bottomInfo={
-								GetBottomInfo(dataEnum.WIND_FEEL, windFeelEnum.NEUTRAL)!
-							}
+							data={userLog?.airFeeling !== '' ? dotToCommaConverter((userLog.airFeeling)) : 'Ingen'}
+							bottomInfo={GetBottomInfo(dataEnum.WIND_FEEL, userLog?.airFeeling !== '' ? dotToCommaConverter((userLog?.airFeeling)) : 0)!}
 						/>
 						<DataCard
 							label={dataEnum.PRECIPITATION}
-							data={dotToCommaConverter((1.2).toString())}
+							data={userLog?.precipitation !== '' ? dotToCommaConverter((userLog?.precipitation)) : 0}
 							unit="mm"
-							bottomInfo={GetBottomInfo(dataEnum.PRECIPITATION, 1.2)!}
+							bottomInfo={GetBottomInfo(dataEnum.PRECIPITATION, userLog?.precipitation)!}
 						/>
 						<DataCard
 							label={dataEnum.AIR_PRESSURE}
-							data={1001}
+							data={userLog?.airpressure !== '' ? userLog?.airpressure : 0}
 							unit="hPa"
-							bottomInfo={GetBottomInfo(dataEnum.AIR_PRESSURE, 1001)!}
+							bottomInfo={GetBottomInfo(dataEnum.AIR_PRESSURE, userLog.airpressure !== '' ? userLog.airpressure : '0')!}
 						/>
 						<DataCard
 							label={dataEnum.HUMIDITY}
-							data={96}
+							data={userLog?.humidity !== '' ? userLog?.humidity : 0}
 							unit="%"
-							bottomInfo={GetBottomInfo(dataEnum.HUMIDITY, 96)!}
+							bottomInfo={GetBottomInfo(dataEnum.HUMIDITY, userLog.humidity !== '' ? userLog.humidity : 0)!}
 						/>
 					</Grid>
 				</Grid>
 			</Grid>
+			}
 		</>
 	);
 };

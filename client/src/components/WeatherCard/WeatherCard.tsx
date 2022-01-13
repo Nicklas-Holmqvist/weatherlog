@@ -75,7 +75,7 @@ export const WeatherCard = ({
 				className={classes.temp}
 			>{`${temp}°C`}</Typography>
 			<Grid item className={classes.iconContainer}>
-				{GetWeatherIcon(weather)}
+				{GetWeatherIcon(weather, 'normal')}
 			</Grid>
 			<Grid item className={classes.wind}>
 				<Typography

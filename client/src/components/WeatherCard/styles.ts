@@ -77,6 +77,19 @@ export default makeStyles((theme) => ({
 			width: 26,
 		},
 	},
+	listIcon: {
+		[theme.breakpoints.down(1281)]: {
+			width: 22,
+		},
+	},
+	weatherIcon: {
+		width: '70%',
+		margin: '30px auto 70px auto',
+		[theme.breakpoints.down(1281)]: {
+			width: 50,
+			margin: 0,
+		},
+	},
 	arrowIcon: {
 		width: 40,
 		display: 'flex',

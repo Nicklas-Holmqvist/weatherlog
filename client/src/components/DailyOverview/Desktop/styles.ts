@@ -92,6 +92,21 @@ export default makeStyles((theme) => ({
 			margin: '6px auto',
 		},
 	},
+	title: {
+		marginTop: 40,
+		[theme.breakpoints.down(1281)]: {
+			marginTop: 30,
+		},
+		[theme.breakpoints.down('sm')]: {
+			paddingLeft: 20,
+			fontSize: 34,
+		},
+		[theme.breakpoints.down(450)]: {
+			paddingLeft: 20,
+			fontSize: 28,
+			marginTop: 25,
+		},
+	},
 	location: {
 		marginBottom: 6,
 	},
