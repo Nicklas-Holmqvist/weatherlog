@@ -22,6 +22,8 @@ import getMonthName from '../../../utils/getMonthName'
 import { GetWeatherIcon } from 'src/utils';
 import { MobileDataCard } from './MobileDataCard';
 import useStyles from './styles';
+import EditLogModal from 'src/components/EditLogModal/EditLogModal';
+import { DeleteLogModal } from 'src/components/DeleteLogModal';
 import { ErrorPage } from '../../ErrorPage'
 
 export const MobileDailyOverview = () => {
@@ -29,8 +31,10 @@ export const MobileDailyOverview = () => {
 	const { log, logs } = useLogsContext()
 	const { user } = useUsersContext()
 	const navigateTo = useNavigate(); 
-
+	const [showEditModal, setShowEditModal] = useState(false);
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const {id}:any = useParams();
+
 	const [userLog, setUserLog] = useState<ILogs>({
 		airFeeling: "",
         airpressure: "",
@@ -52,7 +56,7 @@ export const MobileDailyOverview = () => {
 	const [month, setMonth] = useState<string | undefined>('')
 	const [day, setDay] = useState<string | undefined>('')
 
-	const getLog = useLogsContext().getLog
+	const getLog = useLogsContext().getLog;
 
 	const logsLength = logs.length
 	
@@ -86,6 +90,16 @@ export const MobileDailyOverview = () => {
 
 	return (
 		<>
+		{showEditModal && (
+				<EditLogModal open={true} handleClose={() => setShowEditModal(false)} />
+			)}
+			{showDeleteModal && (
+				<DeleteLogModal
+					open={true}
+					handleClose={() => setShowDeleteModal(false)}
+					logID={log._id}
+				/>
+		)}
 		{findDate === undefined ? <ErrorPage /> :
 		<Grid container item>
 			<Grid container item className={classes.header}>
@@ -101,12 +115,18 @@ export const MobileDailyOverview = () => {
 					</IconButton>
 				</Grid>
 				<Grid item className={classes.iconButtons}>
-					<IconButton className={classes.iconButton} size="small">
-						<EditRounded fontSize="small" />
-					</IconButton>
-					<IconButton className={classes.iconButton} size="small">
-						<DeleteRounded fontSize="small" />
-					</IconButton>
+				<IconButton className={classes.iconButton} size="small">
+							<EditRounded
+								fontSize="small"
+								onClick={() => setShowEditModal(true)}
+							/>
+						</IconButton>
+						<IconButton className={classes.iconButton} size="small">
+							<DeleteRounded
+								fontSize="small"
+								onClick={() => setShowDeleteModal(true)}
+							/>
+						</IconButton>
 				</Grid>
 			</Grid>
 			<Grid container item className={classes.weatherAndTempContainer}>
@@ -132,6 +152,28 @@ export const MobileDailyOverview = () => {
 					<Typography variant="body2" className={classes.weatherName}>
 					{userInfo?.city}
 					</Typography>
+				</Grid>
+				<Grid item container className={classes.cardContainer}>
+					<MobileDataCard
+						label={dataEnum.WIND_DIRECTION}
+						windDirection={userLog.windDirection !== '' ? userLog.windDirection : 'noWind'}
+					/>
+					<MobileDataCard label={dataEnum.WIND_SPEED} data={12} unit="m/s" />
+					<MobileDataCard
+						label={dataEnum.WIND_FEEL}
+						data={userLog?.airFeeling !== '' ? dotToCommaConverter((userLog.airFeeling)) : 'Ingen'}
+					/>
+					<MobileDataCard
+						label={dataEnum.PRECIPITATION}
+						data={dotToCommaConverter((5.6).toString()) || '-'}
+						unit="mm"
+					/>
+					<MobileDataCard
+						label={dataEnum.AIR_PRESSURE}
+						data={userLog?.airpressure !== '' ? userLog?.airpressure : 0}
+						unit="hPa"
+					/>
+					<MobileDataCard label={dataEnum.HUMIDITY} data={93 || '-'} unit="%" />
 				</Grid>
 			</Grid>
 			<Grid

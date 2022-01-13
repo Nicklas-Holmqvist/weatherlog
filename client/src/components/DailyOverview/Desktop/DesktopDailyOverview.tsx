@@ -35,6 +35,8 @@ import getMonthName from '../../../utils/getMonthName'
 import useStyles from './styles';
 import { GetWeatherIcon } from 'src/utils';
 import theme from 'src/theme';
+import EditLogModal from 'src/components/EditLogModal/EditLogModal';
+import { DeleteLogModal } from 'src/components/DeleteLogModal';
 import { ErrorPage } from '../../ErrorPage'
 
 export const DesktopDailyOverview = () => {
@@ -45,6 +47,9 @@ export const DesktopDailyOverview = () => {
 	const navigateTo = useNavigate(); 
 
 	const {id}:any = useParams();
+	const [showEditModal, setShowEditModal] = useState(false);
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
+
 	const [userLog, setUserLog] = useState<ILogs>({
 		airFeeling: "",
         airpressure: "",
@@ -66,7 +71,7 @@ export const DesktopDailyOverview = () => {
 	const [month, setMonth] = useState<string | undefined>('')
 	const [day, setDay] = useState<string | undefined>('')
 
-	const getLog = useLogsContext().getLog
+	const getLog = useLogsContext().getLog;
 
 	const logsLength = logs.length
 	
@@ -100,12 +105,27 @@ export const DesktopDailyOverview = () => {
 
 	return (
 		<>
-		{findDate === undefined ? <ErrorPage /> :
-		<Grid item container className={classes.root}>			
-		{/* huvudcontainer */}
-			<Grid item container direction="column" className={classes.leftContainer}>
-				{/* vänstersidan */}
-				<Grid item container className={classes.dateContainer}>
+			{showEditModal && (
+				<EditLogModal open={true} handleClose={() => setShowEditModal(false)} />
+			)}
+			{showDeleteModal && (
+				<DeleteLogModal
+					open={true}
+					handleClose={() => setShowDeleteModal(false)}
+					logID={log._id}
+				/>
+			)}
+			{findDate === undefined ? <ErrorPage /> :
+			<Grid item container className={classes.root}>
+				{/* huvudcontainer */}
+				<Grid
+					item
+					container
+					direction="column"
+					className={classes.leftContainer}
+				>
+					{/* vänstersidan */}
+					<Grid item container className={classes.dateContainer}>
 					<IconButton onClick={prevDay} className={classes.arrow}>
 						<ArrowBackRounded />
 					</IconButton>
@@ -153,29 +173,6 @@ export const DesktopDailyOverview = () => {
 						</ListItem>
 					</List>
 				</Grid>
-			</Grid>			
-			{findDate !== undefined &&
-			<Grid item container className={classes.rightContainer}>
-				{/* högersidan */}
-				<Grid item container className={classes.notesAndButtons}>
-					{/* header (Anteckningar, iconbuttons) */}
-					<Grid item className={classes.notes}>
-						<Typography variant="subtitle1" className={classes.notesTitle}>
-							Anteckningar
-						</Typography>
-						<Typography variant="body1" className={classes.notesBody}>
-							{userLog?.description}
-						</Typography>
-					</Grid>
-					<Grid item className={classes.iconButtons}>
-						<IconButton className={classes.iconButton}>
-							<EditRounded />
-						</IconButton>
-						<IconButton className={classes.iconButton}>
-							<DeleteRounded />
-						</IconButton>
-					</Grid>
-				</Grid>
 				<Grid item container className={classes.cardContainer}>
 					<DataCard
 						label={dataEnum.WIND_DIRECTION}
@@ -215,10 +212,10 @@ export const DesktopDailyOverview = () => {
 					/>
 				</Grid>
 			</Grid>
-			}
-			
+					
 		</Grid>
 		}
+		
 		</>
 	);
 };

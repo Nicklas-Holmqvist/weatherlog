@@ -3,7 +3,7 @@ export * from './Footer';
 export * from './Header';
 export * from './LoginForm';
 export * from './CreateLog';
-export * from './EditLog';
+export * from './EditLogModal';
 export * from './RegisterForm';
 export * from './WeatherCard';
 export * from './Diagram';

@@ -118,8 +118,8 @@ export const theme = createTheme({
 	},
 	palette: {
 		primary: {
-			main: '#fefefe',
-			dark: '#ededed',
+			main: '#999',
+			dark: '#888',
 		},
 		secondary: {
 			light: '#444444',
@@ -161,7 +161,7 @@ export const theme = createTheme({
 			plus25to29: 'rgb(255, 51, 0)',
 			plus30to34: 'rgb(255, 25, 0)',
 			plus35orMore: 'rgb(255, 0, 0)',
-		},		
+		},
 	},
 });
 
