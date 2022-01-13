@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	Button,
 	FormControl,
@@ -29,10 +29,8 @@ import {
 	SnowyRain,
 	Sun,
 	Thunder,
-	monthEnum,
 	windFeelEnum,
 } from '../../utils';
-import GetMonthName from '../../utils/getMonthName';
 import useStyles from './style';
 
 interface IEditLogModal {
@@ -44,8 +42,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 	const classes = useStyles();
 	const editPost = useLogsContext().editPost;
 	const onChange = useLogsContext();
-	const getLog = useLogsContext();
-	const getLogs = useLogsContext().getLogs;
+	const getLog = useLogsContext().getLog
 	const { editLog } = useLogsContext();
 	const [errors, setErrors] = useState({
 		weather: false,
@@ -60,10 +57,11 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 	});
 
 	const { id }: any = useParams();
-
-	const year: string = editLog.date.substring(0, 4);
-	const month: any = GetMonthName(editLog.date.substring(4, 6));
-	const day: any = editLog.date.substring(6, 8);
+	
+	useEffect(()=> {
+		getLog(id)
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[id])
 
 	const handleEditLog = () => {
 		setErrors({
@@ -106,39 +104,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 			}));
 			return;
 		}
-		// if (/^\d+$/.test(logValue.windSpeed.toString())) {
-		// 	setErrors((oldstate) => ({
-		// 		...oldstate,
-		// 		windSpeed: true,
-		// 	}));
-		// 	return;
-		// }
-		// if (
-		// 	/^\d+$/.test(logValue.airpressure.toString())
-		// 	// ||
-		// 	// parseInt(logValue.airpressure.toString()) < 900 ||
-		// 	// parseInt(logValue.airpressure.toString()) > 1100
-		// ) {
-		// 	setErrors((oldstate) => ({
-		// 		...oldstate,
-		// 		airPressure: true,
-		// 	}));
-		// 	return;
-		// }
-		// if (
-		// 	/^\d+$/.test(logValue.humidity.toString())
-		// 	// ||
-		// 	// parseInt(logValue.humidity.toString()) < 0 ||
-		// 	// parseInt(logValue.humidity.toString()) > 100
-		// ) {
-		// 	setErrors((oldstate) => ({
-		// 		...oldstate,
-		// 		humidity: true,
-		// 	}));
-		// 	return;
-		// }
 		editPost(id);
-		// geteditLog.getLog(id);
 		setTimeout(() => {
 			handleClose();
 		}, 400);

@@ -107,7 +107,7 @@ export const DesktopDailyOverview = () => {
 	useEffect(()=> {
 		getLog(id)
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[id])
+	},[id, showEditModal])
 
 	return (
 		<>

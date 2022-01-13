@@ -89,7 +89,7 @@ export const MobileDailyOverview = () => {
 	useEffect(()=> {
 		getLog(id)
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[id])
+	},[id, showEditModal])
 
 	return (
 		<>
