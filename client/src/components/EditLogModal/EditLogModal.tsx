@@ -44,8 +44,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 	const classes = useStyles();
 	const editPost = useLogsContext().editPost;
 	const onChange = useLogsContext();
-	const getLog = useLogsContext();
-	const getLogs = useLogsContext().getLogs;
+	const getLog = useLogsContext().getLog
 	const { editLog } = useLogsContext();
 	const [errors, setErrors] = useState({
 		weather: false,
@@ -67,7 +66,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 
 	const handleEditLog = () => {
 		editPost(id);
-		// geteditLog.getLog(id);
+		getLog(id);
 		setTimeout(() => {
 			handleClose();
 		}, 400);

@@ -59,7 +59,7 @@ export const LandingPage = () => {
 				});
 		};
 		getAllLogs();
-	}, []);
+	},[isLoading]);
 
 	return (
 		<Grid item container className={classes.container}>

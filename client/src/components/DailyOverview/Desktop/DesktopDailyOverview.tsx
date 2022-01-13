@@ -52,9 +52,11 @@ export const DesktopDailyOverview = () => {
 	const getLog = useLogsContext().getLog;
 
 	useEffect(() => {
+		console.log(log)
+		console.log(userLog)
 		getLog(id);
 		setUserLog(log);
-	}, [userLog]);
+	}, [userLog, showEditModal]);
 
 	return (
 		<>
