@@ -185,9 +185,9 @@ export const DesktopDailyOverview = () => {
 					<DataCard
 						label={dataEnum.WIND_DIRECTION}
 						//KIKA PÅ LÖSNING!!!
-						windDirection='e'
+						windDirection={userLog.windDirection !== '' ? userLog.windDirection : 'noWind'}
 						bottomInfo={
-							GetBottomInfo(dataEnum.WIND_DIRECTION, dataEnum.WIND_DIRECTION)!
+							GetBottomInfo(dataEnum.WIND_DIRECTION, userLog.windDirection !== '' ? userLog.windDirection : '')!
 						}
 					/>
 					<DataCard

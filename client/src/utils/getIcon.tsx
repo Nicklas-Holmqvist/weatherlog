@@ -54,79 +54,79 @@ export const GetWeatherIcon = (weather: string, size: string) => {
 };
 
 export const GetWindDirection = (direction: string, size: string) => {
-	const classes = useStyles();
+	// const classes = useStyles();
 	
 	switch (direction) {
 		case directionEnum.N:
 			return (
 				<North
-					className={
-						size === 'small' ? classes.arrowIcon : classes.bigArrowIcon
-					}
+					// className={
+					// 	size === 'small' ? classes.arrowIcon : classes.bigArrowIcon
+					// }
 				/>
 			);
 		case directionEnum.NW:
 			return (
 				<NorthWest
-					className={
-						size === 'small' ? classes.arrowIcon : classes.bigArrowIcon
-					}
+					// className={
+					// 	size === 'small' ? classes.arrowIcon : classes.bigArrowIcon
+					// }
 				/>
 			);
 		case directionEnum.W:
 			return (
 				<West
-					className={
-						size === 'small' ? classes.arrowIcon : classes.bigArrowIcon
-					}
+					// className={
+					// 	size === 'small' ? classes.arrowIcon : classes.bigArrowIcon
+					// }
 				/>
 			);
 		case directionEnum.SW:
 			return (
 				<SouthWest
-					className={
-						size === 'small' ? classes.arrowIcon : classes.bigArrowIcon
-					}
+					// className={
+					// 	size === 'small' ? classes.arrowIcon : classes.bigArrowIcon
+					// }
 				/>
 			);
 		case directionEnum.S:
 			return (
 				<South
-					className={
-						size === 'small' ? classes.arrowIcon : classes.bigArrowIcon
-					}
+					// className={
+					// 	size === 'small' ? classes.arrowIcon : classes.bigArrowIcon
+					// }
 				/>
 			);
 		case directionEnum.SE:
 			return (
 				<SouthEast
-					className={
-						size === 'small' ? classes.arrowIcon : classes.bigArrowIcon
-					}
+					// className={
+					// 	size === 'small' ? classes.arrowIcon : classes.bigArrowIcon
+					// }
 				/>
 			);
 		case directionEnum.E:
 			return (
 				<East
-					className={
-						size === 'small' ? classes.arrowIcon : classes.bigArrowIcon
-					}
+					// className={
+					// 	size === 'small' ? classes.arrowIcon : classes.bigArrowIcon
+					// }
 				/>
 			);
 		case directionEnum.NE:
 			return (
 				<NorthEast
-					className={
-						size === 'small' ? classes.arrowIcon : classes.bigArrowIcon
-					}
+					// className={
+					// 	size === 'small' ? classes.arrowIcon : classes.bigArrowIcon
+					// }
 				/>
 			);
 		default:
 			return (
 				<NoData
-					className={
-						size === 'small' ? classes.arrowIcon : classes.bigArrowIcon
-					}
+					// className={
+					// 	size === 'small' ? classes.arrowIcon : classes.bigArrowIcon
+					// }
 				/>
 			);
 	}
