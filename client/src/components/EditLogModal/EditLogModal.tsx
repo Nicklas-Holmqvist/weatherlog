@@ -66,6 +66,77 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 	const day: any = editLog.date.substring(6, 8);
 
 	const handleEditLog = () => {
+		setErrors({
+			weather: false,
+			temp: false,
+			precipitation: false,
+			windDir: false,
+			windSpeed: false,
+			windFeel: false,
+			airPressure: false,
+			humidity: false,
+			desc: false,
+		});
+
+		if (editLog.weather === '') {
+			setErrors((oldstate) => ({
+				...oldstate,
+				weather: true,
+			}));
+			return;
+		}
+		if (editLog.temperature === '') {
+			setErrors((oldstate) => ({
+				...oldstate,
+				temp: true,
+			}));
+			return;
+		}
+		if (editLog.precipitation === '') {
+			setErrors((oldstate) => ({
+				...oldstate,
+				precipitation: true,
+			}));
+			return;
+		}
+		if (editLog.description.length > 260) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				desc: true,
+			}));
+			return;
+		}
+		// if (/^\d+$/.test(logValue.windSpeed.toString())) {
+		// 	setErrors((oldstate) => ({
+		// 		...oldstate,
+		// 		windSpeed: true,
+		// 	}));
+		// 	return;
+		// }
+		// if (
+		// 	/^\d+$/.test(logValue.airpressure.toString())
+		// 	// ||
+		// 	// parseInt(logValue.airpressure.toString()) < 900 ||
+		// 	// parseInt(logValue.airpressure.toString()) > 1100
+		// ) {
+		// 	setErrors((oldstate) => ({
+		// 		...oldstate,
+		// 		airPressure: true,
+		// 	}));
+		// 	return;
+		// }
+		// if (
+		// 	/^\d+$/.test(logValue.humidity.toString())
+		// 	// ||
+		// 	// parseInt(logValue.humidity.toString()) < 0 ||
+		// 	// parseInt(logValue.humidity.toString()) > 100
+		// ) {
+		// 	setErrors((oldstate) => ({
+		// 		...oldstate,
+		// 		humidity: true,
+		// 	}));
+		// 	return;
+		// }
 		editPost(id);
 		// geteditLog.getLog(id);
 		setTimeout(() => {
@@ -382,6 +453,10 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 					<TextField
 						name="description"
 						defaultValue={editLog.description}
+						error={errors.desc}
+						helperText={
+							errors.desc && 'Beskrivningen får ej bestå av mer än 260 tecken'
+						}
 						label="Beskrivning"
 						multiline
 						rows={4}

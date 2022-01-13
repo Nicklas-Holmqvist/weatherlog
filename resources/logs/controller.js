@@ -119,8 +119,6 @@ exports.changeLog = async (req, res) => {
 	const log = req.params.id;
 	const user = req.cookies.user;
 
-	console.log(req.body);
-
 	const {
 		airFeeling,
 		airpressure,
