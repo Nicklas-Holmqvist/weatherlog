@@ -126,96 +126,122 @@ export const DesktopDailyOverview = () => {
 				>
 					{/* vänstersidan */}
 					<Grid item container className={classes.dateContainer}>
-					<IconButton onClick={prevDay} className={classes.arrow}>
-						<ArrowBackRounded />
-					</IconButton>
-					<Typography variant="h3" className={classes.date}>
-						{day} {month?.substring(0,3)}
-					</Typography>
-					<IconButton onClick={nextDay} className={classes.arrow}>
-						<ArrowForwardRounded />
-					</IconButton>
-				</Grid>
-				{laptopScreen && <Divider className={classes.divider} />}
-				{!laptopScreen && GetWeatherIcon(userLog?.weather, 'large')}
-				<Grid item container direction="column">
-					<Grid item container className={classes.tempAndColorContainer}>
-						<Typography variant="h3" className={classes.temp}>
-							{`${userLog?.temperature}°C`}
+						<IconButton onClick={prevDay} className={classes.arrow}>
+							<ArrowBackRounded />
+						</IconButton>
+						<Typography variant="h3" className={classes.date}>
+							{day} {month?.substring(0,3)}
 						</Typography>
-						{laptopScreen && GetWeatherIcon(userLog?.weather, 'large')}
-						{!laptopScreen && (
-							<Grid
-								className={classes.tempColor}
-								style={{ backgroundColor: getTempColor(parseInt(userLog?.temperature)) }}
-							/>
-						)}
+						<IconButton onClick={nextDay} className={classes.arrow}>
+							<ArrowForwardRounded />
+						</IconButton>
 					</Grid>
-					<Divider className={classes.divider} />
-					<List dense className={classes.list}>
-						<ListItem className={classes.location}>
-							<ListItemIcon>
-								<PlaceRounded color="secondary" />
-							</ListItemIcon>
-							<Typography variant="subtitle1">{userInfo?.city}</Typography>
-						</ListItem>
-						<ListItem className={classes.listItem}>
-							<ListItemIcon>								
-									{GetWeatherIcon(userLog.weather === undefined ? '' : userLog.weather, 'small')}
-							</ListItemIcon>
-							<ListItemText secondary={userLog.weather === undefined ? 'Ej angivit' : userLog?.weather} />
-						</ListItem>
-						<ListItem className={classes.listItem}>
-							<ListItemIcon>
-								<Wind className={classes.listIcon} />
-							</ListItemIcon>
-							<ListItemText secondary={userLog?.airFeeling !== '' ? dotToCommaConverter((userLog?.airFeeling)) : 'Ingen'} />
-						</ListItem>
-					</List>
+					{laptopScreen && <Divider className={classes.divider} />}
+					{!laptopScreen && GetWeatherIcon(userLog?.weather, 'large')}
+					<Grid item container direction="column">
+						<Grid item container className={classes.tempAndColorContainer}>
+							<Typography variant="h3" className={classes.temp}>
+								{`${userLog?.temperature}°C`}
+							</Typography>
+							{laptopScreen && GetWeatherIcon(userLog?.weather, 'large')}
+							{!laptopScreen && (
+								<Grid
+									className={classes.tempColor}
+									style={{ backgroundColor: getTempColor(parseInt(userLog?.temperature)) }}
+								/>
+							)}
+						</Grid>
+						<Divider className={classes.divider} />
+						<List dense className={classes.list}>
+							<ListItem className={classes.location}>
+								<ListItemIcon>
+									<PlaceRounded color="secondary" />
+								</ListItemIcon>
+								<Typography variant="subtitle1">{userInfo?.city}</Typography>
+							</ListItem>
+							<ListItem className={classes.listItem}>
+								<ListItemIcon>								
+										{GetWeatherIcon(userLog.weather === undefined ? '' : userLog.weather, 'small')}
+								</ListItemIcon>
+								<ListItemText secondary={userLog.weather === undefined ? 'Ej angivit' : userLog?.weather} />
+							</ListItem>
+							<ListItem className={classes.listItem}>
+								<ListItemIcon>
+									<Wind className={classes.listIcon} />
+								</ListItemIcon>
+								<ListItemText secondary={userLog?.airFeeling !== '' ? dotToCommaConverter((userLog?.airFeeling)) : 'Ingen'} />
+							</ListItem>
+						</List>
+					</Grid>
 				</Grid>
-				<Grid item container className={classes.cardContainer}>
-					<DataCard
-						label={dataEnum.WIND_DIRECTION}
-						windDirection={userLog.windDirection !== '' ? userLog.windDirection : 'noWind'}
-						bottomInfo={
-							GetBottomInfo(dataEnum.WIND_DIRECTION, userLog.windDirection !== '' ? userLog.windDirection : '')!
-						}
-					/>
-					<DataCard
-						label={dataEnum.WIND_SPEED}
-						data={userLog?.windSpeed !== '' ? userLog?.windSpeed : 0}
-						unit="m/s"
-						bottomInfo={GetBottomInfo(dataEnum.WIND_SPEED, userLog?.windSpeed)!}
-					/>
-					<DataCard
-						label={dataEnum.WIND_FEEL}
-						data={userLog?.airFeeling !== '' ? dotToCommaConverter((userLog.airFeeling)) : 'Ingen'}
-						bottomInfo={GetBottomInfo(dataEnum.WIND_FEEL, userLog?.airFeeling !== '' ? dotToCommaConverter((userLog?.airFeeling)) : 0)!}
-					/>
-					<DataCard
-						label={dataEnum.PRECIPITATION}
-						data={userLog?.precipitation !== '' ? dotToCommaConverter((userLog?.precipitation)) : 0}
-						unit="mm"
-						bottomInfo={GetBottomInfo(dataEnum.PRECIPITATION, userLog?.precipitation)!}
-					/>
-					<DataCard
-						label={dataEnum.AIR_PRESSURE}
-						data={userLog?.airpressure !== '' ? userLog?.airpressure : 0}
-						unit="hPa"
-						bottomInfo={GetBottomInfo(dataEnum.AIR_PRESSURE, userLog.airpressure !== '' ? userLog.airpressure : '0')!}
-					/>
-					<DataCard
-						label={dataEnum.HUMIDITY}
-						data={userLog?.humidity !== '' ? userLog?.humidity : 0}
-						unit="%"
-						bottomInfo={GetBottomInfo(dataEnum.HUMIDITY, userLog.humidity !== '' ? userLog.humidity : 0)!}
-					/>
+				<Grid item container className={classes.rightContainer}>
+					{/* högersidan */}
+					<Grid item container className={classes.notesAndButtons}>
+						{/* header (Anteckningar, iconbuttons) */}
+						<Grid item className={classes.notes}>
+							<Typography variant="subtitle1" className={classes.notesTitle}>
+								Anteckningar
+							</Typography>
+							<Typography variant="body1" className={classes.notesBody}>
+								{userLog?.description}
+							</Typography>
+						</Grid>
+						<Grid item className={classes.iconButtons}>
+							<IconButton
+								className={classes.iconButton}
+								onClick={() => setShowEditModal(true)}
+							>
+								<EditRounded />
+							</IconButton>
+							<IconButton
+								className={classes.iconButton}
+								onClick={() => setShowDeleteModal(true)}
+							>
+								<DeleteRounded />
+							</IconButton>
+						</Grid>
+					</Grid>
+					<Grid item container className={classes.cardContainer}>
+						<DataCard
+							label={dataEnum.WIND_DIRECTION}
+							windDirection={userLog.windDirection !== '' ? userLog.windDirection : 'noWind'}
+							bottomInfo={
+								GetBottomInfo(dataEnum.WIND_DIRECTION, userLog.windDirection !== '' ? userLog.windDirection : '')!
+							}
+						/>
+						<DataCard
+							label={dataEnum.WIND_SPEED}
+							data={userLog?.windSpeed !== '' ? userLog?.windSpeed : 0}
+							unit="m/s"
+							bottomInfo={GetBottomInfo(dataEnum.WIND_SPEED, userLog?.windSpeed)!}
+						/>
+						<DataCard
+							label={dataEnum.WIND_FEEL}
+							data={userLog?.airFeeling !== '' ? dotToCommaConverter((userLog.airFeeling)) : 'Ingen'}
+							bottomInfo={GetBottomInfo(dataEnum.WIND_FEEL, userLog?.airFeeling !== '' ? dotToCommaConverter((userLog?.airFeeling)) : 0)!}
+						/>
+						<DataCard
+							label={dataEnum.PRECIPITATION}
+							data={userLog?.precipitation !== '' ? dotToCommaConverter((userLog?.precipitation)) : 0}
+							unit="mm"
+							bottomInfo={GetBottomInfo(dataEnum.PRECIPITATION, userLog?.precipitation)!}
+						/>
+						<DataCard
+							label={dataEnum.AIR_PRESSURE}
+							data={userLog?.airpressure !== '' ? userLog?.airpressure : 0}
+							unit="hPa"
+							bottomInfo={GetBottomInfo(dataEnum.AIR_PRESSURE, userLog.airpressure !== '' ? userLog.airpressure : '0')!}
+						/>
+						<DataCard
+							label={dataEnum.HUMIDITY}
+							data={userLog?.humidity !== '' ? userLog?.humidity : 0}
+							unit="%"
+							bottomInfo={GetBottomInfo(dataEnum.HUMIDITY, userLog.humidity !== '' ? userLog.humidity : 0)!}
+						/>
+					</Grid>
 				</Grid>
 			</Grid>
-					
-		</Grid>
-		}
-		
+			}
 		</>
 	);
 };
