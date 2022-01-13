@@ -13,7 +13,6 @@ import {
 import { CheckRounded } from '@material-ui/icons';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ILogs } from 'src/types/Logs';
 
 import { useLogsContext } from '../../context/logs';
 import {
@@ -84,15 +83,15 @@ export const CreateLog = () => {
 
 	/** Component in month dropdown */
 	const monthList = numberOfMonths.map((month) => (
-		<MenuItem value={month}>{MonthName[month]}</MenuItem>
+		<MenuItem key={month} value={month}>{MonthName[month]}</MenuItem>
 	));
 
 	/** Component in day dropdown */
 	const dayList = numberOfDays.map((day) =>
 		!usedDates.includes(day.toString()) ? (
-			<MenuItem value={day}>{day}</MenuItem>
+			<MenuItem key={day} value={day}>{day}</MenuItem>
 		) : (
-			<MenuItem disabled value={day + ' - Inlägg finns'}>
+			<MenuItem key={day} disabled value={day + ' - Inlägg finns'}>
 				{day + ' - Inlägg finns'}
 			</MenuItem>
 		)
