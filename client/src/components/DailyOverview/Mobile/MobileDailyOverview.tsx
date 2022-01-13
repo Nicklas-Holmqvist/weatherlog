@@ -10,21 +10,24 @@ import {
 
 import { useLogsContext } from 'src/context/logs';
 import { useUsersContext } from 'src/context/users';
+
 import { ILogs } from 'src/types/Logs';
 import { IUsers } from '../../../types/Users'
 
+import getMonthName from '../../../utils/getMonthName'
 import {
 	dataEnum,
 	dotToCommaConverter,
 	getTempColor,
 } from 'src/utils';
-import getMonthName from '../../../utils/getMonthName'
 import { GetWeatherIcon } from 'src/utils';
+
 import { MobileDataCard } from './MobileDataCard';
-import useStyles from './styles';
-import EditLogModal from 'src/components/EditLogModal/EditLogModal';
-import { DeleteLogModal } from 'src/components/DeleteLogModal';
 import { ErrorPage } from '../../ErrorPage'
+import { DeleteLogModal } from 'src/components/DeleteLogModal';
+import EditLogModal from 'src/components/EditLogModal/EditLogModal';
+
+import useStyles from './styles';
 
 export const MobileDailyOverview = () => {
 	const classes = useStyles();
@@ -152,28 +155,6 @@ export const MobileDailyOverview = () => {
 					<Typography variant="body2" className={classes.weatherName}>
 					{userInfo?.city}
 					</Typography>
-				</Grid>
-				<Grid item container className={classes.cardContainer}>
-					<MobileDataCard
-						label={dataEnum.WIND_DIRECTION}
-						windDirection={userLog.windDirection !== '' ? userLog.windDirection : 'noWind'}
-					/>
-					<MobileDataCard label={dataEnum.WIND_SPEED} data={12} unit="m/s" />
-					<MobileDataCard
-						label={dataEnum.WIND_FEEL}
-						data={userLog?.airFeeling !== '' ? dotToCommaConverter((userLog.airFeeling)) : 'Ingen'}
-					/>
-					<MobileDataCard
-						label={dataEnum.PRECIPITATION}
-						data={dotToCommaConverter((5.6).toString()) || '-'}
-						unit="mm"
-					/>
-					<MobileDataCard
-						label={dataEnum.AIR_PRESSURE}
-						data={userLog?.airpressure !== '' ? userLog?.airpressure : 0}
-						unit="hPa"
-					/>
-					<MobileDataCard label={dataEnum.HUMIDITY} data={93 || '-'} unit="%" />
 				</Grid>
 			</Grid>
 			<Grid

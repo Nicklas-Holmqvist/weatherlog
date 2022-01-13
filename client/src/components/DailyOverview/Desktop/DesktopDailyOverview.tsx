@@ -19,10 +19,12 @@ import {
 	PlaceRounded,
 } from '@material-ui/icons';
 
-import { ILogs } from '../../../types/Logs'
-import { IUsers } from '../../../types/Users'
 import { useLogsContext } from 'src/context/logs';
 import { useUsersContext } from 'src/context/users';
+
+import { ILogs } from '../../../types/Logs'
+import { IUsers } from '../../../types/Users'
+
 import { DataCard } from './DataCard';
 import {
 	dataEnum,
@@ -31,19 +33,23 @@ import {
 	getTempColor,
 	Wind,
 } from 'src/utils';
-import getMonthName from '../../../utils/getMonthName'
-import useStyles from './styles';
 import { GetWeatherIcon } from 'src/utils';
-import theme from 'src/theme';
+import getMonthName from '../../../utils/getMonthName'
+
 import EditLogModal from 'src/components/EditLogModal/EditLogModal';
 import { DeleteLogModal } from 'src/components/DeleteLogModal';
 import { ErrorPage } from '../../ErrorPage'
 
+import theme from 'src/theme';
+import useStyles from './styles';
+
 export const DesktopDailyOverview = () => {
 	const classes = useStyles();
 	const laptopScreen = useMediaQuery(theme.breakpoints.down(1281));
+
 	const { log, logs } = useLogsContext()
 	const { user } = useUsersContext()
+	
 	const navigateTo = useNavigate(); 
 
 	const {id}:any = useParams();
