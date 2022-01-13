@@ -25,6 +25,7 @@ export const Menu = ({ handleClose, open }: IMenu) => {
 	const smallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
 	const handleLogout = () => {
+		handleClose();
 		logOut();
 		navigateTo('/');
 	};
@@ -49,36 +50,17 @@ export const Menu = ({ handleClose, open }: IMenu) => {
 				<Link to="/contact" className={classes.link} onClick={handleClose}>
 					<Typography variant={smallScreen ? 'h4' : 'h3'}>Kontakt</Typography>
 				</Link>
-				<Typography variant="h3" className={classes.logoutLink}>
+				<Typography
+					variant="h3"
+					className={classes.logoutLink}
+					onClick={handleLogout}
+				>
 					Logga ut
 					<ExitToAppRounded className={classes.logoutIcon} />
 				</Typography>
 			</Grid>
 		</Grid>
 	);
-	// return open ? (
-	// 	<Grid
-	// 		item
-	// 		container
-	// 		direction="column"
-	// 		className={open ? classes.container : classes.hidden}
-	// 	>
-	// 		<Grid item container direction="column" className={classes.wrapper}>
-	// 			<IconButton className={classes.closeButton} onClick={handleClose}>
-	// 				<ArrowUpwardRounded className={classes.closeIcon} />
-	// 			</IconButton>
-	// 			<Link to="/home" className={classes.link}>
-	// 				<Typography variant="h3">Hem</Typography>
-	// 			</Link>
-	// 			<Link to="/about" className={classes.link}>
-	// 				<Typography variant="h3">Om</Typography>
-	// 			</Link>
-	// 			<Link to="/contact" className={classes.link}>
-	// 				<Typography variant="h3">Kontakt</Typography>
-	// 			</Link>
-	// 		</Grid>
-	// 	</Grid>
-	// ) : null;
 };
 
 export default Menu;

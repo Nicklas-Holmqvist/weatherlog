@@ -11,7 +11,7 @@ import {
 	SettingsRounded,
 	MoreVertRounded,
 } from '@material-ui/icons';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useRoutes } from 'react-router-dom';
 
 import { useUsersContext } from '../../context/users';
 import { useAuthContext } from '../../context/auth';
@@ -37,6 +37,16 @@ export const Header = () => {
 
 	const handleCloseMenu = () => {
 		setShowMenu(false);
+	};
+
+	const nameString = () => {
+		if (user.firstName && user.lastName && user.city) {
+			return `${user.firstName} ${user.lastName}, ${user.city}`;
+		} else if (user.email) {
+			return `${user.email}`;
+		} else {
+			return '';
+		}
 	};
 
 	// const isPathLoginOrRegister = () => {
@@ -82,9 +92,7 @@ export const Header = () => {
 					<Grid item className={classes.left}>
 						<img src={logo} alt="Logo" />
 						<Typography variant="body1" className={classes.name}>
-							{`${user?.firstName || 'Greger'} ${
-								user?.lastName || 'Grindberg'
-							}, ${user?.city || ' Jukkasjärvi'}`}
+							{nameString()}
 							{/* {user?.firstName || 'Greger'} {user?.lastName || 'Grindberg'},
 							{user?.city || ' Jukkasjärvi'} */}
 						</Typography>
