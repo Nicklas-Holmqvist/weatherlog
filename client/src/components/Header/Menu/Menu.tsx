@@ -28,6 +28,7 @@ export const Menu = ({ handleClose, open }: IMenu) => {
 		handleClose();
 		logOut();
 		navigateTo('/');
+		window.location.reload();
 	};
 
 	return (
