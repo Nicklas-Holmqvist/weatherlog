@@ -133,6 +133,13 @@ export const CreateLog = () => {
 			}));
 			return;
 		}
+		if (logValue.description.length > 260) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				desc: true,
+			}));
+			return;
+		}
 		// if (/^\d+$/.test(logValue.windSpeed.toString())) {
 		// 	setErrors((oldstate) => ({
 		// 		...oldstate,
@@ -521,6 +528,10 @@ export const CreateLog = () => {
 				<TextField
 					name="description"
 					value={logValue.description}
+					error={errors.desc}
+					helperText={
+						errors.desc && 'Beskrivningen får ej bestå av mer än 260 tecken'
+					}
 					label="Beskrivning"
 					multiline
 					rows={4}
