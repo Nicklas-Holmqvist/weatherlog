@@ -20,7 +20,7 @@ import { useDiagramsContext } from 'src/context/diagram';
 
 import theme from 'src/theme';
 import useStyles from './style';
-import GetMonthName from '../../utils/getMonthName';
+import getMonthName from '../../utils/getMonthName';
 
 ChartJS.register(
   CategoryScale,
@@ -49,7 +49,7 @@ const Diagram = () => {
     const diagramLength = diagramMonth.length
     const findOld = diagramMonth.indexOf(id)
     const year:string = id.substring(0,4)
-    const month:any = GetMonthName(id.substring(4,6))
+    const month:any = getMonthName(id.substring(4,6))
 
     /** Change to earlier month in diagram or back to last when at end */
     const nextMonth = () => {     

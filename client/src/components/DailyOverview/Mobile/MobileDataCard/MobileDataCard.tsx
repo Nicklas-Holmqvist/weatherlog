@@ -1,19 +1,11 @@
 import { Grid, Typography } from '@material-ui/core';
-import { directionEnum, GetWindDirection, windFeelEnum } from 'src/utils';
+import { GetWindDirection, windFeelEnum } from 'src/utils';
 
 import useStyles from './styles';
 
 interface IDataCard {
 	label: string;
-	windDirection?:
-		| directionEnum.N
-		| directionEnum.NW
-		| directionEnum.W
-		| directionEnum.SW
-		| directionEnum.S
-		| directionEnum.SE
-		| directionEnum.E
-		| directionEnum.NE;
+	windDirection?:string;
 	data?: string | number;
 	unit?: string;
 }
