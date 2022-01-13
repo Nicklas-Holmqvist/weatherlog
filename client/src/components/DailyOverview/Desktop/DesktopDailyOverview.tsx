@@ -98,9 +98,6 @@ export const DesktopDailyOverview = () => {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[id])
 
-	console.log(log)
-	console.log(userLog)
-
 	return (
 		<>
 		{findDate === undefined ? <ErrorPage /> :

@@ -15,11 +15,8 @@ import { IUsers } from '../../../types/Users'
 
 import {
 	dataEnum,
-	directionEnum,
 	dotToCommaConverter,
 	getTempColor,
-	SemiClear,
-	windFeelEnum,
 } from 'src/utils';
 import getMonthName from '../../../utils/getMonthName'
 import { GetWeatherIcon } from 'src/utils';
@@ -86,9 +83,6 @@ export const MobileDailyOverview = () => {
 		getLog(id)
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[id])
-
-	console.log(log)
-	console.log(userLog)
 
 	return (
 		<>

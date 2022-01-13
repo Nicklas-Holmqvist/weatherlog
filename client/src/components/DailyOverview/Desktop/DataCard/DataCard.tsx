@@ -20,8 +20,6 @@ export const DataCard = ({
 }: IDataCard) => {
 	const classes = useStyles();
 
-	// console.log(windDirection)
-
 	return (
 		<Grid container item direction="column" className={classes.container}>
 			<Typography variant="subtitle1" className={classes.label}>
