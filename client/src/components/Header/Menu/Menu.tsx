@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	Button,
 	Grid,
@@ -21,6 +21,7 @@ interface IMenu {
 export const Menu = ({ handleClose, open }: IMenu) => {
 	const classes = useStyles();
 	const logOut = useAuthContext().logout;
+	const isAuth = useAuthContext().isAuth;
 	const navigateTo = useNavigate();
 	const smallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -30,6 +31,18 @@ export const Menu = ({ handleClose, open }: IMenu) => {
 		navigateTo('/');
 		window.location.reload();
 	};
+
+	// const isLoggedIn = () => {
+	// 	console.log('köööör');
+	// setTimeout(() => {
+	// 	console.log('kör settimeout');
+	// 	if (isAuth) {
+	// 		return 'Logga ut';
+	// 	} else {
+	// 		return 'Logga in';
+	// 	}
+	// }, 1000);
+	// };
 
 	return (
 		<Grid
@@ -51,14 +64,16 @@ export const Menu = ({ handleClose, open }: IMenu) => {
 				<Link to="/contact" className={classes.link} onClick={handleClose}>
 					<Typography variant={smallScreen ? 'h4' : 'h3'}>Kontakt</Typography>
 				</Link>
-				<Typography
-					variant="h3"
-					className={classes.logoutLink}
-					onClick={handleLogout}
-				>
-					Logga ut
-					<ExitToAppRounded className={classes.logoutIcon} />
-				</Typography>
+				{isAuth && (
+					<Typography
+						variant="h3"
+						className={classes.logoutLink}
+						onClick={handleLogout}
+					>
+						Logga ut
+						<ExitToAppRounded className={classes.logoutIcon} />
+					</Typography>
+				)}
 			</Grid>
 		</Grid>
 	);

@@ -28,6 +28,7 @@ export const Header = () => {
 	const mobile = useMediaQuery(theme.breakpoints.only('xs'));
 	const logOut = useAuthContext().logout;
 	const navigateTo = useNavigate();
+	const isAuth = useAuthContext().isAuth;
 	const { user } = useUsersContext();
 	const [showMenu, setShowMenu] = useState(false);
 
@@ -93,30 +94,17 @@ export const Header = () => {
 						<img src={logo} alt="Logo" />
 						<Typography variant="body1" className={classes.name}>
 							{nameString()}
-							{/* {user?.firstName || 'Greger'} {user?.lastName || 'Grindberg'},
-							{user?.city || ' Jukkasjärvi'} */}
 						</Typography>
 					</Grid>
 					<Grid item className={classes.right}>
-						{/* <Link to="/about" className={classes.link}>
-							<Typography variant="subtitle2">Om</Typography>
-						</Link>
-						<Link to="/contact" className={classes.link}>
-							<Typography variant="subtitle2">Kontakt</Typography>
-						</Link>
-						<Button
-							onClick={handleRunLogout}
-							endIcon={<ExitToAppRounded />}
-							className={classes.logoutButton}
-						>
-							Logga ut
-						</Button> */}
-						<IconButton
-							onClick={() => navigateTo('/settings')}
-							className={classes.settingsButton}
-						>
-							<SettingsRounded />
-						</IconButton>
+						{isAuth && (
+							<IconButton
+								onClick={() => navigateTo('/settings')}
+								className={classes.settingsButton}
+							>
+								<SettingsRounded />
+							</IconButton>
+						)}
 						<IconButton
 							onClick={() => setShowMenu(!showMenu)}
 							className={classes.menuButton}
