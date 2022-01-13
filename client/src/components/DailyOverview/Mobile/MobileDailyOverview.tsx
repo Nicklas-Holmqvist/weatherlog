@@ -1,6 +1,6 @@
 import { Grid, IconButton, Typography } from '@material-ui/core';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router'
+import { useParams, useNavigate } from 'react-router'
 import {
 	ArrowBackRounded,
 	ArrowForwardRounded,
@@ -8,8 +8,10 @@ import {
 	EditRounded,
 } from '@material-ui/icons';
 
-import { useLogsContext } from '../../../context/logs';
+import { useLogsContext } from 'src/context/logs';
+import { useUsersContext } from 'src/context/users';
 import { ILogs } from 'src/types/Logs';
+import { IUsers } from '../../../types/Users'
 
 import {
 	dataEnum,
@@ -19,34 +21,88 @@ import {
 	SemiClear,
 	windFeelEnum,
 } from 'src/utils';
+import getMonthName from '../../../utils/getMonthName'
+import { GetWeatherIcon } from 'src/utils';
 import { MobileDataCard } from './MobileDataCard';
 import useStyles from './styles';
+import { ErrorPage } from '../../ErrorPage'
 
 export const MobileDailyOverview = () => {
 	const classes = useStyles();
-	const { log } = useLogsContext()
+	const { log, logs } = useLogsContext()
+	const { user } = useUsersContext()
+	const navigateTo = useNavigate(); 
 
-	const id = useParams().id
-	const [userLog, setUserLog] = useState<ILogs>(log)
+	const {id}:any = useParams();
+	const [userLog, setUserLog] = useState<ILogs>({
+		airFeeling: "",
+        airpressure: "",
+        date: '',
+        description: "",
+        humidity: "",
+        precipitation: "",
+        temperature: "",
+        user: "",
+        windDirection: "",
+        windSpeed: "",
+        weather: ""
+	})
+	const [userInfo, setUserInfo] = useState<IUsers>({
+		firstName: '',
+		lastName: '',
+		city: ''
+	})
+	const [month, setMonth] = useState<string | undefined>('')
+	const [day, setDay] = useState<string | undefined>('')
 
 	const getLog = useLogsContext().getLog
 
+	const logsLength = logs.length
+	
+	const findDate:any = logs.find(e => e.date === id)
+    const findOld = logs.indexOf(findDate)
+
+	/** Change to earlier day */
+	const prevDay = () => {  		
+		if(findOld === (logsLength-1)) return
+		if(findOld !== -1) return navigateTo(`/log/${logs[findOld+1].date}`)      
+	}
+	
+	/** Change to next day */
+	const nextDay = () => {
+		if(findOld === 0) return
+		if(findOld !== -1) return navigateTo(`/log/${logs[findOld-1].date}`)      
+	}	  
+
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => {
-		getLog(id)
+		setUserInfo(user)
 		setUserLog(log)
-	},[userLog])
+		setMonth(getMonthName(userLog?.date.substring(4,6)))
+		setDay(userLog?.date.substring(6,8))
+	})
+	
+	useEffect(()=> {
+		getLog(id)
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[id])
+
+	console.log(log)
+	console.log(userLog)
 
 	return (
+		<>
+		{findDate === undefined ? <ErrorPage /> :
 		<Grid container item>
 			<Grid container item className={classes.header}>
 				<Grid container item className={classes.dateContainer}>
-					<IconButton className={classes.arrow}>
+					<IconButton  onClick={prevDay} className={classes.arrow}>
 						<ArrowBackRounded />
 					</IconButton>
 					<Typography variant="h5" className={classes.date}>
-						23 maj
+					{day} {month?.substring(0,3)}
 					</Typography>
-					<IconButton className={classes.arrow}>
+					<IconButton onClick={nextDay} className={classes.arrow}>
 						<ArrowForwardRounded />
 					</IconButton>
 				</Grid>
@@ -60,7 +116,7 @@ export const MobileDailyOverview = () => {
 				</Grid>
 			</Grid>
 			<Grid container item className={classes.weatherAndTempContainer}>
-				<SemiClear className={classes.weatherIcon} />
+				{GetWeatherIcon(userLog?.weather, 'large')}
 				<Grid
 					item
 					container
@@ -69,15 +125,18 @@ export const MobileDailyOverview = () => {
 				>
 					<Grid item className={classes.tempContainer}>
 						<Typography variant="h3" className={classes.temp}>
-							27°C
+							{`${userLog?.temperature}°C`}
 						</Typography>
 						<Grid
 							className={classes.tempColor}
-							style={{ backgroundColor: getTempColor(27) }}
+							style={{ backgroundColor: getTempColor(parseInt(userLog?.temperature)) }}
 						/>
 					</Grid>
 					<Typography variant="body2" className={classes.weatherName}>
-						Halvklart
+						{userLog.weather}
+					</Typography>
+					<Typography variant="body2" className={classes.weatherName}>
+					{userInfo?.city}
 					</Typography>
 				</Grid>
 			</Grid>
@@ -91,33 +150,34 @@ export const MobileDailyOverview = () => {
 					Anteckningar
 				</Typography>
 				<Typography variant="body1" className={classes.notesBody}>
-					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Architecto
-					earum laboriosam ullam. Ducimus, placeat soluta?
+					{userLog?.description}
 				</Typography>
 			</Grid>
 			<Grid item container className={classes.cardContainer}>
 				<MobileDataCard
 					label={dataEnum.WIND_DIRECTION}
-					windDirection={directionEnum.NE || '-'}
+					windDirection={userLog.windDirection !== '' ? userLog.windDirection : 'noWind'}
 				/>
-				<MobileDataCard label={dataEnum.WIND_SPEED} data={12} unit="m/s" />
+				<MobileDataCard label={dataEnum.WIND_SPEED} data={userLog?.windSpeed !== '' ? userLog?.windSpeed : 0} unit="m/s" />
 				<MobileDataCard
 					label={dataEnum.WIND_FEEL}
-					data={windFeelEnum.NEUTRAL || '-'}
+					data={userLog?.airFeeling !== '' ? dotToCommaConverter((userLog.airFeeling)) : 'Ingen'}
 				/>
 				<MobileDataCard
 					label={dataEnum.PRECIPITATION}
-					data={dotToCommaConverter((5.6).toString()) || '-'}
+					data={userLog?.precipitation !== '' ? dotToCommaConverter((userLog?.precipitation)) : 0}
 					unit="mm"
 				/>
 				<MobileDataCard
 					label={dataEnum.AIR_PRESSURE}
-					data={1000 || '-'}
+					data={userLog?.airpressure !== '' ? userLog?.airpressure : 0}
 					unit="hPa"
 				/>
-				<MobileDataCard label={dataEnum.HUMIDITY} data={93 || '-'} unit="%" />
+				<MobileDataCard label={dataEnum.HUMIDITY} data={userLog?.humidity !== '' ? userLog?.humidity : 0} unit="%" />
 			</Grid>
 		</Grid>
+		}	
+	</>
 	);
 };
 

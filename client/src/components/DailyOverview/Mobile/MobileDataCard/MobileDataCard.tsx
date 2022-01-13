@@ -5,15 +5,7 @@ import useStyles from './styles';
 
 interface IDataCard {
 	label: string;
-	windDirection?:
-		| directionEnum.N
-		| directionEnum.NW
-		| directionEnum.W
-		| directionEnum.SW
-		| directionEnum.S
-		| directionEnum.SE
-		| directionEnum.E
-		| directionEnum.NE;
+	windDirection?:string;
 	data?: string | number;
 	unit?: string;
 }

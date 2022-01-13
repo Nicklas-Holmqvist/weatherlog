@@ -26,18 +26,14 @@ import { useUsersContext } from 'src/context/users';
 import { DataCard } from './DataCard';
 import {
 	dataEnum,
-	directionEnum,
 	dotToCommaConverter,
 	GetBottomInfo,
 	getTempColor,
-	Overcast,
-	SemiClear,
-	WarmBar,
 	Wind,
 } from 'src/utils';
 import getMonthName from '../../../utils/getMonthName'
 import useStyles from './styles';
-import { windFeelEnum, GetWeatherIcon } from 'src/utils';
+import { GetWeatherIcon } from 'src/utils';
 import theme from 'src/theme';
 import { ErrorPage } from '../../ErrorPage'
 
@@ -89,6 +85,7 @@ export const DesktopDailyOverview = () => {
 		if(findOld !== -1) return navigateTo(`/log/${logs[findOld-1].date}`)      
 	}	  
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => {
 		setUserInfo(user)
 		setUserLog(log)
@@ -98,6 +95,7 @@ export const DesktopDailyOverview = () => {
 	
 	useEffect(()=> {
 		getLog(id)
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[id])
 
 	console.log(log)
@@ -184,7 +182,6 @@ export const DesktopDailyOverview = () => {
 				<Grid item container className={classes.cardContainer}>
 					<DataCard
 						label={dataEnum.WIND_DIRECTION}
-						//KIKA PÅ LÖSNING!!!
 						windDirection={userLog.windDirection !== '' ? userLog.windDirection : 'noWind'}
 						bottomInfo={
 							GetBottomInfo(dataEnum.WIND_DIRECTION, userLog.windDirection !== '' ? userLog.windDirection : '')!
@@ -221,7 +218,7 @@ export const DesktopDailyOverview = () => {
 					/>
 				</Grid>
 			</Grid>
-}
+			}
 			
 		</Grid>
 		}
