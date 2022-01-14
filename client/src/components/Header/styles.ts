@@ -49,7 +49,7 @@ export default makeStyles((theme) => ({
 		justifyContent: 'space-between',
 		backgroundColor: theme.palette.grey[100],
 		boxShadow: '0px 4px 8px rgba(180, 180, 180, 0.27)',
-		padding: '0 16px',
+		padding: '0 14px',
 	},
 	mobileLeft: {
 		display: 'flex',

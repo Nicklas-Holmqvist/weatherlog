@@ -6,10 +6,7 @@ import {
 	Typography,
 	useMediaQuery,
 } from '@material-ui/core';
-import {
-	AddRounded,
-	ShowChartRounded,
-} from '@material-ui/icons';
+import { AddRounded, ShowChartRounded } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
 import { useLogsContext } from '../../context/logs';
@@ -54,7 +51,7 @@ export const LandingPage = () => {
 			.catch((err) => {
 				console.error(err);
 			});
-	};	
+	};
 
 	useEffect(() => {
 		/** Fetch all users logs */
@@ -68,34 +65,33 @@ export const LandingPage = () => {
 					Senaste dagarna
 				</Typography>
 				<Grid item>
-				{historyMonths.length < 1 
-					? 
-					'' 
-					:
-					<Link			
-						to={`/diagram/${history[0]}`}	
-						className={classes.disableUnderline}
-					>
-						{mobile ? (
-							<IconButton>
-								<ShowChartRounded />
-							</IconButton>
-						) : (
-							<Button
-								variant="text"
-								endIcon={<ShowChartRounded />}
-								disableElevation
-								disabled={historyMonths.length < 1}
-								className={`${classes.disableUnderline} ${classes.mr}`}
-							>
-								Visa historik
-							</Button>
-						)}
-					</Link>				
-				}
+					{historyMonths.length < 1 ? (
+						''
+					) : (
+						<Link
+							to={`/diagram/${history[0]}`}
+							className={classes.disableUnderline}
+						>
+							{mobile ? (
+								<IconButton className={classes.iconButton}>
+									<ShowChartRounded />
+								</IconButton>
+							) : (
+								<Button
+									variant="text"
+									endIcon={<ShowChartRounded />}
+									disableElevation
+									disabled={historyMonths.length < 1}
+									className={`${classes.disableUnderline} ${classes.mr}`}
+								>
+									Visa historik
+								</Button>
+							)}
+						</Link>
+					)}
 					<Link to="/create-log" className={classes.disableUnderline}>
 						{mobile ? (
-							<IconButton>
+							<IconButton edge="end" className={classes.iconButton}>
 								<AddRounded />
 							</IconButton>
 						) : (
@@ -145,8 +141,12 @@ export const LandingPage = () => {
 			)}
 			<Grid item container direction="column">
 				{logList.map((d: ILogs) => (
-					<Link key={d._id} to={`/log/${d.date}`} className={classes.disableUnderline}>
-						<WeatherCard							
+					<Link
+						key={d._id}
+						to={`/log/${d.date}`}
+						className={classes.disableUnderline}
+					>
+						<WeatherCard
 							temp={parseInt(d.temperature)}
 							date={{
 								day: d.date.substring(6, 8).toString(),

@@ -9,6 +9,10 @@ export default makeStyles((theme) => ({
 			fontSize: 34,
 		},
 	},
+	titleContainer: {
+		display: 'flex',
+		alignItems: 'center',
+	},
 	tripleColumns: {
 		display: 'grid',
 		gridTemplateColumns: '1fr 1fr 1fr',
