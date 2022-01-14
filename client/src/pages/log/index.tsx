@@ -15,7 +15,7 @@ export const DailyOverviewPage = () => {
 	return (
 		<Grid container item className={classes.container}>
 			<Grid item container className={classes.titleContainer}>
-				<NavigateBackButton />
+				<NavigateBackButton page="/" />
 				<Typography variant="h2" className={classes.title}>
 					Dagsöversikt
 				</Typography>

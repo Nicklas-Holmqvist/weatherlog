@@ -9,7 +9,7 @@ export default makeStyles((theme) => ({
 			padding: '0 20px',
 		},
 	},
-	title: {
+	titleContainer: {
 		marginTop: 30,
 		[theme.breakpoints.down(880)]: {
 			marginBottom: 12,

@@ -4,16 +4,27 @@ import { useNavigate } from 'react-router-dom';
 
 import useStyles from './styles';
 
-export const NavigateBackButton = () => {
+interface INavigateBackButton {
+	page: string;
+}
+
+export const NavigateBackButton = ({ page }: INavigateBackButton) => {
 	const classes = useStyles();
 	const navigateTo = useNavigate();
 
 	const handleNavigateBack = () => {
-		navigateTo('/');
+		navigateTo(-1);
+	};
+
+	const handleNavigateToPage = () => {
+		navigateTo(page);
 	};
 
 	return (
-		<IconButton className={classes.button} onClick={handleNavigateBack}>
+		<IconButton
+			className={classes.button}
+			onClick={page === 'back' ? handleNavigateBack : handleNavigateToPage}
+		>
 			<ChevronLeftRounded className={classes.icon} />
 		</IconButton>
 	);

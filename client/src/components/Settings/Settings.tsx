@@ -7,6 +7,7 @@ import { SettingsPassword } from './SettingsPassword';
 import { DesktopSettingsList } from './DesktopSettingsList';
 import theme from 'src/theme';
 import { MobileSettingsList } from './MobileSettingsList';
+import { NavigateBackButton } from '../NavigateBackButton';
 
 const Settings = () => {
 	const classes = useStyles();
@@ -20,9 +21,10 @@ const Settings = () => {
 
 	return (
 		<Grid item container className={classes.root}>
-			<Typography variant="h2" className={classes.title}>
-				Inställningar
-			</Typography>
+			<Grid item container className={classes.titleContainer}>
+				<NavigateBackButton page="back" />
+				<Typography variant="h2">Inställningar</Typography>
+			</Grid>
 			<Grid item container className={classes.grid}>
 				{smallScreen ? (
 					<MobileSettingsList active={active} setActive={handleSetActive} />
