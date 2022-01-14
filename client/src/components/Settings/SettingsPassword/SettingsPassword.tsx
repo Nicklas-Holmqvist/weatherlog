@@ -1,6 +1,6 @@
-import { Button, Grid, Snackbar, TextField, Typography } from '@material-ui/core';
+import { Button, Grid, IconButton, Snackbar, TextField, Typography } from '@material-ui/core';
+import React from 'react';
 import { useEffect, useState } from 'react';
-import { setTimeout } from 'timers/promises';
 
 import { useUsersContext } from '../../../context/users';
 
@@ -15,7 +15,7 @@ export const SettingsPassword = () => {
 	const { password, error, errorMessage, changePasswordSuccess } = useUsersContext();
 	const [open, setOpen] = useState<boolean>(false)
 
-	const resetSnackbar = () => {
+	const handleClose = () => {
 		return setOpen(false)
 	}
 	console.log(changePasswordSuccess)
@@ -23,21 +23,31 @@ export const SettingsPassword = () => {
 		setOpen(changePasswordSuccess)
 	},[password])
 
-	setTimeout(() => {
-		resetSnackbar();
-	}, 400);
-
 	const handleChangePassword = () => {
 		changePassword()
 	}
+
+	const action = (
+		<React.Fragment>
+		  <IconButton
+			size="small"
+			aria-label="close"
+			color="inherit"
+			onClick={handleClose}
+		  >
+		  </IconButton>
+		</React.Fragment>
+	  );
 
 	return (
 		<Grid container direction="column" className={classes.root}>
 			<Snackbar
 				open={open}
-				autoHideDuration={500}
-				message="Note archived"
-				action={SettingsPassword}
+				anchorOrigin={{ vertical:'top', horizontal:'center' }}
+				autoHideDuration={1000}
+				onClose={handleClose}
+				message="Lösenord har uppdaterats!"
+				action={action}
 			/>
 			<Typography variant="h5" className={classes.title}>
 				Lösenord
