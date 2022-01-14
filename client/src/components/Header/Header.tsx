@@ -10,6 +10,7 @@ import {
 	ExitToAppRounded,
 	SettingsRounded,
 	MoreVertRounded,
+	CloseRounded,
 } from '@material-ui/icons';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,7 +21,8 @@ import theme from 'src/theme';
 import useStyles from './styles';
 import logo from './weatherlog-mini-logo.svg';
 import { MenuIcon } from 'src/utils';
-import { Menu } from '.';
+import { Menu, MobileMenu } from '.';
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
 	const classes = useStyles();
@@ -29,12 +31,17 @@ export const Header = () => {
 	const isAuth = useAuthContext().isAuth;
 	const { user } = useUsersContext();
 	const [showMenu, setShowMenu] = useState(false);
+	const [showMobileMenu, setShowMobileMenu] = useState(false);
 
 	const handleCloseMenu = () => {
 		setShowMenu(false);
 	};
 
-	const nameString = () => {
+	const handleCloseMobileMenu = () => {
+		setShowMobileMenu(false);
+	};
+
+	const getNameString = () => {
 		if (user.firstName && user.lastName && user.city) {
 			return `${user.firstName} ${user.lastName}, ${user.city}`;
 		} else if (user.email) {
@@ -46,27 +53,30 @@ export const Header = () => {
 
 	return mobile ? (
 		<>
-			<Menu open={showMenu} handleClose={handleCloseMenu} />
+			<MobileMenu open={showMobileMenu} handleClose={handleCloseMobileMenu} />
 			<Grid item container component="header" className={classes.mobileHeader}>
-				<Grid 
-					item 
-					className={classes.mobileLeft}>
-					<IconButton
-						size="medium"
-						edge="start"
-						color="inherit"
-						aria-label="menu"
-					>
-						<MenuIcon />
-					</IconButton>
-					<img src={logo} alt="Logo" className={classes.mobileLogo} />
-				</Grid>
-				<Button
-					endIcon={<ExitToAppRounded />}
-					className={classes.mobileLogoutButton}
+				<IconButton
+					edge="start"
+					onClick={() => setShowMobileMenu(!showMobileMenu)}
 				>
-					Logga ut
-				</Button>
+					{showMobileMenu ? (
+						<CloseRounded className={classes.closeMobileMenuIcon} />
+					) : (
+						<MenuIcon />
+					)}
+				</IconButton>
+				<Link to="/">
+					<img src={logo} alt="Logo" className={classes.mobileLogo} />
+				</Link>
+				{isAuth && (
+					<IconButton
+						edge="end"
+						onClick={() => navigateTo('/settings')}
+						className={classes.settingsButton}
+					>
+						<SettingsRounded />
+					</IconButton>
+				)}
 			</Grid>
 		</>
 	) : (
@@ -75,13 +85,9 @@ export const Header = () => {
 			<Grid item container component="header" className={classes.container}>
 				<Grid item container className={classes.wrapper}>
 					<Grid item className={classes.left}>
-						<img 
-							onClick={()=>navigateTo('/home')}
-							src={logo} 
-							alt="Logo" 
-						/>
+						<img onClick={() => navigateTo('/')} src={logo} alt="Logo" />
 						<Typography variant="body1" className={classes.name}>
-							{nameString()}
+							{getNameString()}
 						</Typography>
 					</Grid>
 					<Grid item className={classes.right}>
