@@ -31,6 +31,7 @@ import {
 	dotToCommaConverter,
 	GetBottomInfo,
 	getTempColor,
+	getWindFeelName,
 	Wind,
 } from 'src/utils';
 import { GetWeatherIcon } from 'src/utils';
@@ -42,6 +43,7 @@ import { ErrorPage } from '../../ErrorPage';
 
 import theme from 'src/theme';
 import useStyles from './styles';
+import { getWeatherName } from 'src/utils/getWeatherName';
 
 export const DesktopDailyOverview = () => {
 	const classes = useStyles();
@@ -179,25 +181,19 @@ export const DesktopDailyOverview = () => {
 										)}
 									</ListItemIcon>
 									<ListItemText
-										secondary={
-											userLog.weather === undefined
-												? 'Ej angivit'
-												: userLog?.weather
-										}
+										secondary={getWeatherName(userLog?.weather) || '-'}
 									/>
 								</ListItem>
-								<ListItem className={classes.listItem}>
-									<ListItemIcon>
-										<Wind className={classes.listIcon} />
-									</ListItemIcon>
-									<ListItemText
-										secondary={
-											userLog?.airFeeling !== ''
-												? dotToCommaConverter(userLog?.airFeeling)
-												: 'Ingen'
-										}
-									/>
-								</ListItem>
+								{userLog.airFeeling !== '' && (
+									<ListItem className={classes.listItem}>
+										<ListItemIcon>
+											<Wind className={classes.listIcon} />
+										</ListItemIcon>
+										<ListItemText
+											secondary={getWindFeelName(userLog.airFeeling)}
+										/>
+									</ListItem>
+								)}
 							</List>
 						</Grid>
 					</Grid>
