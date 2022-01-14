@@ -16,7 +16,13 @@ import { ILogs } from 'src/types/Logs';
 import { IUsers } from '../../../types/Users';
 
 import getMonthName from '../../../utils/getMonthName';
-import { dataEnum, dotToCommaConverter, getTempColor, Wind } from 'src/utils';
+import {
+	dataEnum,
+	dotToCommaConverter,
+	getTempColor,
+	getWindFeelName,
+	Wind,
+} from 'src/utils';
 import { GetWeatherIcon } from 'src/utils';
 
 import { MobileDataCard } from './MobileDataCard';
@@ -156,7 +162,7 @@ export const MobileDailyOverview = () => {
 									<>
 										<Wind />
 										<Typography variant="body2" className={classes.windFeel}>
-											{userLog?.airFeeling}
+											{getWindFeelName(userLog.airFeeling)}
 										</Typography>
 									</>
 								)}
