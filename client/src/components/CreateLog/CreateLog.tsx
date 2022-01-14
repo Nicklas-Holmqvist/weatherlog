@@ -139,37 +139,6 @@ export const CreateLog = () => {
 			}));
 			return;
 		}
-		// if (/^\d+$/.test(logValue.windSpeed.toString())) {
-		// 	setErrors((oldstate) => ({
-		// 		...oldstate,
-		// 		windSpeed: true,
-		// 	}));
-		// 	return;
-		// }
-		// if (
-		// 	/^\d+$/.test(logValue.airpressure.toString())
-		// 	// ||
-		// 	// parseInt(logValue.airpressure.toString()) < 900 ||
-		// 	// parseInt(logValue.airpressure.toString()) > 1100
-		// ) {
-		// 	setErrors((oldstate) => ({
-		// 		...oldstate,
-		// 		airPressure: true,
-		// 	}));
-		// 	return;
-		// }
-		// if (
-		// 	/^\d+$/.test(logValue.humidity.toString())
-		// 	// ||
-		// 	// parseInt(logValue.humidity.toString()) < 0 ||
-		// 	// parseInt(logValue.humidity.toString()) > 100
-		// ) {
-		// 	setErrors((oldstate) => ({
-		// 		...oldstate,
-		// 		humidity: true,
-		// 	}));
-		// 	return;
-		// }
 		createLog.addPost();
 		navigateTo('/home');
 		getLogs();
@@ -269,7 +238,7 @@ export const CreateLog = () => {
 								className={classes.dropdown}
 							>
 								{/* <WeatherList /> */}
-								<MenuItem value={'clear'}>
+								<MenuItem value={'sun'}>
 									<ListItemIcon className={classes.iconContainer}>
 										<Sun className={classes.icon} />
 									</ListItemIcon>
@@ -293,7 +262,7 @@ export const CreateLog = () => {
 									</ListItemIcon>
 									<Typography>Regnskurar</Typography>
 								</MenuItem>
-								<MenuItem value={'heavy-rain'}>
+								<MenuItem value={'rain'}>
 									<ListItemIcon className={classes.iconContainer}>
 										<Rain className={classes.icon} />
 									</ListItemIcon>

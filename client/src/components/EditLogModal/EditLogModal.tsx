@@ -150,7 +150,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 									className={classes.dropdown}
 								>
 									{/* <WeatherList /> */}
-									<MenuItem value={'clear'}>
+									<MenuItem value={'sun'}>
 										<ListItemIcon className={classes.iconContainer}>
 											<Sun className={classes.icon} />
 										</ListItemIcon>
@@ -174,7 +174,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 										</ListItemIcon>
 										<Typography>Regnskurar</Typography>
 									</MenuItem>
-									<MenuItem value={'heavy-rain'}>
+									<MenuItem value={'rain'}>
 										<ListItemIcon className={classes.iconContainer}>
 											<Rain className={classes.icon} />
 										</ListItemIcon>
