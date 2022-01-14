@@ -13,9 +13,6 @@ export default makeStyles((theme) => ({
 		[theme.breakpoints.down('sm')]: {
 			fontSize: 34,
 		},
-		[theme.breakpoints.down(450)]: {
-			fontSize: 28,
-		},
 	},
 	titleContainer: {
 		alignItems: 'center',

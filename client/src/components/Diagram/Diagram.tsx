@@ -147,6 +147,32 @@ const Diagram = () => {
 				<ErrorPage />
 			) : (
 				<Grid container direction="column" className={classes.diagramContainer}>
+					<Grid container direction="row" className={classes.header}>
+						<Grid item container className={classes.titleContainer}>
+							<NavigateBackButton page="/" />
+							<Typography variant="h2" className={classes.pageTitle}>
+								Historik
+							</Typography>
+						</Grid>
+						<Grid item>
+							<Link to="/create-log" className={classes.disableUnderline}>
+								{mobile ? (
+									<IconButton edge="end" className={classes.addIcon}>
+										<AddRounded />
+									</IconButton>
+								) : (
+									<Button
+										variant="contained"
+										endIcon={<AddRounded />}
+										disableElevation
+									>
+										Skapa
+									</Button>
+								)}
+							</Link>
+						</Grid>
+					</Grid>
+					{smallScreen && <Divider className={classes.divider} />}
 					<Grid item direction="row" className={classes.dateContainer}>
 						<IconButton onClick={prevMonth} disabled={diagramLength <= 1}>
 							<ArrowBackRounded
@@ -172,32 +198,6 @@ const Diagram = () => {
 								}
 							/>
 						</IconButton>
-					</Grid>
-					{smallScreen && <Divider className={classes.divider} />}
-					<Grid container direction="row" className={classes.header}>
-						<Grid item container className={classes.titleContainer}>
-							<NavigateBackButton page="/" />
-							<Typography variant="h2" className={classes.pageTitle}>
-								Historik
-							</Typography>
-						</Grid>
-						<Grid item>
-							<Link to="/create-log" className={classes.disableUnderline}>
-								{mobile ? (
-									<IconButton edge="end" className={classes.addIcon}>
-										<AddRounded />
-									</IconButton>
-								) : (
-									<Button
-										variant="contained"
-										endIcon={<AddRounded />}
-										disableElevation
-									>
-										Skapa
-									</Button>
-								)}
-							</Link>
-						</Grid>
 					</Grid>
 					<Grid container className={classes.diagram}>
 						<Line options={options} data={data} />

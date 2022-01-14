@@ -11,6 +11,9 @@ export default makeStyles((theme) => ({
 		[theme.breakpoints.down(450)]: {
 			padding: '0 14px',
 		},
+		[theme.breakpoints.down(500)]: {
+			marginTop: 30,
+		},
 		marginTop: 40,
 	},
 	header: {
@@ -54,10 +57,10 @@ export default makeStyles((theme) => ({
 		transform: 'translateX(-50%)',
 		alignItems: 'center',
 		[theme.breakpoints.down(800)]: {
-			top: '82px',
+			top: '182px',
 		},
 		[theme.breakpoints.down(600)]: {
-			top: '64px',
+			top: '170px',
 		},
 	},
 	addIcon: {
@@ -67,7 +70,7 @@ export default makeStyles((theme) => ({
 	},
 	divider: {
 		width: '100%',
-		margin: '30px 0 10px 0',
+		margin: '5px 0 60px 0',
 	},
 	diagram: {
 		width: '100%',
