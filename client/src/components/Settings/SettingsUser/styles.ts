@@ -25,7 +25,7 @@ export default makeStyles((theme) => ({
 		columnGap: 20,
 		[theme.breakpoints.down(550)]: {
 			gridTemplateColumns: '1fr',
-			gridTemplateRows: '1fr 1fr 1fr 1fr',
+			gridTemplateRows: '1fr 1fr 1fr',
 			rowGap: 4,
 		},
 	},

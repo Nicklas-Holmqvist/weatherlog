@@ -85,8 +85,8 @@ export const LoginForm = () => {
 			}
 
 			if (data.user) {
+				navigateTo('/');
 				window.location.reload();
-				navigateTo('/home');
 				getLogs();
 				handleAuth(true);
 			}

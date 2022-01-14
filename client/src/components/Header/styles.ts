@@ -44,9 +44,12 @@ export default makeStyles((theme) => ({
 		left: 0,
 		zIndex: 150,
 		height: 50,
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'space-between',
 		backgroundColor: theme.palette.grey[100],
 		boxShadow: '0px 4px 8px rgba(180, 180, 180, 0.27)',
-		padding: '0 14px',
+		padding: '0 16px',
 	},
 	mobileLeft: {
 		display: 'flex',
@@ -56,15 +59,16 @@ export default makeStyles((theme) => ({
 	},
 	mobileLogo: {
 		width: 32,
-		justifySelf: 'center',
+		// justifySelf: 'center',
+		position: 'absolute',
+		top: 9,
+		left: '50%',
+		transform: 'translateX(-50%)',
 	},
-	mobileLogoutButton: {
-		justifySelf: 'end',
+	closeMobileMenuIcon: {
+		color: theme.palette.common.black,
 	},
 	settingsButton: {
-		// background: theme.palette.common.white,
-		// marginLeft: 8,
-		// marginLeft: 16,
 		color: theme.palette.common.black,
 		padding: 9,
 	},
