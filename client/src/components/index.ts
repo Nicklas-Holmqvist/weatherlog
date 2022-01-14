@@ -13,3 +13,4 @@ export * from './NoLog';
 export * from './ErrorPage';
 export * from './Layout';
 export * from './Loading';
+export * from './NavigateBackButton';

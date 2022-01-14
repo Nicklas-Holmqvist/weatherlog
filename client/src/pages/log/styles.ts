@@ -10,17 +10,24 @@ export default makeStyles((theme) => ({
 		},
 	},
 	title: {
+		[theme.breakpoints.down('sm')]: {
+			fontSize: 34,
+		},
+		[theme.breakpoints.down(450)]: {
+			fontSize: 28,
+		},
+	},
+	titleContainer: {
+		alignItems: 'center',
 		marginTop: 40,
 		[theme.breakpoints.down(1281)]: {
 			marginTop: 30,
 		},
 		[theme.breakpoints.down('sm')]: {
 			paddingLeft: 20,
-			fontSize: 34,
 		},
 		[theme.breakpoints.down(450)]: {
 			paddingLeft: 20,
-			fontSize: 28,
 			marginTop: 25,
 		},
 	},

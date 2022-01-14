@@ -30,6 +30,7 @@ import {
 	monthEnum,
 	windFeelEnum,
 } from '../../utils';
+import { NavigateBackButton } from '../NavigateBackButton';
 import useStyles from './styles';
 // import { WeatherList } from './WeatherList';
 
@@ -83,13 +84,17 @@ export const CreateLog = () => {
 
 	/** Component in month dropdown */
 	const monthList = numberOfMonths.map((month) => (
-		<MenuItem key={month} value={month}>{MonthName[month]}</MenuItem>
+		<MenuItem key={month} value={month}>
+			{MonthName[month]}
+		</MenuItem>
 	));
 
 	/** Component in day dropdown */
 	const dayList = numberOfDays.map((day) =>
 		!usedDates.includes(day.toString()) ? (
-			<MenuItem key={day} value={day}>{day}</MenuItem>
+			<MenuItem key={day} value={day}>
+				{day}
+			</MenuItem>
 		) : (
 			<MenuItem key={day} disabled value={day + ' - Inlägg finns'}>
 				{day + ' - Inlägg finns'}
@@ -146,9 +151,12 @@ export const CreateLog = () => {
 
 	return (
 		<Grid item container direction="column" className={classes.root}>
-			<Typography variant="h2" className={classes.title}>
-				Skapa inlägg
-			</Typography>
+			<Grid item container>
+				<NavigateBackButton page="back" />
+				<Typography variant="h2" className={classes.title}>
+					Skapa inlägg
+				</Typography>
+			</Grid>
 			<Grid item container direction="column">
 				<Typography variant="subtitle1" className={classes.subtitle}>
 					Datum *
