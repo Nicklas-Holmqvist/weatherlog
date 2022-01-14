@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
 	Button,
 	Grid,
@@ -11,7 +11,7 @@ import {
 	SettingsRounded,
 	MoreVertRounded,
 } from '@material-ui/icons';
-import { useNavigate, useRoutes } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { useUsersContext } from '../../context/users';
 import { useAuthContext } from '../../context/auth';
@@ -20,21 +20,15 @@ import theme from 'src/theme';
 import useStyles from './styles';
 import logo from './weatherlog-mini-logo.svg';
 import { MenuIcon } from 'src/utils';
-import { Link } from 'react-router-dom';
 import { Menu } from '.';
 
 export const Header = () => {
 	const classes = useStyles();
 	const mobile = useMediaQuery(theme.breakpoints.only('xs'));
-	const logOut = useAuthContext().logout;
 	const navigateTo = useNavigate();
 	const isAuth = useAuthContext().isAuth;
 	const { user } = useUsersContext();
 	const [showMenu, setShowMenu] = useState(false);
-
-	// useEffect(() => {
-	// 	isPathLoginOrRegister();
-	// });
 
 	const handleCloseMenu = () => {
 		setShowMenu(false);
@@ -50,23 +44,13 @@ export const Header = () => {
 		}
 	};
 
-	// const isPathLoginOrRegister = () => {
-	// 	if (
-	// 		window.location.pathname === '/login' ||
-	// 		window.location.pathname === '/register'
-	// 	) {
-	// 		// reloadWindow();
-	// 		return true;
-	// 	} else {
-	// 		return false;
-	// 	}
-	// };
-
 	return mobile ? (
 		<>
 			<Menu open={showMenu} handleClose={handleCloseMenu} />
 			<Grid item container component="header" className={classes.mobileHeader}>
-				<Grid item className={classes.mobileLeft}>
+				<Grid 
+					item 
+					className={classes.mobileLeft}>
 					<IconButton
 						size="medium"
 						edge="start"
@@ -91,7 +75,11 @@ export const Header = () => {
 			<Grid item container component="header" className={classes.container}>
 				<Grid item container className={classes.wrapper}>
 					<Grid item className={classes.left}>
-						<img src={logo} alt="Logo" />
+						<img 
+							onClick={()=>navigateTo('/home')}
+							src={logo} 
+							alt="Logo" 
+						/>
 						<Typography variant="body1" className={classes.name}>
 							{nameString()}
 						</Typography>
