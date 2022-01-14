@@ -60,7 +60,7 @@ export default makeStyles((theme) => ({
 			top: '182px',
 		},
 		[theme.breakpoints.down(600)]: {
-			top: '170px',
+			top: '160px',
 		},
 	},
 	addIcon: {
