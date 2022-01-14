@@ -17,6 +17,7 @@ import {
   } from 'chart.js';  
 
 import { useDiagramsContext } from 'src/context/diagram'; 
+import { ErrorPage } from '../ErrorPage'
 
 import theme from 'src/theme';
 import useStyles from './style';
@@ -51,15 +52,18 @@ const Diagram = () => {
     const year:string = id.substring(0,4)
     const month:any = getMonthName(id.substring(4,6))
 
+    const findMonth:any = diagramMonth.find(e => e === id)
+    console.log(findMonth)
+
     /** Change to earlier month in diagram or back to last when at end */
     const nextMonth = () => {     
-      if(findOld === 0) return navigate(`/diagram/${diagramMonth[diagramLength-1]}`)
+      if(findOld === 0) return
       if(findOld !== -1) return navigate(`/diagram/${diagramMonth[findOld-1]}`)      
     }
 
     /** Change to next month in diagram or back to first when at end */
     const prevMonth = () => {
-      if(findOld === (diagramLength-1)) return navigate(`/diagram/${diagramMonth[1]}`)
+      if(findOld === (diagramLength-1)) return
       if(findOld !== -1) return navigate(`/diagram/${diagramMonth[findOld+1]}`)      
     }
 
@@ -118,65 +122,69 @@ const Diagram = () => {
     };
 
     return (
-    <Grid container direction="column" className={classes.diagramContainer}>
-      <Grid container direction="row" className={classes.header}>
-        <Typography variant="h2" className={classes.pageTitle}>
-					Historik
-				</Typography>
-        <Grid item direction="row" className={classes.dates}>
-          <Button 
-            onClick={prevMonth}
-            disabled={diagramLength <= 1}
-          >
-            Bakåt
-          </Button>   
-          <Typography variant="h4">{year}</Typography> 
-          <Typography variant="h4">{month}</Typography> 
-          <Button 
-            onClick={nextMonth}
-            disabled={diagramLength <= 1}
-          >
-            Framåt
-          </Button>      
+      <>
+      {findMonth === undefined ? <ErrorPage /> :
+      <Grid container direction="column" className={classes.diagramContainer}>
+        <Grid container direction="row" className={classes.header}>
+          <Typography variant="h2" className={classes.pageTitle}>
+            Historik
+          </Typography>
+          <Grid item direction="row" className={classes.dates}>
+            <Button 
+              onClick={prevMonth}
+              disabled={diagramLength <= 1}
+            >
+              Bakåt
+            </Button>   
+            <Typography variant="h4">{year}</Typography> 
+            <Typography variant="h4">{month}</Typography> 
+            <Button 
+              onClick={nextMonth}
+              disabled={diagramLength <= 1}
+            >
+              Framåt
+            </Button>      
+          </Grid>
+          <Grid item>
+            <Link to="/home" className={classes.disableUnderline}>
+              {mobile ? (
+                <IconButton>
+                  <Home />
+                </IconButton>
+              ) : (
+                <Button
+                  variant="text"
+                  endIcon={<Home />}
+                  disableElevation
+                  className={`${classes.disableUnderline} ${classes.mr}`}
+                >
+                  Hem
+                </Button>
+              )}
+            </Link>
+            <Link to="/create-log" className={classes.disableUnderline}>
+              {mobile ? (
+                <IconButton>
+                  <AddRounded />
+                </IconButton>
+              ) : (
+                <Button
+                  variant="contained"
+                  endIcon={<AddRounded />}
+                  disableElevation
+                >
+                  Skapa
+                </Button>
+              )}
+            </Link>
+          </Grid>
         </Grid>
-        <Grid item>
-					<Link to="/home" className={classes.disableUnderline}>
-						{mobile ? (
-							<IconButton>
-								<Home />
-							</IconButton>
-						) : (
-							<Button
-								variant="text"
-								endIcon={<Home />}
-								disableElevation
-								className={`${classes.disableUnderline} ${classes.mr}`}
-							>
-								Hem
-							</Button>
-						)}
-					</Link>
-					<Link to="/create-log" className={classes.disableUnderline}>
-						{mobile ? (
-							<IconButton>
-								<AddRounded />
-							</IconButton>
-						) : (
-							<Button
-								variant="contained"
-								endIcon={<AddRounded />}
-								disableElevation
-							>
-								Skapa
-							</Button>
-						)}
-					</Link>
-				</Grid>
+        <Grid container className={classes.diagram}>
+          <Line options={options} data={data} />
+        </Grid>
       </Grid>
-      <Grid container className={classes.diagram}>
-        <Line options={options} data={data} />
-      </Grid>
-    </Grid>
+      }
+      </>
     )
 }
 

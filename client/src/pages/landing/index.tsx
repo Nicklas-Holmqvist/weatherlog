@@ -68,8 +68,12 @@ export const LandingPage = () => {
 					Senaste dagarna
 				</Typography>
 				<Grid item>
-					<Link
-						to={`/diagram/${history[0]}`}
+				{historyMonths.length < 1 
+					? 
+					'' 
+					:
+					<Link			
+						to={`/diagram/${history[0]}`}	
 						className={classes.disableUnderline}
 					>
 						{mobile ? (
@@ -81,12 +85,14 @@ export const LandingPage = () => {
 								variant="text"
 								endIcon={<ShowChartRounded />}
 								disableElevation
+								disabled={historyMonths.length < 1}
 								className={`${classes.disableUnderline} ${classes.mr}`}
 							>
 								Visa historik
 							</Button>
 						)}
-					</Link>
+					</Link>				
+				}
 					<Link to="/create-log" className={classes.disableUnderline}>
 						{mobile ? (
 							<IconButton>
