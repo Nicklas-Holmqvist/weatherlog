@@ -28,6 +28,7 @@ import {
 } from 'chart.js';
 
 import { useDiagramsContext } from 'src/context/diagram';
+import { ErrorPage } from '../ErrorPage';
 
 import theme from 'src/theme';
 import useStyles from './style';
@@ -68,18 +69,19 @@ const Diagram = () => {
 	const year: string = id.substring(0, 4);
 	const month: any = getMonthName(id.substring(4, 6));
 
+	const findMonth: any = diagramMonth.find((e) => e === id);
+	console.log(findMonth);
+
 	/** Change to earlier month in diagram or back to last when at end */
 	const nextMonth = () => {
-		if (findOld === 0)
-			return navigate(`/diagram/${diagramMonth[diagramLength - 1]}`);
+		if (findOld === 0) return;
 		if (findOld !== -1)
 			return navigate(`/diagram/${diagramMonth[findOld - 1]}`);
 	};
 
 	/** Change to next month in diagram or back to first when at end */
 	const prevMonth = () => {
-		if (findOld === diagramLength - 1)
-			return navigate(`/diagram/${diagramMonth[1]}`);
+		if (findOld === diagramLength - 1) return;
 		if (findOld !== -1)
 			return navigate(`/diagram/${diagramMonth[findOld + 1]}`);
 	};
@@ -139,59 +141,65 @@ const Diagram = () => {
 	};
 
 	return (
-		<Grid container direction="column" className={classes.diagramContainer}>
-			<Grid container direction="row" className={classes.header}>
-				<Grid item container className={classes.titleContainer}>
-					<NavigateBackButton page="/" />
-					<Typography variant="h2" className={classes.pageTitle}>
-						Historik
-					</Typography>
-				</Grid>
-				<Grid item direction="row" className={classes.dateContainer}>
-					<IconButton onClick={prevMonth} disabled={diagramLength <= 1}>
-						<ArrowBackRounded
-							className={
-								diagramLength <= 1
-									? classes.disabledArrowIcon
-									: classes.arrowIcon
-							}
-						/>
-					</IconButton>
-					<Grid item container className={classes.date}>
-						<Typography variant="h4">{`${month} ${year}`}</Typography>
-					</Grid>
-					<IconButton onClick={nextMonth} disabled={diagramLength <= 1}>
-						<ArrowForwardRounded
-							className={
-								diagramLength <= 1
-									? classes.disabledArrowIcon
-									: classes.arrowIcon
-							}
-						/>
-					</IconButton>
-				</Grid>
-				<Grid item>
-					<Link to="/create-log" className={classes.disableUnderline}>
-						{mobile ? (
-							<IconButton>
-								<AddRounded />
+		<>
+			{findMonth === undefined ? (
+				<ErrorPage />
+			) : (
+				<Grid container direction="column" className={classes.diagramContainer}>
+					<Grid container direction="row" className={classes.header}>
+						<Grid item container className={classes.titleContainer}>
+							<NavigateBackButton page="/" />
+							<Typography variant="h2" className={classes.pageTitle}>
+								Historik
+							</Typography>
+						</Grid>
+						<Grid item direction="row" className={classes.dateContainer}>
+							<IconButton onClick={prevMonth} disabled={diagramLength <= 1}>
+								<ArrowBackRounded
+									className={
+										diagramLength <= 1
+											? classes.disabledArrowIcon
+											: classes.arrowIcon
+									}
+								/>
 							</IconButton>
-						) : (
-							<Button
-								variant="contained"
-								endIcon={<AddRounded />}
-								disableElevation
-							>
-								Skapa
-							</Button>
-						)}
-					</Link>
+							<Grid item container className={classes.date}>
+								<Typography variant="h4">{`${month} ${year}`}</Typography>
+							</Grid>
+							<IconButton onClick={nextMonth} disabled={diagramLength <= 1}>
+								<ArrowForwardRounded
+									className={
+										diagramLength <= 1
+											? classes.disabledArrowIcon
+											: classes.arrowIcon
+									}
+								/>
+							</IconButton>
+						</Grid>
+						<Grid item>
+							<Link to="/create-log" className={classes.disableUnderline}>
+								{mobile ? (
+									<IconButton>
+										<AddRounded />
+									</IconButton>
+								) : (
+									<Button
+										variant="contained"
+										endIcon={<AddRounded />}
+										disableElevation
+									>
+										Skapa
+									</Button>
+								)}
+							</Link>
+						</Grid>
+					</Grid>
+					<Grid container className={classes.diagram}>
+						<Line options={options} data={data} />
+					</Grid>
 				</Grid>
-			</Grid>
-			<Grid container className={classes.diagram}>
-				<Line options={options} data={data} />
-			</Grid>
-		</Grid>
+			)}
+		</>
 	);
 };
 
