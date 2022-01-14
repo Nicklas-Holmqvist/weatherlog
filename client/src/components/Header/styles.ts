@@ -37,7 +37,6 @@ export default makeStyles((theme) => ({
 		marginLeft: 16,
 	},
 	mobileHeader: {
-		// width: '100%',
 		position: 'absolute',
 		top: 0,
 		right: 0,

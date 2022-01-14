@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import { useNavigate, Link } from 'react-router-dom';
 import {
 	Button,
+	Divider,
 	Grid,
 	IconButton,
 	Typography,
@@ -49,6 +50,7 @@ const Diagram = () => {
 	let navigate = useNavigate();
 	const classes = useStyles();
 	const mobile = useMediaQuery(theme.breakpoints.down(540));
+	const smallScreen = useMediaQuery(theme.breakpoints.down(800));
 	const { id }: any = useParams();
 
 	const setApiParam = useDiagramsContext().getDiagramUrl;
@@ -70,7 +72,6 @@ const Diagram = () => {
 	const month: any = getMonthName(id.substring(4, 6));
 
 	const findMonth: any = diagramMonth.find((e) => e === id);
-	console.log(findMonth);
 
 	/** Change to earlier month in diagram or back to last when at end */
 	const nextMonth = () => {
@@ -146,6 +147,33 @@ const Diagram = () => {
 				<ErrorPage />
 			) : (
 				<Grid container direction="column" className={classes.diagramContainer}>
+					<Grid item direction="row" className={classes.dateContainer}>
+						<IconButton onClick={prevMonth} disabled={diagramLength <= 1}>
+							<ArrowBackRounded
+								className={
+									diagramLength <= 1
+										? classes.disabledArrowIcon
+										: classes.arrowIcon
+								}
+							/>
+						</IconButton>
+						<Grid item container className={classes.date}>
+							<Typography
+								variant="h4"
+								className={classes.dateText}
+							>{`${month} ${year}`}</Typography>
+						</Grid>
+						<IconButton onClick={nextMonth} disabled={diagramLength <= 1}>
+							<ArrowForwardRounded
+								className={
+									diagramLength <= 1
+										? classes.disabledArrowIcon
+										: classes.arrowIcon
+								}
+							/>
+						</IconButton>
+					</Grid>
+					{smallScreen && <Divider className={classes.divider} />}
 					<Grid container direction="row" className={classes.header}>
 						<Grid item container className={classes.titleContainer}>
 							<NavigateBackButton page="/" />
@@ -153,33 +181,10 @@ const Diagram = () => {
 								Historik
 							</Typography>
 						</Grid>
-						<Grid item direction="row" className={classes.dateContainer}>
-							<IconButton onClick={prevMonth} disabled={diagramLength <= 1}>
-								<ArrowBackRounded
-									className={
-										diagramLength <= 1
-											? classes.disabledArrowIcon
-											: classes.arrowIcon
-									}
-								/>
-							</IconButton>
-							<Grid item container className={classes.date}>
-								<Typography variant="h4">{`${month} ${year}`}</Typography>
-							</Grid>
-							<IconButton onClick={nextMonth} disabled={diagramLength <= 1}>
-								<ArrowForwardRounded
-									className={
-										diagramLength <= 1
-											? classes.disabledArrowIcon
-											: classes.arrowIcon
-									}
-								/>
-							</IconButton>
-						</Grid>
 						<Grid item>
 							<Link to="/create-log" className={classes.disableUnderline}>
 								{mobile ? (
-									<IconButton>
+									<IconButton edge="end" className={classes.addIcon}>
 										<AddRounded />
 									</IconButton>
 								) : (

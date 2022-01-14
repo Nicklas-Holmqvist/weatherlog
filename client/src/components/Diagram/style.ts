@@ -21,6 +21,7 @@ export default makeStyles((theme) => ({
 	},
 	titleContainer: {
 		width: 'fit-content',
+		alignItems: 'center',
 	},
 	arrowIcon: {
 		color: theme.palette.common.black,
@@ -32,9 +33,15 @@ export default makeStyles((theme) => ({
 		margin: '0 10px',
 		justifyContent: 'center',
 	},
+	dateText: {
+		[theme.breakpoints.down(800)]: {
+			fontSize: 24,
+		},
+	},
 	pageTitle: {
 		[theme.breakpoints.down('xs')]: {
 			fontSize: 34,
+			lineHeight: 'unset',
 		},
 	},
 	dateContainer: {
@@ -43,7 +50,24 @@ export default makeStyles((theme) => ({
 		width: 'fit-content',
 		position: 'absolute',
 		left: '50%',
+		top: 110,
 		transform: 'translateX(-50%)',
+		alignItems: 'center',
+		[theme.breakpoints.down(800)]: {
+			top: '82px',
+		},
+		[theme.breakpoints.down(600)]: {
+			top: '64px',
+		},
+	},
+	addIcon: {
+		color: theme.palette.common.black,
+		padding: 9,
+		marginBottom: 5,
+	},
+	divider: {
+		width: '100%',
+		margin: '30px 0 10px 0',
 	},
 	diagram: {
 		width: '100%',
