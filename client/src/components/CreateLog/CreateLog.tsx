@@ -151,7 +151,7 @@ export const CreateLog = () => {
 
 	return (
 		<Grid item container direction="column" className={classes.root}>
-			<Grid item container>
+			<Grid item container className={classes.titleContainer}>
 				<NavigateBackButton page="back" />
 				<Typography variant="h2" className={classes.title}>
 					Skapa inlägg

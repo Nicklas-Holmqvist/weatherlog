@@ -45,4 +45,8 @@ export default makeStyles((theme) => ({
 			fontSize: 13,
 		},
 	},
+	iconButton: {
+		color: theme.palette.common.black,
+		padding: 9,
+	},
 }));

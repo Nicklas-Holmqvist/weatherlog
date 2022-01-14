@@ -23,7 +23,9 @@ const Settings = () => {
 		<Grid item container className={classes.root}>
 			<Grid item container className={classes.titleContainer}>
 				<NavigateBackButton page="back" />
-				<Typography variant="h2">Inställningar</Typography>
+				<Typography variant="h2" className={classes.title}>
+					Inställningar
+				</Typography>
 			</Grid>
 			<Grid item container className={classes.grid}>
 				{smallScreen ? (
