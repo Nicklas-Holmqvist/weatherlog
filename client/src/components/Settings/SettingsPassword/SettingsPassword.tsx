@@ -1,18 +1,44 @@
-import { Button, Grid, TextField, Typography } from '@material-ui/core';
+import { Button, Grid, Snackbar, TextField, Typography } from '@material-ui/core';
+import { useEffect, useState } from 'react';
+import { setTimeout } from 'timers/promises';
 
 import { useUsersContext } from '../../../context/users';
 
 import useStyles from './styles';
+
 
 export const SettingsPassword = () => {
 	const classes = useStyles();
 
 	const handleChange = useUsersContext().handleChange;
 	const changePassword = useUsersContext().changePassword;
-	const { password, error, errorMessage } = useUsersContext();
+	const { password, error, errorMessage, changePasswordSuccess } = useUsersContext();
+	const [open, setOpen] = useState<boolean>(false)
+
+	const resetSnackbar = () => {
+		return setOpen(false)
+	}
+	console.log(changePasswordSuccess)
+	useEffect(() => {
+		setOpen(changePasswordSuccess)
+	},[password])
+
+	setTimeout(() => {
+		resetSnackbar();
+	}, 400);
+
+	const handleChangePassword = () => {
+		changePassword()
+	}
 
 	return (
 		<Grid container direction="column" className={classes.root}>
+			<Snackbar
+				open={open}
+				autoHideDuration={500}
+				message="Note archived"
+				action={SettingsPassword}
+			/>
 			<Typography variant="h5" className={classes.title}>
 				Lösenord
 			</Typography>
@@ -51,7 +77,7 @@ export const SettingsPassword = () => {
 				</Grid>
 			</Grid>
 			<Button
-				onClick={changePassword}
+				onClick={handleChangePassword}
 				variant="contained"
 				disableElevation
 				className={classes.button}
