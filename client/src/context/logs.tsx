@@ -13,6 +13,7 @@ import { useAuthContext } from './auth'
 export const LogsContext = createContext<Context>(undefined!);
 
 type Context = {
+	numberOfYears: number[]
 	logs: ILogs[];
 	logValue: ILogs;
 	log: ILogs;
@@ -88,6 +89,10 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 	const [numberOfDays, setNumberOfDays] = useState<number[]>([]);
 	/** Gets the value of selected month */
 	const getDays = new Date(logDate.year, logDate.month, 0).getDate();
+
+	let startYear:number = 2015
+	const getYear = d.getFullYear()
+	const [numberOfYears, setNumberOfYears] = useState<number[]>([])
 
 	/** Creates an array of days in chosen month */
 	const setDayInMonth = () => {
@@ -174,6 +179,15 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		return date.date.substring(start, end);
 	};
 
+	const createYearList = () => {
+		const years:number[] = []
+		for(let i = startYear; i < getYear+1; i++){
+			years.push(startYear)
+			startYear++
+		}
+		setNumberOfYears(years)
+	}
+
 	/** Sets the data from logDate to logValue.date */
 	useEffect(() => {
 		setLogValue({
@@ -222,6 +236,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 				return res.json();
 			})
 			.then((data) => {
+				createYearList()
 				setLogs(data);
 				splitUpYearMonths(data);
 			})
@@ -296,6 +311,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 				getLog,
 				getLogs,
 				getLogUrl,
+				numberOfYears,
 				logs,
 				log,
 				editLog,
