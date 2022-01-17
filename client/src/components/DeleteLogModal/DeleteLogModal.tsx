@@ -23,7 +23,7 @@ export const DeleteLogModal = ({ open, handleClose, logID }: IModalPopup) => {
 	const handleDeleteLog = () => {
 		handleClose();
 		deleteLog(logID);
-		navigateTo('/home');
+		navigateTo('/home', { replace: true })
 	};
 
 	return (
