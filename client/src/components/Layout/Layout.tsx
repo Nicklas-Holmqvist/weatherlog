@@ -9,6 +9,7 @@ import { ErrorPage } from '..';
 import { Header } from '..';
 import {routes, authRoutes} from '../../routes/index';
 import { LandingPage, LoginPage } from '../../pages';
+import ErrorBoundary from '../ErrorBoundry/ErrorBoundry';
 
 export const Layout = () => {
     
@@ -22,17 +23,19 @@ export const Layout = () => {
     
 	return (
         <BrowserRouter>
-            <Header />
-            {isLoading 
-                ? <Loading />
-                :
-            <Routes>                
-                {!isAuth ? <Route path='/' element={<LoginPage />} /> : <Route path='/' element={<LandingPage />}/>}
-                {routes.map(({ path, element }, key) => (<Route path={path} element={element} key={key} />))}							
-                {isAuth ? authRoutes.map(({ path, element }, key) => (<Route path={path} element={element} key={key} />)) : <Route path='/' element={<LoginPage />} />}								
-                <Route path='*' element={<ErrorPage />} />                
-            </Routes>
-            }
+            <ErrorBoundary>
+                <Header />
+                {isLoading 
+                    ? <Loading />
+                    :
+                <Routes>                
+                    {!isAuth ? <Route path='/' element={<LoginPage />} /> : <Route path='/' element={<LandingPage />}/>}
+                    {routes.map(({ path, element }, key) => (<Route path={path} element={element} key={key} />))}							
+                    {isAuth ? authRoutes.map(({ path, element }, key) => (<Route path={path} element={element} key={key} />)) : <Route path='/' element={<LoginPage />} />}								
+                    <Route path='*' element={<ErrorPage />} />            
+                </Routes>
+                }
+            </ErrorBoundary>
         </BrowserRouter>
     );
 };

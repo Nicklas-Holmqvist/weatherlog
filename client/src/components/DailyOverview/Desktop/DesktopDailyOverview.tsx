@@ -125,7 +125,7 @@ export const DesktopDailyOverview = () => {
 		setDay(userLog?.date.substring(6, 8));
 		setTimeout(()=> setIsLoading(false), 500)		
 	});
-
+	
 	useEffect(() => {
 		getLog(id);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
