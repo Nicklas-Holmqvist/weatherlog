@@ -13,7 +13,6 @@ import {
 	AddRounded,
 	ArrowBackRounded,
 	ArrowForwardRounded,
-	Home,
 } from '@material-ui/icons';
 import { Line } from 'react-chartjs-2';
 

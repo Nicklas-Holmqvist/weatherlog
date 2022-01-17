@@ -1,4 +1,3 @@
-import { Grid } from '@material-ui/core';
 import { useState } from 'react';
 import EditLogModal from 'src/components/EditLogModal/EditLogModal';
 

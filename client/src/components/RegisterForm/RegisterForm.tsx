@@ -22,7 +22,7 @@ import {
 	getPasswordError,
 	getPasswordErrorText,
 } from 'src/utils';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 export const RegisterForm = () => {
 	const classes = useStyles();

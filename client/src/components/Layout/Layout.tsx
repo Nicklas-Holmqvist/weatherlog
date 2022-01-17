@@ -16,6 +16,7 @@ export const Layout = () => {
 	const [auth, setAuth] = useState<any>(undefined)
 	const [isLoading, setIsLoading] = useState<any>(true)
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(()=> {
 		setAuth(isAuth)
 		setIsLoading(loading)

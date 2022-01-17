@@ -1,5 +1,5 @@
 import { Grid } from '@material-ui/core';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import Settings from '../../components/Settings/Settings';
 
 export const SettingsPage = () => {

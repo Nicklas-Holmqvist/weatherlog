@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Grid, IconButton, Typography } from '@material-ui/core';
+import React from 'react';
+import { Grid, Typography } from '@material-ui/core';
 import { Link, useNavigate } from 'react-router-dom';
 import { ExitToAppRounded } from '@material-ui/icons';
 
@@ -21,20 +21,7 @@ export const MobileMenu = ({ handleClose, open }: IMobileMenu) => {
 		handleClose();
 		logOut();
 		navigateTo('/');
-		window.location.reload();
 	};
-
-	// const isLoggedIn = () => {
-	// 	console.log('köööör');
-	// setTimeout(() => {
-	// 	console.log('kör settimeout');
-	// 	if (isAuth) {
-	// 		return 'Logga ut';
-	// 	} else {
-	// 		return 'Logga in';
-	// 	}
-	// }, 1000);
-	// };
 
 	return (
 		<Grid
