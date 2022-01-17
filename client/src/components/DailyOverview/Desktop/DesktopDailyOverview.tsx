@@ -44,6 +44,7 @@ import { ErrorPage } from '../../ErrorPage';
 import theme from 'src/theme';
 import useStyles from './styles';
 import { getWeatherName } from 'src/utils/getWeatherName';
+import { Loading } from 'src/components';
 
 export const DesktopDailyOverview = () => {
 	const classes = useStyles();
@@ -57,6 +58,21 @@ export const DesktopDailyOverview = () => {
 	const { id }: any = useParams();
 	const [showEditModal, setShowEditModal] = useState(false);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
+	const [isLoading, setIsLoading] = useState<any>(true);
+
+	const emptyLog = {
+		airFeeling: '',
+		airpressure: '',
+		date: '',
+		description: '',
+		humidity: '',
+		precipitation: '',
+		temperature: '',
+		user: '',
+		windDirection: '',
+		windSpeed: '',
+		weather: '',
+	}
 
 	const [userLog, setUserLog] = useState<ILogs>({
 		airFeeling: '',
@@ -71,11 +87,13 @@ export const DesktopDailyOverview = () => {
 		windSpeed: '',
 		weather: '',
 	});
+
 	const [userInfo, setUserInfo] = useState<IUsers>({
 		firstName: '',
 		lastName: '',
 		city: '',
 	});
+
 	const [month, setMonth] = useState<string | undefined>('');
 	const [day, setDay] = useState<string | undefined>('');
 
@@ -100,10 +118,12 @@ export const DesktopDailyOverview = () => {
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => {
+		setUserLog(emptyLog)
 		setUserInfo(user);
 		setUserLog(log);
 		setMonth(getMonthName(userLog?.date.substring(4, 6)));
 		setDay(userLog?.date.substring(6, 8));
+		setTimeout(()=> setIsLoading(false), 500)		
 	});
 
 	useEffect(() => {
@@ -113,7 +133,9 @@ export const DesktopDailyOverview = () => {
 
 	return (
 		<>
-			{showEditModal && (
+			{isLoading ? 
+				<Loading /> :
+			showEditModal && (
 				<EditLogModal open={true} handleClose={() => setShowEditModal(false)} />
 			)}
 			{showDeleteModal && (
