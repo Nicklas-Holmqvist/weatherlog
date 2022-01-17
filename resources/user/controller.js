@@ -7,7 +7,14 @@ exports.getUsers = async (req, res) => {
     const cookie = req.cookies.user
 	try {
 		const user = await UserModel.findById(cookie);
-		res.status(200).json(user);
+        const exportUser = {
+            _id: user._id,
+            email: user.email,
+            city: user.city,
+            firstName: user.firstName,
+            lastName: user.lastName
+        }
+		res.status(200).json(exportUser);
 	} catch (error) {
 		res.status(503).json('No database connection');
 	}
