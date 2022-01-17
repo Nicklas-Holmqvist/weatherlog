@@ -87,9 +87,9 @@ export const LoginForm = () => {
 
 			if (data.user) {
 				navigateTo('/');
-				window.location.reload();
-				getLogs();
+				// window.location.reload();
 				handleAuth(true);
+				getLogs();
 			}
 		} catch (error) {
 			console.log(error);
