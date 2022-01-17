@@ -1,5 +1,5 @@
 import React from 'react'
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import Grid from '@material-ui/core/Grid'
 import { Button, Typography } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';

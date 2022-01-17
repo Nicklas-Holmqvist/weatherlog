@@ -1,5 +1,5 @@
 import { Grid } from '@material-ui/core';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { CreateLog } from 'src/components';
 
 import useStyles from './styles';

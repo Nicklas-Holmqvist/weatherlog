@@ -5,6 +5,8 @@ import { UsersProvider } from './context/users';
 import { DiagramProvider } from './context/diagram';
 import { AuthProvider } from './context/auth';
 
+import { HelmetProvider } from 'react-helmet-async';
+
 import {Layout} from './components';
 
 import './App.css';
@@ -14,15 +16,17 @@ function App() {
 	
 	return (
 		<ThemeProvider theme={theme}>
-			<AuthProvider>
-				<LogsProvider>
-					<UsersProvider>
-						<DiagramProvider>
-							<Layout />
-						</DiagramProvider>
-					</UsersProvider>
-				</LogsProvider>
-			</AuthProvider>
+			<HelmetProvider>
+				<AuthProvider>
+					<LogsProvider>
+						<UsersProvider>
+							<DiagramProvider>
+								<Layout />
+							</DiagramProvider>
+						</UsersProvider>
+					</LogsProvider>
+				</AuthProvider>
+			</HelmetProvider>
 		</ThemeProvider>
 	);
 }

@@ -154,7 +154,8 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 			.catch((err) => {
 				console.error(err);
 			});
-	}, []);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[]);
 
 	const addUser = async () => {
 		await fetch('/api/user/register', options.addUser).catch((err) => {

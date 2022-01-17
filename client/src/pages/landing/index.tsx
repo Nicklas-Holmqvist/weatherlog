@@ -18,7 +18,7 @@ import useStyles from './styles';
 
 import { ILogs } from 'src/types/Logs';
 import GetMonthName from '../../utils/getMonthName';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 export const LandingPage = () => {
 	const classes = useStyles();

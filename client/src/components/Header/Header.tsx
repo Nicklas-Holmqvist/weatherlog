@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import {
-	Button,
 	Grid,
 	Typography,
 	useMediaQuery,
 	IconButton,
 } from '@material-ui/core';
 import {
-	ExitToAppRounded,
 	SettingsRounded,
 	MoreVertRounded,
 	CloseRounded,
