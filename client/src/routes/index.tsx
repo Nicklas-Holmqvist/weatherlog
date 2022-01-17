@@ -1,9 +1,6 @@
 import {
-	HomePage,
 	RegisterPage,
-	ExamplePage,
 	LoginPage,
-	Api,
 	LandingPage,
 	CreateLogPage,
 	DiagramPage,
@@ -15,11 +12,7 @@ import {
 export const routes = [
 	{
 		path: '/',
-		element: <HomePage />,
-	},
-	{
-		path: '/example',
-		element: <ExamplePage />,
+		element: <LoginPage />,
 	},
 	{
 		path: '/login',
@@ -28,10 +21,6 @@ export const routes = [
 	{
 		path: '/register',
 		element: <RegisterPage />,
-	},
-	{
-		path: '/api',
-		element: <Api />,
 	},
 ];
 
