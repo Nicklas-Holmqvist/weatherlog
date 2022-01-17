@@ -8,6 +8,8 @@ import React, {
 
 import { ILogs, ILogDate } from '../types/Logs';
 
+import { useAuthContext } from './auth'
+
 export const LogsContext = createContext<Context>(undefined!);
 
 type Context = {
@@ -30,6 +32,9 @@ type Context = {
 };
 
 export const LogsProvider: FunctionComponent = ({ children }) => {
+
+	const { isAuth } = useAuthContext()
+	
 	const d = new Date();
 
 	const emptyLog: ILogs = {
@@ -226,9 +231,10 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 	};
 	/** Fetch all users logs at refresh */
 	useEffect(() => {
+		if(!isAuth) return
 		getLogs();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [isAuth]);
 
 	/** Fetch one log by date as ID */
 	const getLog = async (id: any) => {

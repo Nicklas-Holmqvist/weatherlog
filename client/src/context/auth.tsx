@@ -29,7 +29,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
         });
     };
     
-    useEffect(() => {           
+    useEffect(() => {       
         fetch('/auth', {method: 'get'})
         .then(function (res) {
             if (res.status === 400) {
@@ -38,6 +38,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
             return res.json();
         })
         .then(function (data) {
+            if(data === null) setIsAuth(false)
             setTimeout(()=>setLoading(false), 500)            
             if(data !== undefined) setIsAuth(data)
             else setIsAuth(data)
@@ -46,7 +47,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
             console.error(err);
         });       
             
-    }, [setIsAuth])
+    },[])
     
     return (
         <AuthContext.Provider value={{ 

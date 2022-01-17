@@ -40,6 +40,7 @@ export const Header = () => {
 	};
 
 	const getNameString = () => {
+		if(!isAuth) return
 		if (user.firstName && user.lastName && user.city) {
 			return `${user.firstName} ${user.lastName}, ${user.city}`;
 		} else if (user.email) {
