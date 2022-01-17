@@ -18,6 +18,7 @@ import useStyles from './styles';
 
 import { ILogs } from 'src/types/Logs';
 import GetMonthName from '../../utils/getMonthName';
+import { Helmet } from 'react-helmet';
 
 export const LandingPage = () => {
 	const classes = useStyles();
@@ -60,6 +61,10 @@ export const LandingPage = () => {
 
 	return (
 		<Grid item container className={classes.container}>
+			<Helmet>
+				<title>Hem | Väderdagboken</title>
+				<meta name="hem" content="Se dina senaste 5 inlägg" />
+			</Helmet>
 			<Grid item container className={classes.pageHeader}>
 				<Typography variant="h2" className={classes.pageTitle}>
 					Senaste dagarna

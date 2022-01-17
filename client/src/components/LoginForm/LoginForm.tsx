@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import {
 	Button,
 	Grid,
@@ -97,6 +98,10 @@ export const LoginForm = () => {
 
 	return (
 		<Grid container item direction="column" className={classes.container}>
+			<Helmet>
+				<title>Logga in | Väderdagboken</title>
+				<meta name="logga in" content="Logga in för att skapa din väderlog" />
+			</Helmet>
 			<Typography variant="h4" className={classes.title}>
 				Logga in
 			</Typography>
