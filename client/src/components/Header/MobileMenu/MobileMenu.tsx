@@ -20,7 +20,7 @@ export const MobileMenu = ({ handleClose, open }: IMobileMenu) => {
 	const handleLogout = () => {
 		handleClose();
 		logOut();
-		navigateTo('/');
+		navigateTo('/', { replace: true })
 	};
 
 	return (

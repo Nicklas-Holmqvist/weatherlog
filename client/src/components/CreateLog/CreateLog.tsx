@@ -145,7 +145,7 @@ export const CreateLog = () => {
 			return;
 		}
 		createLog.addPost();
-		navigateTo('/home');
+		navigateTo('/home', { replace: true })
 		getLogs();
 	};
 
