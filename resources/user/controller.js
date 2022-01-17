@@ -80,8 +80,10 @@ exports.login = async (req, res) => {
 	const { email, password } = req.body;
 	let errors = { email: '', password: '' };
 
+    const formatedEmail = email.toLowerCase().trim()
+
 	try {
-		const user = await UserModel.login(email, password);
+		const user = await UserModel.login(formatedEmail, password);
 		res.cookie('user', user._id, { maxAge: 1000 * 60 * 60 * 24 });
 		res.status(200).json({ user });
 	} catch (err) {
