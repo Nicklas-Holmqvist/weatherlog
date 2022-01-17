@@ -28,21 +28,8 @@ export const Menu = ({ handleClose, open }: IMenu) => {
 	const handleLogout = () => {
 		handleClose();
 		logOut();
-		navigateTo('/');
-		window.location.reload();
+		navigateTo('/login');
 	};
-
-	// const isLoggedIn = () => {
-	// 	console.log('köööör');
-	// setTimeout(() => {
-	// 	console.log('kör settimeout');
-	// 	if (isAuth) {
-	// 		return 'Logga ut';
-	// 	} else {
-	// 		return 'Logga in';
-	// 	}
-	// }, 1000);
-	// };
 
 	return (
 		<Grid
