@@ -27,7 +27,7 @@ export const Menu = ({ handleClose, open }: IMenu) => {
 	const handleLogout = () => {
 		handleClose();
 		logOut();
-		navigateTo('/login');
+		navigateTo('/', { replace: true })
 	};
 
 	return (

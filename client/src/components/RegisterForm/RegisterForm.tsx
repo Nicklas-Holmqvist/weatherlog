@@ -128,7 +128,7 @@ export const RegisterForm = () => {
 					}));
 				}
 			} else {
-				navigateTo('/');
+				navigateTo('/home', { replace: true })
 				handleAuth(true)
 			}
 		} catch (error) {
