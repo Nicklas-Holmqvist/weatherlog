@@ -1,7 +1,10 @@
+import React from 'react';
 import {
 	Button,
 	Divider,
 	Grid,
+	IconButton,
+	Snackbar,
 	TextField,
 	Typography,
 } from '@material-ui/core';
@@ -20,12 +23,16 @@ export const SettingsUser = () => {
 	const { user } = useUsersContext();
 
 	const [showModal, setShowModal] = useState(false);
+	const [open, setOpen] = useState<boolean>(false)
+
+	const handleClose = () => {
+		return setOpen(false)
+	}
 
 	const [errorMessage, setErrorMessage] = useState({
 		firstName: '',
 		lastName: '',
-		city: '',
-		
+		city: '',		
 	});
 	const [error, setError] = useState({
 		firstName: false,
@@ -80,7 +87,8 @@ export const SettingsUser = () => {
 			lastName: false,
 			city: false,
 			
-		})		
+		})
+		setOpen(true)		
 		editUser()
 	}
 
@@ -97,12 +105,32 @@ export const SettingsUser = () => {
 		})		
 	}
 
+	const action = (
+		<React.Fragment>
+		  <IconButton
+			size="small"
+			aria-label="close"
+			color="inherit"
+			onClick={handleClose}
+		  >
+		  </IconButton>
+		</React.Fragment>
+	);
+
 	return (
 		<>
 			{showModal && (
 				<ModalPopup open={true} handleClose={() => setShowModal(false)} />
 			)}
 			<Grid container direction="column" className={classes.root}>
+				<Snackbar
+					open={open}
+					anchorOrigin={{ vertical:'top', horizontal:'center' }}
+					autoHideDuration={1000}
+					onClose={handleClose}
+					message="Användaruppgifterna har uppdaterats!"
+					action={action}
+				/>
 				<Typography variant="h5" className={classes.title}>
 					Konto
 				</Typography>
