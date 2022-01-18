@@ -39,7 +39,7 @@ export const SettingsPassword = () => {
 		  >
 		  </IconButton>
 		</React.Fragment>
-	  );
+	);
 
 	return (
 		<Grid container direction="column" className={classes.root}>
