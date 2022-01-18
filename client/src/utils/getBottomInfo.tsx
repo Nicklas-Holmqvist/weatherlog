@@ -42,18 +42,18 @@ export const GetBottomInfo = (field: string, value: number | string) => {
 	}
 	if (field === dataEnum.WIND_FEEL) {
 		switch (value) {
-			case windFeelEnum.COLD:
+			case 'cold':
 				return <ColdBar className={classes.bar} />;
-			case windFeelEnum.COOL:
+			case 'cool':
 				return <CoolBar className={classes.bar} />;
-			case windFeelEnum.NEUTRAL:
+			case 'neutral':
 				return <NeutralBar className={classes.bar} />;
-			case windFeelEnum.MILD:
+			case 'mild':
 				return <MildBar className={classes.bar} />;
-			case windFeelEnum.WARM:
+			case 'warm':
 				return <WarmBar className={classes.bar} />;
 			default:
-				return <NeutralBar className={classes.bar} />;
+				return '';
 		}
 	}
 	if (field === dataEnum.PRECIPITATION) {
