@@ -72,7 +72,7 @@ export const DesktopDailyOverview = () => {
 		windDirection: '',
 		windSpeed: '',
 		weather: '',
-	}
+	};
 
 	const [userLog, setUserLog] = useState<ILogs>({
 		airFeeling: '',
@@ -118,14 +118,14 @@ export const DesktopDailyOverview = () => {
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(() => {
-		setUserLog(emptyLog)
+		setUserLog(emptyLog);
 		setUserInfo(user);
 		setUserLog(log);
 		setMonth(getMonthName(userLog?.date.substring(4, 6)));
 		setDay(userLog?.date.substring(6, 8));
-		setTimeout(()=> setIsLoading(false), 500)		
+		setTimeout(() => setIsLoading(false), 500);
 	});
-	
+
 	useEffect(() => {
 		getLog(id);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -133,10 +133,15 @@ export const DesktopDailyOverview = () => {
 
 	return (
 		<>
-			{isLoading ? 
-				<Loading /> :
-			showEditModal && (
-				<EditLogModal open={true} handleClose={() => setShowEditModal(false)} />
+			{isLoading ? (
+				<Loading />
+			) : (
+				showEditModal && (
+					<EditLogModal
+						open={true}
+						handleClose={() => setShowEditModal(false)}
+					/>
+				)
 			)}
 			{showDeleteModal && (
 				<DeleteLogModal
@@ -190,13 +195,13 @@ export const DesktopDailyOverview = () => {
 							<Divider className={classes.divider} />
 							<List dense className={classes.list}>
 								<ListItem className={classes.location}>
-									<ListItemIcon>
+									<ListItemIcon className={classes.listItemIcon}>
 										<PlaceRounded color="secondary" />
 									</ListItemIcon>
 									<Typography variant="subtitle1">{userInfo?.city}</Typography>
 								</ListItem>
 								<ListItem className={classes.listItem}>
-									<ListItemIcon>
+									<ListItemIcon className={classes.listItemIcon}>
 										{GetWeatherIcon(
 											userLog.weather === undefined ? '' : userLog.weather,
 											'small'
@@ -208,7 +213,7 @@ export const DesktopDailyOverview = () => {
 								</ListItem>
 								{userLog.airFeeling !== '' && (
 									<ListItem className={classes.listItem}>
-										<ListItemIcon>
+										<ListItemIcon className={classes.listItemIcon}>
 											<Wind className={classes.listIcon} />
 										</ListItemIcon>
 										<ListItemText
@@ -273,16 +278,11 @@ export const DesktopDailyOverview = () => {
 								label={dataEnum.WIND_FEEL}
 								data={
 									userLog?.airFeeling !== ''
-										? dotToCommaConverter(userLog.airFeeling)
+										? getWindFeelName(userLog.airFeeling)
 										: 'Ingen'
 								}
 								bottomInfo={
-									GetBottomInfo(
-										dataEnum.WIND_FEEL,
-										userLog?.airFeeling !== ''
-											? dotToCommaConverter(userLog?.airFeeling)
-											: 0
-									)!
+									GetBottomInfo(dataEnum.WIND_FEEL, userLog?.airFeeling || '')!
 								}
 							/>
 							<DataCard

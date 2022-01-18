@@ -118,6 +118,9 @@ export default makeStyles((theme) => ({
 		padding: '0 16px',
 		margin: '3px 0',
 	},
+	listItemIcon: {
+		minWidth: 46,
+	},
 	listIcon: {
 		[theme.breakpoints.down(1281)]: {
 			width: 22,
