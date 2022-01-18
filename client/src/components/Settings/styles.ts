@@ -14,6 +14,11 @@ export default makeStyles((theme) => ({
 		[theme.breakpoints.down(880)]: {
 			marginBottom: 12,
 		},
+		display: 'flex',
+		alignItems: 'center',
+	},
+	title: {
+		fontSize: 34,
 	},
 	grid: {
 		display: 'grid',

@@ -2,12 +2,16 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
 	root: {
-		marginTop: 30,
+		marginTop: 40,
 	},
 	title: {
 		[theme.breakpoints.down(650)]: {
 			fontSize: 34,
 		},
+	},
+	titleContainer: {
+		display: 'flex',
+		alignItems: 'center',
 	},
 	tripleColumns: {
 		display: 'grid',

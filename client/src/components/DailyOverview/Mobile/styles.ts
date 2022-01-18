@@ -8,7 +8,7 @@ export default makeStyles((theme) => ({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		padding: '6px 16px 6px 0',
-		marginTop: 20,
+		marginTop: 12,
 	},
 	dateContainer: {
 		display: 'flex',
@@ -39,12 +39,19 @@ export default makeStyles((theme) => ({
 		padding: 7,
 	},
 	weatherAndTempContainer: {
-		padding: '10px 20px',
+		padding: '18px 20px 10px 20px',
 		justifyContent: 'space-between',
 		width: '100%',
 		flexWrap: 'nowrap',
-		maxWidth: 430,
 		margin: '0 auto',
+		display: 'grid',
+		gridTemplateColumns: '1fr 1fr 3fr',
+		placeItems: 'center',
+		[theme.breakpoints.down(750)]: {
+			gridTemplateColumns: '1fr 1fr',
+			gridTemplateRows: 'auto auto',
+			placeItems: 'unset',
+		},
 	},
 	weatherIcon: {
 		width: '100px',
@@ -55,9 +62,19 @@ export default makeStyles((theme) => ({
 		width: 'fit-content',
 		justifyContent: 'center',
 	},
+	dataContainer: {
+		display: 'flex',
+		alignItems: 'center',
+		width: 'fit-content',
+		justifyContent: 'center',
+		[theme.breakpoints.down(550)]: {
+			marginLeft: 'auto',
+		},
+	},
 	temp: {
 		fontWeight: 300,
 		marginRight: 8,
+		marginLeft: 14,
 	},
 	tempColor: {
 		width: 12,
@@ -65,11 +82,24 @@ export default makeStyles((theme) => ({
 		borderRadius: 20,
 		marginLeft: 4,
 	},
-	weatherName: {
+	windFeel: {
 		alignSelf: 'start',
+		marginLeft: 8,
+	},
+	cityName: {
+		alignSelf: 'start',
+		marginLeft: 9,
+	},
+	dataTextContainer: {
+		margin: '2px 0',
 	},
 	notesContainer: {
-		padding: '10px 20px 0 20px',
+		paddingLeft: 20,
+		[theme.breakpoints.down(750)]: {
+			gridArea: '2 / 1 / 3 / 3',
+			paddingLeft: 0,
+			marginTop: 14,
+		},
 	},
 	notesTitle: {
 		textDecoration: 'underline',

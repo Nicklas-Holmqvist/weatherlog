@@ -22,6 +22,7 @@ import {
 	getPasswordError,
 	getPasswordErrorText,
 } from 'src/utils';
+import { Helmet } from 'react-helmet-async';
 
 export const RegisterForm = () => {
 	const classes = useStyles();
@@ -127,7 +128,7 @@ export const RegisterForm = () => {
 					}));
 				}
 			} else {
-				navigateTo('/');
+				navigateTo('/home', { replace: true })
 				handleAuth(true)
 			}
 		} catch (error) {
@@ -137,6 +138,10 @@ export const RegisterForm = () => {
 
 	return (
 		<Grid container item direction="column" className={classes.container}>
+			<Helmet>
+				<title>Skapa konto | Väderdagboken</title>
+				<meta name="skapa konto" content="Skapa ett konto för att logga ditt väder" />
+			</Helmet>
 			<Typography variant="h4" className={classes.title}>
 				Skapa konto
 			</Typography>

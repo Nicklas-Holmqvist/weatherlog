@@ -8,9 +8,12 @@ import React, {
 
 import { ILogs, ILogDate } from '../types/Logs';
 
+import { useAuthContext } from './auth'
+
 export const LogsContext = createContext<Context>(undefined!);
 
 type Context = {
+	numberOfYears: number[]
 	logs: ILogs[];
 	logValue: ILogs;
 	log: ILogs;
@@ -30,6 +33,9 @@ type Context = {
 };
 
 export const LogsProvider: FunctionComponent = ({ children }) => {
+
+	const { isAuth } = useAuthContext()
+	
 	const d = new Date();
 
 	const emptyLog: ILogs = {
@@ -83,6 +89,10 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 	const [numberOfDays, setNumberOfDays] = useState<number[]>([]);
 	/** Gets the value of selected month */
 	const getDays = new Date(logDate.year, logDate.month, 0).getDate();
+
+	let startYear:number = 2015
+	const getYear = d.getFullYear()
+	const [numberOfYears, setNumberOfYears] = useState<number[]>([])
 
 	/** Creates an array of days in chosen month */
 	const setDayInMonth = () => {
@@ -169,6 +179,15 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		return date.date.substring(start, end);
 	};
 
+	const createYearList = () => {
+		const years:number[] = []
+		for(let i = startYear; i < getYear+1; i++){
+			years.push(startYear)
+			startYear++
+			setNumberOfYears(years)
+		}
+	}
+
 	/** Sets the data from logDate to logValue.date */
 	useEffect(() => {
 		setLogValue({
@@ -181,6 +200,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 	/** Run function when year or month is changed in create log */
 	useEffect(() => {
 		setDayInMonth();
+		createYearList()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [logDate.year, logDate.month]);
 
@@ -217,6 +237,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 				return res.json();
 			})
 			.then((data) => {
+				createYearList()
 				setLogs(data);
 				splitUpYearMonths(data);
 			})
@@ -226,9 +247,10 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 	};
 	/** Fetch all users logs at refresh */
 	useEffect(() => {
+		if(!isAuth) return
 		getLogs();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [isAuth]);
 
 	/** Fetch one log by date as ID */
 	const getLog = async (id: any) => {
@@ -240,6 +262,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 				return res.json();
 			})
 			.then((data) => {
+				if(data === undefined) return
 				setLog(data);
 				setEditLog(data);
 			})
@@ -290,6 +313,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 				getLog,
 				getLogs,
 				getLogUrl,
+				numberOfYears,
 				logs,
 				log,
 				editLog,

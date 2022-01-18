@@ -1,36 +1,29 @@
 import React from 'react';
-import {
-	Grid,
-	IconButton,
-	Typography,
-	useMediaQuery,
-} from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowUpwardRounded, ExitToAppRounded } from '@material-ui/icons';
+import { ExitToAppRounded } from '@material-ui/icons';
 
 import { useAuthContext } from 'src/context/auth';
 import useStyles from './styles';
-import theme from 'src/theme';
 
-interface IMenu {
+interface IMobileMenu {
 	open: boolean;
 	handleClose: () => void;
 }
 
-export const Menu = ({ handleClose, open }: IMenu) => {
+export const MobileMenu = ({ handleClose, open }: IMobileMenu) => {
 	const classes = useStyles();
 	const logOut = useAuthContext().logout;
-	const handleAuth = useAuthContext().handleAuth;
 	const isAuth = useAuthContext().isAuth;
 	const navigateTo = useNavigate();
-	const smallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+	const handleAuth = useAuthContext().handleAuth;
 
 	const handleLogout = () => {
 		handleClose();
 		logOut();
 		navigateTo('/', { replace: true })
-		handleAuth(false)
 		window.location.reload();
+		handleAuth(false)
 	};
 
 	return (
@@ -41,21 +34,27 @@ export const Menu = ({ handleClose, open }: IMenu) => {
 			className={open ? classes.container : classes.hidden}
 		>
 			<Grid item container direction="column" className={classes.wrapper}>
-				<IconButton className={classes.closeButton} onClick={handleClose}>
+				{/* <IconButton className={classes.closeButton} onClick={handleClose}>
 					<ArrowUpwardRounded className={classes.closeIcon} />
-				</IconButton>
+				</IconButton> */}
 				<Link to="/" className={classes.link} onClick={handleClose}>
-					<Typography variant={smallScreen ? 'h4' : 'h3'}>Hem</Typography>
+					<Typography variant="h5" className={classes.linkText}>
+						Hem
+					</Typography>
 				</Link>
 				<Link to="/about" className={classes.link} onClick={handleClose}>
-					<Typography variant={smallScreen ? 'h4' : 'h3'}>Om</Typography>
+					<Typography variant="h5" className={classes.linkText}>
+						Om
+					</Typography>
 				</Link>
 				<Link to="/contact" className={classes.link} onClick={handleClose}>
-					<Typography variant={smallScreen ? 'h4' : 'h3'}>Kontakt</Typography>
+					<Typography variant="h5" className={classes.linkText}>
+						Kontakt
+					</Typography>
 				</Link>
 				{isAuth && (
 					<Typography
-						variant="h3"
+						variant="h5"
 						className={classes.logoutLink}
 						onClick={handleLogout}
 					>
@@ -68,4 +67,4 @@ export const Menu = ({ handleClose, open }: IMenu) => {
 	);
 };
 
-export default Menu;
+export default MobileMenu;

@@ -5,10 +5,14 @@ export default makeStyles((theme) => ({
 		color: theme.palette.common.black,
 		padding: 8,
 		marginRight: 6,
+		marginBottom: 3,
+		[theme.breakpoints.down(450)]: {
+			padding: 6,
+			marginRight: 4,
+		},
 	},
 	icon: {
 		width: 30,
 		height: 30,
-		marginBottom: 3,
 	},
 }));

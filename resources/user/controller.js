@@ -1,5 +1,6 @@
 const express = require('express');
 const UserModel = require('./model');
+const LogModel = require('../logs/model');
 const bcrypt = require('bcrypt');
 
 // Get all products from api
@@ -7,7 +8,14 @@ exports.getUsers = async (req, res) => {
     const cookie = req.cookies.user
 	try {
 		const user = await UserModel.findById(cookie);
-		res.status(200).json(user);
+        const exportUser = {
+            _id: user._id,
+            email: user.email,
+            city: user.city,
+            firstName: user.firstName,
+            lastName: user.lastName
+        }
+		res.status(200).json(exportUser);
 	} catch (error) {
 		res.status(503).json('No database connection');
 	}
@@ -80,8 +88,10 @@ exports.login = async (req, res) => {
 	const { email, password } = req.body;
 	let errors = { email: '', password: '' };
 
+    const formatedEmail = email.toLowerCase().trim()
+
 	try {
-		const user = await UserModel.login(email, password);
+		const user = await UserModel.login(formatedEmail, password);
 		res.cookie('user', user._id, { maxAge: 1000 * 60 * 60 * 24 });
 		res.status(200).json({ user });
 	} catch (err) {
@@ -203,6 +213,7 @@ exports.deleteUser = async (req, res) => {
     const getUser = await UserModel.findById(user);
     if (getUser) {     
         try {
+            await LogModel.deleteMany({ user: user })
             await UserModel.findByIdAndRemove({ _id: user })
             res.status(201).json(getUser)
     } catch (error) {

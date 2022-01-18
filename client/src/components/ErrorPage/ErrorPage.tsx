@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet-async';
 import Grid from '@material-ui/core/Grid'
 import { Button, Typography } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
@@ -13,11 +14,15 @@ export const ErrorPage = () => {
     const classes = useStyles()
     const handleClick = () => {
         navigateTo('/');        
-        window.location.reload();
+        // window.location.reload();
     }
 
     return (
         <Grid container className={classes.container}>
+            <Helmet>
+				<title>404 - Error | Väderdagboken</title>
+				<meta name="error" content="Du har kommit lite fel" />
+			</Helmet>
             <Grid item direction='column' className={classes.content}>
                 <Error />   
                 <Typography variant="h4" className={classes.text}>

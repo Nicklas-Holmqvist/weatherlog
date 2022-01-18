@@ -1,4 +1,5 @@
 import { Grid, Typography, useMediaQuery } from '@material-ui/core';
+import { Helmet } from 'react-helmet-async';
 
 import {
 	DesktopDailyOverview,
@@ -14,6 +15,10 @@ export const DailyOverviewPage = () => {
 
 	return (
 		<Grid container item className={classes.container}>
+			<Helmet>
+				<title>Dagsöversikt | Väderdagboken</title>
+				<meta name="dagsöversikt" content="Din dagsöversikt" />
+			</Helmet>
 			<Grid item container className={classes.titleContainer}>
 				<NavigateBackButton page="/" />
 				<Typography variant="h2" className={classes.title}>

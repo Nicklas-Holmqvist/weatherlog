@@ -8,6 +8,8 @@ import React, {
 
 import { IUsers, IPassword, IChangePassword } from '../types/Users';
 
+import { useAuthContext } from './auth'
+
 export const UsersContext = createContext<Context>(undefined!);
 
 type Context = {
@@ -25,6 +27,8 @@ type Context = {
 };
 
 export const UsersProvider: FunctionComponent = ({ children }) => {
+
+	const { isAuth } = useAuthContext()
 	const emptyPassword = {
 		oldPassword: '',
 		newPassword: '',
@@ -140,6 +144,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 	};
 
 	useEffect(() => {
+		if(!isAuth) return
 		fetch('/api/user', options.fetchUser)
 			.then((res) => {
 				if (res.status === 400) {
@@ -159,7 +164,8 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 			.catch((err) => {
 				console.error(err);
 			});
-	}, []);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[isAuth]);
 
 	const addUser = async () => {
 		await fetch('/api/user/register', options.addUser).catch((err) => {

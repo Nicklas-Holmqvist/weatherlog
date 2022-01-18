@@ -19,6 +19,7 @@ export default makeStyles((theme) => ({
 		width: '25%',
 		height: '100%',
 		padding: '30px 20px',
+		flexWrap: 'nowrap',
 		[theme.breakpoints.down(1281)]: {
 			alignContent: 'start',
 			padding: '15px 12px',
@@ -116,6 +117,9 @@ export default makeStyles((theme) => ({
 	listItem: {
 		padding: '0 16px',
 		margin: '3px 0',
+	},
+	listItemIcon: {
+		minWidth: 46,
 	},
 	listIcon: {
 		[theme.breakpoints.down(1281)]: {

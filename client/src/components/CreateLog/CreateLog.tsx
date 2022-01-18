@@ -11,7 +11,7 @@ import {
 	Typography,
 } from '@material-ui/core';
 import { CheckRounded } from '@material-ui/icons';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useLogsContext } from '../../context/logs';
@@ -32,17 +32,15 @@ import {
 } from '../../utils';
 import { NavigateBackButton } from '../NavigateBackButton';
 import useStyles from './styles';
-// import { WeatherList } from './WeatherList';
 
 export const CreateLog = () => {
 	const classes = useStyles();
 	const createLog = useLogsContext();
 	const onChange = useLogsContext();
 	const getLogs = useLogsContext().getLogs;
-	const { logValue, logDate, numberOfMonths, numberOfDays, logs } =
+	const { logValue, logDate, numberOfMonths, numberOfDays, logs, numberOfYears } =
 		useLogsContext();
 	const MonthName = monthEnum;
-	// const [logs, setLogs] = useState<ILogs[]>([]);
 	const usedDates: string[] = [];
 	const navigateTo = useNavigate();
 	const [errors, setErrors] = useState({
@@ -57,10 +55,6 @@ export const CreateLog = () => {
 		humidity: false,
 		desc: false,
 	});
-
-	useEffect(() => {
-		/** Fetch all users logs */
-	}, []);
 
 	const addZero = (value: number) => {
 		if (value < 9) {
@@ -81,6 +75,12 @@ export const CreateLog = () => {
 		}
 		return usedDates;
 	});
+
+	const yearList = numberOfYears.map((year) => (
+		<MenuItem key={year} value={year}>
+			{year}
+		</MenuItem>
+	))
 
 	/** Component in month dropdown */
 	const monthList = numberOfMonths.map((month) => (
@@ -145,13 +145,13 @@ export const CreateLog = () => {
 			return;
 		}
 		createLog.addPost();
-		navigateTo('/home');
+		navigateTo('/home', { replace: true })
 		getLogs();
 	};
 
 	return (
 		<Grid item container direction="column" className={classes.root}>
-			<Grid item container>
+			<Grid item container className={classes.titleContainer}>
 				<NavigateBackButton page="back" />
 				<Typography variant="h2" className={classes.title}>
 					Skapa inlägg
@@ -176,14 +176,7 @@ export const CreateLog = () => {
 								onChange={(e) => onChange.handleChange(e)}
 								className={classes.dropdown}
 							>
-								<MenuItem value={'2015'}>2015</MenuItem>
-								<MenuItem value={'2016'}>2016</MenuItem>
-								<MenuItem value={'2017'}>2017</MenuItem>
-								<MenuItem value={'2018'}>2018</MenuItem>
-								<MenuItem value={'2019'}>2019</MenuItem>
-								<MenuItem value={'2020'}>2020</MenuItem>
-								<MenuItem value={'2021'}>2021</MenuItem>
-								<MenuItem value={'2022'}>2022</MenuItem>
+								{yearList}
 							</Select>
 						</FormControl>
 					</Grid>
