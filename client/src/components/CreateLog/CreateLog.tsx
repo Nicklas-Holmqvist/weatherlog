@@ -121,23 +121,12 @@ export const CreateLog = () => {
 			humidity: false,
 			desc: false,
 		});
-		// logs.forEach((log) => {
-		// 	if (logValue.date === log.date) {
-		// 		setErrors((oldstate) => ({
-		// 			...oldstate,
-		// 			date: true,
-		// 		}));
-		// 		console.log('matchade ' + logValue.date + ' med ' + log.date);
-		// 		return;
-		// 	}
-		// });
 		for (const log of logs) {
 			if (logValue.date === log.date) {
 				setErrors((oldstate) => ({
 					...oldstate,
 					date: true,
 				}));
-				console.log('matchade ' + logValue.date + ' med ' + log.date);
 				return;
 			}
 		}
