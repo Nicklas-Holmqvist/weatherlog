@@ -8,12 +8,12 @@ import React, {
 
 import { ILogs, ILogDate } from '../types/Logs';
 
-import { useAuthContext } from './auth'
+import { useAuthContext } from './auth';
 
 export const LogsContext = createContext<Context>(undefined!);
 
 type Context = {
-	numberOfYears: number[]
+	numberOfYears: number[];
 	logs: ILogs[];
 	logValue: ILogs;
 	log: ILogs;
@@ -33,9 +33,8 @@ type Context = {
 };
 
 export const LogsProvider: FunctionComponent = ({ children }) => {
+	const { isAuth } = useAuthContext();
 
-	const { isAuth } = useAuthContext()
-	
 	const d = new Date();
 
 	const emptyLog: ILogs = {
@@ -90,9 +89,9 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 	/** Gets the value of selected month */
 	const getDays = new Date(logDate.year, logDate.month, 0).getDate();
 
-	let startYear:number = 2015
-	const getYear = d.getFullYear()
-	const [numberOfYears, setNumberOfYears] = useState<number[]>([])
+	let startYear: number = 2015;
+	const getYear = d.getFullYear();
+	const [numberOfYears, setNumberOfYears] = useState<number[]>([]);
 
 	/** Creates an array of days in chosen month */
 	const setDayInMonth = () => {
@@ -180,13 +179,13 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 	};
 
 	const createYearList = () => {
-		const years:number[] = []
-		for(let i = startYear; i < getYear+1; i++){
-			years.push(startYear)
-			startYear++
-			setNumberOfYears(years)
+		const years: number[] = [];
+		for (let i = startYear; i < getYear + 1; i++) {
+			years.push(startYear);
+			startYear++;
+			setNumberOfYears(years);
 		}
-	}
+	};
 
 	/** Sets the data from logDate to logValue.date */
 	useEffect(() => {
@@ -200,7 +199,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 	/** Run function when year or month is changed in create log */
 	useEffect(() => {
 		setDayInMonth();
-		createYearList()
+		createYearList();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [logDate.year, logDate.month]);
 
@@ -237,7 +236,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 				return res.json();
 			})
 			.then((data) => {
-				createYearList()
+				createYearList();
 				setLogs(data);
 				splitUpYearMonths(data);
 			})
@@ -247,7 +246,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 	};
 	/** Fetch all users logs at refresh */
 	useEffect(() => {
-		if(!isAuth) return
+		if (!isAuth) return;
 		getLogs();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isAuth]);
@@ -262,7 +261,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 				return res.json();
 			})
 			.then((data) => {
-				if(data === undefined) return
+				if (data === undefined) return;
 				setLog(data);
 				setEditLog(data);
 			})
@@ -276,7 +275,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		await fetch('/api/logs/register', options.addPost).catch((err) => {
 			console.error(err);
 		});
-		getLogs()
+		getLogs();
 		setLogValue(emptyLog);
 		setLogDate({
 			day: d.getDate(),
@@ -291,7 +290,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 			console.error(err);
 		});
 		setEditLog(emptyLog);
-		getLogs()
+		getLogs();
 	};
 
 	/** Remove a log */
@@ -299,7 +298,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		await fetch(`/api/logs/${id}`, options.deletePost).catch((err) => {
 			console.error(err);
 		});
-		getLogs()
+		getLogs();
 	};
 
 	return (

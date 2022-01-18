@@ -38,8 +38,14 @@ export const CreateLog = () => {
 	const createLog = useLogsContext();
 	const onChange = useLogsContext();
 	const getLogs = useLogsContext().getLogs;
-	const { logValue, logDate, numberOfMonths, numberOfDays, logs, numberOfYears } =
-		useLogsContext();
+	const {
+		logValue,
+		logDate,
+		numberOfMonths,
+		numberOfDays,
+		logs,
+		numberOfYears,
+	} = useLogsContext();
 	const MonthName = monthEnum;
 	const usedDates: string[] = [];
 	const navigateTo = useNavigate();
@@ -80,7 +86,7 @@ export const CreateLog = () => {
 		<MenuItem key={year} value={year}>
 			{year}
 		</MenuItem>
-	))
+	));
 
 	/** Component in month dropdown */
 	const monthList = numberOfMonths.map((month) => (
@@ -96,7 +102,7 @@ export const CreateLog = () => {
 				{day}
 			</MenuItem>
 		) : (
-			<MenuItem key={day} disabled value={day + ' - Inlägg finns'}>
+			<MenuItem key={day} disabled value={day}>
 				{day + ' - Inlägg finns'}
 			</MenuItem>
 		)
@@ -115,7 +121,26 @@ export const CreateLog = () => {
 			humidity: false,
 			desc: false,
 		});
-
+		// logs.forEach((log) => {
+		// 	if (logValue.date === log.date) {
+		// 		setErrors((oldstate) => ({
+		// 			...oldstate,
+		// 			date: true,
+		// 		}));
+		// 		console.log('matchade ' + logValue.date + ' med ' + log.date);
+		// 		return;
+		// 	}
+		// });
+		for (const log of logs) {
+			if (logValue.date === log.date) {
+				setErrors((oldstate) => ({
+					...oldstate,
+					date: true,
+				}));
+				console.log('matchade ' + logValue.date + ' med ' + log.date);
+				return;
+			}
+		}
 		if (logValue.weather === '') {
 			setErrors((oldstate) => ({
 				...oldstate,
@@ -145,7 +170,7 @@ export const CreateLog = () => {
 			return;
 		}
 		createLog.addPost();
-		navigateTo('/home', { replace: true })
+		navigateTo('/home', { replace: true });
 		getLogs();
 	};
 
