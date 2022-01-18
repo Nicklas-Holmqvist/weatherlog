@@ -5,7 +5,7 @@
 	"main": "server.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "npm-run-all --parallel client server",
+		"start": "node server",
 		"server": "nodemon server.js",
 		"client": "cd client && npm start",
 		"client:build": "cd client && npm run build"
