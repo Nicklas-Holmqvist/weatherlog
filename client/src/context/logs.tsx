@@ -184,8 +184,8 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		for(let i = startYear; i < getYear+1; i++){
 			years.push(startYear)
 			startYear++
+			setNumberOfYears(years)
 		}
-		setNumberOfYears(years)
 	}
 
 	/** Sets the data from logDate to logValue.date */
@@ -200,6 +200,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 	/** Run function when year or month is changed in create log */
 	useEffect(() => {
 		setDayInMonth();
+		createYearList()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [logDate.year, logDate.month]);
 

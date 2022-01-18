@@ -18,9 +18,8 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
         setIsAuth(e)
     }
     
-    const logout = async () => {   
-        window.location.reload();
-        setIsAuth(false)
+    const logout = async () => {       
+        
         await fetch(`/api/user/logout`, {
             method: "post",
             headers: {"Content-Type": "application/json"},
