@@ -6,23 +6,24 @@ export default makeStyles((theme) => ({
 		borderColor: '#f2f2f2',
 		borderWidth: 4,
 		borderStyle: 'solid',
-		// height: 650,
 		marginTop: 25,
 		overflow: 'hidden',
 		borderRadius: 26,
 		[theme.breakpoints.down(1281)]: {
-			maxHeight: 300,
+			maxHeight: 500,
+			minHeight: 360,
 		},
 	},
 	leftContainer: {
 		backgroundColor: theme.palette.common.white,
 		width: '25%',
 		height: '100%',
-		padding: '30px 20px',
+		padding: '40px 20px 30px 20px',
 		flexWrap: 'nowrap',
+		position: 'relative',
 		[theme.breakpoints.down(1281)]: {
 			alignContent: 'start',
-			padding: '15px 12px',
+			padding: '40px 12px 15px 12px',
 		},
 	},
 	rightContainer: {
@@ -41,7 +42,7 @@ export default makeStyles((theme) => ({
 		flexWrap: 'nowrap',
 		alignItems: 'center',
 		[theme.breakpoints.down(1281)]: {
-			marginBottom: 4,
+			marginBottom: 10,
 		},
 	},
 	date: {
@@ -49,6 +50,12 @@ export default makeStyles((theme) => ({
 		[theme.breakpoints.down(1281)]: {
 			fontSize: 34,
 		},
+	},
+	year: {
+		position: 'absolute',
+		top: 10,
+		left: '50%',
+		transform: 'translateX(-50%)',
 	},
 	arrow: {
 		margin: '0 10px',
@@ -90,7 +97,7 @@ export default makeStyles((theme) => ({
 		margin: '12px auto',
 		[theme.breakpoints.down(1281)]: {
 			width: 'calc(100% - 40px)',
-			margin: '6px auto',
+			margin: '16px auto',
 		},
 	},
 	title: {
@@ -113,6 +120,9 @@ export default makeStyles((theme) => ({
 	},
 	list: {
 		paddingBottom: 0,
+		// [theme.breakpoints.down(1281)]: {
+		// 	marginTop: 10,
+		// },
 	},
 	listItem: {
 		padding: '0 16px',
@@ -132,9 +142,9 @@ export default makeStyles((theme) => ({
 		gridTemplateColumns: '1fr 1fr 1fr',
 		gridTemplateRows: '1fr 1fr',
 		[theme.breakpoints.down(1281)]: {
-			gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr',
-			gridTemplateRows: '1fr',
-			columnGap: 10,
+			// gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr',
+			// gridTemplateRows: '1fr',
+			gap: 20,
 		},
 	},
 	notesAndButtons: {

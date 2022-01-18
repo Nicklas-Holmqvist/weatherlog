@@ -59,6 +59,7 @@ export const MobileDailyOverview = () => {
 		lastName: '',
 		city: '',
 	});
+	const [year, setYear] = useState<string | undefined>('');
 	const [month, setMonth] = useState<string | undefined>('');
 	const [day, setDay] = useState<string | undefined>('');
 
@@ -85,6 +86,7 @@ export const MobileDailyOverview = () => {
 	useEffect(() => {
 		setUserInfo(user);
 		setUserLog(log);
+		setYear(userLog?.date.substring(0, 4));
 		setMonth(getMonthName(userLog?.date.substring(4, 6)));
 		setDay(userLog?.date.substring(6, 8));
 	});
@@ -116,7 +118,7 @@ export const MobileDailyOverview = () => {
 								<ArrowBackRounded />
 							</IconButton>
 							<Typography variant="h5" className={classes.date}>
-								{day} {month?.substring(0, 3)}
+								{day} {month?.substring(0, 3)} {year}
 							</Typography>
 							<IconButton onClick={nextDay} className={classes.arrow}>
 								<ArrowForwardRounded />
@@ -159,7 +161,6 @@ export const MobileDailyOverview = () => {
 							className={classes.dataContainer}
 						>
 							<Grid item container className={classes.dataTextContainer}>
-								{/* {GetWeatherIcon(userLog.weather, 'small')} */}
 								{userLog.airFeeling !== '' && (
 									<>
 										<Wind />
@@ -192,19 +193,6 @@ export const MobileDailyOverview = () => {
 							</Grid>
 						)}
 					</Grid>
-					{/* <Grid
-						container
-						item
-						direction="column"
-						className={classes.notesContainer}
-					>
-						<Typography variant="subtitle1" className={classes.notesTitle}>
-							Anteckningar
-						</Typography>
-						<Typography variant="body1" className={classes.notesBody}>
-							{userLog?.description}
-						</Typography>
-					</Grid> */}
 					<Grid item container className={classes.cardContainer}>
 						<MobileDataCard
 							label={dataEnum.WIND_DIRECTION}

@@ -166,6 +166,9 @@ export const DesktopDailyOverview = () => {
 							<IconButton onClick={prevDay} className={classes.arrow}>
 								<ArrowBackRounded />
 							</IconButton>
+							<Typography variant="subtitle1" className={classes.year}>
+								{userLog?.date.substring(0, 4)}
+							</Typography>
 							<Typography variant="h3" className={classes.date}>
 								{day} {month?.substring(0, 3)}
 							</Typography>

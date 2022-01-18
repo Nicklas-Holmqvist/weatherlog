@@ -4,9 +4,9 @@ export default makeStyles((theme) => ({
 	container: {
 		maxWidth: 1400,
 		margin: '0 auto',
-		padding: '0px 40px 80px 40px',
+		padding: '0px 40px 40px 40px',
 		[theme.breakpoints.down('sm')]: {
-			padding: '0px 0px 80px 0px',
+			padding: '0px 0px 40px 0px',
 		},
 	},
 	title: {
