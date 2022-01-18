@@ -20,14 +20,17 @@ interface IMenu {
 export const Menu = ({ handleClose, open }: IMenu) => {
 	const classes = useStyles();
 	const logOut = useAuthContext().logout;
+	const handleAuth = useAuthContext().handleAuth;
 	const isAuth = useAuthContext().isAuth;
 	const navigateTo = useNavigate();
 	const smallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
 	const handleLogout = () => {
 		handleClose();
-		navigateTo('/', { replace: true })
 		logOut();
+		navigateTo('/', { replace: true })
+		handleAuth(false)
+		window.location.reload();
 	};
 
 	return (
