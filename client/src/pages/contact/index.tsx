@@ -29,10 +29,8 @@ export const ContactPage = () => {
 			</Grid>
 			<Grid item className={classes.textBodyContainer}>
 				<Typography variant="body1">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor harum,
-					repellendus expedita ad aliquam esse deleniti nesciunt quos eius ea.
-					Nisi eligendi molestiae atque amet, voluptatem praesentium voluptatum
-					laborum quia!
+					Har du frågor om tjänsten får du gärna höra av dig till oss.
+					Svarstiden på mail är högst 48 h.
 				</Typography>
 			</Grid>
 			<Grid item>

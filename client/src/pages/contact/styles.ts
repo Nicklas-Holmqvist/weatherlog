@@ -23,27 +23,29 @@ export default makeStyles((theme) => ({
 		[theme.breakpoints.down(1281)]: {
 			marginTop: 30,
 		},
-		[theme.breakpoints.down('sm')]: {
-			paddingLeft: 20,
-		},
 		[theme.breakpoints.down(450)]: {
-			paddingLeft: 20,
 			marginTop: 40,
 		},
 	},
 	textBodyContainer: {
 		margin: '30px 0',
+		[theme.breakpoints.down(450)]: {
+			margin: '16px 0',
+		},
 	},
 	subtitle: {
 		fontWeight: 600,
 		marginBottom: 6,
+		[theme.breakpoints.down(450)]: {
+			marginTop: 12,
+		},
 	},
 	listItem: {
 		paddingLeft: 0,
 		paddingBottom: 4,
 	},
 	listItemIcon: {
-		minWidth: 46,
+		minWidth: 42,
 	},
 	icon: {
 		color: theme.palette.common.black,
