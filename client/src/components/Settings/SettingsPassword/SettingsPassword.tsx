@@ -21,9 +21,10 @@ export const SettingsPassword = () => {
 	}
 	
 	useEffect(() => {
+		if(changePasswordSuccess === false) return
 		setOpen(changePasswordSuccess)
 		handleChangePasswordSuccess()
-	},[password])
+	},[changePasswordSuccess, handleChangePasswordSuccess, password])
 
 	const handleChangePassword = () => {
 		changePassword()
