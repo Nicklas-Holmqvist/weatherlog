@@ -8,6 +8,7 @@ import {
 	EditLogPage,
 	SettingsPage,
 	ContactPage,
+	AboutPage,
 } from '../pages';
 
 export const routes = [
@@ -26,6 +27,10 @@ export const routes = [
 	{
 		path: '/contact',
 		element: <ContactPage />,
+	},
+	{
+		path: '/about',
+		element: <AboutPage />,
 	},
 ];
 

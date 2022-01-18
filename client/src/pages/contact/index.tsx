@@ -5,7 +5,7 @@ import {
 	ListItemIcon,
 	Typography,
 } from '@material-ui/core';
-import { EmailRounded, FlagRounded, PhoneRounded } from '@material-ui/icons';
+import { EmailRounded, PhoneRounded } from '@material-ui/icons';
 import { useState } from 'react';
 
 import { NavigateBackButton } from 'src/components';
