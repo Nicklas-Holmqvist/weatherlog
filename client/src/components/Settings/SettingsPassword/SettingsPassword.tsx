@@ -1,18 +1,56 @@
-import { Button, Grid, TextField, Typography } from '@material-ui/core';
+import { Button, Grid, IconButton, Snackbar, TextField, Typography } from '@material-ui/core';
+import React from 'react';
+import { useEffect, useState } from 'react';
 
 import { useUsersContext } from '../../../context/users';
 
 import useStyles from './styles';
+
 
 export const SettingsPassword = () => {
 	const classes = useStyles();
 
 	const handleChange = useUsersContext().handleChange;
 	const changePassword = useUsersContext().changePassword;
-	const { password, error, errorMessage } = useUsersContext();
+	const handleChangePasswordSuccess = useUsersContext().handleChangePasswordSuccess;
+	const { password, error, errorMessage, changePasswordSuccess } = useUsersContext();
+	const [open, setOpen] = useState<boolean>(false)
+
+	const handleClose = () => {
+		return setOpen(false)
+	}
+	
+	useEffect(() => {
+		setOpen(changePasswordSuccess)
+		handleChangePasswordSuccess()
+	},[password])
+
+	const handleChangePassword = () => {
+		changePassword()
+	}
+
+	const action = (
+		<React.Fragment>
+		  <IconButton
+			size="small"
+			aria-label="close"
+			color="inherit"
+			onClick={handleClose}
+		  >
+		  </IconButton>
+		</React.Fragment>
+	  );
 
 	return (
 		<Grid container direction="column" className={classes.root}>
+			<Snackbar
+				open={open}
+				anchorOrigin={{ vertical:'top', horizontal:'center' }}
+				autoHideDuration={1000}
+				onClose={handleClose}
+				message="Lösenord har uppdaterats!"
+				action={action}
+			/>
 			<Typography variant="h5" className={classes.title}>
 				Lösenord
 			</Typography>
@@ -51,7 +89,7 @@ export const SettingsPassword = () => {
 				</Grid>
 			</Grid>
 			<Button
-				onClick={changePassword}
+				onClick={handleChangePassword}
 				variant="contained"
 				disableElevation
 				className={classes.button}

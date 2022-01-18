@@ -15,6 +15,7 @@ export const UsersContext = createContext<Context>(undefined!);
 type Context = {
 	user: IUsers;
 	password: IPassword;
+	changePasswordSuccess: boolean
 	errorMessage: { newPassword: string; oldPassword: string };
 	error: { newPassword: boolean; oldPassword: boolean };
 	deleteUser: () => void;
@@ -22,6 +23,7 @@ type Context = {
 	addUser: () => void;
 	addUserInfo: () => void;
 	editUser: () => void;
+	handleChangePasswordSuccess: () => void;
 	handleChange: (e: any) => void;
 };
 
@@ -50,6 +52,8 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 		lastName: '',
 	});
 
+	const [changePasswordSuccess, setChangePasswordSuccess] = useState<boolean>(false)
+
 	const [password, setPassword] = useState<IPassword>(emptyPassword);
 
 	const [errorMessage, setErrorMessage] = useState({
@@ -60,6 +64,10 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 		oldPassword: false,
 		newPassword: false,
 	});
+
+	const handleChangePasswordSuccess = () => {
+		setChangePasswordSuccess(false)
+	}
 
 	/**
 	 * Handle input changes in setting page
@@ -86,6 +94,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 	const handleErrorChangePassword = (e: IChangePassword) => {
 		setErrorMessage(emptyErrorMessage);
 		setError(emptyError);
+		setChangePasswordSuccess(false)
 		if (e.code === 400) {
 			setError((oldstate) => ({
 				...oldstate,
@@ -108,6 +117,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 			}));
 			return;
 		}
+		setChangePasswordSuccess(true)
 	};
 
 	const options = {
@@ -210,6 +220,8 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 				password,
 				error,
 				errorMessage,
+				changePasswordSuccess,
+				handleChangePasswordSuccess,
 				deleteUser,
 				changePassword,
 				addUser,

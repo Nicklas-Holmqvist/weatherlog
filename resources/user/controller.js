@@ -156,7 +156,8 @@ exports.changePassword = async (req, res) => {
 
     let errors = { msg: '',
                 boolean: false,
-                code:'' }   
+                code:'',
+                success: false }   
 
     if (authUser) {   
 
@@ -183,6 +184,7 @@ exports.changePassword = async (req, res) => {
             errors.msg = 'Lösenordet har uppdaterats'   
             errors.boolean = false  
             errors.code = 200    
+            errors.success = true
 			res.status(200).json(errors)
         } catch (error) {
             res.status(400).json(error)
