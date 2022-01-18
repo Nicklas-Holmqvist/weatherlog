@@ -123,17 +123,19 @@ export const MobileDailyOverview = () => {
 							</IconButton>
 						</Grid>
 						<Grid item className={classes.iconButtons}>
-							<IconButton className={classes.iconButton} size="small">
-								<EditRounded
-									fontSize="small"
-									onClick={() => setShowEditModal(true)}
-								/>
+							<IconButton
+								className={classes.iconButton}
+								onClick={() => setShowEditModal(true)}
+								size="small"
+							>
+								<EditRounded fontSize="small" />
 							</IconButton>
-							<IconButton className={classes.iconButton} size="small">
-								<DeleteRounded
-									fontSize="small"
-									onClick={() => setShowDeleteModal(true)}
-								/>
+							<IconButton
+								className={classes.iconButton}
+								onClick={() => setShowDeleteModal(true)}
+								size="small"
+							>
+								<DeleteRounded fontSize="small" />
 							</IconButton>
 						</Grid>
 					</Grid>
@@ -219,7 +221,7 @@ export const MobileDailyOverview = () => {
 							label={dataEnum.WIND_FEEL}
 							data={
 								userLog?.airFeeling !== ''
-									? dotToCommaConverter(userLog.airFeeling)
+									? getWindFeelName(userLog.airFeeling)
 									: 'Ingen'
 							}
 						/>
