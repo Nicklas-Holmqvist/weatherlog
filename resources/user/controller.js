@@ -1,5 +1,6 @@
 const express = require('express');
 const UserModel = require('./model');
+const LogModel = require('../logs/model');
 const bcrypt = require('bcrypt');
 
 // Get all products from api
@@ -210,6 +211,7 @@ exports.deleteUser = async (req, res) => {
     const getUser = await UserModel.findById(user);
     if (getUser) {     
         try {
+            await LogModel.deleteMany({ user: user })
             await UserModel.findByIdAndRemove({ _id: user })
             res.status(201).json(getUser)
     } catch (error) {

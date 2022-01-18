@@ -19,6 +19,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
     }
     
     const logout = async () => {   
+        window.location.reload();
         setIsAuth(false)
         await fetch(`/api/user/logout`, {
             method: "post",
