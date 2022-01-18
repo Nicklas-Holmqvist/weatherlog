@@ -14,6 +14,7 @@ export const UsersContext = createContext<Context>(undefined!);
 
 type Context = {
 	user: IUsers;
+	viewUser: IUsers;
 	password: IPassword;
 	changePasswordSuccess: boolean
 	errorMessage: { newPassword: string; oldPassword: string };
@@ -47,6 +48,12 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 
 	const [user, setUser] = useState<IUsers>({
 		email: '',
+		city: '',
+		firstName: '',
+		lastName: '',
+	});
+
+	const [viewUser, setViewUser] = useState<IUsers>({
 		city: '',
 		firstName: '',
 		lastName: '',
@@ -158,7 +165,11 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 				return res.json();
 			})
 			.then((data) => {
-				// if (data.firstName === undefined) return;
+				setViewUser({
+					firstName: data.firstName,
+					lastName: data.lastName,
+					city: data.city,
+				})
 				setUser({
 					email: data.email,
 					firstName: data.firstName,
@@ -185,6 +196,11 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 	};
 
 	const editUser = async () => {
+		setViewUser({
+			firstName: user.firstName,
+			lastName: user.lastName,
+			city: user.city,
+		})
 		await fetch(`/api/user/edit`, options.editUser).catch((err) => {
 			console.error(err);
 		});
@@ -216,6 +232,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 	return (
 		<UsersContext.Provider
 			value={{
+				viewUser,
 				user,
 				password,
 				error,

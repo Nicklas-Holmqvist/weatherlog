@@ -27,7 +27,7 @@ export const Header = () => {
 	const mobile = useMediaQuery(theme.breakpoints.only('xs'));
 	const navigateTo = useNavigate();
 	const isAuth = useAuthContext().isAuth;
-	const { user } = useUsersContext();
+	const { viewUser } = useUsersContext();
 	const [showMenu, setShowMenu] = useState(false);
 	const [showMobileMenu, setShowMobileMenu] = useState(false);
 
@@ -41,10 +41,10 @@ export const Header = () => {
 
 	const getNameString = () => {
 		if(!isAuth) return
-		if (user.firstName && user.lastName && user.city) {
-			return `${user.firstName} ${user.lastName}, ${user.city}`;
-		} else if (user.email) {
-			return `${user.email}`;
+		if (viewUser.firstName && viewUser.lastName && viewUser.city) {
+			return `${viewUser.firstName} ${viewUser.lastName}, ${viewUser.city}`;
+		} else if (viewUser.email) {
+			return `${viewUser.email}`;
 		} else {
 			return '';
 		}
