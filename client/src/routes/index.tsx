@@ -7,6 +7,7 @@ import {
 	DailyOverviewPage,
 	EditLogPage,
 	SettingsPage,
+	ContactPage,
 } from '../pages';
 
 export const routes = [
@@ -21,6 +22,10 @@ export const routes = [
 	{
 		path: '/register',
 		element: <RegisterPage />,
+	},
+	{
+		path: '/contact',
+		element: <ContactPage />,
 	},
 ];
 
