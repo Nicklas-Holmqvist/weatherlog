@@ -23,6 +23,7 @@ type Context = {
 	addUser: () => void;
 	addUserInfo: () => void;
 	editUser: () => void;
+	handleChangePasswordSuccess: () => void;
 	handleChange: (e: any) => void;
 };
 
@@ -63,6 +64,10 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 		oldPassword: false,
 		newPassword: false,
 	});
+
+	const handleChangePasswordSuccess = () => {
+		setChangePasswordSuccess(false)
+	}
 
 	/**
 	 * Handle input changes in setting page
@@ -216,6 +221,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 				error,
 				errorMessage,
 				changePasswordSuccess,
+				handleChangePasswordSuccess,
 				deleteUser,
 				changePassword,
 				addUser,

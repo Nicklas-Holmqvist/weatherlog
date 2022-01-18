@@ -12,15 +12,17 @@ export const SettingsPassword = () => {
 
 	const handleChange = useUsersContext().handleChange;
 	const changePassword = useUsersContext().changePassword;
+	const handleChangePasswordSuccess = useUsersContext().handleChangePasswordSuccess;
 	const { password, error, errorMessage, changePasswordSuccess } = useUsersContext();
 	const [open, setOpen] = useState<boolean>(false)
 
 	const handleClose = () => {
 		return setOpen(false)
 	}
-	console.log(changePasswordSuccess)
+	
 	useEffect(() => {
 		setOpen(changePasswordSuccess)
+		handleChangePasswordSuccess()
 	},[password])
 
 	const handleChangePassword = () => {
