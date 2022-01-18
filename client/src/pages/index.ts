@@ -4,6 +4,7 @@ export * from './log';
 export * from './register';
 export * from './createLog';
 export * from './contact';
+export * from './about';
 export * from './editLog';
 export * from './diagram';
 export * from './settings';
