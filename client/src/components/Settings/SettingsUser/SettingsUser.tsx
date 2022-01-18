@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
 	Button,
 	Divider,
@@ -24,6 +24,7 @@ export const SettingsUser = () => {
 
 	const [showModal, setShowModal] = useState(false);
 	const [open, setOpen] = useState<boolean>(false)
+	const [inputTouched, setInputTouched] = useState<boolean>(false)
 
 	const handleClose = () => {
 		return setOpen(false)
@@ -88,9 +89,13 @@ export const SettingsUser = () => {
 			city: false,
 			
 		})
-		setOpen(true)		
+		if(inputTouched)setOpen(true)		
 		editUser()
 	}
+
+	useEffect(() => {
+		setInputTouched(false)
+	},[open])
 
 	const resetErrors = () => {
 		setErrorMessage({
@@ -147,7 +152,10 @@ export const SettingsUser = () => {
 							variant="outlined"
 							margin="dense"
 							size="small"
-							onChange={(e) => handleChange(e)}
+							onChange={(e) => {
+								setInputTouched(true)
+								handleChange(e)
+							}}
 							className={classes.textField}
 							required
 						/>
@@ -164,7 +172,10 @@ export const SettingsUser = () => {
 							variant="outlined"
 							margin="dense"
 							size="small"
-							onChange={(e) => handleChange(e)}
+							onChange={(e) => {
+								setInputTouched(true)
+								handleChange(e)
+							}}
 							className={classes.textField}
 							required
 						/>
@@ -181,7 +192,10 @@ export const SettingsUser = () => {
 							variant="outlined"
 							margin="dense"
 							size="small"
-							onChange={(e) => handleChange(e)}
+							onChange={(e) => {
+								setInputTouched(true)
+								handleChange(e)
+							}}
 							className={`${classes.textField} ${classes.marginTop}`}
 							required
 						/>

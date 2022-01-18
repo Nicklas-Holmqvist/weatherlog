@@ -27,8 +27,8 @@ export const Menu = ({ handleClose, open }: IMenu) => {
 
 	const handleLogout = () => {
 		handleClose();
-		logOut();
 		navigateTo('/', { replace: true })
+		logOut();
 		handleAuth(false)
 		window.location.reload();
 	};
