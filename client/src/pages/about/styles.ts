@@ -44,7 +44,6 @@ export default makeStyles((theme) => ({
 	},
 	logo: {
 		placeSelf: 'center',
-		// marginRight: 10,
 		width: 100,
 		height: 100,
 		[theme.breakpoints.down(800)]: {
@@ -55,9 +54,6 @@ export default makeStyles((theme) => ({
 		fontWeight: 600,
 		marginBottom: 6,
 		marginTop: 30,
-		// [theme.breakpoints.down(450)]: {
-		// 	marginTop: 12,
-		// },
 	},
 	listItem: {
 		paddingLeft: 0,
