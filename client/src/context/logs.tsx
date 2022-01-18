@@ -261,6 +261,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 				return res.json();
 			})
 			.then((data) => {
+				if(data === undefined) return
 				setLog(data);
 				setEditLog(data);
 			})
