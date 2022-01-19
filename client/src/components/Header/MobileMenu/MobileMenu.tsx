@@ -21,8 +21,7 @@ export const MobileMenu = ({ handleClose, open }: IMobileMenu) => {
 	const handleLogout = () => {
 		handleClose();
 		logOut();
-		navigateTo('/', { replace: true })
-		window.location.reload();
+		navigateTo('/', { replace: true })		
 		handleAuth(false)
 	};
 

@@ -89,8 +89,8 @@ export const SettingsUser = () => {
 			city: false,
 			
 		})
-		if(inputTouched)setOpen(true)		
 		editUser()
+		if(inputTouched)setOpen(true)		
 	}
 
 	useEffect(() => {

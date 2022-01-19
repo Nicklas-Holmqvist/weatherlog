@@ -19,7 +19,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
     }
     
     const logout = async () => {       
-        
+        window.location.reload();
         await fetch(`/api/user/logout`, {
             method: "post",
             headers: {"Content-Type": "application/json"},
@@ -32,7 +32,7 @@ export const AuthProvider: FunctionComponent = ({ children }) => {
     useEffect(() => {       
         fetch('/auth', {method: 'get'})
         .then(function (res) {
-            if (res.status === 400) {
+            if (res.status === 401) {
                 return;
             }
             return res.json();

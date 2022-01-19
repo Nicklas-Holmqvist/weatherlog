@@ -30,7 +30,6 @@ export const Menu = ({ handleClose, open }: IMenu) => {
 		navigateTo('/', { replace: true })
 		logOut();
 		handleAuth(false)
-		window.location.reload();
 	};
 
 	return (

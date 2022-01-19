@@ -168,7 +168,7 @@ exports.changePassword = async (req, res) => {
 			errors.msg = 'Lösenordet måste vara minst 6 tecken'   
             errors.boolean = true   
             errors.code = 401   
-            res.status(401).json(errors)
+            res.status(400).json(errors)
 			return;
 		}
         
@@ -176,7 +176,7 @@ exports.changePassword = async (req, res) => {
             errors.msg = 'Du kan inte använda samma lösenord'   
             errors.boolean = true   
             errors.code = 401   
-            res.status(401).json(errors)
+            res.status(400).json(errors)
             return
         }      
         try {           
@@ -187,13 +187,13 @@ exports.changePassword = async (req, res) => {
             errors.success = true
 			res.status(200).json(errors)
         } catch (error) {
-            res.status(401).json(error)
+            res.status(400).json(error)
         }
     } else {     
         errors.msg = 'Gamla lösenordet stämmer inte'   
         errors.boolean = true       
         errors.code = 400   
-        res.status(401).json(errors)
+        res.status(400).json(errors)
     }
 }
 

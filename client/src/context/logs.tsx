@@ -230,12 +230,13 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 	const getLogs = async () => {
 		await fetch('/api/logs', options.fetchLogs)
 			.then((res) => {
-				if (res.status === 400) {
-					return;
+				if (res.status === 401) {
+					console.log('Ingen inloggad!');
 				}
 				return res.json();
 			})
 			.then((data) => {
+				if(data === undefined) return
 				createYearList();
 				setLogs(data);
 				splitUpYearMonths(data);
@@ -255,8 +256,8 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 	const getLog = async (id: any) => {
 		await fetch(`/api/log/${id}`, options.getLog)
 			.then((res) => {
-				if (res.status === 400) {
-					return;
+				if (res.status === 401) {
+					console.log('Logg skapades inte!');
 				}
 				return res.json();
 			})

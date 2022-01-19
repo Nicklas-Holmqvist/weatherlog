@@ -99,6 +99,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 
 	/** Handle incoming errors from ChangePassword API */
 	const handleErrorChangePassword = (e: IChangePassword) => {
+		// if(e === undefined) return
 		setErrorMessage(emptyErrorMessage);
 		setError(emptyError);
 		setChangePasswordSuccess(false)
@@ -159,12 +160,13 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 		if(!isAuth) return
 		fetch('/api/user', options.fetchUser)
 			.then((res) => {
-				if (res.status === 400) {
-					return;
+				if (res.status === 401) {
+					console.log('Ingen inloggad');
 				}
 				return res.json();
 			})
 			.then((data) => {
+				console.log(data)
 				setViewUser({
 					firstName: data.firstName,
 					lastName: data.lastName,
