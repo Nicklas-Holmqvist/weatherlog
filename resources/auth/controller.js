@@ -5,7 +5,7 @@ exports.authUser = async (req, res, next) => {
 	const user = await UserModel.findOne({ _id: cookie})
 
 	if (!user) {
-	 return res.status(401).json('You`re not logged in!');
+	 return res.status(401).json('Ingen inloggning!');
 	} else return next();
 };
 

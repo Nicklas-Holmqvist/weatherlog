@@ -17,7 +17,7 @@ exports.getUsers = async (req, res) => {
         }
 		res.status(200).json(exportUser);
 	} catch (error) {
-		res.status(503).json('No database connection');
+		res.status(401).json('Ingen inloggning!');
 	}
 };
 
@@ -48,7 +48,7 @@ exports.createUser = async (req, res) => {
 	} else {
 		let errors = { email: '' };
 		errors.email = 'Denna email är redan registrerad';
-		res.status(400).json({ errors });
+		res.status(406).json({ errors });
 	}
 };
 
@@ -79,7 +79,7 @@ exports.addInfo = async (req, res) => {
     } else {
         let errors = { msg: '' }        
         errors.msg = 'Användaren finns inte!'        
-        res.status(400).json({ errors })
+        res.status(404).json({ errors })
     }
 }
 
@@ -105,7 +105,7 @@ exports.login = async (req, res) => {
 		if (err.message === 'incorrect password') {
 			errors.password = 'Fel lösenord';
 		}
-		res.status(400).json({ errors });
+		res.status(401).json({ errors });
 	}
 };
 
@@ -168,7 +168,7 @@ exports.changePassword = async (req, res) => {
 			errors.msg = 'Lösenordet måste vara minst 6 tecken'   
             errors.boolean = true   
             errors.code = 401   
-            res.status(400).json(errors)
+            res.status(401).json(errors)
 			return;
 		}
         
@@ -176,7 +176,7 @@ exports.changePassword = async (req, res) => {
             errors.msg = 'Du kan inte använda samma lösenord'   
             errors.boolean = true   
             errors.code = 401   
-            res.status(400).json(errors)
+            res.status(401).json(errors)
             return
         }      
         try {           
@@ -187,13 +187,13 @@ exports.changePassword = async (req, res) => {
             errors.success = true
 			res.status(200).json(errors)
         } catch (error) {
-            res.status(400).json(error)
+            res.status(401).json(error)
         }
     } else {     
         errors.msg = 'Gamla lösenordet stämmer inte'   
         errors.boolean = true       
         errors.code = 400   
-        res.status(400).json(errors)
+        res.status(401).json(errors)
     }
 }
 
@@ -201,7 +201,7 @@ exports.changePassword = async (req, res) => {
 exports.logout = (req, res) => {
 	try {
 		res.cookie('user', '', { maxAge: 1 });
-		res.status(200).json('User has logged out');
+		res.status(200).json('Användaren har loggats ut!');
 	} catch (error) {
 		res.status(400).json(error);
 	}
@@ -215,14 +215,14 @@ exports.deleteUser = async (req, res) => {
         try {
             await LogModel.deleteMany({ user: user })
             await UserModel.findByIdAndRemove({ _id: user })
-            res.status(201).json(getUser)
+            res.status(200).json(getUser)
     } catch (error) {
         res.status(400).json(error)
     }
     } else {
         let errors = { msg: '' }
-        errors.msg = 'No user exist!'        
-        res.status(400).json({ errors })
+        errors.msg = 'Användaren finns inte!'        
+        res.status(404).json({ errors })
     }
 }
 

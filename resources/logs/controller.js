@@ -10,7 +10,7 @@ exports.getLogs = async (req, res) => {
 			.populate('user');
 		res.status(200).json(logs);
 	} catch (error) {
-		res.status(503).json('No login');
+		res.status(401).json('Ingen inloggad');
 	}
 };
 // Get all logs from api
@@ -23,7 +23,7 @@ exports.getFive = async (req, res) => {
 			.populate('user');
 		res.status(200).json(logs);
 	} catch (error) {
-		res.status(503).json('No login');
+		res.status(401).json('Ingen inloggad!');
 	}
 };
 
@@ -39,12 +39,12 @@ exports.getLog = async (req, res) => {
 		try {
 			res.status(200).json(logs);
 		} catch (error) {
-			res.status(503).json('No login');
+			res.status(404).json('No login');
 		}
 	} else {
 		let errors = { msg: '' };
-		errors.msg = 'No login!';
-		res.status(400).json({ errors });
+		errors.msg = 'Ingen inloggad!';
+		res.status(401).json({ errors });
 	}
 };
 
@@ -63,7 +63,7 @@ exports.getDiagram = async (req, res) => {
 			.populate('user');
 		res.status(200).json(logs);
 	} catch (error) {
-		res.status(503).json('No login');
+		res.status(404).json('ID matchar inte!');
 	}
 };
 
@@ -110,8 +110,8 @@ exports.createLog = async (req, res) => {
 		}
 	} else {
 		let errors = { msg: '' };
-		errors.msg = 'Date is already logged!';
-		res.status(400).json({ errors });
+		errors.msg = 'Datum finns redan!';
+		res.status(406).json({ errors });
 	}
 };
 
@@ -151,14 +151,14 @@ exports.changeLog = async (req, res) => {
 	if (getLog) {
 		try {
 			await LogModel.findByIdAndUpdate({ _id: log }, newLog);
-			res.status(200).json('Log has been updated!');
+			res.status(200).json('Log har uppdaterats!');
 		} catch (error) {
 			res.status(400).json(error);
 		}
 	} else {
 		let errors = { msg: '' };
-		errors.msg = 'No log to update!';
-		res.status(400).json({ errors });
+		errors.msg = 'ID matchar inte någon log';
+		res.status(404).json({ errors });
 	}
 };
 
@@ -176,7 +176,7 @@ exports.deleteLog = async (req, res) => {
 		}
 	} else {
 		let errors = { msg: '' };
-		errors.msg = 'No log to delete';
-		res.status(400).json({ errors });
+		errors.msg = 'ID matchar inte någon log';
+		res.status(404).json({ errors });
 	}
 };
