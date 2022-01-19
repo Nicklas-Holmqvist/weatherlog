@@ -54,6 +54,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 	});
 
 	const [viewUser, setViewUser] = useState<IUsers>({
+		email:'',
 		city: '',
 		firstName: '',
 		lastName: '',
@@ -180,6 +181,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 			})
 			.then((data) => {
 				setViewUser({
+					email: data.email,
 					firstName: data.firstName,
 					lastName: data.lastName,
 					city: data.city,

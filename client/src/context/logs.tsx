@@ -212,6 +212,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 	
 	const resetAtLogout = () => {
 		resetCreateLogForm()
+		setHistoryMonths([])
 	}	
 
 	useEffect(() => {
