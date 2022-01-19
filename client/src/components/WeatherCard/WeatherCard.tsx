@@ -35,8 +35,6 @@ export const WeatherCard = ({
 	const bigMobile = useMediaQuery(theme.breakpoints.down(540));
 	const smallMobile = useMediaQuery(theme.breakpoints.down(450));
 
-	// console.log(month, day);
-
 	return (
 		<Grid item container className={classes.container}>
 			<Grid

@@ -189,7 +189,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 	};
 	
 	const resetCreateLogForm = () => {
-		setDayInMonth();
 		setLogValue({
 			...logValue,
 			airFeeling: '',
@@ -204,10 +203,14 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 			windSpeed: '',
 			weather: '',
 		})
+		setLogDate({
+			day: d.getDate(),
+			month: d.getMonth() + 1,
+			year: d.getFullYear(),
+		});
 	}
 	
 	const resetAtLogout = () => {
-		setDayInMonth();
 		resetCreateLogForm()
 	}	
 
@@ -234,8 +237,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		createYearList();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [logDate.year, logDate.month]);
-
-	console.log(logDate)
 
 	/** All options to all API-calls */
 	const options = {
