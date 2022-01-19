@@ -20,9 +20,9 @@ export const MobileMenu = ({ handleClose, open }: IMobileMenu) => {
 
 	const handleLogout = () => {
 		handleClose();
-		logOut();
-		navigateTo('/', { replace: true })		
 		handleAuth(false)
+		navigateTo('/', { replace: true })		
+		logOut();
 	};
 
 	return (
