@@ -42,8 +42,9 @@ export const SettingsUser = () => {
 	});
 
 	const handleEditAccount = () => {
+		
 		resetErrors()
-		if (user.firstName === '' && user.firstName.length <= 2)  {
+		if (user.firstName !== undefined && user.firstName.length < 2 )  {
 			setError((oldstate) => ({
 				...oldstate,
 				firstName: true,
@@ -54,7 +55,18 @@ export const SettingsUser = () => {
 			}));
 			return
 		}
-		if (user.lastName === '')  {
+		if (user.firstName === '' )  {
+			setError((oldstate) => ({
+				...oldstate,
+				firstName: true,
+			}));
+			setErrorMessage((oldstate) => ({
+				...oldstate,
+				firstName: 'Fyll i förnamn, minst 2 tecken',
+			}));
+			return
+		}
+		if (user.lastName === '' && user.lastName === undefined)  {
 			setError((oldstate) => ({
 				...oldstate,
 				lastName: true,
@@ -65,7 +77,7 @@ export const SettingsUser = () => {
 			}));
 			return
 		}
-		if (user.city === '')  {
+		if (user.city === '' && user.city === undefined)  {
 			setError((oldstate) => ({
 				...oldstate,
 				city: true,
@@ -198,6 +210,19 @@ export const SettingsUser = () => {
 							}}
 							className={`${classes.textField} ${classes.marginTop}`}
 							required
+						/>
+					</Grid>
+					<Grid item className={classes.marginTop}>
+						<Typography variant="subtitle1">Email</Typography>
+						<TextField
+							fullWidth
+							disabled
+							name="email"
+							value={user.email}
+							variant="outlined"
+							margin="dense"
+							size="small"
+							className={`${classes.textField} ${classes.marginTop}`}
 						/>
 					</Grid>
 				</Grid>
