@@ -542,7 +542,7 @@ export const CreateLog = () => {
 					variant="contained"
 					className={classes.buttonReset}
 				>
-					Reset
+					Nollställ
 				</Button>
 			</Grid>
 		</Grid>
