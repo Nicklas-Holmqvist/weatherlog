@@ -187,6 +187,15 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		}
 	};
 
+	
+	const resetAtLogout = () => {
+		
+	}
+
+	useEffect(() => {
+		
+	},[isAuth])
+
 	/** Sets the data from logDate to logValue.date */
 	useEffect(() => {
 		setLogValue({
