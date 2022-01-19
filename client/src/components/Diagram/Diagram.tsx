@@ -30,6 +30,8 @@ import {
 import { useDiagramsContext } from 'src/context/diagram';
 import { ErrorPage } from '../ErrorPage';
 
+import { ILogs } from '../../types/Logs'
+
 import theme from 'src/theme';
 import useStyles from './style';
 import getMonthName from '../../utils/getMonthName';
@@ -54,6 +56,7 @@ const Diagram = () => {
 
 	const setApiParam = useDiagramsContext().getDiagramUrl;
 	const {
+		diagramLogs,
 		diagramData,
 		diagramLabel,
 		diagramBackgroundcolor,
@@ -61,6 +64,7 @@ const Diagram = () => {
 		diagramPrec,
 	} = useDiagramsContext();
 
+	const [logs, setLogs] = useState<ILogs[]>(diagramLogs)
 	const [temp, setTemp] = useState<number[]>(diagramData);
 	const [labels, setLabels] = useState<string[]>(diagramLabel);
 	const [color, setColor] = useState<any[] | any>(diagramBackgroundcolor);
@@ -98,6 +102,7 @@ const Diagram = () => {
 		setTemp(diagramData);
 		setLabels(diagramLabel);
 		setColor(diagramBackgroundcolor);
+		setLogs(diagramLogs)
 	});
 
 	/** Options for the diagram */
@@ -147,6 +152,7 @@ const Diagram = () => {
 			) : (
 				<Grid container direction="column" className={classes.diagramContainer}>
 					<Grid container direction="row" className={classes.header}>
+						{console.log(logs)}
 						<Grid item container className={classes.titleContainer}>
 							<NavigateBackButton page="/" />
 							<Typography variant="h2" className={classes.pageTitle}>

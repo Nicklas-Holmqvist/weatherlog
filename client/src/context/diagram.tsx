@@ -13,11 +13,13 @@ type Context = {
     diagramBackgroundcolor: any[],
     diagramMonth:string[]
     diagramPrec: number[],
+    diagramLogs: ILogs[]
 }
 
 export const DiagramProvider: FunctionComponent = ({ children }) => {
     
     const { historyMonths } = useLogsContext()
+    const [diagramLogs, setDiagramLogs] =  useState<ILogs[]>([])
     const [diagramMonth, setDiagramMonth] = useState<string[]>(historyMonths)
     const [diagramData, setDiagramData] = useState<number[]>([])
     const [diagramLabel, setDiagramLabel] = useState<string[]>([])
@@ -79,7 +81,9 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
                 return res.json();
             })
             .then(function (data) {
+                if(data === undefined) return
                 handlePrepareDiagramData(data)
+                setDiagramLogs(data)
             })
             .catch(function (err) {
                 console.error(err);
@@ -93,7 +97,8 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
             diagramLabel,
             diagramBackgroundcolor,
             diagramMonth,
-            diagramPrec
+            diagramPrec,
+            diagramLogs
             }}>
             {children}
         </DiagramContext.Provider>
