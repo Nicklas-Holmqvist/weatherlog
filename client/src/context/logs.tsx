@@ -30,6 +30,7 @@ type Context = {
 	getLogUrl: (e: any) => void;
 	handleChange: (e: any) => void;
 	handleEditChange: (e: any) => void;
+	resetCreateLogForm: () => void;
 };
 
 export const LogsProvider: FunctionComponent = ({ children }) => {
@@ -61,11 +62,22 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		year: d.getFullYear(),
 	});
 
+	/**
+	 * Function that adds a zero infront of single digits
+	 * @param e date values
+	 * @returns
+	 */
+		const addZero = (e: any) => {
+		if (e < 10) {
+			return `0${e}`.toString();
+		} else return e.toString();
+	};
+
 	/** The object that will be created in backend */
 	const [logValue, setLogValue] = useState<ILogs>({
 		airFeeling: '',
 		airpressure: '',
-		date: `${logDate.year}${logDate.month}${logDate.day}`,
+		date: `${logDate.year}${addZero(logDate.month)}${logDate.day}`,
 		description: '',
 		humidity: '',
 		precipitation: '',
@@ -148,17 +160,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		});
 	};
 
-	/**
-	 * Function that adds a zero infront of single digits
-	 * @param e date values
-	 * @returns
-	 */
-	const addZero = (e: any) => {
-		if (e < 10) {
-			return `0${e}`.toString();
-		} else return e.toString();
-	};
-
 	const splitUpYearMonths = (e: ILogs[]) => {
 		let month: any = [];
 		for (let i = 0; i < e.length; i++) {
@@ -186,15 +187,33 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 			setNumberOfYears(years);
 		}
 	};
-
+	
+	const resetCreateLogForm = () => {
+		setLogValue({
+			...logValue,
+			airFeeling: '',
+			airpressure: '',
+			date: `${logDate.year}${addZero(logDate.month)}${logDate.day}`,
+			description: '',
+			humidity: '',
+			precipitation: '',
+			temperature: '',
+			user: '',
+			windDirection: '',
+			windSpeed: '',
+			weather: '',
+		})
+	}
 	
 	const resetAtLogout = () => {
-		
-	}
+		resetCreateLogForm()
+	}	
 
 	useEffect(() => {
-		
+		resetAtLogout()
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[isAuth])
+
 
 	/** Sets the data from logDate to logValue.date */
 	useEffect(() => {
@@ -211,6 +230,8 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		createYearList();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [logDate.year, logDate.month]);
+
+	console.log(logDate)
 
 	/** All options to all API-calls */
 	const options = {
@@ -321,6 +342,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 				getLog,
 				getLogs,
 				getLogUrl,
+				resetCreateLogForm,
 				numberOfYears,
 				logs,
 				log,

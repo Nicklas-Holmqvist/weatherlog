@@ -37,6 +37,7 @@ export const CreateLog = () => {
 	const classes = useStyles();
 	const createLog = useLogsContext();
 	const onChange = useLogsContext();
+	const resetCreateLogForm = useLogsContext().resetCreateLogForm;
 	const getLogs = useLogsContext().getLogs;
 	const {
 		logValue,
@@ -107,6 +108,7 @@ export const CreateLog = () => {
 			</MenuItem>
 		)
 	);
+	console.log(logDate)
 
 	const handleCreateLog = () => {
 		setErrors({
@@ -525,15 +527,25 @@ export const CreateLog = () => {
 					margin="dense"
 				/>
 			</Grid>
-			<Button
-				onClick={handleCreateLog}
-				disableElevation
-				variant="contained"
-				className={classes.button}
-				endIcon={<CheckRounded />}
-			>
-				Skapa log
-			</Button>
+			<Grid container direction='row'>
+				<Button
+					onClick={handleCreateLog}
+					disableElevation
+					variant="contained"
+					className={classes.button}
+					endIcon={<CheckRounded />}
+				>
+					Skapa log
+				</Button>
+				<Button
+					onClick={resetCreateLogForm}
+					disableElevation
+					variant="contained"
+					className={classes.buttonReset}
+				>
+					Nollställ
+				</Button>
+			</Grid>
 		</Grid>
 	);
 };
