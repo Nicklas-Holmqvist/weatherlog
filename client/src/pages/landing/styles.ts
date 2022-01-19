@@ -27,7 +27,24 @@ export default makeStyles((theme) => ({
 		textDecoration: 'none',
 	},
 	mr: {
-		marginRight: 10,
+		marginRight: 14,
+		whiteSpace: 'nowrap',
+	},
+	buttonContainer: {
+		display: 'flex',
+		alignItems: 'center',
+	},
+	showAllButton: {
+		textTransform: 'uppercase',
+		marginRight: 28,
+		alignItems: 'center',
+	},
+	showAllButtonText: {
+		fontSize: '0.875rem',
+	},
+	listIcon: {
+		marginLeft: 8,
+		marginBottom: 3,
 	},
 	tableHeader: {
 		margin: '20px 0 5px 0',
