@@ -16,14 +16,11 @@ export const MobileMenu = ({ handleClose, open }: IMobileMenu) => {
 	const logOut = useAuthContext().logout;
 	const isAuth = useAuthContext().isAuth;
 	const navigateTo = useNavigate();
-	const handleAuth = useAuthContext().handleAuth;
 
 	const handleLogout = () => {
 		handleClose();
-		logOut();
 		navigateTo('/', { replace: true })
-		window.location.reload();
-		handleAuth(false)
+		logOut();
 	};
 
 	return (

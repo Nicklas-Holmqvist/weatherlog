@@ -62,11 +62,22 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		year: d.getFullYear(),
 	});
 
+	/**
+	 * Function that adds a zero infront of single digits
+	 * @param e date values
+	 * @returns
+	 */
+		const addZero = (e: any) => {
+		if (e < 10) {
+			return `0${e}`.toString();
+		} else return e.toString();
+	};
+
 	/** The object that will be created in backend */
 	const [logValue, setLogValue] = useState<ILogs>({
 		airFeeling: '',
 		airpressure: '',
-		date: `${logDate.year}${logDate.month}${logDate.day}`,
+		date: `${logDate.year}${addZero(logDate.month)}${logDate.day}`,
 		description: '',
 		humidity: '',
 		precipitation: '',
@@ -149,17 +160,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		});
 	};
 
-	/**
-	 * Function that adds a zero infront of single digits
-	 * @param e date values
-	 * @returns
-	 */
-	const addZero = (e: any) => {
-		if (e < 10) {
-			return `0${e}`.toString();
-		} else return e.toString();
-	};
-
 	const splitUpYearMonths = (e: ILogs[]) => {
 		let month: any = [];
 		for (let i = 0; i < e.length; i++) {
@@ -187,13 +187,13 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 			setNumberOfYears(years);
 		}
 	};
-
+	
 	const resetCreateLogForm = () => {
 		setLogValue({
 			...logValue,
 			airFeeling: '',
 			airpressure: '',
-			date: `${logDate.year}${logDate.month}${logDate.day}`,
+			date: `${logDate.year}${addZero(logDate.month)}${logDate.day}`,
 			description: '',
 			humidity: '',
 			precipitation: '',
@@ -203,7 +203,24 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 			windSpeed: '',
 			weather: '',
 		})
+		setLogDate({
+			day: d.getDate(),
+			month: d.getMonth() + 1,
+			year: d.getFullYear(),
+		});
 	}
+	
+	const resetAtLogout = () => {
+		resetCreateLogForm()
+	}	
+
+	useEffect(() => {
+		if(!isAuth) {
+			resetAtLogout()
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[isAuth])
+
 
 	/** Sets the data from logDate to logValue.date */
 	useEffect(() => {

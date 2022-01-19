@@ -152,7 +152,6 @@ const Diagram = () => {
 			) : (
 				<Grid container direction="column" className={classes.diagramContainer}>
 					<Grid container direction="row" className={classes.header}>
-						{console.log(logs)}
 						<Grid item container className={classes.titleContainer}>
 							<NavigateBackButton page="/" />
 							<Typography variant="h2" className={classes.pageTitle}>

@@ -155,6 +155,20 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 		},
 	};
 
+	const resetAtLogout = () => {
+		setViewUser({
+			firstName: '',
+			lastName: '',
+			city: '',
+		})
+	}
+
+	useEffect(() => {
+		if(!isAuth) {
+			resetAtLogout()
+		}
+	},[isAuth])
+
 	useEffect(() => {
 		if(!isAuth) return
 		fetch('/api/user', options.fetchUser)
