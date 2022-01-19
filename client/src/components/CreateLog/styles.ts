@@ -119,6 +119,22 @@ export default makeStyles((theme) => ({
 			width: 'unset',
 		},
 	},
+	buttonReset: {
+		padding: '8px 20px',
+		marginTop: 30,
+		marginLeft: '1rem',
+		width: 'fit-content',
+		color: theme.palette.common.black,
+		backgroundColor: 'white',
+		'&:hover': {
+			backgroundColor: 'white',
+		},
+		[theme.breakpoints.down(500)]: {
+			marginTop: 20,
+			marginBottom: 12,
+			width: 'unset',
+		},
+	},
 	subtitle: {
 		marginTop: 20,
 		fontSize: 20,

@@ -30,6 +30,7 @@ type Context = {
 	getLogUrl: (e: any) => void;
 	handleChange: (e: any) => void;
 	handleEditChange: (e: any) => void;
+	resetCreateLogForm: () => void;
 };
 
 export const LogsProvider: FunctionComponent = ({ children }) => {
@@ -187,6 +188,23 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		}
 	};
 
+	const resetCreateLogForm = () => {
+		setLogValue({
+			...logValue,
+			airFeeling: '',
+			airpressure: '',
+			date: `${logDate.year}${logDate.month}${logDate.day}`,
+			description: '',
+			humidity: '',
+			precipitation: '',
+			temperature: '',
+			user: '',
+			windDirection: '',
+			windSpeed: '',
+			weather: '',
+		})
+	}
+
 	/** Sets the data from logDate to logValue.date */
 	useEffect(() => {
 		setLogValue({
@@ -312,6 +330,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 				getLog,
 				getLogs,
 				getLogUrl,
+				resetCreateLogForm,
 				numberOfYears,
 				logs,
 				log,

@@ -46,6 +46,7 @@ export const LandingPage = () => {
 				return res.json();
 			})
 			.then((data) => {
+				if(data === undefined) return
 				setLogList(data);
 				setIsLoading(false);
 			})
