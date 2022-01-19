@@ -1,5 +1,6 @@
 import React, { useState, useContext, createContext, FunctionComponent, useEffect } from 'react'
 
+import { useAuthContext } from './auth'
 import { useLogsContext } from './logs';
 import { getDiagramColor } from '../utils/getDiagramColor';
 import { ILogs} from '../types/Logs'
@@ -17,6 +18,8 @@ type Context = {
 }
 
 export const DiagramProvider: FunctionComponent = ({ children }) => {
+
+    const { isAuth } = useAuthContext()
     
     const { historyMonths } = useLogsContext()
     const [diagramLogs, setDiagramLogs] =  useState<ILogs[]>([])
@@ -60,6 +63,14 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
     const splitDate = (date:ILogs, start:number, end:number) => {
         return date.date.substring(start, end)        
     }
+
+    useEffect(() => {
+        if(!isAuth) {
+            setDiagramData([])
+            setBackgroundcolor([])
+            setDiagramLabel([])
+        }
+    },[isAuth])
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
