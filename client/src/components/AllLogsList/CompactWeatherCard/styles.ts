@@ -23,7 +23,7 @@ export default makeStyles((theme) => ({
 		// },
 		// transition: '150ms ease-in-out',
 		// '&:hover': {
-		// 	transform: 'scale(1.01)',
+		// 	height: 65,
 		// },
 	},
 	tempBox: {

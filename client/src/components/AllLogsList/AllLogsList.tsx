@@ -1,6 +1,7 @@
-import { Grid, Typography } from '@material-ui/core';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Grid, Typography } from '@material-ui/core';
+
 import { useLogsContext } from 'src/context/logs';
 import getMonthName from 'src/utils/getMonthName';
 import { CompactWeatherCard } from './CompactWeatherCard';
@@ -70,6 +71,7 @@ export const AllLogsList = () => {
 					</Typography>
 				</Grid>
 			</Grid>
+			{/* <Pagination count={10} /> */}
 		</Grid>
 	);
 };
