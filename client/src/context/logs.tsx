@@ -189,6 +189,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 	};
 	
 	const resetCreateLogForm = () => {
+		setDayInMonth();
 		setLogValue({
 			...logValue,
 			airFeeling: '',
@@ -206,11 +207,14 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 	}
 	
 	const resetAtLogout = () => {
+		setDayInMonth();
 		resetCreateLogForm()
 	}	
 
 	useEffect(() => {
-		resetAtLogout()
+		if(!isAuth) {
+			resetAtLogout()
+		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[isAuth])
 

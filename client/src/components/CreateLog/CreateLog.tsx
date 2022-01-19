@@ -108,7 +108,6 @@ export const CreateLog = () => {
 			</MenuItem>
 		)
 	);
-	console.log(logDate)
 
 	const handleCreateLog = () => {
 		setErrors({

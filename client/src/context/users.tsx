@@ -164,7 +164,9 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 	}
 
 	useEffect(() => {
-		resetAtLogout()
+		if(!isAuth) {
+			resetAtLogout()
+		}
 	},[isAuth])
 
 	useEffect(() => {
