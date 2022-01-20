@@ -105,6 +105,10 @@ const Diagram = () => {
 		} return
 	}
 
+	const scrollToTop = () => {
+		window.scrollTo(0, 0)
+	}
+
 	/** Sends the params to the diagram api to fetch the data for month */
 	useEffect(() => {
 		setApiParam(id);
@@ -246,6 +250,7 @@ const Diagram = () => {
 									key={d._id}
 									to={`/log/${d.date}`}
 									className={classes.disableUnderline}
+									onClick={scrollToTop}
 								>
 									<WeatherCard
 										temp={parseInt(d.temperature)}
