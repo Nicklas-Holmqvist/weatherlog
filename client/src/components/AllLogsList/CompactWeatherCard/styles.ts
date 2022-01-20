@@ -62,22 +62,12 @@ export default makeStyles((theme) => ({
 		},
 	},
 	temp: {
-		// width: '20%',
-		// display: 'flex',
-		// justifyContent: 'center',
-		// textAlign: 'center',
 		position: 'absolute',
 		top: '50%',
 		transform: 'translateY(-50%)',
 		left: 320,
 		fontSize: 24,
 	},
-	// wind: {
-	// 	position: 'absolute',
-	// 	top: '50%',
-	// 	transform: 'translateY(-50%)',
-	// 	left: 440,
-	// },
 	iconContainer: {
 		position: 'absolute',
 		top: '50%',
@@ -113,61 +103,10 @@ export default makeStyles((theme) => ({
 		position: 'absolute',
 		top: '50%',
 		transform: 'translateY(-50%)',
-		right: 10,
+		right: 5,
 		padding: 8,
 	},
 	arrowIcon: {
 		color: theme.palette.common.black,
 	},
-	// arrowIcon: {
-	// 	width: 40,
-	// 	display: 'flex',
-	// 	alignContent: 'center',
-	// 	[theme.breakpoints.down(1281)]: {
-	// 		width: 32,
-	// 	},
-	// 	[theme.breakpoints.only('xs')]: {
-	// 		width: 26,
-	// 	},
-	// 	[theme.breakpoints.down(450)]: {
-	// 		width: 16,
-	// 	},
-	// },
-	// bigArrowIcon: {
-	// 	width: 40,
-	// 	display: 'flex',
-	// 	alignContent: 'center',
-	// 	[theme.breakpoints.down(1281)]: {
-	// 		width: 28,
-	// 	},
-	// 	[theme.breakpoints.down(450)]: {
-	// 		width: 24,
-	// 	},
-	// },
-	// wind: {
-	// 	display: 'flex',
-	// 	alignItems: 'flex-end',
-	// 	width: '20%',
-	// 	justifyContent: 'center',
-	// 	textAlign: 'center',
-	// },
-	// precipitation: {
-	// 	display: 'flex',
-	// 	alignItems: 'flex-end',
-	// 	width: '20%',
-	// 	justifyContent: 'center',
-	// 	textAlign: 'center',
-	// },
-	// unit: {
-	// 	color: theme.palette.grey[500],
-	// 	marginLeft: 8,
-	// 	[theme.breakpoints.down('sm')]: {
-	// 		fontSize: 22,
-	// 	},
-	// 	[theme.breakpoints.down(450)]: {
-	// 		marginLeft: 3,
-	// 		fontSize: 16,
-	// 		marginBottom: 4,
-	// 	},
-	// },
 }));

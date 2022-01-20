@@ -36,15 +36,26 @@ export default makeStyles((theme) => ({
 	},
 	showAllButton: {
 		textTransform: 'uppercase',
-		marginRight: 28,
+		marginRight: 16,
 		alignItems: 'center',
+	},
+	switch: {
+		'& .MuiSwitch-switchBase': {
+			'&.Mui-checked': {
+				color: '#7ba6e8',
+				'& + .MuiSwitch-track': {
+					backgroundColor: '#7ba6e8',
+				},
+			},
+		},
 	},
 	showAllButtonText: {
 		fontSize: '0.875rem',
+		marginTop: 2,
 	},
 	listIcon: {
 		marginLeft: 8,
-		marginBottom: 3,
+		marginBottom: 1,
 	},
 	tableHeader: {
 		margin: '20px 0 5px 0',

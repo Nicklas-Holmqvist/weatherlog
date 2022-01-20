@@ -38,6 +38,7 @@ export const LandingPage = () => {
 	const [history, setHistory] = useState<string[]>(historyMonths);
 	const [isLoading, setIsLoading] = useState<any>(true);
 	const [showAll, setShowAll] = useState(false);
+	const viewFromLS = localStorage.getItem('weatherlog-landing-page-list-view');
 
 	const pageTitle = showAll ? 'Dina inlägg' : 'Senaste dagarna';
 
@@ -45,6 +46,11 @@ export const LandingPage = () => {
 	useEffect(() => {
 		setHistory(historyMonths);
 	});
+
+	const handleToggleShowAll = (e: boolean) => {
+		setShowAll(e);
+		localStorage.setItem('weatherlog-landing-page-list-view', e.toString());
+	};
 
 	const getFiveLogs = async () => {
 		await fetch('/api/home', {
@@ -70,6 +76,14 @@ export const LandingPage = () => {
 		getFiveLogs();
 	}, [isLoading, history]);
 
+	useEffect(() => {
+		if (viewFromLS === 'true') {
+			setShowAll(true);
+		} else {
+			setShowAll(false);
+		}
+	}, []);
+
 	return (
 		<Grid item container className={classes.container}>
 			<Helmet>
@@ -81,40 +95,24 @@ export const LandingPage = () => {
 					{pageTitle}
 				</Typography>
 				<Grid item className={classes.buttonContainer}>
-					{/* <FormGroup>
-						<FormControlLabel
-							control={<Switch color="secondary" />}
-							label={`Visa alla`}
+					<Grid item container className={classes.showAllButton}>
+						<Switch
+							color="secondary"
+							onChange={() => handleToggleShowAll(!showAll)}
+							defaultChecked={viewFromLS === 'true'}
+							className={classes.switch}
 						/>
-					</FormGroup> */}
-					{mobile ? (
-						<IconButton className={classes.iconButton}>
-							<FormatListBulletedRounded />
-						</IconButton>
-					) : (
-						// <Button
-						// 	variant="text"
-						// 	endIcon={<FormatListBulletedRounded />}
-						// 	disableElevation
-						// 	// disabled={historyMonths.length < 1}
-						// 	className={`${classes.disableUnderline} ${classes.mr}`}
-						// >
-						// 	Visa alla
-						// </Button>
-						<Grid item container className={classes.showAllButton}>
-							<Switch color="secondary" onChange={() => setShowAll(!showAll)} />
-							<Typography
-								variant="subtitle2"
-								className={classes.showAllButtonText}
-							>
-								Visa alla
-							</Typography>
-							<FormatListBulletedRounded
-								fontSize="small"
-								className={classes.listIcon}
-							/>
-						</Grid>
-					)}
+						<Typography
+							variant="subtitle2"
+							className={classes.showAllButtonText}
+						>
+							Visa alla
+						</Typography>
+						<FormatListBulletedRounded
+							fontSize="small"
+							className={classes.listIcon}
+						/>
+					</Grid>
 					{historyMonths.length >= 1 && (
 						<Link
 							to={`/diagram/${history[0]}`}
