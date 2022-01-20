@@ -48,7 +48,7 @@ exports.createUser = async (req, res) => {
 	} else {
 		let errors = { email: '' };
 		errors.email = 'Denna email är redan registrerad';
-		res.status(400).json({ errors });
+		res.status(409).json({ errors });
 	}
 };
 

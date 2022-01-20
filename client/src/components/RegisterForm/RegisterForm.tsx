@@ -116,6 +116,7 @@ export const RegisterForm = () => {
 			const data = await res.json();
 
 			if (data.errors) {
+				console.log('Användaren finns redan!')
 				if (data.errors.email) {
 					setEmailError((oldstate) => ({
 						...oldstate,
