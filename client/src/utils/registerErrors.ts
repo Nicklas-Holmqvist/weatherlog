@@ -14,7 +14,7 @@ export const getEmailErrorText = (emailError: {
 	alreadyRegistered: boolean;
 }) => {
 	if (emailError.empty) return 'Vänligen fyll i fältet för email';
-	if (emailError.format) return 'Vänligen ange en korrekt email-adress';
+	if (emailError.format) return 'Vänligen ange en korrekt email-adress ex. namn@domän.se';
 	if (emailError.alreadyRegistered)
 		return 'Denna email finns redan registrerad';
 };
