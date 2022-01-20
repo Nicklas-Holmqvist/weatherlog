@@ -219,8 +219,8 @@ exports.deleteUser = async (req, res) => {
     }
     } else {
         let errors = { msg: '' }
-        errors.msg = 'No user exist!'        
-        res.status(400).json({ errors })
+        errors.msg = 'Ingen användare!'        
+        res.status(401).json({ errors })
     }
 }
 
