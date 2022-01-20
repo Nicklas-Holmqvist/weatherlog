@@ -10,7 +10,7 @@ exports.getLogs = async (req, res) => {
 			.populate('user');
 		res.status(200).json(logs);
 	} catch (error) {
-		res.status(503).json('No login');
+		res.status(401).json('Ingen inloggad!');
 	}
 };
 // Get all logs from api

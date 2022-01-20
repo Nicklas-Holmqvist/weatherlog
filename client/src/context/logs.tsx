@@ -266,7 +266,8 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 	const getLogs = async () => {
 		await fetch('/api/logs', options.fetchLogs)
 			.then((res) => {
-				if (res.status === 400) {
+				if (res.status === 401) {
+					console.log('Ingen inloggad!')
 					return;
 				}
 				return res.json();
