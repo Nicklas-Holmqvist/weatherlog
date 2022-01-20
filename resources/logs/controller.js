@@ -110,7 +110,7 @@ exports.createLog = async (req, res) => {
 		}
 	} else {
 		let errors = { msg: '' };
-		errors.msg = 'Date is already logged!';
+		errors.msg = 'Datumet finns redan!';
 		res.status(409).json({ errors });
 	}
 };
@@ -151,14 +151,14 @@ exports.changeLog = async (req, res) => {
 	if (getLog) {
 		try {
 			await LogModel.findByIdAndUpdate({ _id: log }, newLog);
-			res.status(200).json('Log has been updated!');
+			res.status(200).json('Logg har uppdaterats!');
 		} catch (error) {
 			res.status(400).json(error);
 		}
 	} else {
 		let errors = { msg: '' };
-		errors.msg = 'No log to update!';
-		res.status(400).json({ errors });
+		errors.msg = 'Ingen logg att uppdatera!';
+		res.status(404).json({ errors });
 	}
 };
 
