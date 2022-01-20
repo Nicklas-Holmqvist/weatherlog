@@ -141,7 +141,11 @@ export const Pagination = ({
 							);
 					  })}
 				{pageNumbers.length > pageNumbersInSegment && !isEndOfPagination && (
-					<Button className={classes.paginationButton}>...</Button>
+					<Button
+						className={`${classes.paginationButton} ${classes.threeDotsButton}`}
+					>
+						...
+					</Button>
 				)}
 				{pageNumbers.length > pageNumbersInSegment && !isEndOfPagination && (
 					<Button

@@ -64,4 +64,11 @@ export default makeStyles((theme) => ({
 		},
 		color: theme.palette.common.black,
 	},
+	threeDotsButton: {
+		'&:hover': {
+			backgroundColor: 'inherit',
+			cursor: 'unset',
+		},
+		pointerEvents: 'none',
+	},
 }));

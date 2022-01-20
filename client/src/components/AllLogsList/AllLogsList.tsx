@@ -25,8 +25,8 @@ export const AllLogsList = () => {
 
 	const indexOfLastLog = currentPage * logsPerPage;
 	const indexOfFirstLog = indexOfLastLog - logsPerPage;
-	const currentLogs = dummyLogs.slice(indexOfFirstLog, indexOfLastLog);
-	// const currentLogs = allLogs.slice(indexOfFirstLog, indexOfLastLog);
+	// const currentLogs = dummyLogs.slice(indexOfFirstLog, indexOfLastLog);
+	const currentLogs = allLogs.slice(indexOfFirstLog, indexOfLastLog);
 
 	const paginate = (pageNumber: number) => {
 		setCurrentPage(pageNumber);
@@ -52,7 +52,7 @@ export const AllLogsList = () => {
 								}}
 								temp={parseInt(log.temperature)}
 								weather={log.weather}
-								// key={log._id}
+								key={log._id}
 								index={index}
 							/>
 						</Link>
@@ -69,8 +69,8 @@ export const AllLogsList = () => {
 					>
 						<Typography variant="subtitle1">Totalt antal inlägg: </Typography>
 						<Typography variant="body1" className={classes.data}>
-							{dummyLogs.length}
-							{/* {allLogs.length} */}
+							{/* {dummyLogs.length} */}
+							{allLogs.length}
 						</Typography>
 					</Grid>
 					<Grid item container className={classes.statString}>
@@ -95,8 +95,8 @@ export const AllLogsList = () => {
 			</Grid>
 			<Pagination
 				logsPerPage={logsPerPage}
-				totalLogs={dummyLogs.length}
-				// totalLogs={allLogs.length}
+				// totalLogs={dummyLogs.length}
+				totalLogs={allLogs.length}
 				paginate={paginate}
 				currentPage={currentPage}
 			/>
