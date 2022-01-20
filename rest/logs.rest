@@ -5,11 +5,11 @@ GET http://localhost:5000/api/home/
 
 ###
 
-GET http://localhost:5000/api/log/20220115
+GET http://localhost:5000/api/log/20220120
 
 ###
 
-GET http://localhost:5000/api/diagram/202112
+GET http://localhost:5000/api/diagram/202201
 
 ###
 
@@ -20,7 +20,7 @@ Content-Type: application/json
     "airFeeling": "Skylig,",
     "airpressure": "1024",
     "description": "Vädret har varit växlande med lite regnskurar",
-    "date": "20220106",
+    "date": "2022001",
     "humidity": "64",
     "precipitation": "4",
     "temperature": "14",
@@ -31,14 +31,13 @@ Content-Type: application/json
 
 ### 
 
-PUT http://localhost:5000/api/logs/61d5ac69a1348da439dd133e
+PUT http://localhost:5000/api/logs/61e960d8b51fc5555c5c17c5
 Content-Type: application/json
 
 {
     "airFeeling": "Varmt",
     "airpressure": "950",
     "description": "Regnar hela dagen!",
-    "date": "211214",
     "humidity": "64",
     "precipitation": "4",
     "temperature": "14",
@@ -49,4 +48,4 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:5000/api/logs/61bc81a3393aa0444c06af83
+DELETE http://localhost:5000/api/logs/61e960cab51fc5555c5c17c1

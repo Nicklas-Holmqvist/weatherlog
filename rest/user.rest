@@ -6,7 +6,7 @@ POST http://localhost:5000/api/user/register
 Content-Type: application/json
 
 {
-    "email": "a@a.se",
+    "email": "o@o.se",
     "password": "123456"
 }
 
@@ -16,8 +16,8 @@ POST http://localhost:5000/api/user/login
 Content-Type: application/json
 
 {
-"email": "a@a.se",
- "password": "654321"
+"email": "o@o.se",
+ "password": "123123"
 }
 
 ###
@@ -28,7 +28,8 @@ Content-Type: application/json
 {
     "firstName": "Nils",
     "lastName": "Hansson",
-    "city": "Halmstad"
+    "city": "Halmstad",
+    "email": "o@o.se"
 }
 ###
 
@@ -36,8 +37,8 @@ PUT http://localhost:5000/api/user/changePassword
 Content-Type: application/json
 
 {
-    "oldPassword": "1236",
-    "newPassword": "1235"
+    "oldPassword": "123456",
+    "newPassword": "123123"
 }
 
 ###
