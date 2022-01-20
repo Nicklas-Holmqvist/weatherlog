@@ -19,8 +19,9 @@ export const SettingsUser = () => {
 	const classes = useStyles();
 
 	const handleChange = useUsersContext().handleChange;
+	const handleAfterChangedEmailSuccess = useUsersContext().handleAfterChangedEmailSuccess;
 	const editUser = useUsersContext().editUser;
-	const { user } = useUsersContext();
+	const { user, errorEmail } = useUsersContext();
 
 	const [showModal, setShowModal] = useState(false);
 	const [open, setOpen] = useState<boolean>(false)
@@ -100,8 +101,8 @@ export const SettingsUser = () => {
 			lastName: false,
 			city: false,
 			
-		})
-		if(inputTouched)setOpen(true)		
+		})		
+		if(!inputTouched)return
 		editUser()
 	}
 
@@ -121,6 +122,15 @@ export const SettingsUser = () => {
 			city: false,
 		})		
 	}
+
+	useEffect(() => {
+		if(errorEmail.success){
+			if(inputTouched){
+				setOpen(true)
+				handleAfterChangedEmailSuccess()
+			}
+		}
+	}, [errorEmail.success, handleAfterChangedEmailSuccess, inputTouched])
 
 	const action = (
 		<React.Fragment>
@@ -216,13 +226,20 @@ export const SettingsUser = () => {
 						<Typography variant="subtitle1">Email</Typography>
 						<TextField
 							fullWidth
-							disabled
+							error={errorEmail.boolean}
 							name="email"
 							value={user.email}
+							placeholder='Fyll i email'
+							helperText={errorEmail.msg}
 							variant="outlined"
 							margin="dense"
 							size="small"
+							onChange={(e) => {
+								setInputTouched(true)
+								handleChange(e)
+							}}
 							className={`${classes.textField} ${classes.marginTop}`}
+							required
 						/>
 					</Grid>
 				</Grid>
