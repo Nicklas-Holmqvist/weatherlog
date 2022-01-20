@@ -52,37 +52,6 @@ exports.createUser = async (req, res) => {
 	}
 };
 
-exports.addInfo = async (req, res) => {
-	const user = req.cookies.user
-
-    const { 
-        firstName,
-        lastName,
-        city
-    } = req.body
-
-    const getUser = await UserModel.findById(user);
-    
-    const newUser = {
-        firstName: firstName,
-		lastName: lastName,
-		city: city
-    }
-
-    if (getUser) {     
-        try {           
-			await UserModel.findByIdAndUpdate({ _id: user }, newUser)
-			res.status(200).json('Lagt till information')
-        } catch (error) {
-            res.status(400).json(error)
-    }
-    } else {
-        let errors = { msg: '' }        
-        errors.msg = 'Användaren finns inte!'        
-        res.status(400).json({ errors })
-    }
-}
-
 // Log in
 exports.login = async (req, res) => {
 	const { email, password } = req.body;

@@ -23,7 +23,6 @@ type Context = {
 	deleteUser: () => void;
 	changePassword: () => void;
 	addUser: () => void;
-	addUserInfo: () => void;
 	editUser: () => void;
 	handleChangePasswordSuccess: () => void;
 	handleAfterChangedEmailSuccess: () => void;
@@ -249,12 +248,6 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 		});
 	};
 
-	const addUserInfo = async () => {
-		await fetch('/api/user/addUserInfo', options.addUserInfo).catch((err) => {
-			console.error(err);
-		});
-	};
-
 	const editUser = async () => {
 		setViewUser({
 			...viewUser,
@@ -315,7 +308,6 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 				deleteUser,
 				changePassword,
 				addUser,
-				addUserInfo,
 				editUser,
 				handleChange,
 			}}

@@ -56,7 +56,7 @@ export const SettingsUser = () => {
 			}));
 			return
 		}
-		if (user.firstName === '' )  {
+		if (user.firstName === '')  {
 			setError((oldstate) => ({
 				...oldstate,
 				firstName: true,
@@ -67,7 +67,7 @@ export const SettingsUser = () => {
 			}));
 			return
 		}
-		if (user.lastName === '' && user.lastName === undefined)  {
+		if (user.lastName === undefined)  {
 			setError((oldstate) => ({
 				...oldstate,
 				lastName: true,
@@ -78,7 +78,29 @@ export const SettingsUser = () => {
 			}));
 			return
 		}
-		if (user.city === '' && user.city === undefined)  {
+		if (user.lastName === '')  {
+			setError((oldstate) => ({
+				...oldstate,
+				lastName: true,
+			}));
+			setErrorMessage((oldstate) => ({
+				...oldstate,
+				lastName: 'Fyll i efternamn',
+			}));
+			return
+		}
+		if (user.city === '')  {
+			setError((oldstate) => ({
+				...oldstate,
+				city: true,
+			}));
+			setErrorMessage((oldstate) => ({
+				...oldstate,
+				city: 'Fyll i registreringsort',
+			}));
+			return
+		}
+		if (user.city === undefined)  {
 			setError((oldstate) => ({
 				...oldstate,
 				city: true,

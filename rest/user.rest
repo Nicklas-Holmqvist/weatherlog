@@ -9,16 +9,6 @@ Content-Type: application/json
     "email": "a@a.se",
     "password": "123456"
 }
-###
-
-POST http://localhost:5000/api/user/addUserInfo
-Content-Type: application/json
-
-{
-    "firstName": "Hans",
-    "lastName": "Gustavsson",
-    "city": "Göteborg"
-}
 
 ###
 
