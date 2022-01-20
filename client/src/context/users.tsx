@@ -268,8 +268,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 					console.log('Emailen är redan registrerad!')
 				} return res.json();
 			})
-			.then((data) => {
-				console.log(data)				
+			.then((data) => {			
 				handleErrorChangeEmail(data);
 			})
 			.catch((err) => {
