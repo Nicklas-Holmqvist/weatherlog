@@ -69,6 +69,7 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
             setDiagramData([])
             setBackgroundcolor([])
             setDiagramLabel([])
+            setDiagramLogs([])
         }
     },[isAuth])
 
