@@ -145,7 +145,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 		setErrorMessage(emptyErrorMessage);
 		setError(emptyError);
 		setChangePasswordSuccess(false)
-		if (e.code === 400) {
+		if (e.code === 404) {
 			setError((oldstate) => ({
 				...oldstate,
 				oldPassword: true,
@@ -156,7 +156,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 			}));
 			return;
 		}
-		if (e.code === 401) {
+		if (e.code === 406 || e.code === 409) {
 			setError((oldstate) => ({
 				...oldstate,
 				newPassword: true,
@@ -274,9 +274,9 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 	const changePassword = async () => {
 		await fetch(`/api/user/changePassword`, options.changePassword)
 			.then((res) => {
-				if (res.status === 400) {
-					console.log('Lösenord ändrades inte');
-				}
+				if (res.status === 404) console.log('Gamla lösenordet stämmer inte')
+				if (res.status === 406) console.log('Lösenordet måste vara minst 6 tecken')
+				if (res.status === 409) console.log('Du kan inte använda samma lösenord')
 				return res.json();
 			})
 			.then((data) => {

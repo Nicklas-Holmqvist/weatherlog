@@ -165,16 +165,16 @@ exports.changePassword = async (req, res) => {
         if (newPassword.length < 6) {
 			errors.msg = 'Lösenordet måste vara minst 6 tecken'   
             errors.boolean = true   
-            errors.code = 401   
-            res.status(400).json(errors)
+            errors.code = 406   
+            res.status(406).json(errors)
 			return;
 		}
         
         if(compareNew) {
             errors.msg = 'Du kan inte använda samma lösenord'   
             errors.boolean = true   
-            errors.code = 401   
-            res.status(400).json(errors)
+            errors.code = 409   
+            res.status(409).json(errors)
             return
         }      
         try {           
@@ -190,8 +190,8 @@ exports.changePassword = async (req, res) => {
     } else {     
         errors.msg = 'Gamla lösenordet stämmer inte'   
         errors.boolean = true       
-        errors.code = 400   
-        res.status(400).json(errors)
+        errors.code = 404   
+        res.status(404).json(errors)
     }
 }
 
