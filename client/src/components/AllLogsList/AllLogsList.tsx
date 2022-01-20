@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Typography } from '@material-ui/core';
 
@@ -7,23 +7,35 @@ import getMonthName from 'src/utils/getMonthName';
 import { CompactWeatherCard } from './CompactWeatherCard';
 
 import useStyles from './styles';
+import { Pagination } from './Pagination';
 
 export const AllLogsList = () => {
 	const classes = useStyles();
 	const getLogs = useLogsContext().getLogs;
 	const allLogs = useLogsContext().logs;
 
+	// const [logs, setLogs] = useState([]);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [logsPerPage] = useState(10);
+
 	useEffect(() => {
 		getLogs();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	console.log(allLogs);
+	const indexOfLastLog = currentPage * logsPerPage;
+	const indexOfFirstLog = indexOfLastLog - logsPerPage;
+	const currentLogs = allLogs.slice(indexOfFirstLog, indexOfLastLog);
+
+	const paginate = (pageNumber: number) => {
+		setCurrentPage(pageNumber);
+		// console.log(pageNumber);
+	};
 
 	return (
 		<Grid item container direction="column" className={classes.root}>
 			<Grid item container direction="column" className={classes.logs}>
-				{allLogs.map((log) => (
+				{currentLogs.map((log, index) => (
 					<Link to={`/log/${log.date}`} className={classes.disableUnderline}>
 						<CompactWeatherCard
 							date={{
@@ -34,6 +46,7 @@ export const AllLogsList = () => {
 							temp={parseInt(log.temperature)}
 							weather={log.weather}
 							key={log._id}
+							index={index}
 						/>
 					</Link>
 				))}
@@ -49,7 +62,7 @@ export const AllLogsList = () => {
 				>
 					<Typography variant="subtitle1">Totalt antal inlägg: </Typography>
 					<Typography variant="body1" className={classes.data}>
-						25
+						{allLogs.length}
 					</Typography>
 				</Grid>
 				<Grid item container className={classes.statString}>
@@ -71,7 +84,12 @@ export const AllLogsList = () => {
 					</Typography>
 				</Grid>
 			</Grid>
-			{/* <Pagination count={10} /> */}
+			<Pagination
+				logsPerPage={logsPerPage}
+				totalLogs={allLogs.length}
+				paginate={paginate}
+				currentPage={currentPage}
+			/>
 		</Grid>
 	);
 };

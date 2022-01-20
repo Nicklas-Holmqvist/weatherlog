@@ -24,12 +24,14 @@ interface ICompactWeatherCard {
 		year: string;
 	};
 	weather: string;
+	index: number;
 }
 
 export const CompactWeatherCard = ({
 	temp,
 	date: { day, month, year },
 	weather,
+	index,
 }: ICompactWeatherCard) => {
 	const classes = useStyles();
 	const mobile = useMediaQuery(theme.breakpoints.down(540));
@@ -38,7 +40,11 @@ export const CompactWeatherCard = ({
 	const tempString = `${temp}°C`;
 
 	return (
-		<Grid item container className={classes.container}>
+		<Grid
+			item
+			container
+			className={index === 0 ? classes.firstCardContainer : classes.container}
+		>
 			<Grid
 				className={classes.tempBox}
 				style={{ backgroundColor: getTempColor(temp)! }}

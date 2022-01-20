@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
 	container: {
 		width: '100%',
-		height: 60,
-		minHeight: 60,
+		height: 52,
+		minHeight: 52,
 		backgroundColor: '#f2f2f2',
 		borderRadius: 6,
 		alignItems: 'center',
@@ -13,18 +13,20 @@ export default makeStyles((theme) => ({
 		marginBottom: 8,
 		marginRight: 4,
 		cursor: 'pointer',
-		// [theme.breakpoints.down('sm')]: {
-		// 	height: 80,
-		// 	borderRadius: 8,
-		// },
-		// [theme.breakpoints.down(450)]: {
-		// 	height: 60,
-		// 	borderRadius: 6,
-		// },
-		// transition: '150ms ease-in-out',
-		// '&:hover': {
-		// 	height: 65,
-		// },
+	},
+	firstCardContainer: {
+		marginTop: 6,
+		width: '100%',
+		height: 52,
+		minHeight: 52,
+		backgroundColor: '#f2f2f2',
+		borderRadius: 6,
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		position: 'relative',
+		marginBottom: 8,
+		marginRight: 4,
+		cursor: 'pointer',
 	},
 	tempBox: {
 		height: '100%',
@@ -67,15 +69,15 @@ export default makeStyles((theme) => ({
 		position: 'absolute',
 		top: '50%',
 		transform: 'translateY(-50%)',
-		left: 340,
+		left: 320,
 		fontSize: 24,
 	},
-	wind: {
-		position: 'absolute',
-		top: '50%',
-		transform: 'translateY(-50%)',
-		left: 440,
-	},
+	// wind: {
+	// 	position: 'absolute',
+	// 	top: '50%',
+	// 	transform: 'translateY(-50%)',
+	// 	left: 440,
+	// },
 	iconContainer: {
 		position: 'absolute',
 		top: '50%',

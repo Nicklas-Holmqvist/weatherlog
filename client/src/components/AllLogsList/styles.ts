@@ -6,7 +6,8 @@ export default makeStyles((theme) => ({
 		display: 'grid',
 		gridTemplateColumns: '3fr 2fr',
 		columnGap: 20,
-		maxHeight: 630,
+		minHeight: 630,
+		// maxHeight: 630,
 	},
 	logs: {
 		height: '100%',
@@ -31,11 +32,13 @@ export default makeStyles((theme) => ({
 		},
 	},
 	stats: {
-		height: '100%',
+		// height: 'calc(100% - 6px)',
+		height: 630,
 		width: '100%',
 		backgroundColor: '#f2f2f2',
 		borderRadius: 16,
 		padding: '30px 20px',
+		marginTop: 6,
 	},
 	marginBottom: {
 		marginBottom: 12,
