@@ -32,13 +32,13 @@ export default makeStyles((theme) => ({
 		},
 	},
 	stats: {
-		// height: 'calc(100% - 6px)',
 		height: 630,
 		width: '100%',
 		backgroundColor: '#f2f2f2',
 		borderRadius: 16,
 		padding: '30px 20px',
 		marginTop: 6,
+		marginBottom: 6,
 	},
 	marginBottom: {
 		marginBottom: 12,

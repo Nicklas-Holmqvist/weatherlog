@@ -6,8 +6,6 @@ import {
 	Switch,
 	Typography,
 	useMediaQuery,
-	FormControlLabel,
-	FormGroup,
 } from '@material-ui/core';
 import {
 	AddRounded,

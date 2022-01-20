@@ -7,7 +7,6 @@ export default makeStyles((theme) => ({
 	},
 	paginationButton: {
 		padding: 0,
-		// height: 40,
 		border: 'none',
 		borderRadius: 100,
 		'&.MuiButtonGroup-groupedHorizontal:not(:last-child)': {
@@ -26,7 +25,6 @@ export default makeStyles((theme) => ({
 	},
 	activePage: {
 		padding: 0,
-		// height: 40,
 		backgroundColor: theme.palette.grey[800],
 		color: theme.palette.common.white,
 		border: 'none',

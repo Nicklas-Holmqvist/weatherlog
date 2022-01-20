@@ -62,22 +62,6 @@ export const CompactWeatherCard = ({
 				<Grid item className={classes.iconContainer}>
 					{GetWeatherIcon(weather, 'small')}
 				</Grid>
-				{/* {speed ? (
-					<Grid item className={classes.wind}>
-						<Typography variant="body1">{windSpeedString}</Typography>
-					</Grid>
-				) : direction ? (
-					<Grid item className={classes.wind}>
-						{GetWindDirection(direction, 'small')}
-					</Grid>
-				) : (
-					<Grid item className={classes.wind}>
-						<Typography variant="body1">-</Typography>
-					</Grid>
-				)} */}
-				{/* <Typography variant="body1">
-					{speed || GetWindDirection(direction, 'small')}
-				</Typography> */}
 				<Typography variant="body1"></Typography>
 			</Grid>
 			<Button
