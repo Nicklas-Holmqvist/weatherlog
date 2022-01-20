@@ -57,7 +57,7 @@ const Diagram = () => {
 	const smallScreen = useMediaQuery(theme.breakpoints.down(800));
 	const { id }: any = useParams();
 
-	const [listView, setListView] = useState<boolean>(true)
+	const [listView, setListView] = useState<boolean>(false)
 
 	const setApiParam = useDiagramsContext().getDiagramUrl;
 	const {
@@ -96,8 +96,13 @@ const Diagram = () => {
 	};
 
 	const changeListView = (e:boolean) => {
-		if(!listView) setListView(e)
-		else setListView(e)
+		if(!listView){
+			setListView(e)
+			localStorage.setItem('historyView', e.toString())
+		}else {
+			setListView(e)
+			localStorage.setItem('historyView', e.toString())
+		} return
 	}
 
 	/** Sends the params to the diagram api to fetch the data for month */
@@ -114,6 +119,12 @@ const Diagram = () => {
 		setColor(diagramBackgroundcolor);
 		setLogs(diagramLogs)
 	});
+
+	useEffect(() => {
+		const listView = localStorage.getItem('historyView')
+		if(listView === 'false') setListView(false)
+		else setListView(true)
+	},[])
 
 	/** Options for the diagram */
 	const options = {
@@ -229,7 +240,6 @@ const Diagram = () => {
 							<Line options={options} data={data} />
 						</Grid>
 						:
-
 						<Grid item container direction="column" className={classes.diagram}>
 							{logs.map((d: ILogs) => (
 								<Link
