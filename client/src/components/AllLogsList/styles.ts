@@ -5,9 +5,9 @@ export default makeStyles((theme) => ({
 		marginTop: 30,
 		display: 'grid',
 		gridTemplateColumns: '3fr 2fr',
-		columnGap: 20,
+		columnGap: 14,
 		minHeight: 630,
-		// maxHeight: 630,
+		maxHeight: 630,
 	},
 	logs: {
 		height: '100%',
