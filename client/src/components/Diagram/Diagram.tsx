@@ -13,6 +13,8 @@ import {
 	AddRounded,
 	ArrowBackRounded,
 	ArrowForwardRounded,
+	ShowChartRounded,
+	List
 } from '@material-ui/icons';
 import { Line } from 'react-chartjs-2';
 
@@ -55,6 +57,8 @@ const Diagram = () => {
 	const smallScreen = useMediaQuery(theme.breakpoints.down(800));
 	const { id }: any = useParams();
 
+	const [listView, setListView] = useState<boolean>(true)
+
 	const setApiParam = useDiagramsContext().getDiagramUrl;
 	const {
 		diagramLogs,
@@ -90,6 +94,11 @@ const Diagram = () => {
 		if (findOld !== -1)
 			return navigate(`/diagram/${diagramMonth[findOld + 1]}`);
 	};
+
+	const changeListView = (e:boolean) => {
+		if(!listView) setListView(e)
+		else setListView(e)
+	}
 
 	/** Sends the params to the diagram api to fetch the data for month */
 	useEffect(() => {
@@ -151,7 +160,7 @@ const Diagram = () => {
 			{findMonth === undefined ? (
 				<ErrorPage />
 			) : (
-				<>				
+				<>	
 					<Grid container direction="column" className={classes.diagramContainer}>
 						<Grid container direction="row" className={classes.header}>
 							<Grid item container className={classes.titleContainer}>
@@ -205,32 +214,46 @@ const Diagram = () => {
 								/>
 							</IconButton>
 						</Grid>
+						<Grid container direction='row' className={classes.diagramViewOptions}>
+							<Typography align='right' className={classes.diagramViewOptionText}>Listvy:</Typography>
+							<IconButton onClick={()=> changeListView(false)}>
+								<ShowChartRounded />
+							</IconButton>
+							<IconButton onClick={()=> changeListView(true)}>
+								<List />
+							</IconButton>
+						</Grid>
+						{!listView 
+						?
 						<Grid container className={classes.diagram}>
 							<Line options={options} data={data} />
 						</Grid>
-					</Grid>
-					<Grid item container direction="column" className={classes.diagramContainer}>
-						{logs.map((d: ILogs) => (
-							<Link
-								key={d._id}
-								to={`/log/${d.date}`}
-								className={classes.disableUnderline}
-							>
-								<WeatherCard
-									temp={parseInt(d.temperature)}
-								date={{
-									day: d.date.substring(6, 8).toString(),
-									month: month,
-								}}
-								weather={d.weather.toString()}
-								wind={{
-									speed: d.windSpeed.toString(),
-									direction: d.windDirection.toString(),
-								}}
-								precipitation={Number(d.precipitation)}
-							/>
-						</Link>
-					))}
+						:
+
+						<Grid item container direction="column" className={classes.diagram}>
+							{logs.map((d: ILogs) => (
+								<Link
+									key={d._id}
+									to={`/log/${d.date}`}
+									className={classes.disableUnderline}
+								>
+									<WeatherCard
+										temp={parseInt(d.temperature)}
+									date={{
+										day: d.date.substring(6, 8).toString(),
+										month: month,
+									}}
+									weather={d.weather.toString()}
+									wind={{
+										speed: d.windSpeed.toString(),
+										direction: d.windDirection.toString(),
+									}}
+									precipitation={Number(d.precipitation)}
+								/>
+							</Link>
+						))}
+						</Grid>
+						}
 					</Grid>
 				</>
 			)}

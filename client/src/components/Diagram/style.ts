@@ -75,11 +75,23 @@ export default makeStyles((theme) => ({
 	diagram: {
 		width: '100%',
 		paddingTop: '0.5rem',
+		paddingBottom: '1.5rem'
 	},
 	disableUnderline: {
 		textDecoration: 'none',
 	},
 	mr: {
 		marginRight: 10,
+	},
+	diagramViewOptions: {
+		width: '100%',
+		display: 'flex',
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+		padding: '0.5rem 0'
+	},
+	diagramViewOptionText: {
+		paddingRight: '0.5rem',
+		paddingBottom: '0.2rem'
 	},
 }));
