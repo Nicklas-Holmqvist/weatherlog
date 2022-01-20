@@ -74,7 +74,7 @@ exports.login = async (req, res) => {
 		if (err.message === 'incorrect password') {
 			errors.password = 'Fel lösenord';
 		}
-		res.status(400).json({ errors });
+		res.status(401).json({ errors });
 	}
 };
 
