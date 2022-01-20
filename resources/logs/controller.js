@@ -39,12 +39,12 @@ exports.getLog = async (req, res) => {
 		try {
 			res.status(200).json(logs);
 		} catch (error) {
-			res.status(503).json('No login');
+			res.status(401).json('Ingen inloggning!');
 		}
 	} else {
 		let errors = { msg: '' };
-		errors.msg = 'No login!';
-		res.status(400).json({ errors });
+		errors.msg = 'Ingen inloggning!';
+		res.status(401).json({ errors });
 	}
 };
 
