@@ -258,11 +258,12 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 		})
 		await fetch(`/api/user/edit`, options.editUser)
 			.then((res) => {
-				if (res.status === 401) {
-					console.log('Emailen är redan registrerad!')
-				} return res.json();
+				if(res.status === 401) console.log('Emailen har fel format ex. namne@domän.se')
+				if(res.status === 409) console.log('Emailen finns redan registrerad!')
+				else return res.json();
 			})
-			.then((data) => {			
+			.then((data) => {		
+				if(data === undefined) return	
 				handleErrorChangeEmail(data);
 			})
 			.catch((err) => {

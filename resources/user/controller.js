@@ -134,7 +134,7 @@ exports.editUser = async (req, res) => {
         errors.boolean = true       
         errors.code = 401   
         errors.success = false
-        res.status(401).json(errors)
+        res.status(409).json(errors)
     }
 }
 
