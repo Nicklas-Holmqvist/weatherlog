@@ -46,7 +46,7 @@ export const RegisterForm = () => {
 		notMatching: false,
 	});
 
-	const formData = { email: user.email, password: user.password };
+	const formData = { email: user.email.toLowerCase(), password: user.password };
 
 	const handleCreateAccount = () => {
 		setEmailError({ empty: false, format: false, alreadyRegistered: false });
@@ -57,19 +57,14 @@ export const RegisterForm = () => {
 			notMatching: false,
 		});
 
-		if (user.email === '') {
-			setEmailError((oldstate) => ({
-				...oldstate,
-				empty: true,
-			}));
-			return;
-		}
-		if (!user.email.includes('@' && '.')) {
+		const regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+
+		if(!user.email.match(regexEmail)){
 			setEmailError((oldstate) => ({
 				...oldstate,
 				format: true,
 			}));
-			return;
+			return
 		}
 
 		if (user.password === '') {
@@ -121,6 +116,7 @@ export const RegisterForm = () => {
 			const data = await res.json();
 
 			if (data.errors) {
+				console.log('Användaren finns redan!')
 				if (data.errors.email) {
 					setEmailError((oldstate) => ({
 						...oldstate,

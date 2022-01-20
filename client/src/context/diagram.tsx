@@ -69,6 +69,7 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
             setDiagramData([])
             setBackgroundcolor([])
             setDiagramLabel([])
+            setDiagramLogs([])
         }
     },[isAuth])
 
@@ -86,7 +87,8 @@ export const DiagramProvider: FunctionComponent = ({ children }) => {
 
         await fetch(`/api/diagram/${e}`, {method: 'get'})
             .then(function (res) {
-                if (res.status === 400) {
+                if (res.status === 401) {
+                    console.log('Ingen inloggning!')
                     return;
                 }
                 return res.json();

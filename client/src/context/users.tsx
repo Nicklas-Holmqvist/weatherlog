@@ -23,7 +23,6 @@ type Context = {
 	deleteUser: () => void;
 	changePassword: () => void;
 	addUser: () => void;
-	addUserInfo: () => void;
 	editUser: () => void;
 	handleChangePasswordSuccess: () => void;
 	handleAfterChangedEmailSuccess: () => void;
@@ -146,7 +145,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 		setErrorMessage(emptyErrorMessage);
 		setError(emptyError);
 		setChangePasswordSuccess(false)
-		if (e.code === 400) {
+		if (e.code === 404) {
 			setError((oldstate) => ({
 				...oldstate,
 				oldPassword: true,
@@ -157,7 +156,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 			}));
 			return;
 		}
-		if (e.code === 401) {
+		if (e.code === 406 || e.code === 409) {
 			setError((oldstate) => ({
 				...oldstate,
 				newPassword: true,
@@ -217,7 +216,8 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 		if(!isAuth) return
 		fetch('/api/user', options.fetchUser)
 			.then((res) => {
-				if (res.status === 400) {
+				if (res.status === 401) {
+					console.log('Ingen inloggning!')
 					return;
 				}
 				return res.json();
@@ -248,12 +248,6 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 		});
 	};
 
-	const addUserInfo = async () => {
-		await fetch('/api/user/addUserInfo', options.addUserInfo).catch((err) => {
-			console.error(err);
-		});
-	};
-
 	const editUser = async () => {
 		setViewUser({
 			...viewUser,
@@ -264,11 +258,12 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 		})
 		await fetch(`/api/user/edit`, options.editUser)
 			.then((res) => {
-				if (res.status === 401) {
-					console.log('Emailen är redan registrerad!')
-				} return res.json();
+				if(res.status === 401) console.log('Emailen har fel format ex. namne@domän.se')
+				if(res.status === 409) console.log('Emailen finns redan registrerad!')
+				else return res.json();
 			})
-			.then((data) => {			
+			.then((data) => {		
+				if(data === undefined) return	
 				handleErrorChangeEmail(data);
 			})
 			.catch((err) => {
@@ -279,9 +274,9 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 	const changePassword = async () => {
 		await fetch(`/api/user/changePassword`, options.changePassword)
 			.then((res) => {
-				if (res.status === 400) {
-					console.log('Lösenord ändrades inte');
-				}
+				if (res.status === 404) console.log('Gamla lösenordet stämmer inte')
+				if (res.status === 406) console.log('Lösenordet måste vara minst 6 tecken')
+				if (res.status === 409) console.log('Du kan inte använda samma lösenord')
 				return res.json();
 			})
 			.then((data) => {
@@ -314,7 +309,6 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 				deleteUser,
 				changePassword,
 				addUser,
-				addUserInfo,
 				editUser,
 				handleChange,
 			}}

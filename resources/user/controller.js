@@ -17,7 +17,7 @@ exports.getUsers = async (req, res) => {
         }
 		res.status(200).json(exportUser);
 	} catch (error) {
-		res.status(503).json('No database connection');
+		res.status(401).json('Ingen inloggning!');
 	}
 };
 
@@ -48,40 +48,9 @@ exports.createUser = async (req, res) => {
 	} else {
 		let errors = { email: '' };
 		errors.email = 'Denna email är redan registrerad';
-		res.status(400).json({ errors });
+		res.status(409).json({ errors });
 	}
 };
-
-exports.addInfo = async (req, res) => {
-	const user = req.cookies.user
-
-    const { 
-        firstName,
-        lastName,
-        city
-    } = req.body
-
-    const getUser = await UserModel.findById(user);
-    
-    const newUser = {
-        firstName: firstName,
-		lastName: lastName,
-		city: city
-    }
-
-    if (getUser) {     
-        try {           
-			await UserModel.findByIdAndUpdate({ _id: user }, newUser)
-			res.status(200).json('Lagt till information')
-        } catch (error) {
-            res.status(400).json(error)
-    }
-    } else {
-        let errors = { msg: '' }        
-        errors.msg = 'Användaren finns inte!'        
-        res.status(400).json({ errors })
-    }
-}
 
 // Log in
 exports.login = async (req, res) => {
@@ -105,7 +74,7 @@ exports.login = async (req, res) => {
 		if (err.message === 'incorrect password') {
 			errors.password = 'Fel lösenord';
 		}
-		res.status(400).json({ errors });
+		res.status(401).json({ errors });
 	}
 };
 
@@ -165,7 +134,7 @@ exports.editUser = async (req, res) => {
         errors.boolean = true       
         errors.code = 401   
         errors.success = false
-        res.status(401).json(errors)
+        res.status(409).json(errors)
     }
 }
 
@@ -196,16 +165,16 @@ exports.changePassword = async (req, res) => {
         if (newPassword.length < 6) {
 			errors.msg = 'Lösenordet måste vara minst 6 tecken'   
             errors.boolean = true   
-            errors.code = 401   
-            res.status(400).json(errors)
+            errors.code = 406   
+            res.status(406).json(errors)
 			return;
 		}
         
         if(compareNew) {
             errors.msg = 'Du kan inte använda samma lösenord'   
             errors.boolean = true   
-            errors.code = 401   
-            res.status(400).json(errors)
+            errors.code = 409   
+            res.status(409).json(errors)
             return
         }      
         try {           
@@ -221,8 +190,8 @@ exports.changePassword = async (req, res) => {
     } else {     
         errors.msg = 'Gamla lösenordet stämmer inte'   
         errors.boolean = true       
-        errors.code = 400   
-        res.status(400).json(errors)
+        errors.code = 404   
+        res.status(404).json(errors)
     }
 }
 
@@ -250,8 +219,8 @@ exports.deleteUser = async (req, res) => {
     }
     } else {
         let errors = { msg: '' }
-        errors.msg = 'No user exist!'        
-        res.status(400).json({ errors })
+        errors.msg = 'Ingen användare!'        
+        res.status(401).json({ errors })
     }
 }
 

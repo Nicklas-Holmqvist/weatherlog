@@ -40,7 +40,8 @@ export const LandingPage = () => {
 			method: 'get',
 		})
 			.then((res) => {
-				if (res.status === 400) {
+				if (res.status === 401) {
+					console.log('Ingen inloggning')
 					return;
 				}
 				return res.json();
