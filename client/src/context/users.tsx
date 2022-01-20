@@ -99,6 +99,25 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 	};
 
 	/** Handle incoming errors from ChangePassword API */
+	// const handleErrorChangeEmail = (e: IUsers) => {
+	// 	setErrorMessage(emptyErrorMessage);
+	// 	setError(emptyError);
+	// 	setChangePasswordSuccess(false)
+	// 	if (e.code === 400) {
+	// 		setError((oldstate) => ({
+	// 			...oldstate,
+	// 			oldPassword: true,
+	// 		}));
+	// 		setErrorMessage((oldstate) => ({
+	// 			...oldstate,
+	// 			oldPassword: e.msg.toString(),
+	// 		}));
+	// 		return;
+	// 	}		
+	// 	setChangePasswordSuccess(true)
+	// };
+
+	/** Handle incoming errors from ChangePassword API */
 	const handleErrorChangePassword = (e: IChangePassword) => {
 		setErrorMessage(emptyErrorMessage);
 		setError(emptyError);
@@ -214,13 +233,24 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 	const editUser = async () => {
 		setViewUser({
 			...viewUser,
+			email: user.email,
 			firstName: user.firstName,
 			lastName: user.lastName,
 			city: user.city,
 		})
-		await fetch(`/api/user/edit`, options.editUser).catch((err) => {
-			console.error(err);
-		});
+		await fetch(`/api/user/edit`, options.editUser)
+			.then((res) => {
+				if (res.status === 401) {
+					console.log('Emailen är redan registrerad!')
+				} return res.json();
+			})
+			.then((data) => {
+				console.log(data)
+				// handleErrorChangeEmail(data);
+			})
+			.catch((err) => {
+				console.error(err);
+			});
 	};
 
 	const changePassword = async () => {

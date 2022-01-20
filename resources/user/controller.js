@@ -113,30 +113,47 @@ exports.editUser = async (req, res) => {
     const user = req.cookies.user
     
     const { 
+        email,
         firstName,
         lastName,
         city,
     } = req.body
     
-    const getUser = await UserModel.findById(user);
-   
+    
     const newUser = {
+        email: email,
         firstName: firstName,
 		lastName: lastName,
 		city: city,
     }
 
-    if (getUser) {             
+    let errors = { 
+        msg: '',
+        boolean: false,
+        code:'',
+        success: false 
+    }   
+
+    const getUser = await UserModel.findById(user);
+    const validEmailChange = await UserModel.find({_id: {$ne: user}}).findOne({email: email})
+
+    if (getUser && validEmailChange === null) { 
         try {           
+            errors.msg = 'Emailen har uppdaterats'   
+            errors.boolean = false       
+            errors.code = 200 
+            errors.success = true
 			await UserModel.findByIdAndUpdate({ _id: user }, newUser)
-			res.status(200).json('Uppdaterat')
+			res.status(200).json(errors)
         } catch (error) {
             res.status(400).json(error)
     }
     } else {
-        let errors = { errorMessage: '' }        
-        errors.errorMessage = 'The user does not exist'        
-        res.status(400).json({ errors })
+        errors.msg = 'Emailen finns redan registrerad!'   
+        errors.boolean = true       
+        errors.code = 401   
+        errors.success = false
+        res.status(401).json(errors)
     }
 }
 
