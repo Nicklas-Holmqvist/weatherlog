@@ -176,7 +176,7 @@ exports.deleteLog = async (req, res) => {
 		}
 	} else {
 		let errors = { msg: '' };
-		errors.msg = 'No log to delete';
-		res.status(400).json({ errors });
+		errors.msg = 'Ingen logg att ta bort';
+		res.status(404).json({ errors });
 	}
 };
