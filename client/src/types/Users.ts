@@ -11,8 +11,9 @@ export interface IPassword {
 	newPassword: string
 }
 
-export interface IChangePassword {
+export interface IChangeErrors {
 	msg: string,
 	boolean: boolean,
-	code: number
+	code?: number
+	success?: boolean
 }

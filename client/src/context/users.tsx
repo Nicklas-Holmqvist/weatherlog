@@ -6,13 +6,14 @@ import React, {
 	useEffect,
 } from 'react';
 
-import { IUsers, IPassword, IChangePassword } from '../types/Users';
+import { IUsers, IPassword, IChangeErrors } from '../types/Users';
 
 import { useAuthContext } from './auth'
 
 export const UsersContext = createContext<Context>(undefined!);
 
 type Context = {
+	errorEmail: IChangeErrors
 	user: IUsers;
 	viewUser: IUsers;
 	password: IPassword;
@@ -25,6 +26,7 @@ type Context = {
 	addUserInfo: () => void;
 	editUser: () => void;
 	handleChangePasswordSuccess: () => void;
+	handleAfterChangedEmailSuccess: () => void;
 	handleChange: (e: any) => void;
 };
 
@@ -44,6 +46,12 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 	const emptyError = {
 		oldPassword: false,
 		newPassword: false,
+	};
+
+	const emptyErrorEmail = {
+		msg: '',
+		boolean: true,
+		success: false,
 	};
 
 	const [user, setUser] = useState<IUsers>({
@@ -73,8 +81,21 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 		newPassword: false,
 	});
 
+	const [errorEmail, setErrorEmail] = useState({
+		msg: '',
+		boolean: true,
+		success: false,
+	});
+
 	const handleChangePasswordSuccess = () => {
 		setChangePasswordSuccess(false)
+	}
+
+	const handleAfterChangedEmailSuccess = () => {
+		setErrorEmail((oldstate) => ({
+			...oldstate,
+			success: false
+		}));
 	}
 
 	/**
@@ -99,26 +120,29 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 	};
 
 	/** Handle incoming errors from ChangePassword API */
-	// const handleErrorChangeEmail = (e: IUsers) => {
-	// 	setErrorMessage(emptyErrorMessage);
-	// 	setError(emptyError);
-	// 	setChangePasswordSuccess(false)
-	// 	if (e.code === 400) {
-	// 		setError((oldstate) => ({
-	// 			...oldstate,
-	// 			oldPassword: true,
-	// 		}));
-	// 		setErrorMessage((oldstate) => ({
-	// 			...oldstate,
-	// 			oldPassword: e.msg.toString(),
-	// 		}));
-	// 		return;
-	// 	}		
-	// 	setChangePasswordSuccess(true)
-	// };
+	const handleErrorChangeEmail = (e: IChangeErrors) => {
+		setErrorEmail(emptyErrorEmail);
+		if (e.code === 401) {
+			setErrorEmail((oldstate) => ({
+				...oldstate,
+				boolean: true,
+				msg: e.msg.toString(),
+				success: false
+			}));
+			return;
+		} else {
+			setErrorEmail((oldstate) => ({
+				...oldstate,
+				boolean: false,
+				msg: '',
+				success: true
+			}));
+		}	
+		return
+	};
 
 	/** Handle incoming errors from ChangePassword API */
-	const handleErrorChangePassword = (e: IChangePassword) => {
+	const handleErrorChangePassword = (e: IChangeErrors) => {
 		setErrorMessage(emptyErrorMessage);
 		setError(emptyError);
 		setChangePasswordSuccess(false)
@@ -245,8 +269,8 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 				} return res.json();
 			})
 			.then((data) => {
-				console.log(data)
-				// handleErrorChangeEmail(data);
+				console.log(data)				
+				handleErrorChangeEmail(data);
 			})
 			.catch((err) => {
 				console.error(err);
@@ -285,6 +309,8 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 				error,
 				errorMessage,
 				changePasswordSuccess,
+				errorEmail,
+				handleAfterChangedEmailSuccess,
 				handleChangePasswordSuccess,
 				deleteUser,
 				changePassword,
