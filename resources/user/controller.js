@@ -17,7 +17,7 @@ exports.getUsers = async (req, res) => {
         }
 		res.status(200).json(exportUser);
 	} catch (error) {
-		res.status(503).json('No database connection');
+		res.status(401).json('Ingen inloggning!');
 	}
 };
 

@@ -217,7 +217,8 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 		if(!isAuth) return
 		fetch('/api/user', options.fetchUser)
 			.then((res) => {
-				if (res.status === 400) {
+				if (res.status === 401) {
+					console.log('Ingen inloggning!')
 					return;
 				}
 				return res.json();
