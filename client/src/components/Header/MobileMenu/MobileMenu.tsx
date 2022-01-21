@@ -31,9 +31,6 @@ export const MobileMenu = ({ handleClose, open }: IMobileMenu) => {
 			className={open ? classes.container : classes.hidden}
 		>
 			<Grid item container direction="column" className={classes.wrapper}>
-				{/* <IconButton className={classes.closeButton} onClick={handleClose}>
-					<ArrowUpwardRounded className={classes.closeIcon} />
-				</IconButton> */}
 				<Link to="/" className={classes.link} onClick={handleClose}>
 					<Typography variant="h5" className={classes.linkText}>
 						Hem

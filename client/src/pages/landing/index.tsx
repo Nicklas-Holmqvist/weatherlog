@@ -80,7 +80,7 @@ export const LandingPage = () => {
 							className={classes.disableUnderline}
 						>
 							{mobile ? (
-								<IconButton className={classes.iconButton}>
+								<IconButton name='gå till historik' className={classes.iconButton}>
 									<ShowChartRounded />
 								</IconButton>
 							) : (
@@ -99,7 +99,7 @@ export const LandingPage = () => {
 					)}
 					<Link to="/create-log" className={classes.disableUnderline}>
 						{mobile ? (
-							<IconButton edge="end" className={classes.iconButton}>
+							<IconButton name='gå till skapa inlägg' edge="end" className={classes.iconButton}>
 								<AddRounded />
 							</IconButton>
 						) : (

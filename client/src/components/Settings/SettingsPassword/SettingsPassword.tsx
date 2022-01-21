@@ -33,6 +33,7 @@ export const SettingsPassword = () => {
 	const action = (
 		<React.Fragment>
 		  <IconButton
+		  	name='ändring genomförd'
 			size="small"
 			aria-label="close"
 			color="inherit"

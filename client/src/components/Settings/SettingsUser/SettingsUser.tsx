@@ -157,6 +157,7 @@ export const SettingsUser = () => {
 	const action = (
 		<React.Fragment>
 		  <IconButton
+		  	name='ändring genomförd'
 			size="small"
 			aria-label="close"
 			color="inherit"
