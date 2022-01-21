@@ -46,7 +46,7 @@ export const ContactPage = () => {
 						className={classes.link}
 						href={`mailto:${email}`}
 					>
-						Maila oss
+						{email}
 					</Typography>
 				</ListItem>
 				<ListItem className={classes.listItem}>
@@ -59,7 +59,7 @@ export const ContactPage = () => {
 						className={classes.link}
 						href={`tel:${phoneNumber}`}
 					>
-						Ring oss
+						{phoneNumber}
 					</Typography>
 				</ListItem>
 			</List>
