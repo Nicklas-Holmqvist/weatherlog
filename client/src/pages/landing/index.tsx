@@ -85,6 +85,7 @@ export const LandingPage = () => {
 								</IconButton>
 							) : (
 								<Button
+									name='gå till historik'
 									variant="text"
 									endIcon={<ShowChartRounded />}
 									disableElevation
@@ -103,6 +104,7 @@ export const LandingPage = () => {
 							</IconButton>
 						) : (
 							<Button
+								name='gå till skapa inlägg'
 								variant="contained"
 								endIcon={<AddRounded />}
 								disableElevation

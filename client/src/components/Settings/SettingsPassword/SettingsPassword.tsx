@@ -90,6 +90,7 @@ export const SettingsPassword = () => {
 				</Grid>
 			</Grid>
 			<Button
+				name='bekräfta ändra lösenord'
 				onClick={handleChangePassword}
 				variant="contained"
 				disableElevation

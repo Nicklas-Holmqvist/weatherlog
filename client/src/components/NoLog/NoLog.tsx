@@ -19,6 +19,7 @@ export const NoLog = () => {
                     Här finns inga loggar än!
                 </Typography>
                 <Button 
+                    name='gå till skapa inlägg'
                     variant="contained" 
                     onClick={toCreate}
                     className={classes.btn}

@@ -434,6 +434,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 					/>
 				</Grid>
 				<Button
+					name='spara ändringar'
 					onClick={handleEditLog}
 					disableElevation
 					variant="contained"
@@ -442,7 +443,6 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 				>
 					Spara ändringar
 				</Button>
-				{/* <Button onClick={fetch}>Hämta</Button> */}
 			</Grid>
 		</Modal>
 	);
