@@ -27,7 +27,41 @@ export default makeStyles((theme) => ({
 		textDecoration: 'none',
 	},
 	mr: {
-		marginRight: 10,
+		marginRight: 14,
+		whiteSpace: 'nowrap',
+	},
+	buttonContainer: {
+		display: 'flex',
+		alignItems: 'center',
+	},
+	showAllButton: {
+		textTransform: 'uppercase',
+		marginRight: 16,
+		alignItems: 'center',
+		[theme.breakpoints.down(520)]: {
+			marginRight: 12,
+		},
+	},
+	switch: {
+		'& .MuiSwitch-switchBase': {
+			'&.Mui-checked': {
+				color: '#7ba6e8',
+				'& + .MuiSwitch-track': {
+					backgroundColor: '#7ba6e8',
+				},
+			},
+		},
+	},
+	showAllButtonText: {
+		fontSize: '0.875rem',
+		marginTop: 2,
+	},
+	listIcon: {
+		marginLeft: 8,
+		marginBottom: 1,
+		[theme.breakpoints.down(520)]: {
+			marginLeft: 0,
+		},
 	},
 	tableHeader: {
 		margin: '20px 0 5px 0',
