@@ -1,17 +1,45 @@
-import { Grid, Typography } from '@material-ui/core';
+import { Button, Grid, Typography, useMediaQuery } from '@material-ui/core';
+import { CloseRounded } from '@material-ui/icons';
+import { useState } from 'react';
 
 import { useLogsContext } from 'src/context/logs';
-import { getAverageTemp, getColdestDay, getWarmestDay } from 'src/utils';
+import theme from 'src/theme';
+import {
+	getAveragePrecipitation,
+	getAverageTemp,
+	getColdestDay,
+	getNumberOfSunnyDays,
+	getRainiestDay,
+	getTotalPrecipitation,
+	getWarmestDay,
+	getWindiestDay,
+} from 'src/utils';
 import { dummyLogs } from 'src/utils/dummyLogs';
-import getMonthName from 'src/utils/getMonthName';
 import useStyles from './styles';
 
-export const StatsList = () => {
+interface IStatsList {
+	isActive: boolean;
+	toggleActive: () => void;
+}
+
+export const StatsList = ({ isActive, toggleActive }: IStatsList) => {
 	const classes = useStyles();
 	const allLogs = useLogsContext().logs;
+	const mediumScreen = useMediaQuery(theme.breakpoints.down(1200));
 
 	return (
-		<Grid item container direction="column" className={classes.stats}>
+		<Grid
+			item
+			container
+			direction="column"
+			className={
+				isActive && mediumScreen
+					? classes.smallScreenStatsActive
+					: !isActive && mediumScreen
+					? classes.smallScreenStatsInactive
+					: classes.stats
+			}
+		>
 			<Typography variant="h5" className={classes.statsTitle}>
 				Statistik
 			</Typography>
@@ -55,19 +83,19 @@ export const StatsList = () => {
 			>
 				<Typography variant="subtitle1">Blåsigaste dag: </Typography>
 				<Typography variant="body1" className={classes.data}>
-					22 m/s (29 november 2020)
+					{allLogs.length > 0 ? getWindiestDay(allLogs) : '-'}
 				</Typography>
 			</Grid>
 			<Grid item container className={classes.statString}>
 				<Typography variant="subtitle1">Regnigaste dag: </Typography>
 				<Typography variant="body1" className={classes.data}>
-					24,6 mm (13 oktober 2021)
+					{allLogs.length > 0 ? getRainiestDay(allLogs) : '-'}
 				</Typography>
 			</Grid>
 			<Grid item container className={classes.statString}>
 				<Typography variant="subtitle1">Total nederbörd: </Typography>
 				<Typography variant="body1" className={classes.data}>
-					5434 mm
+					{allLogs.length > 0 ? getTotalPrecipitation(allLogs) : '-'}
 				</Typography>
 			</Grid>
 			<Grid
@@ -77,15 +105,24 @@ export const StatsList = () => {
 			>
 				<Typography variant="subtitle1">Medelnederbörd: </Typography>
 				<Typography variant="body1" className={classes.data}>
-					1,3 mm
+					{allLogs.length > 0 ? getAveragePrecipitation(allLogs) : '-'}
 				</Typography>
 			</Grid>
 			<Grid item container className={classes.statString}>
 				<Typography variant="subtitle1">Antal soldagar: </Typography>
 				<Typography variant="body1" className={classes.data}>
-					23
+					{allLogs.length > 0 ? getNumberOfSunnyDays(allLogs) : '-'}
 				</Typography>
 			</Grid>
+			{isActive && mediumScreen ? (
+				<Button
+					endIcon={<CloseRounded />}
+					className={classes.closeDrawerButton}
+					onClick={toggleActive}
+				>
+					Dölj
+				</Button>
+			) : null}
 		</Grid>
 	);
 };
