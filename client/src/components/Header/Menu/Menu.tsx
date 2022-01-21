@@ -38,7 +38,7 @@ export const Menu = ({ handleClose, open }: IMenu) => {
 			className={open ? classes.container : classes.hidden}
 		>
 			<Grid item container direction="column" className={classes.wrapper}>
-				<IconButton name='stäng meny' className={classes.closeButton} onClick={handleClose}>
+				<IconButton aria-label='stäng meny' name='stäng meny' className={classes.closeButton} onClick={handleClose}>
 					<ArrowUpwardRounded className={classes.closeIcon} />
 				</IconButton>
 				<Link to="/" className={classes.link} onClick={handleClose}>

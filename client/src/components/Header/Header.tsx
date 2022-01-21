@@ -55,6 +55,7 @@ export const Header = () => {
 			<MobileMenu open={showMobileMenu} handleClose={handleCloseMobileMenu} />
 			<Grid item container component="header" className={classes.mobileHeader}>
 				<IconButton
+					aria-label='öppna eller stäng meny'
 					name='öppna eller stäng meny'
 					edge="start"
 					onClick={() => setShowMobileMenu(!showMobileMenu)}
@@ -94,6 +95,7 @@ export const Header = () => {
 					<Grid item className={classes.right}>
 						{isAuth && (
 							<IconButton
+								aria-label='gå till inställningar'
 								name='gå till inställningar'
 								onClick={() => navigateTo('/settings')}
 								className={classes.settingsButton}
@@ -102,6 +104,7 @@ export const Header = () => {
 							</IconButton>
 						)}
 						<IconButton
+							aria-label='öppna eller stäng meny'
 							name='öppna eller stäng meny'
 							onClick={() => setShowMenu(!showMenu)}
 							className={classes.menuButton}
