@@ -86,9 +86,15 @@ export default makeStyles((theme) => ({
 	},
 	statsButton: {
 		display: 'none',
-		whiteSpace: 'nowrap',
 		[theme.breakpoints.down(1200)]: {
+			padding: '6px 22px',
+			backgroundColor: theme.palette.common.black,
+			color: theme.palette.common.white,
 			display: 'inline-flex',
+			whiteSpace: 'nowrap',
+		},
+		[theme.breakpoints.down(600)]: {
+			padding: '6px 36px',
 		},
 	},
 }));

@@ -105,6 +105,8 @@ export const AllLogsList = () => {
 				<Button
 					className={classes.statsButton}
 					endIcon={<ChevronRightRounded />}
+					variant="contained"
+					disableElevation
 				>
 					Se statistik
 				</Button>
