@@ -33,7 +33,6 @@ const Settings = () => {
 				) : (
 					<DesktopSettingsList active={active} setActive={handleSetActive} />
 				)}
-				{/* <DesktopSettingsList active={active} setActive={handleSetActive} /> */}
 				<Grid item container>
 					{active === 1 ? <SettingsUser /> : <SettingsPassword />}
 				</Grid>

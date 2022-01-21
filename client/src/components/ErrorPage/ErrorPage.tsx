@@ -13,8 +13,8 @@ export const ErrorPage = () => {
 
     const classes = useStyles()
     const handleClick = () => {
-        navigateTo('/');        
-        window.location.reload();
+        navigateTo('/', { replace: true });        
+        // window.location.reload();
     }
 
     return (
@@ -28,7 +28,12 @@ export const ErrorPage = () => {
                 <Typography variant="h4" className={classes.text}>
 					Ett oväder drog in...
 				</Typography>
-                <Button onClick={handleClick}>Gå till start</Button>
+                <Button
+                    name='gå tillbaka till start' 
+                    onClick={handleClick}
+                >
+                    Gå till start
+                </Button>
             </Grid>
         </Grid>
     )

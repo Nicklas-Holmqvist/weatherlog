@@ -157,6 +157,7 @@ export const SettingsUser = () => {
 	const action = (
 		<React.Fragment>
 		  <IconButton
+		  	name='ändring genomförd'
 			size="small"
 			aria-label="close"
 			color="inherit"
@@ -275,6 +276,7 @@ export const SettingsUser = () => {
 						</Typography>
 					</Grid>
 					<Button
+						name='varning, ta bort konto'
 						onClick={() => setShowModal(!showModal)}
 						variant="contained"
 						disableElevation
@@ -285,6 +287,7 @@ export const SettingsUser = () => {
 				</Grid>
 				<Divider className={classes.divider} />
 				<Button
+					name='spara ändringar'
 					onClick={handleEditAccount}
 					variant="contained"
 					disableElevation

@@ -154,10 +154,8 @@ export const LoginForm = () => {
 				onChange={(event: any) => setPassword(event.target.value)}
 				required
 			/>
-			<Typography className={classes.forgotPassword}>
-				Glömt lösenord?
-			</Typography>
 			<Button
+				name='logga in'
 				variant="contained"
 				color="secondary"
 				className={classes.button}

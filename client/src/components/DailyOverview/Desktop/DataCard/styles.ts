@@ -18,7 +18,7 @@ export default makeStyles((theme) => ({
 		},
 	},
 	label: {
-		color: theme.palette.grey[400],
+		color: theme.palette.grey[600],
 		letterSpacing: 0.5,
 		[theme.breakpoints.down(1281)]: {
 			fontSize: 16,

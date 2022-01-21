@@ -83,7 +83,8 @@ export const LandingPage = () => {
 		} else {
 			setShowAll(false);
 		}
-	}, []);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[]);
 
 	return (
 		<Grid item container className={classes.container}>
@@ -98,6 +99,9 @@ export const LandingPage = () => {
 				<Grid item className={classes.buttonContainer}>
 					<Grid item container className={classes.showAllButton}>
 						<Switch
+							aria-checked={showAll}
+							value={showAll ? 'hela listan' : 'senaste dagarna'}	
+							id='visningsvy'				
 							color="secondary"
 							onChange={() => handleToggleShowAll(!showAll)}
 							defaultChecked={viewFromLS === 'true'}
@@ -122,11 +126,12 @@ export const LandingPage = () => {
 							className={classes.disableUnderline}
 						>
 							{smallScreen ? (
-								<IconButton className={classes.iconButton}>
+								<IconButton name='gå till historik' className={classes.iconButton}>
 									<ShowChartRounded />
 								</IconButton>
 							) : (
 								<Button
+									name='gå till historik'
 									variant="text"
 									endIcon={<ShowChartRounded />}
 									disableElevation
@@ -140,11 +145,12 @@ export const LandingPage = () => {
 					)}
 					<Link to="/create-log" className={classes.disableUnderline}>
 						{smallScreen ? (
-							<IconButton edge="end" className={classes.iconButton}>
+							<IconButton name='gå till skapa inlägg' edge="end" className={classes.iconButton}>
 								<AddRounded />
 							</IconButton>
 						) : (
 							<Button
+								name='gå till skapa inlägg'
 								variant="contained"
 								endIcon={<AddRounded />}
 								disableElevation
