@@ -1,5 +1,5 @@
 import { ILogs } from 'src/types/Logs';
-import { dotToCommaConverter, weatherEnum } from '.';
+import { dotToCommaConverter } from './converters';
 import getMonthName from './getMonthName';
 
 export const getWarmestDay = (logs: ILogs[]) => {

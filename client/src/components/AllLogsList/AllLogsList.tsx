@@ -17,6 +17,7 @@ export const AllLogsList = () => {
 	const getLogs = useLogsContext().getLogs;
 	const allLogs = useLogsContext().logs;
 
+	const [active, setActive] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [logsPerPage] = useState(50);
 
@@ -32,6 +33,10 @@ export const AllLogsList = () => {
 
 	const paginate = (pageNumber: number) => {
 		setCurrentPage(pageNumber);
+	};
+
+	const handleToggleActive = () => {
+		setActive(!active);
 	};
 
 	return (
@@ -60,7 +65,7 @@ export const AllLogsList = () => {
 						</Link>
 					))}
 				</Grid>
-				<StatsList />
+				<StatsList isActive={active} toggleActive={handleToggleActive} />
 			</Grid>
 			<Grid item container className={classes.paginationAndButtonContainer}>
 				<Pagination
@@ -71,10 +76,11 @@ export const AllLogsList = () => {
 					currentPage={currentPage}
 				/>
 				<Button
-					className={classes.statsButton}
-					endIcon={<ChevronRightRounded />}
-					variant="contained"
 					disableElevation
+					variant="contained"
+					className={classes.statsButton}
+					onClick={() => setActive(true)}
+					endIcon={<ChevronRightRounded />}
 				>
 					Se statistik
 				</Button>

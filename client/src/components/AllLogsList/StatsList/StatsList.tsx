@@ -1,6 +1,9 @@
-import { Grid, Typography } from '@material-ui/core';
+import { Button, Grid, Typography, useMediaQuery } from '@material-ui/core';
+import { CloseRounded } from '@material-ui/icons';
+import { useState } from 'react';
 
 import { useLogsContext } from 'src/context/logs';
+import theme from 'src/theme';
 import {
 	getAveragePrecipitation,
 	getAverageTemp,
@@ -12,15 +15,31 @@ import {
 	getWindiestDay,
 } from 'src/utils';
 import { dummyLogs } from 'src/utils/dummyLogs';
-import getMonthName from 'src/utils/getMonthName';
 import useStyles from './styles';
 
-export const StatsList = () => {
+interface IStatsList {
+	isActive: boolean;
+	toggleActive: () => void;
+}
+
+export const StatsList = ({ isActive, toggleActive }: IStatsList) => {
 	const classes = useStyles();
 	const allLogs = useLogsContext().logs;
+	const mediumScreen = useMediaQuery(theme.breakpoints.down(1200));
 
 	return (
-		<Grid item container direction="column" className={classes.stats}>
+		<Grid
+			item
+			container
+			direction="column"
+			className={
+				isActive && mediumScreen
+					? classes.smallScreenStatsActive
+					: !isActive && mediumScreen
+					? classes.smallScreenStatsInactive
+					: classes.stats
+			}
+		>
 			<Typography variant="h5" className={classes.statsTitle}>
 				Statistik
 			</Typography>
@@ -95,6 +114,15 @@ export const StatsList = () => {
 					{allLogs.length > 0 ? getNumberOfSunnyDays(allLogs) : '-'}
 				</Typography>
 			</Grid>
+			{isActive && mediumScreen ? (
+				<Button
+					endIcon={<CloseRounded />}
+					className={classes.closeDrawerButton}
+					onClick={toggleActive}
+				>
+					Dölj
+				</Button>
+			) : null}
 		</Grid>
 	);
 };

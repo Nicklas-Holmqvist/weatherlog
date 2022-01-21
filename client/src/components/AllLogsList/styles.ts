@@ -86,6 +86,9 @@ export default makeStyles((theme) => ({
 	},
 	statsButton: {
 		display: 'none',
+		'&:hover': {
+			backgroundColor: theme.palette.grey[800],
+		},
 		[theme.breakpoints.down(1200)]: {
 			padding: '6px 22px',
 			backgroundColor: theme.palette.common.black,
