@@ -3,6 +3,7 @@ export * from './enums';
 export * from './footerLinks';
 export * from './getBottomInfo';
 export * from './getIcon';
+export * from './getStats';
 export * from './getDiagramColor';
 export * from './getTempColor';
 export * from './icons';
