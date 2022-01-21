@@ -13,8 +13,8 @@ export const ErrorPage = () => {
 
     const classes = useStyles()
     const handleClick = () => {
-        navigateTo('/');        
-        window.location.reload();
+        navigateTo('/', { replace: true });        
+        // window.location.reload();
     }
 
     return (
