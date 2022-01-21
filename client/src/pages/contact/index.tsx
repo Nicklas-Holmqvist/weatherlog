@@ -6,18 +6,15 @@ import {
 	Typography,
 } from '@material-ui/core';
 import { EmailRounded, PhoneRounded } from '@material-ui/icons';
-import { useState } from 'react';
 
 import { NavigateBackButton } from 'src/components';
 import useStyles from './styles';
 
 export const ContactPage = () => {
 	const classes = useStyles();
-	const [isEmailHovered, setIsEmailHovered] = useState(false);
-	const [isPhoneHovered, setIsPhoneHovered] = useState(false);
 
-	const email = 'info@vaderdagboken.se';
-	const phoneNumber = '+46705678910';
+	const email = 'nicklas_holmqvist@outlook.com';
+	const phoneNumber = '+46706700883';
 
 	return (
 		<Grid container item direction="column" className={classes.root}>
@@ -48,10 +45,8 @@ export const ContactPage = () => {
 						component="a"
 						className={classes.link}
 						href={`mailto:${email}`}
-						onMouseEnter={() => setIsEmailHovered(true)}
-						onMouseLeave={() => setIsEmailHovered(false)}
 					>
-						{isEmailHovered ? 'Maila oss' : 'info@vaderdagboken.se'}
+						{email}
 					</Typography>
 				</ListItem>
 				<ListItem className={classes.listItem}>
@@ -63,10 +58,8 @@ export const ContactPage = () => {
 						component="a"
 						className={classes.link}
 						href={`tel:${phoneNumber}`}
-						onMouseEnter={() => setIsPhoneHovered(true)}
-						onMouseLeave={() => setIsPhoneHovered(false)}
 					>
-						{isPhoneHovered ? 'Ring oss' : '+46 705 67 89 10'}
+						{phoneNumber}
 					</Typography>
 				</ListItem>
 			</List>
