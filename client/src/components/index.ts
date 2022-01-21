@@ -1,4 +1,5 @@
 export * from './DailyOverview';
+export * from './AllLogsList';
 export * from './Footer';
 export * from './Header';
 export * from './LoginForm';

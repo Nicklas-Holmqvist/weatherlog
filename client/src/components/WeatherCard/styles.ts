@@ -10,6 +10,10 @@ export default makeStyles((theme) => ({
 		justifyContent: 'space-between',
 		position: 'relative',
 		marginBottom: 12,
+		transition: '150ms ease-in-out',
+		'&:hover': {
+			transform: 'scale(1.01)',
+		},
 		[theme.breakpoints.down('sm')]: {
 			height: 80,
 			borderRadius: 8,
