@@ -9,6 +9,8 @@ import { CompactWeatherCard } from './CompactWeatherCard';
 
 import useStyles from './styles';
 import { Pagination } from './Pagination';
+import { dummyLogs } from 'src/utils/dummyLogs';
+import { StatsList } from './StatsList';
 
 export const AllLogsList = () => {
 	const classes = useStyles();
@@ -58,40 +60,7 @@ export const AllLogsList = () => {
 						</Link>
 					))}
 				</Grid>
-				<Grid item container direction="column" className={classes.stats}>
-					<Typography variant="h5" className={classes.statsTitle}>
-						Statistik
-					</Typography>
-					<Grid
-						item
-						container
-						className={`${classes.statString} ${classes.marginBottom}`}
-					>
-						<Typography variant="subtitle1">Totalt antal inlägg: </Typography>
-						<Typography variant="body1" className={classes.data}>
-							{/* {dummyLogs.length} */}
-							{allLogs.length}
-						</Typography>
-					</Grid>
-					<Grid item container className={classes.statString}>
-						<Typography variant="subtitle1">Varmaste dag: </Typography>
-						<Typography variant="body1" className={classes.data}>
-							33°C (12 juli 2021)
-						</Typography>
-					</Grid>
-					<Grid item container className={classes.statString}>
-						<Typography variant="subtitle1">Kallaste dag: </Typography>
-						<Typography variant="body1" className={classes.data}>
-							-15°C (14 januari 2020)
-						</Typography>
-					</Grid>
-					<Grid item container className={classes.statString}>
-						<Typography variant="subtitle1">Blåsigaste dag: </Typography>
-						<Typography variant="body1" className={classes.data}>
-							22 m/s (29 november 2020)
-						</Typography>
-					</Grid>
-				</Grid>
+				<StatsList />
 			</Grid>
 			<Grid item container className={classes.paginationAndButtonContainer}>
 				<Pagination
@@ -101,7 +70,7 @@ export const AllLogsList = () => {
 					currentPage={currentPage}
 				/>
 				<Button
-					aria-label='se statistik'
+					aria-label="se statistik"
 					className={classes.statsButton}
 					endIcon={<ChevronRightRounded />}
 					variant="contained"
