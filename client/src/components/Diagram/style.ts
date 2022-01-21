@@ -83,15 +83,37 @@ export default makeStyles((theme) => ({
 	mr: {
 		marginRight: 10,
 	},
-	diagramViewOptions: {
+	showListButton: {
 		width: '100%',
 		display: 'flex',
 		justifyContent: 'flex-end',
 		alignItems: 'center',
-		padding: '0.5rem 0'
+		padding: '0.5rem 0',
+		textTransform: 'uppercase',
+		marginRight: 16,
+		[theme.breakpoints.down(520)]: {
+			marginRight: 12,
+		},
 	},
-	diagramViewOptionText: {
-		paddingRight: '0.5rem',
-		paddingBottom: '0.2rem'
+	switch: {
+		'& .MuiSwitch-switchBase': {
+			'&.Mui-checked': {
+				color: '#7ba6e8',
+				'& + .MuiSwitch-track': {
+					backgroundColor: '#7ba6e8',
+				},
+			},
+		},
+	},
+	showListButtonText: {
+		fontSize: '0.875rem',
+		marginTop: 2,
+	},
+	listIcon: {
+		marginLeft: 8,
+		marginBottom: 1,
+		[theme.breakpoints.down(520)]: {
+			marginLeft: 0,
+		},
 	},
 }));
