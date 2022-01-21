@@ -6,6 +6,7 @@ import {
 	Divider,
 	Grid,
 	IconButton,
+	Switch,
 	Typography,
 	useMediaQuery,
 } from '@material-ui/core';
@@ -13,8 +14,7 @@ import {
 	AddRounded,
 	ArrowBackRounded,
 	ArrowForwardRounded,
-	ShowChartRounded,
-	List
+	FormatListBulletedRounded
 } from '@material-ui/icons';
 import { Line } from 'react-chartjs-2';
 
@@ -58,6 +58,8 @@ const Diagram = () => {
 	const { id }: any = useParams();
 
 	const [listView, setListView] = useState<boolean>(false)
+	const viewFromLS = localStorage.getItem('historyView');
+
 
 	const setApiParam = useDiagramsContext().getDiagramUrl;
 	const {
@@ -187,7 +189,7 @@ const Diagram = () => {
 							<Grid item>
 								<Link to="/create-log" className={classes.disableUnderline}>
 									{mobile ? (
-										<IconButton edge="end" className={classes.addIcon}>
+										<IconButton aria-label='gå till skapa inlägg' edge="end" className={classes.addIcon}>
 											<AddRounded />
 										</IconButton>
 									) : (
@@ -205,7 +207,7 @@ const Diagram = () => {
 						</Grid>
 						{smallScreen && <Divider className={classes.divider} />}
 						<Grid item direction="row" className={classes.dateContainer}>
-							<IconButton onClick={prevMonth} disabled={diagramLength <= 1}>
+							<IconButton aria-label='föregående månad' onClick={prevMonth} disabled={diagramLength <= 1}>
 								<ArrowBackRounded
 									className={
 										diagramLength <= 1
@@ -220,7 +222,7 @@ const Diagram = () => {
 									className={classes.dateText}
 								>{`${month} ${year}`}</Typography>
 							</Grid>
-							<IconButton onClick={nextMonth} disabled={diagramLength <= 1}>
+							<IconButton aria-label='nästa månad' onClick={nextMonth} disabled={diagramLength <= 1}>
 								<ArrowForwardRounded
 									className={
 										diagramLength <= 1
@@ -230,14 +232,26 @@ const Diagram = () => {
 								/>
 							</IconButton>
 						</Grid>
-						<Grid container direction='row' className={classes.diagramViewOptions}>
-							<Typography align='right' className={classes.diagramViewOptionText}>Listvy:</Typography>
-							<IconButton onClick={()=> changeListView(false)}>
-								<ShowChartRounded />
-							</IconButton>
-							<IconButton onClick={()=> changeListView(true)}>
-								<List />
-							</IconButton>
+						<Grid item container className={classes.showListButton}>
+							<Switch
+								value='byt visningsvy'
+								color="secondary"
+								onChange={() => changeListView(!listView)}
+								defaultChecked={viewFromLS === 'true'}
+								className={classes.switch}
+							/>
+							{!mobile && (
+								<Typography
+									variant="subtitle2"
+									className={classes.showListButtonText}
+								>
+									Visa lista
+								</Typography>
+							)}
+							<FormatListBulletedRounded
+								fontSize="small"
+								className={classes.listIcon}
+							/>
 						</Grid>
 						{!listView 
 						?
