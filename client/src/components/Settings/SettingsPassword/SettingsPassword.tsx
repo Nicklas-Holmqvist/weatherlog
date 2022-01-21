@@ -33,6 +33,7 @@ export const SettingsPassword = () => {
 	const action = (
 		<React.Fragment>
 		  <IconButton
+		  	name='ändring genomförd'
 			size="small"
 			aria-label="close"
 			color="inherit"
@@ -90,6 +91,7 @@ export const SettingsPassword = () => {
 				</Grid>
 			</Grid>
 			<Button
+				name='bekräfta ändra lösenord'
 				onClick={handleChangePassword}
 				variant="contained"
 				disableElevation

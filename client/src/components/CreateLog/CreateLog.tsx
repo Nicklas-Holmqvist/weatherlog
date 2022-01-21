@@ -308,7 +308,7 @@ export const CreateLog = () => {
 									</ListItemIcon>
 									<Typography>Snö</Typography>
 								</MenuItem>
-								<MenuItem value={'snowfall'}>
+								<MenuItem value={'snow-shower'}>
 									<ListItemIcon className={classes.iconContainer}>
 										<SnowShower className={classes.icon} />
 									</ListItemIcon>
@@ -528,6 +528,7 @@ export const CreateLog = () => {
 			</Grid>
 			<Grid container direction='row'>
 				<Button
+					name='spara inlägg'
 					onClick={handleCreateLog}
 					disableElevation
 					variant="contained"
@@ -537,6 +538,7 @@ export const CreateLog = () => {
 					Skapa log
 				</Button>
 				<Button
+					name='nollställ alla fält'
 					onClick={resetCreateLogForm}
 					disableElevation
 					variant="contained"

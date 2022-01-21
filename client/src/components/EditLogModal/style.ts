@@ -90,7 +90,7 @@ export default makeStyles((theme) => ({
 			},
 		},
 		'& > label': {
-			color: theme.palette.grey[500],
+			color: theme.palette.grey[700],
 			[theme.breakpoints.down(500)]: {
 				fontSize: 16,
 			},
@@ -107,7 +107,7 @@ export default makeStyles((theme) => ({
 	inputLabel: {
 		'&.MuiInputLabel-outlined.MuiInputLabel-shrink': {
 			transform: 'translate(14px, 1px) scale(0.75)',
-			color: theme.palette.grey[500],
+			color: theme.palette.grey[700],
 			[theme.breakpoints.down(500)]: {
 				fontSize: 16,
 				transform: 'translate(14px, 1px) scale(0.82)',

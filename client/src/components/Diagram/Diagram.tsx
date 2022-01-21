@@ -192,6 +192,7 @@ const Diagram = () => {
 										</IconButton>
 									) : (
 										<Button
+											name='gå till skapa inlägg'
 											variant="contained"
 											endIcon={<AddRounded />}
 											disableElevation

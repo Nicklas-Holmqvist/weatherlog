@@ -39,6 +39,7 @@ export const DeleteLogModal = ({ open, handleClose, logID }: IModalPopup) => {
 				</Typography>
 				<Typography variant="body2">Detta kan inte ångras.</Typography>
 				<Button
+					name='ta bort inlägget'
 					variant="contained"
 					onClick={() => handleDeleteLog()}
 					className={classes.button}
@@ -48,20 +49,6 @@ export const DeleteLogModal = ({ open, handleClose, logID }: IModalPopup) => {
 				</Button>
 			</Box>
 		</Modal>
-		// <Modal
-		// 	open={open}
-		// 	onClose={handleClose}
-		// 	aria-labelledby="modal-modal-title"
-		// 	aria-describedby="modal-modal-description"
-		// >
-		// 	<Box>
-		// 		<Typography variant="subtitle1">{title}</Typography>
-		// 		<Typography variant="body2">{body}</Typography>
-		// 		<Button variant="contained" onClick={onClick}>
-		// 			{buttonText}
-		// 		</Button>
-		// 	</Box>
-		// </Modal>
 	);
 };
 

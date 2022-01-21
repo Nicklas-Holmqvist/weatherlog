@@ -40,6 +40,7 @@ export const ModalPopup = ({ open, handleClose }: IModalPopup) => {
 					kopplat till ditt konto, för alltid!
 				</Typography>
 				<Button
+					name='ta bort konto'
 					variant="contained"
 					onClick={handleDeleteAccount}
 					className={classes.button}

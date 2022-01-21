@@ -134,7 +134,7 @@ export default makeStyles((theme) => ({
 		textAlign: 'center',
 	},
 	unit: {
-		color: theme.palette.grey[500],
+		color: theme.palette.grey[600],
 		marginLeft: 8,
 		[theme.breakpoints.down('sm')]: {
 			fontSize: 22,
