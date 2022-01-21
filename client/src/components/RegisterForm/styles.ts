@@ -9,12 +9,12 @@ export default makeStyles((theme) => ({
 	title: {
 		textTransform: 'uppercase',
 		textAlign: 'center',
-		marginBottom: 40,
+		marginBottom: 20,
 		[theme.breakpoints.down('lg')]: {
 			marginBottom: 20,
 		},
 		[theme.breakpoints.only('xs')]: {
-			marginBottom: 40,
+			marginBottom: 20,
 		},
 	},
 	input: {
@@ -23,6 +23,8 @@ export default makeStyles((theme) => ({
 			borderColor: theme.palette.common.black,
 		},
 		'& .MuiOutlinedInput-root': {
+			borderRadius: 10,
+			backgroundColor: theme.palette.grey[100],
 			'&.Mui-focused fieldset': {
 				borderColor: theme.palette.common.black,
 				borderWidth: 1,

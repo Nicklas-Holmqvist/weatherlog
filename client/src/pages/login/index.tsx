@@ -15,8 +15,7 @@ export const LoginPage = () => {
 				backgroundImage: 'url(/vladimir-anikeev-IM8ZyYaSW6g-unsplash.jpg)',
 				backgroundRepeat: 'no-repeat',
 				backgroundPosition: 'center',
-				backgroundSize: 'cover',
-				backgroundColor: '#000000',				
+				backgroundSize: 'cover',				
 			}}
 			>
 			<Grid item className={classes.content}>
