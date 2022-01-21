@@ -2,20 +2,25 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
 	container: {
+		height:'calc(100vh - 70px)',
+		display:'flex',
 		alignItems: 'center',
+		justifyContent: 'center',
 		flexWrap: 'nowrap',
+		overflowY: 'hidden',
+		[theme.breakpoints.down(600)]: {
+			height:'calc(100vh - 50px)',
+		},
 	},
-	image: {
-		margin: '0 auto',
-		padding: '60px 0',
-		width: '20%',
-		// minWidth: 200,
-		[theme.breakpoints.down('lg')]: {
-			padding: '20px 0 40px 0',
-		},
-		[theme.breakpoints.only('xs')]: {
-			width: '250px',
-			padding: '40px 0 80px 0',
-		},
+	content: {
+		display:'flex',
+		flexDirection:'column',
+		alignItems: 'center',
+		justifyContent: 'center',
+		paddingBottom: '3rem',
+		overflowY: 'hidden',
+	},
+	underTitle: {
+		fontSize: '1.2rem'
 	},
 }));

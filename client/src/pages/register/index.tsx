@@ -1,16 +1,33 @@
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { RegisterForm } from 'src/components';
 
 import useStyles from './styles';
-import logo from './weatherlog-logo.svg';
 
 export const RegisterPage = () => {
 	const classes = useStyles();
 
 	return (
-		<Grid container direction="column" className={classes.container}>
-			{/* om inloggad */}
-			<img src={logo} alt="Logo" className={classes.image} />
+		<Grid 
+			container 
+			direction="column" 
+			className={classes.container}
+			style={{ 
+				backgroundImage: 'url(/vladimir-anikeev-IM8ZyYaSW6g-unsplash.jpg)',
+				backgroundRepeat: 'no-repeat',
+				backgroundPosition: 'center',
+				backgroundSize: 'cover',
+				backgroundColor: '#000000',				
+			}}
+		>
+			<Grid item className={classes.content}
+			>
+			<Typography variant="h1">
+				Väderdagboken
+			</Typography>
+			<Typography variant="h6">
+				Skapa din interaktiva väderdagbok
+			</Typography>
+			</Grid>
 			<RegisterForm />
 		</Grid>
 	);
