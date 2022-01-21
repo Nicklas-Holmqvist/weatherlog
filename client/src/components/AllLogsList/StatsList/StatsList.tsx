@@ -1,7 +1,16 @@
 import { Grid, Typography } from '@material-ui/core';
 
 import { useLogsContext } from 'src/context/logs';
-import { getAverageTemp, getColdestDay, getWarmestDay } from 'src/utils';
+import {
+	getAveragePrecipitation,
+	getAverageTemp,
+	getColdestDay,
+	getNumberOfSunnyDays,
+	getRainiestDay,
+	getTotalPrecipitation,
+	getWarmestDay,
+	getWindiestDay,
+} from 'src/utils';
 import { dummyLogs } from 'src/utils/dummyLogs';
 import getMonthName from 'src/utils/getMonthName';
 import useStyles from './styles';
@@ -55,19 +64,19 @@ export const StatsList = () => {
 			>
 				<Typography variant="subtitle1">Blåsigaste dag: </Typography>
 				<Typography variant="body1" className={classes.data}>
-					22 m/s (29 november 2020)
+					{allLogs.length > 0 ? getWindiestDay(allLogs) : '-'}
 				</Typography>
 			</Grid>
 			<Grid item container className={classes.statString}>
 				<Typography variant="subtitle1">Regnigaste dag: </Typography>
 				<Typography variant="body1" className={classes.data}>
-					24,6 mm (13 oktober 2021)
+					{allLogs.length > 0 ? getRainiestDay(allLogs) : '-'}
 				</Typography>
 			</Grid>
 			<Grid item container className={classes.statString}>
 				<Typography variant="subtitle1">Total nederbörd: </Typography>
 				<Typography variant="body1" className={classes.data}>
-					5434 mm
+					{allLogs.length > 0 ? getTotalPrecipitation(allLogs) : '-'}
 				</Typography>
 			</Grid>
 			<Grid
@@ -77,13 +86,13 @@ export const StatsList = () => {
 			>
 				<Typography variant="subtitle1">Medelnederbörd: </Typography>
 				<Typography variant="body1" className={classes.data}>
-					1,3 mm
+					{allLogs.length > 0 ? getAveragePrecipitation(allLogs) : '-'}
 				</Typography>
 			</Grid>
 			<Grid item container className={classes.statString}>
 				<Typography variant="subtitle1">Antal soldagar: </Typography>
 				<Typography variant="body1" className={classes.data}>
-					23
+					{allLogs.length > 0 ? getNumberOfSunnyDays(allLogs) : '-'}
 				</Typography>
 			</Grid>
 		</Grid>
