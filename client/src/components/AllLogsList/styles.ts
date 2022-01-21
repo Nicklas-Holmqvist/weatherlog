@@ -2,12 +2,24 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
 	root: {
-		marginTop: 30,
+		marginTop: 20,
 		display: 'grid',
 		gridTemplateColumns: '3fr 2fr',
 		columnGap: 14,
-		minHeight: 630,
-		maxHeight: 630,
+		minHeight: '68vh',
+		maxHeight: '68vh',
+		[theme.breakpoints.down(1281)]: {
+			minHeight: '58vh',
+			maxHeight: '58vh',
+		},
+		[theme.breakpoints.down(1200)]: {
+			display: 'flex',
+			gridTemplateColumns: 'unset',
+		},
+		[theme.breakpoints.down(500)]: {
+			minHeight: '67vh',
+			maxHeight: '67vh',
+		},
 	},
 	logs: {
 		height: '100%',
@@ -30,15 +42,24 @@ export default makeStyles((theme) => ({
 		'&::-webkit-scrollbar-thumb:hover': {
 			background: theme.palette.grey[300],
 		},
+		[theme.breakpoints.down(1200)]: {
+			width: 'calc(100% + 20px)',
+		},
+		[theme.breakpoints.down(450)]: {
+			width: 'calc(100% + 14px)',
+		},
 	},
 	stats: {
-		height: 630,
+		height: 'calc(100% - 6px)',
 		width: '100%',
 		backgroundColor: '#f2f2f2',
 		borderRadius: 16,
 		padding: '30px 20px',
 		marginTop: 6,
 		marginBottom: 6,
+		[theme.breakpoints.down(1200)]: {
+			display: 'none',
+		},
 	},
 	marginBottom: {
 		marginBottom: 12,
@@ -55,5 +76,19 @@ export default makeStyles((theme) => ({
 	},
 	data: {
 		marginLeft: 6,
+	},
+	paginationAndButtonContainer: {
+		width: '100%',
+		margin: '20px 0',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		flexWrap: 'nowrap',
+	},
+	statsButton: {
+		display: 'none',
+		whiteSpace: 'nowrap',
+		[theme.breakpoints.down(1200)]: {
+			display: 'inline-flex',
+		},
 	},
 }));

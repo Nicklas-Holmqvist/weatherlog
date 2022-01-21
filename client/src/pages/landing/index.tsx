@@ -28,7 +28,8 @@ import { AllLogsList } from 'src/components/AllLogsList';
 
 export const LandingPage = () => {
 	const classes = useStyles();
-	const mobile = useMediaQuery(theme.breakpoints.down(540));
+	const smallScreen = useMediaQuery(theme.breakpoints.down(670));
+	const mobile = useMediaQuery(theme.breakpoints.down(520));
 
 	const { historyMonths } = useLogsContext();
 
@@ -100,12 +101,14 @@ export const LandingPage = () => {
 							defaultChecked={viewFromLS === 'true'}
 							className={classes.switch}
 						/>
-						<Typography
-							variant="subtitle2"
-							className={classes.showAllButtonText}
-						>
-							Visa alla
-						</Typography>
+						{!mobile && (
+							<Typography
+								variant="subtitle2"
+								className={classes.showAllButtonText}
+							>
+								Visa alla
+							</Typography>
+						)}
 						<FormatListBulletedRounded
 							fontSize="small"
 							className={classes.listIcon}
@@ -116,7 +119,7 @@ export const LandingPage = () => {
 							to={`/diagram/${history[0]}`}
 							className={classes.disableUnderline}
 						>
-							{mobile ? (
+							{smallScreen ? (
 								<IconButton className={classes.iconButton}>
 									<ShowChartRounded />
 								</IconButton>
@@ -134,7 +137,7 @@ export const LandingPage = () => {
 						</Link>
 					)}
 					<Link to="/create-log" className={classes.disableUnderline}>
-						{mobile ? (
+						{smallScreen ? (
 							<IconButton edge="end" className={classes.iconButton}>
 								<AddRounded />
 							</IconButton>

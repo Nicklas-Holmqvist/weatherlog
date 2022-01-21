@@ -13,6 +13,11 @@ export default makeStyles((theme) => ({
 		marginBottom: 8,
 		marginRight: 4,
 		cursor: 'pointer',
+		flexWrap: 'nowrap',
+		[theme.breakpoints.down(520)]: {
+			height: 44,
+			minHeight: 44,
+		},
 	},
 	firstCardContainer: {
 		marginTop: 6,
@@ -27,6 +32,11 @@ export default makeStyles((theme) => ({
 		marginBottom: 8,
 		marginRight: 4,
 		cursor: 'pointer',
+		flexWrap: 'nowrap',
+		[theme.breakpoints.down(520)]: {
+			height: 44,
+			minHeight: 44,
+		},
 	},
 	tempBox: {
 		height: '100%',
@@ -35,44 +45,53 @@ export default makeStyles((theme) => ({
 		borderBottomLeftRadius: 6,
 		position: 'absolute',
 		left: 0,
-		[theme.breakpoints.down('sm')]: {
-			width: 16,
-			borderTopLeftRadius: 8,
-			borderBottomLeftRadius: 8,
-		},
-		[theme.breakpoints.down(450)]: {
-			width: 10,
-			borderTopLeftRadius: 6,
-			borderBottomLeftRadius: 6,
-		},
 	},
 	info: {
 		display: 'flex',
 		alignItems: 'center',
 		marginLeft: 30,
 		height: '100%',
+		[theme.breakpoints.down(580)]: {
+			marginLeft: 26,
+		},
 	},
 	date: {
 		fontSize: 20,
-	},
-	month: {
-		marginTop: '-3px',
-		[theme.breakpoints.down(450)]: {
-			fontSize: 13,
+		[theme.breakpoints.down(520)]: {
+			fontSize: 18,
+		},
+		[theme.breakpoints.down(410)]: {
+			fontSize: 17,
 		},
 	},
 	temp: {
 		position: 'absolute',
 		top: '50%',
 		transform: 'translateY(-50%)',
-		left: 320,
+		left: 330,
 		fontSize: 24,
+		fontWeight: 400,
+		[theme.breakpoints.down(500)]: {
+			fontSize: 20,
+			fontWeight: 500,
+			left: 290,
+		},
+		[theme.breakpoints.down(410)]: {
+			fontSize: 19,
+			left: 255,
+		},
 	},
 	iconContainer: {
 		position: 'absolute',
 		top: '50%',
 		transform: 'translateY(-50%)',
 		left: 250,
+		[theme.breakpoints.down(500)]: {
+			left: 220,
+		},
+		[theme.breakpoints.down(410)]: {
+			left: 200,
+		},
 	},
 	icon: {
 		width: 50,
@@ -108,5 +127,9 @@ export default makeStyles((theme) => ({
 	},
 	arrowIcon: {
 		color: theme.palette.common.black,
+	},
+	iconArrowButton: {
+		padding: 5,
+		marginRight: 3,
 	},
 }));

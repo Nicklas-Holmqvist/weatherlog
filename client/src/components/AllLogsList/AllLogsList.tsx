@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Typography } from '@material-ui/core';
+import { Button, Grid, Typography } from '@material-ui/core';
+import { ChevronRightRounded } from '@material-ui/icons';
 
 import { useLogsContext } from 'src/context/logs';
 import getMonthName from 'src/utils/getMonthName';
@@ -93,13 +94,21 @@ export const AllLogsList = () => {
 					</Grid>
 				</Grid>
 			</Grid>
-			<Pagination
-				logsPerPage={logsPerPage}
-				// totalLogs={dummyLogs.length}
-				totalLogs={allLogs.length}
-				paginate={paginate}
-				currentPage={currentPage}
-			/>
+			<Grid item container className={classes.paginationAndButtonContainer}>
+				<Pagination
+					logsPerPage={logsPerPage}
+					// totalLogs={dummyLogs.length}
+					totalLogs={allLogs.length}
+					paginate={paginate}
+					currentPage={currentPage}
+				/>
+				<Button
+					className={classes.statsButton}
+					endIcon={<ChevronRightRounded />}
+				>
+					Se statistik
+				</Button>
+			</Grid>
 		</>
 	);
 };

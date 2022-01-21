@@ -53,10 +53,7 @@ export const CompactWeatherCard = ({
 				<Typography variant="subtitle1" className={classes.date}>
 					{dateString}
 				</Typography>
-				<Typography
-					variant={mobile ? 'subtitle1' : 'h5'}
-					className={classes.temp}
-				>
+				<Typography variant="subtitle1" className={classes.temp}>
 					{tempString}
 				</Typography>
 				<Grid item className={classes.iconContainer}>
@@ -64,12 +61,18 @@ export const CompactWeatherCard = ({
 				</Grid>
 				<Typography variant="body1"></Typography>
 			</Grid>
-			<Button
-				className={classes.arrowButton}
-				endIcon={<ChevronRightRounded className={classes.arrowIcon} />}
-			>
-				Läs mer
-			</Button>
+			{mobile ? (
+				<IconButton className={classes.iconArrowButton}>
+					<ChevronRightRounded className={classes.arrowIcon} />
+				</IconButton>
+			) : (
+				<Button
+					className={classes.arrowButton}
+					endIcon={<ChevronRightRounded className={classes.arrowIcon} />}
+				>
+					Läs mer
+				</Button>
+			)}
 		</Grid>
 	);
 };

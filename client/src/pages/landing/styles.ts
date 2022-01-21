@@ -38,6 +38,9 @@ export default makeStyles((theme) => ({
 		textTransform: 'uppercase',
 		marginRight: 16,
 		alignItems: 'center',
+		[theme.breakpoints.down(520)]: {
+			marginRight: 12,
+		},
 	},
 	switch: {
 		'& .MuiSwitch-switchBase': {
@@ -56,6 +59,9 @@ export default makeStyles((theme) => ({
 	listIcon: {
 		marginLeft: 8,
 		marginBottom: 1,
+		[theme.breakpoints.down(520)]: {
+			marginLeft: 0,
+		},
 	},
 	tableHeader: {
 		margin: '20px 0 5px 0',
