@@ -112,8 +112,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		let days: number[] = [];
 
 		for (let i = 1; i < getDays + 1; i++) {
-			console.log(i)
-			console.log(days)
 			days.push(i);
 			setNumberOfDays(days);
 		}

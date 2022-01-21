@@ -76,13 +76,10 @@ export const CreateLog = () => {
 		addZero(logDate.day),
 	].join('');
 
-	console.log(logs)
 	logs.forEach((log) => {
-		console.log(log.date)
-		console.log(numberOfDays)
-		console.log(usedDates)
 		if (selectedDate.includes(log.date.substring(0, 6))) {
-			usedDates.push(log.date.substring(6, 8));
+			if(log.date.substring(6, 8).includes('0'))usedDates.push(log.date.substring(7, 8));
+			else usedDates.push(log.date.substring(6, 8));
 		}
 		return usedDates;
 	});
@@ -136,6 +133,13 @@ export const CreateLog = () => {
 				}));
 				return;
 			}
+		}
+		if (logValue.date.length !== 8) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				date: true,
+			}));
+			return;
 		}
 		if (logValue.weather === '') {
 			setErrors((oldstate) => ({
@@ -220,8 +224,7 @@ export const CreateLog = () => {
 				desc: true,
 			}));
 			return;
-		}
-		console.log(logValue)
+		}		
 		createLog.addPost();
 		navigateTo('/home', { replace: true });
 		getLogs();
