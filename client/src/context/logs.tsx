@@ -62,15 +62,17 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		year: d.getFullYear(),
 	});
 
+	console.log(d.getDate())
+
 	/**
 	 * Function that adds a zero infront of single digits
 	 * @param e date values
 	 * @returns
 	 */
-		const addZero = (e: any) => {
-		if (e < 10) {
-			return `0${e}`.toString();
-		} else return e.toString();
+	const addZero = (e: any) => {
+	if (e < 10) {
+		return `0${e}`.toString();
+	} else return e.toString();
 	};
 
 	/** The object that will be created in backend */
@@ -110,6 +112,8 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		let days: number[] = [];
 
 		for (let i = 1; i < getDays + 1; i++) {
+			console.log(i)
+			console.log(days)
 			days.push(i);
 			setNumberOfDays(days);
 		}
@@ -250,7 +254,19 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		addPost: {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(logValue),
+			body: JSON.stringify({
+				airFeeling: logValue.airFeeling,
+				airpressure: logValue.airpressure !== '' ? Math.round(parseInt(logValue.airpressure)).toString() : '',
+				date: logValue.date,
+				description: logValue.description,
+				humidity: logValue.humidity,
+				precipitation: (Math.round(parseInt(logValue.precipitation) * 10) / 10).toString(),
+				temperature:(Math.round(parseInt(logValue.temperature) * 10) / 10).toString(),
+				user: logValue.user,
+				windDirection: logValue.windDirection,
+				windSpeed: logValue.windSpeed !== '' ? Math.round(parseInt(logValue.windSpeed)).toString() : '',
+				weather: logValue.weather,
+			}),
 		},
 		editPost: {
 			method: 'put',

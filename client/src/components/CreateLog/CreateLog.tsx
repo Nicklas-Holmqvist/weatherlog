@@ -76,7 +76,11 @@ export const CreateLog = () => {
 		addZero(logDate.day),
 	].join('');
 
+	console.log(logs)
 	logs.forEach((log) => {
+		console.log(log.date)
+		console.log(numberOfDays)
+		console.log(usedDates)
 		if (selectedDate.includes(log.date.substring(0, 6))) {
 			usedDates.push(log.date.substring(6, 8));
 		}
@@ -108,6 +112,7 @@ export const CreateLog = () => {
 			</MenuItem>
 		)
 	);
+
 
 	const handleCreateLog = () => {
 
@@ -174,7 +179,21 @@ export const CreateLog = () => {
 			}));
 			return;
 		}
-		if (logValue.airpressure !== null && (Number(logValue.airpressure) < 850  || Number(logValue.airpressure) > 1100)) {
+		if (logValue.windSpeed !== null && (logValue.windSpeed.includes(',') || logValue.windSpeed.includes('.'))) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				windSpeed: true,
+			}));
+			return;
+		}
+		if (logValue.airpressure !== '' && (Number(logValue.airpressure) < 850  || Number(logValue.airpressure) > 1100)) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				airpressure: true,
+			}));
+			return;
+		}
+		if (logValue.airpressure !== null && (logValue.airpressure.includes(',') || logValue.airpressure.includes('.'))) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				airpressure: true,
@@ -188,6 +207,13 @@ export const CreateLog = () => {
 			}));
 			return;
 		}
+		if (logValue.humidity !== null && (logValue.humidity.includes(',') || logValue.humidity.includes('.'))) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				humidity: true,
+			}));
+			return;
+		}		
 		if (logValue.description.length > 260) {
 			setErrors((oldstate) => ({
 				...oldstate,
@@ -195,6 +221,7 @@ export const CreateLog = () => {
 			}));
 			return;
 		}
+		console.log(logValue)
 		createLog.addPost();
 		navigateTo('/home', { replace: true });
 		getLogs();
