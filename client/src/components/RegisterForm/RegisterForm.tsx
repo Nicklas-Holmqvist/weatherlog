@@ -216,6 +216,7 @@ export const RegisterForm = () => {
 				required
 			/>
 			<Button
+				name='skapa konto'
 				variant="contained"
 				color="secondary"
 				className={classes.button}

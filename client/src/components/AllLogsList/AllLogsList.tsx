@@ -65,12 +65,12 @@ export const AllLogsList = () => {
 			<Grid item container className={classes.paginationAndButtonContainer}>
 				<Pagination
 					logsPerPage={logsPerPage}
-					// totalLogs={dummyLogs.length}
 					totalLogs={allLogs.length}
 					paginate={paginate}
 					currentPage={currentPage}
 				/>
 				<Button
+					aria-label="se statistik"
 					className={classes.statsButton}
 					endIcon={<ChevronRightRounded />}
 					variant="contained"

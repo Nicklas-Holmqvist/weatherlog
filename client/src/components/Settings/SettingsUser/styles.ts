@@ -69,13 +69,13 @@ export default makeStyles((theme) => ({
 	removeAccountButton: {
 		borderRadius: 6,
 		alignSelf: 'start',
-		backgroundColor: theme.palette.grey[300],
-		color: theme.palette.error.main,
+		backgroundColor: theme.palette.error.main,
+		color: theme.palette.common.white,
 		paddingLeft: 24,
 		paddingRight: 24,
 		margin: 'auto 0',
 		'&:hover': {
-			backgroundColor: theme.palette.error.main,
+			backgroundColor: theme.palette.common.black,
 			color: theme.palette.common.white,
 		},
 		[theme.breakpoints.down(880)]: {

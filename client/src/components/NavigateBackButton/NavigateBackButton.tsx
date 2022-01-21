@@ -22,6 +22,7 @@ export const NavigateBackButton = ({ page }: INavigateBackButton) => {
 
 	return (
 		<IconButton
+			name='gå till föregående sida'
 			edge="start"
 			className={classes.button}
 			onClick={page === 'back' ? handleNavigateBack : handleNavigateToPage}

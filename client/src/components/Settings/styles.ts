@@ -51,7 +51,7 @@ export default makeStyles((theme) => ({
 		},
 	},
 	listItemText: {
-		color: theme.palette.grey[500],
+		color: theme.palette.grey[600],
 	},
 	active: {
 		backgroundColor: theme.palette.grey[200],

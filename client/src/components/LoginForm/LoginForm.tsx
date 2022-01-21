@@ -158,6 +158,7 @@ export const LoginForm = () => {
 				Glömt lösenord?
 			</Typography>
 			<Button
+				name='logga in'
 				variant="contained"
 				color="secondary"
 				className={classes.button}

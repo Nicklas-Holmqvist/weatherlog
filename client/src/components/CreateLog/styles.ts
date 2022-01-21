@@ -70,7 +70,7 @@ export default makeStyles((theme) => ({
 			},
 		},
 		'& > label': {
-			color: theme.palette.grey[500],
+			color: theme.palette.grey[600],
 			[theme.breakpoints.down(500)]: {
 				fontSize: 16,
 			},
