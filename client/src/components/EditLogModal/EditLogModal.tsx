@@ -90,6 +90,13 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 			}));
 			return;
 		}
+		if (Number(editLog.temperature) < -100 || Number(editLog.temperature) > 100) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				temp: true,
+			}));
+			return;
+		}
 		if (editLog.precipitation === '') {
 			setErrors((oldstate) => ({
 				...oldstate,
@@ -97,13 +104,62 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 			}));
 			return;
 		}
+		if (Number(editLog.precipitation) < 0  || Number(editLog.precipitation) > 300) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				precipitation: true,
+			}));
+			return;
+		}
+		if (editLog.windSpeed !== null && (Number(editLog.windSpeed) < 0  || Number(editLog.windSpeed) > 50)) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				windSpeed: true,
+			}));
+			return;
+		}
+		if (editLog.windSpeed !== null && (editLog.windSpeed.includes(',') || editLog.windSpeed.includes('.'))) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				windSpeed: true,
+			}));
+			return;
+		}
+		if (editLog.airpressure !== '' && (Number(editLog.airpressure) < 850  || Number(editLog.airpressure) > 1100)) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				airpressure: true,
+			}));
+			return;
+		}
+		if (editLog.airpressure !== null && (editLog.airpressure.includes(',') || editLog.airpressure.includes('.'))) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				airpressure: true,
+			}));
+			return;
+		}
+		if (editLog.humidity !== null && (Number(editLog.humidity) < 0  || Number(editLog.humidity) > 100)) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				humidity: true,
+			}));
+			return;
+		}
+		if (editLog.humidity !== null && (editLog.humidity.includes(',') || editLog.humidity.includes('.'))) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				humidity: true,
+			}));
+			return;
+		}		
 		if (editLog.description.length > 260) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				desc: true,
 			}));
 			return;
-		}
+		}	
 		editPost(id);
 		setTimeout(() => {
 			handleClose();
@@ -234,7 +290,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 								defaultValue={editLog.temperature}
 								type="number"
 								error={errors.temp}
-								helperText={errors.temp && 'Ange temperatur'}
+								helperText={errors.temp && 'Ange giltigt värde, -100 till +100'}
 								variant="outlined"
 								className={classes.input}
 								size="small"
@@ -256,7 +312,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 								type="number"
 								defaultValue={editLog.precipitation}
 								error={errors.precipitation}
-								helperText={errors.precipitation && 'Ange nederbörd'}
+								helperText={errors.precipitation && 'Ange giltigt värde, 0-300'}
 								variant="outlined"
 								margin="dense"
 								size="small"
@@ -318,7 +374,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 								type="number"
 								defaultValue={editLog.windSpeed}
 								error={errors.windSpeed}
-								helperText={errors.windSpeed && 'Använd endast siffror'}
+								helperText={errors.windSpeed && 'Ange giltigt värde, 0-50'}
 								variant="outlined"
 								margin="dense"
 								size="small"
@@ -373,7 +429,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 								defaultValue={editLog.airpressure}
 								error={errors.airPressure}
 								helperText={
-									errors.airPressure && 'Ange ett värde mellan 900-1100'
+									errors.airPressure && 'Ange ett värde mellan 850-1100'
 								}
 								variant="outlined"
 								margin="dense"
