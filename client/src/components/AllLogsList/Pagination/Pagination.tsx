@@ -101,6 +101,7 @@ export const Pagination = ({
 		<Grid item container>
 			<ButtonGroup className={classes.buttonGroup}>
 				<IconButton
+					aria-label='går ej paginera bakåt'
 					edge="start"
 					disabled={currentPage === startOfPaginationSegment}
 					className={classes.arrowButton}
@@ -115,6 +116,7 @@ export const Pagination = ({
 							.map((number) => {
 								return (
 									<Button
+										aria-label='pagineringsnummer'
 										onClick={() => handlePaginate(number)}
 										className={
 											currentPage === number
@@ -129,6 +131,7 @@ export const Pagination = ({
 					: pageNumbers.map((number) => {
 							return (
 								<Button
+									aria-label='pagineringsnummer'
 									onClick={() => handlePaginate(number)}
 									className={
 										currentPage === number
@@ -142,6 +145,7 @@ export const Pagination = ({
 					  })}
 				{pageNumbers.length > pageNumbersInSegment && !isEndOfPagination && (
 					<Button
+						aria-label='finns fler dolda paginationer'
 						className={`${classes.paginationButton} ${classes.threeDotsButton}`}
 					>
 						...
@@ -149,6 +153,8 @@ export const Pagination = ({
 				)}
 				{pageNumbers.length > pageNumbersInSegment && !isEndOfPagination && (
 					<Button
+						aria-label='paginera bakåt'
+						name='paginera bakåt'
 						className={classes.paginationButton}
 						onClick={() => handleClickLastOfPagination(pageNumbers.at(-1)!)}
 					>
@@ -156,6 +162,7 @@ export const Pagination = ({
 					</Button>
 				)}
 				<IconButton
+					aria-label='paginera framåt'
 					disabled={currentPage === endOfPaginationSegment}
 					className={classes.arrowButton}
 					onClick={() => handleIncreasePagination(currentPage)}

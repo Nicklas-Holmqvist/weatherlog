@@ -189,7 +189,7 @@ const Diagram = () => {
 							<Grid item>
 								<Link to="/create-log" className={classes.disableUnderline}>
 									{mobile ? (
-										<IconButton edge="end" className={classes.addIcon}>
+										<IconButton aria-label='gå till skapa inlägg' edge="end" className={classes.addIcon}>
 											<AddRounded />
 										</IconButton>
 									) : (
@@ -207,7 +207,7 @@ const Diagram = () => {
 						</Grid>
 						{smallScreen && <Divider className={classes.divider} />}
 						<Grid item direction="row" className={classes.dateContainer}>
-							<IconButton onClick={prevMonth} disabled={diagramLength <= 1}>
+							<IconButton aria-label='föregående månad' onClick={prevMonth} disabled={diagramLength <= 1}>
 								<ArrowBackRounded
 									className={
 										diagramLength <= 1
@@ -222,7 +222,7 @@ const Diagram = () => {
 									className={classes.dateText}
 								>{`${month} ${year}`}</Typography>
 							</Grid>
-							<IconButton onClick={nextMonth} disabled={diagramLength <= 1}>
+							<IconButton aria-label='nästa månad' onClick={nextMonth} disabled={diagramLength <= 1}>
 								<ArrowForwardRounded
 									className={
 										diagramLength <= 1
@@ -234,6 +234,7 @@ const Diagram = () => {
 						</Grid>
 						<Grid item container className={classes.showListButton}>
 							<Switch
+								value='byt visningsvy'
 								color="secondary"
 								onChange={() => changeListView(!listView)}
 								defaultChecked={viewFromLS === 'true'}
