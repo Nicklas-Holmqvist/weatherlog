@@ -234,7 +234,9 @@ const Diagram = () => {
 						</Grid>
 						<Grid item container className={classes.showListButton}>
 							<Switch
-								value='byt visningsvy'
+								aria-checked={listView}
+								value={listView ? 'lista' : 'diagram'}
+								id='visningsvy'
 								color="secondary"
 								onChange={() => changeListView(!listView)}
 								defaultChecked={viewFromLS === 'true'}

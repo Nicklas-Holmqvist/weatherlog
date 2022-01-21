@@ -99,6 +99,9 @@ export const LandingPage = () => {
 				<Grid item className={classes.buttonContainer}>
 					<Grid item container className={classes.showAllButton}>
 						<Switch
+							aria-checked={showAll}
+							value={showAll ? 'hela listan' : 'senaste dagarna'}	
+							id='visningsvy'				
 							color="secondary"
 							onChange={() => handleToggleShowAll(!showAll)}
 							defaultChecked={viewFromLS === 'true'}
