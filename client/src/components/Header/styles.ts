@@ -83,4 +83,7 @@ export default makeStyles((theme) => ({
 		textDecoration: 'none',
 		marginLeft: 24,
 	},
+	logo: {
+		cursor: 'pointer',
+	},
 }));
