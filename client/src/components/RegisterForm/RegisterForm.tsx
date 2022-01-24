@@ -99,9 +99,6 @@ export const RegisterForm = () => {
 		fetchUser();
 	};
 
-	// ([A-Za-z0-9-_.]{0,})
-	// ([A-Za-z._-]{0,})\d\w+
-
 	const fetchUser = async () => {
 		const options = {
 			method: 'POST',

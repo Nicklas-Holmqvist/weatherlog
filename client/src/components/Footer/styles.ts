@@ -25,7 +25,6 @@ export default makeStyles((theme) => ({
 		textDecoration: 'none',
 		[theme.breakpoints.down(450)]: {
 			margin: '0 14px',
-			// fontSize: 12,
 		},
 	},
 	text: {

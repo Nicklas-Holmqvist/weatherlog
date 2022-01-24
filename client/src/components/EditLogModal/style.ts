@@ -11,7 +11,6 @@ export default makeStyles((theme) => ({
 		borderRadius: 22,
 		maxWidth: 1000,
 		minWidth: 320,
-		// margin: 10,
 		[theme.breakpoints.down(500)]: {
 			flexWrap: 'nowrap',
 			overflow: 'scroll',
