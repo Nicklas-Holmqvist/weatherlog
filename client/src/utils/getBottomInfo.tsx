@@ -31,8 +31,10 @@ export const GetBottomInfo = (field: string, value: number | string) => {
 				return 'Östlig';
 			case directionEnum.NE:
 				return 'Nordöstlig';
+			case directionEnum.STILL:
+				return 'Vindstilla';
 			default:
-				return '-';
+				return '';
 		}
 	}
 	if (field === dataEnum.WIND_SPEED) {
