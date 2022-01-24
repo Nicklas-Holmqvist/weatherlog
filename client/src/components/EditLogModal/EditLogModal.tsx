@@ -51,7 +51,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 		windDir: false,
 		windSpeed: false,
 		windFeel: false,
-		airPressure: false,
+		airpressure: false,
 		humidity: false,
 		desc: false,
 	});
@@ -71,7 +71,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 			windDir: false,
 			windSpeed: false,
 			windFeel: false,
-			airPressure: false,
+			airpressure: false,
 			humidity: false,
 			desc: false,
 		});
@@ -427,9 +427,9 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 								name="airpressure"
 								type="number"
 								defaultValue={editLog.airpressure}
-								error={errors.airPressure}
+								error={errors.airpressure}
 								helperText={
-									errors.airPressure && 'Ange ett värde mellan 850-1100'
+									errors.airpressure && 'Ange ett värde mellan 850-1100'
 								}
 								variant="outlined"
 								margin="dense"
