@@ -63,19 +63,36 @@ export const getWindiestDay = (logs: ILogs[]) => {
 			array.push({ date: log?.date, windSpeed: parseInt(log?.windSpeed) });
 		}
 	});
-	const windiestDayObject = array.reduce((a, b) => {
-		return a.windSpeed > b.windSpeed ? a : b;
-	});
 
-	const year = windiestDayObject.date.substring(0, 4);
-	const month = getMonthName(windiestDayObject.date.substring(4, 6));
-	let day = windiestDayObject.date.substring(6, 8);
+	if (array.length === 1) {
+		const windiestDayObject = array[0];
+		const year = windiestDayObject.date.substring(0, 4);
+		const month = getMonthName(windiestDayObject.date.substring(4, 6));
+		let day = windiestDayObject.date.substring(6, 8);
 
-	if (day?.charAt(0) === '0') {
-		day = day.substring(0).replace('0', '');
+		if (day?.charAt(0) === '0') {
+			day = day.substring(0).replace('0', '');
+		}
+
+		return `${windiestDayObject.windSpeed} m/s (${day} ${month} ${year})`;
 	}
 
-	return `${windiestDayObject.windSpeed} m/s (${day} ${month} ${year})`;
+	if (array.length > 1) {
+		const windiestDayObject = array.reduce((a, b) => {
+			return a.windSpeed > b.windSpeed ? a : b;
+		});
+		const year = windiestDayObject.date.substring(0, 4);
+		const month = getMonthName(windiestDayObject.date.substring(4, 6));
+		let day = windiestDayObject.date.substring(6, 8);
+
+		if (day?.charAt(0) === '0') {
+			day = day.substring(0).replace('0', '');
+		}
+
+		return `${windiestDayObject.windSpeed} m/s (${day} ${month} ${year})`;
+	} else {
+		return 'Ingen data tillgänglig';
+	}
 };
 
 export const getRainiestDay = (logs: ILogs[]) => {
