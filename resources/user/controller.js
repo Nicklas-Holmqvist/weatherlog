@@ -105,18 +105,25 @@ exports.editUser = async (req, res) => {
 
     const regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
+    const getUser = await UserModel.findById(user);
+    const validEmailChange = await UserModel.find({_id: {$ne: user}}).findOne({email: email})
+
     if(!email.match(regexEmail)){
         errors.msg = 'Emailen har fel format ex. namne@domän.se'   
         errors.boolean = true       
         errors.code = 401 
         errors.success = false
-        await UserModel.findByIdAndUpdate({ _id: user }, newUser)
         res.status(401).json(errors)
         return
     }
-
-    const getUser = await UserModel.findById(user);
-    const validEmailChange = await UserModel.find({_id: {$ne: user}}).findOne({email: email})
+    if(validEmailChange !== null){
+        errors.msg = 'Emailen finns redan registrerad!'   
+        errors.boolean = true       
+        errors.code = 401   
+        errors.success = false
+        res.status(401).json(errors)
+        return
+    }
 
     if (getUser && validEmailChange === null) { 
         try {           
@@ -134,7 +141,7 @@ exports.editUser = async (req, res) => {
         errors.boolean = true       
         errors.code = 401   
         errors.success = false
-        res.status(409).json(errors)
+        res.status(401).json(errors)
     }
 }
 
