@@ -14,7 +14,6 @@ import {
 	getWarmestDay,
 	getWindiestDay,
 } from 'src/utils';
-import { dummyLogs } from 'src/utils/dummyLogs';
 import useStyles from './styles';
 
 interface IStatsList {

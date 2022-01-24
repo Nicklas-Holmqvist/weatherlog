@@ -2,8 +2,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
 	buttonGroup: {
-		// marginTop: 20,
-		// marginBottom: 20,
 		border: 'none',
 	},
 	paginationButton: {

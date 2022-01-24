@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import { ChevronRightRounded } from '@material-ui/icons';
 
 import { useLogsContext } from 'src/context/logs';
@@ -9,7 +9,6 @@ import { CompactWeatherCard } from './CompactWeatherCard';
 
 import useStyles from './styles';
 import { Pagination } from './Pagination';
-import { dummyLogs } from 'src/utils/dummyLogs';
 import { StatsList } from './StatsList';
 
 export const AllLogsList = () => {
@@ -28,7 +27,6 @@ export const AllLogsList = () => {
 
 	const indexOfLastLog = currentPage * logsPerPage;
 	const indexOfFirstLog = indexOfLastLog - logsPerPage;
-	// const currentLogs = dummyLogs.slice(indexOfFirstLog, indexOfLastLog);
 	const currentLogs = allLogs.slice(indexOfFirstLog, indexOfLastLog);
 
 	const paginate = (pageNumber: number) => {

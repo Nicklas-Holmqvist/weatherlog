@@ -53,7 +53,6 @@ export default makeStyles((theme) => ({
 	},
 	button: {
 		borderRadius: 6,
-		// marginTop: 20,
 		alignSelf: 'start',
 		backgroundColor: theme.palette.common.black,
 		color: theme.palette.common.white,

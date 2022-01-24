@@ -249,6 +249,13 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 	};
 
 	const editUser = async () => {
+		setUser({
+			...user,
+			email: user.email?.toLowerCase(),
+			firstName: user.firstName,
+			lastName: user.lastName,
+			city: user.city,
+		});
 		setViewUser({
 			...viewUser,
 			email: user.email,

@@ -2,14 +2,9 @@ import { Box, Typography, Modal, Button } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
 
 import { useLogsContext } from 'src/context/logs';
-// import { useUsersContext } from 'src/context/users';
 import useStyles from './styles';
 
 interface IModalPopup {
-	// title: string;
-	// body: string;
-	// buttonText: string;
-	// onClick: () => void;
 	open: boolean;
 	handleClose: () => void;
 	logID: any;

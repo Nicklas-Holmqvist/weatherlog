@@ -3,8 +3,6 @@ import { createTheme } from '@material-ui/core';
 const FONT_PRIMARY = 'Outfit';
 const FONT_SECONDARY = 'Amiri';
 
-// primary och secondary färger?
-
 interface TemperatruePaletteOptions {
 	minus25orLess: string;
 	minus20to24: string;

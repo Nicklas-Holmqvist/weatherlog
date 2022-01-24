@@ -90,7 +90,7 @@ exports.editUser = async (req, res) => {
     
     
     const newUser = {
-        email: email,
+        email: email.toLowerCase(),
         firstName: firstName,
 		lastName: lastName,
 		city: city,
@@ -106,7 +106,7 @@ exports.editUser = async (req, res) => {
     const regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
     const getUser = await UserModel.findById(user);
-    const validEmailChange = await UserModel.find({_id: {$ne: user}}).findOne({email: email})
+    const validEmailChange = await UserModel.find({_id: {$ne: user}}).findOne({email: email.toLowerCase()})
 
     if(!email.match(regexEmail)){
         errors.msg = 'Emailen har fel format ex. namne@domän.se'   

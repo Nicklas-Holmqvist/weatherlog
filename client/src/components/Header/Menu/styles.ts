@@ -18,7 +18,6 @@ export default makeStyles((theme) => ({
 		position: 'absolute',
 		zIndex: 100,
 		top: '-100%',
-		// bottom: 0,
 		left: 0,
 		right: 0,
 		backgroundColor: theme.palette.common.white,
@@ -44,7 +43,6 @@ export default makeStyles((theme) => ({
 		borderRadius: '12px',
 		transition: 'ease-in-out 200ms',
 		letterSpacing: 1,
-		// textTransform: 'uppercase',
 		'&:hover': {
 			backgroundColor: theme.palette.grey[200],
 		},
@@ -67,7 +65,6 @@ export default makeStyles((theme) => ({
 		[theme.breakpoints.down('sm')]: {
 			fontSize: 30,
 		},
-		// height: 'fit-content',
 		'&:hover': {
 			backgroundColor: theme.palette.grey[300],
 		},
@@ -92,9 +89,5 @@ export default makeStyles((theme) => ({
 	},
 	closeIcon: {
 		color: theme.palette.common.black,
-		// transition: 'margin-bottom 200ms',
-		// '&:hover': {
-		// 	marginBottom: 20,
-		// },
 	},
 }));
