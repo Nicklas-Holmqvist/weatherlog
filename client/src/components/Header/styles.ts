@@ -37,7 +37,7 @@ export default makeStyles((theme) => ({
 		marginLeft: 16,
 	},
 	mobileHeader: {
-		position: 'fixed',
+		position: 'absolute',
 		top: 0,
 		right: 0,
 		left: 0,
@@ -58,7 +58,6 @@ export default makeStyles((theme) => ({
 	},
 	mobileLogo: {
 		width: 32,
-		// justifySelf: 'center',
 		position: 'absolute',
 		top: 9,
 		left: '50%',
@@ -75,7 +74,6 @@ export default makeStyles((theme) => ({
 		marginLeft: 40,
 	},
 	menuButton: {
-		// marginLeft: 16,
 		color: theme.palette.common.black,
 		padding: 9,
 	},
