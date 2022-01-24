@@ -201,7 +201,9 @@ export const DesktopDailyOverview = () => {
 									<ListItemIcon className={classes.listItemIcon}>
 										<PlaceRounded color="secondary" />
 									</ListItemIcon>
-									<Typography variant="subtitle1">{userInfo?.city}</Typography>
+									<Typography variant="subtitle1">
+										{userInfo?.city || 'Ej angett'}
+									</Typography>
 								</ListItem>
 								<ListItem className={classes.listItem}>
 									<ListItemIcon className={classes.listItemIcon}>
