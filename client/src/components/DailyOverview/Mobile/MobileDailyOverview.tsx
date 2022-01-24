@@ -145,7 +145,7 @@ export const MobileDailyOverview = () => {
 						<Grid item className={classes.tempContainer}>
 							{GetWeatherIcon(userLog?.weather, 'large')}
 							<Typography variant="h3" className={classes.temp}>
-								{`${userLog?.temperature}°C`}
+								{`${dotToCommaConverter(userLog?.temperature)}°C`}
 							</Typography>
 							<Grid
 								className={classes.tempColor}
