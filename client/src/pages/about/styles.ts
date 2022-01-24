@@ -9,7 +9,7 @@ export default makeStyles((theme) => ({
 			padding: '0 20px',
 		},
 		[theme.breakpoints.down(500)]: {
-			padding: '0 16px',
+			padding: '0 16px 70px 16px',
 		},
 	},
 	title: {
