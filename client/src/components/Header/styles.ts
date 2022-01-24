@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
 	container: {
-		// width: '100%',
 		height: 70,
 		position: 'absolute',
 		top: 0,
@@ -58,7 +57,6 @@ export default makeStyles((theme) => ({
 	},
 	mobileLogo: {
 		width: 32,
-		// justifySelf: 'center',
 		position: 'absolute',
 		top: 9,
 		left: '50%',
@@ -75,7 +73,6 @@ export default makeStyles((theme) => ({
 		marginLeft: 40,
 	},
 	menuButton: {
-		// marginLeft: 16,
 		color: theme.palette.common.black,
 		padding: 9,
 	},

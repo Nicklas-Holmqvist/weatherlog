@@ -78,7 +78,7 @@ export const SettingsUser = () => {
 			}));
 			return;
 		}
-		if (user.lastName === undefined) {
+		if (user.lastName !== undefined && user.lastName.length >= 15) {
 			setError((oldstate) => ({
 				...oldstate,
 				lastName: true,
@@ -100,17 +100,6 @@ export const SettingsUser = () => {
 			}));
 			return;
 		}
-		if (user.lastName.length >= 15) {
-			setError((oldstate) => ({
-				...oldstate,
-				lastName: true,
-			}));
-			setErrorMessage((oldstate) => ({
-				...oldstate,
-				lastName: 'Max 15 tecken',
-			}));
-			return;
-		}
 		if (user.city === '') {
 			setError((oldstate) => ({
 				...oldstate,
@@ -122,7 +111,18 @@ export const SettingsUser = () => {
 			}));
 			return;
 		}
-		if (user.city === undefined) {
+		if (user.city !== undefined && user.city.length >= 20) {
+			setError((oldstate) => ({
+				...oldstate,
+				city: true,
+			}));
+			setErrorMessage((oldstate) => ({
+				...oldstate,
+				city: 'Kortare än 20 tecken',
+			}));
+			return;
+		}
+		if (user.city === '') {
 			setError((oldstate) => ({
 				...oldstate,
 				city: true,

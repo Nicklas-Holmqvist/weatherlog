@@ -120,9 +120,6 @@ export default makeStyles((theme) => ({
 	},
 	list: {
 		paddingBottom: 0,
-		// [theme.breakpoints.down(1281)]: {
-		// 	marginTop: 10,
-		// },
 	},
 	listItem: {
 		padding: '0 16px',
@@ -142,8 +139,6 @@ export default makeStyles((theme) => ({
 		gridTemplateColumns: '1fr 1fr 1fr',
 		gridTemplateRows: '1fr 1fr',
 		[theme.breakpoints.down(1281)]: {
-			// gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr',
-			// gridTemplateRows: '1fr',
 			gap: 20,
 		},
 	},

@@ -19,7 +19,6 @@ export default makeStyles((theme) => ({
 		right: 0,
 		backgroundColor: theme.palette.common.white,
 		transition: 'top 1.5s cubic-bezier(0.68, -0.35, 0.265, 1.55)',
-		// display: 'none',
 	},
 	wrapper: {
 		width: '100%',
@@ -41,7 +40,6 @@ export default makeStyles((theme) => ({
 		borderRadius: '12px',
 		transition: 'ease-in-out 200ms',
 		letterSpacing: 1,
-		// textTransform: 'uppercase',
 		'&:hover': {
 			backgroundColor: theme.palette.grey[200],
 		},
@@ -88,9 +86,5 @@ export default makeStyles((theme) => ({
 	},
 	closeIcon: {
 		color: theme.palette.common.black,
-		// transition: 'margin-bottom 200ms',
-		// '&:hover': {
-		// 	marginBottom: 20,
-		// },
 	},
 }));

@@ -9,9 +9,7 @@ import { ChevronRightRounded } from '@material-ui/icons';
 import theme from 'src/theme';
 
 import {
-	dotToCommaConverter,
 	GetWeatherIcon,
-	GetWindDirection,
 	getTempColor,
 } from 'src/utils';
 import useStyles from './styles';
