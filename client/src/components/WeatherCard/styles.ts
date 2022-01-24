@@ -53,6 +53,9 @@ export default makeStyles((theme) => ({
 	},
 	month: {
 		marginTop: '-3px',
+		[theme.breakpoints.down(500)]: {
+			fontSize: 15,
+		},
 		[theme.breakpoints.down(450)]: {
 			fontSize: 13,
 		},
@@ -137,7 +140,9 @@ export default makeStyles((theme) => ({
 		color: theme.palette.grey[600],
 		marginLeft: 8,
 		[theme.breakpoints.down('sm')]: {
-			fontSize: 22,
+			fontSize: 18,
+			marginLeft: 4,
+			marginBottom: 3,
 		},
 		[theme.breakpoints.down(450)]: {
 			marginLeft: 3,
