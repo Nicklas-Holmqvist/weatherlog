@@ -7,4 +7,5 @@ export enum directionEnum {
 	SE = 'se',
 	E = 'e',
 	NE = 'ne',
+	STILL = 'noWind',
 }

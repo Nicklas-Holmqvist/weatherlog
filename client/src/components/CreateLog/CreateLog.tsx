@@ -78,7 +78,8 @@ export const CreateLog = () => {
 
 	logs.forEach((log) => {
 		if (selectedDate.includes(log.date.substring(0, 6))) {
-			if(Number(log.date.substring(6, 8))<10)usedDates.push(log.date.substring(7, 8));
+			if (Number(log.date.substring(6, 8)) < 10)
+				usedDates.push(log.date.substring(7, 8));
 			else usedDates.push(log.date.substring(6, 8));
 		}
 		return usedDates;
@@ -110,9 +111,7 @@ export const CreateLog = () => {
 		)
 	);
 
-
 	const handleCreateLog = () => {
-
 		setErrors({
 			date: false,
 			weather: false,
@@ -155,7 +154,10 @@ export const CreateLog = () => {
 			}));
 			return;
 		}
-		if (Number(logValue.temperature) < -100 || Number(logValue.temperature) > 100) {
+		if (
+			Number(logValue.temperature) < -100 ||
+			Number(logValue.temperature) > 100
+		) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				temp: true,
@@ -169,62 +171,84 @@ export const CreateLog = () => {
 			}));
 			return;
 		}
-		if (Number(logValue.precipitation) < 0  || Number(logValue.precipitation) > 300) {
+		if (
+			Number(logValue.precipitation) < 0 ||
+			Number(logValue.precipitation) > 300
+		) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				precipitation: true,
 			}));
 			return;
 		}
-		if (logValue.windSpeed !== null && (Number(logValue.windSpeed) < 0  || Number(logValue.windSpeed) > 50)) {
+		if (
+			logValue.windSpeed !== null &&
+			(Number(logValue.windSpeed) < 0 || Number(logValue.windSpeed) > 50)
+		) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				windSpeed: true,
 			}));
 			return;
 		}
-		if (logValue.windSpeed !== null && (logValue.windSpeed.includes(',') || logValue.windSpeed.includes('.'))) {
+		if (
+			logValue.windSpeed !== null &&
+			(logValue.windSpeed.includes(',') || logValue.windSpeed.includes('.'))
+		) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				windSpeed: true,
 			}));
 			return;
 		}
-		if (logValue.airpressure !== "" && (Number(logValue.airpressure) < 850  || Number(logValue.airpressure) > 1100)) {
+		if (
+			logValue.airpressure !== '' &&
+			(Number(logValue.airpressure) < 850 ||
+				Number(logValue.airpressure) > 1100)
+		) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				airpressure: true,
 			}));
 			return;
 		}
-		if (logValue.airpressure !== null && (logValue.airpressure.includes(',') || logValue.airpressure.includes('.'))) {
+		if (
+			logValue.airpressure !== null &&
+			(logValue.airpressure.includes(',') || logValue.airpressure.includes('.'))
+		) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				airpressure: true,
 			}));
 			return;
 		}
-		if (logValue.humidity !== null && (Number(logValue.humidity) < 0  || Number(logValue.humidity) > 100)) {
+		if (
+			logValue.humidity !== null &&
+			(Number(logValue.humidity) < 0 || Number(logValue.humidity) > 100)
+		) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				humidity: true,
 			}));
 			return;
 		}
-		if (logValue.humidity !== null && (logValue.humidity.includes(',') || logValue.humidity.includes('.'))) {
+		if (
+			logValue.humidity !== null &&
+			(logValue.humidity.includes(',') || logValue.humidity.includes('.'))
+		) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				humidity: true,
 			}));
 			return;
-		}		
+		}
 		if (logValue.description.length > 260) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				desc: true,
 			}));
 			return;
-		}		
+		}
 		createLog.addPost();
 		navigateTo('/home', { replace: true });
 		getLogs();
@@ -308,7 +332,7 @@ export const CreateLog = () => {
 				<Grid item container className={classes.tripleColumns}>
 					<Grid item className={classes.weather}>
 						<FormControl variant="outlined" className={classes.input} fullWidth>
-							<InputLabel className={classes.inputLabel}>Väder</InputLabel>
+							<InputLabel className={classes.inputLabel}>Väder *</InputLabel>
 							<Select
 								name="weather"
 								labelId="demo-simple-select-label"
@@ -430,7 +454,7 @@ export const CreateLog = () => {
 							variant="outlined"
 							margin="dense"
 							size="small"
-							label="Nederbörd"
+							label="Nederbörd *"
 							onChange={(e) => onChange.handleChange(e)}
 							className={classes.input}
 							fullWidth
@@ -592,9 +616,9 @@ export const CreateLog = () => {
 					margin="dense"
 				/>
 			</Grid>
-			<Grid container direction='row'>
+			<Grid container direction="row">
 				<Button
-					name='spara inlägg'
+					name="spara inlägg"
 					onClick={handleCreateLog}
 					disableElevation
 					variant="contained"
@@ -604,7 +628,7 @@ export const CreateLog = () => {
 					Skapa log
 				</Button>
 				<Button
-					name='nollställ alla fält'
+					name="nollställ alla fält"
 					onClick={resetCreateLogForm}
 					disableElevation
 					variant="contained"

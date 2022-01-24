@@ -42,7 +42,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 	const classes = useStyles();
 	const editPost = useLogsContext().editPost;
 	const onChange = useLogsContext();
-	const getLog = useLogsContext().getLog
+	const getLog = useLogsContext().getLog;
 	const { editLog } = useLogsContext();
 	const [errors, setErrors] = useState({
 		weather: false,
@@ -57,11 +57,11 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 	});
 
 	const { id }: any = useParams();
-	
-	useEffect(()=> {
-		getLog(id)
+
+	useEffect(() => {
+		getLog(id);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[id])
+	}, [id]);
 
 	const handleEditLog = () => {
 		setErrors({
@@ -90,7 +90,10 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 			}));
 			return;
 		}
-		if (Number(editLog.temperature) < -100 || Number(editLog.temperature) > 100) {
+		if (
+			Number(editLog.temperature) < -100 ||
+			Number(editLog.temperature) > 100
+		) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				temp: true,
@@ -104,62 +107,83 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 			}));
 			return;
 		}
-		if (Number(editLog.precipitation) < 0  || Number(editLog.precipitation) > 300) {
+		if (
+			Number(editLog.precipitation) < 0 ||
+			Number(editLog.precipitation) > 300
+		) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				precipitation: true,
 			}));
 			return;
 		}
-		if (editLog.windSpeed !== null && (Number(editLog.windSpeed) < 0  || Number(editLog.windSpeed) > 50)) {
+		if (
+			editLog.windSpeed !== null &&
+			(Number(editLog.windSpeed) < 0 || Number(editLog.windSpeed) > 50)
+		) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				windSpeed: true,
 			}));
 			return;
 		}
-		if (editLog.windSpeed !== null && (editLog.windSpeed.includes(',') || editLog.windSpeed.includes('.'))) {
+		if (
+			editLog.windSpeed !== null &&
+			(editLog.windSpeed.includes(',') || editLog.windSpeed.includes('.'))
+		) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				windSpeed: true,
 			}));
 			return;
 		}
-		if (editLog.airpressure !== '' && (Number(editLog.airpressure) < 850  || Number(editLog.airpressure) > 1100)) {
+		if (
+			editLog.airpressure !== '' &&
+			(Number(editLog.airpressure) < 850 || Number(editLog.airpressure) > 1100)
+		) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				airpressure: true,
 			}));
 			return;
 		}
-		if (editLog.airpressure !== null && (editLog.airpressure.includes(',') || editLog.airpressure.includes('.'))) {
+		if (
+			editLog.airpressure !== null &&
+			(editLog.airpressure.includes(',') || editLog.airpressure.includes('.'))
+		) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				airpressure: true,
 			}));
 			return;
 		}
-		if (editLog.humidity !== null && (Number(editLog.humidity) < 0  || Number(editLog.humidity) > 100)) {
+		if (
+			editLog.humidity !== null &&
+			(Number(editLog.humidity) < 0 || Number(editLog.humidity) > 100)
+		) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				humidity: true,
 			}));
 			return;
 		}
-		if (editLog.humidity !== null && (editLog.humidity.includes(',') || editLog.humidity.includes('.'))) {
+		if (
+			editLog.humidity !== null &&
+			(editLog.humidity.includes(',') || editLog.humidity.includes('.'))
+		) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				humidity: true,
 			}));
 			return;
-		}		
+		}
 		if (editLog.description.length > 260) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				desc: true,
 			}));
 			return;
-		}	
+		}
 		editPost(id);
 		setTimeout(() => {
 			handleClose();
@@ -194,14 +218,14 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 								className={classes.input}
 								fullWidth
 							>
-								<InputLabel className={classes.inputLabel}>Väder</InputLabel>
+								<InputLabel className={classes.inputLabel}>Väder *</InputLabel>
 								<Select
 									name="weather"
 									labelId="demo-simple-select-label"
 									id="demo-simple-select"
 									error={errors.weather}
 									defaultValue={editLog.weather}
-									label="Väder"
+									label="Väder *"
 									onChange={(e) => onChange.handleEditChange(e)}
 									className={classes.dropdown}
 								>
@@ -295,7 +319,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 								className={classes.input}
 								size="small"
 								margin="dense"
-								label="Temp"
+								label="Temperatur"
 								onChange={(e) => onChange.handleEditChange(e)}
 								fullWidth
 								required
@@ -316,7 +340,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 								variant="outlined"
 								margin="dense"
 								size="small"
-								label="Nederbörd"
+								label="Nederbörd *"
 								onChange={(e) => onChange.handleEditChange(e)}
 								className={classes.input}
 								fullWidth
@@ -490,7 +514,7 @@ const EditLogModal = ({ open, handleClose }: IEditLogModal) => {
 					/>
 				</Grid>
 				<Button
-					name='spara ändringar'
+					name="spara ändringar"
 					onClick={handleEditLog}
 					disableElevation
 					variant="contained"

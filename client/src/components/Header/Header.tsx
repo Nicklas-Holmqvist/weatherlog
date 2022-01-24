@@ -1,10 +1,5 @@
 import { useState } from 'react';
-import {
-	Grid,
-	Typography,
-	useMediaQuery,
-	IconButton,
-} from '@material-ui/core';
+import { Grid, Typography, useMediaQuery, IconButton } from '@material-ui/core';
 import {
 	SettingsRounded,
 	MoreVertRounded,
@@ -40,7 +35,7 @@ export const Header = () => {
 	};
 
 	const getNameString = () => {
-		if(!isAuth) return
+		if (!isAuth) return;
 		if (viewUser.firstName && viewUser.lastName && viewUser.city) {
 			return `${viewUser.firstName} ${viewUser.lastName}, ${viewUser.city}`;
 		} else if (viewUser.email) {
@@ -55,8 +50,8 @@ export const Header = () => {
 			<MobileMenu open={showMobileMenu} handleClose={handleCloseMobileMenu} />
 			<Grid item container component="header" className={classes.mobileHeader}>
 				<IconButton
-					aria-label='öppna eller stäng meny'
-					name='öppna eller stäng meny'
+					aria-label="öppna eller stäng meny"
+					name="öppna eller stäng meny"
 					edge="start"
 					onClick={() => setShowMobileMenu(!showMobileMenu)}
 				>
@@ -71,7 +66,7 @@ export const Header = () => {
 				</Link>
 				{isAuth && (
 					<IconButton
-						name='gå till inställningar'
+						name="gå till inställningar"
 						edge="end"
 						onClick={() => navigateTo('/settings')}
 						className={classes.settingsButton}
@@ -87,7 +82,13 @@ export const Header = () => {
 			<Grid item container component="header" className={classes.container}>
 				<Grid item container className={classes.wrapper}>
 					<Grid item className={classes.left}>
-						<img onClick={() => navigateTo('/')} src={logo} alt="Logo" />
+						<img
+							onClick={() => navigateTo('/')}
+							src={logo}
+							alt="Logo"
+							className={classes.logo}
+							title="Gå till startsidan"
+						/>
 						<Typography variant="body1" className={classes.name}>
 							{getNameString()}
 						</Typography>
@@ -95,8 +96,8 @@ export const Header = () => {
 					<Grid item className={classes.right}>
 						{isAuth && (
 							<IconButton
-								aria-label='gå till inställningar'
-								name='gå till inställningar'
+								aria-label="gå till inställningar"
+								name="gå till inställningar"
 								onClick={() => navigateTo('/settings')}
 								className={classes.settingsButton}
 							>
@@ -104,8 +105,8 @@ export const Header = () => {
 							</IconButton>
 						)}
 						<IconButton
-							aria-label='öppna eller stäng meny'
-							name='öppna eller stäng meny'
+							aria-label="öppna eller stäng meny"
+							name="öppna eller stäng meny"
 							onClick={() => setShowMenu(!showMenu)}
 							className={classes.menuButton}
 						>
