@@ -190,7 +190,7 @@ export const CreateLog = () => {
 			}));
 			return;
 		}
-		if (logValue.airpressure !== null && (Number(logValue.airpressure) < 850  || Number(logValue.airpressure) > 1100)) {
+		if (logValue.airpressure !== "" && (Number(logValue.airpressure) < 850  || Number(logValue.airpressure) > 1100)) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				airpressure: true,
