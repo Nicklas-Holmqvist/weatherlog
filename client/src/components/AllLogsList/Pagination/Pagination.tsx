@@ -30,14 +30,14 @@ export const Pagination = ({
 	// start and end of "segment" of page numbers, ex: 1 2 3 4 5 ... 20 --- 1 to 5 is segment
 	const [startOfPaginationSegment, setStartOfPaginationSegment] = useState(1);
 	const [endOfPaginationSegment, setEndOfPaginationSegment] = useState(
-		pageNumbers.length < 5 ? pageNumbers.at(-1)! : pageNumbersInSegment
+		pageNumbers.length < 5 ? pageNumbers.length! : pageNumbersInSegment
 	);
 
 	// check if current page is at the end of pagination to hide "..." and last index, ex => ... 20
 	let isEndOfPagination =
-		currentPage === pageNumbers.at(-3) ||
-		currentPage === pageNumbers.at(-2) ||
-		currentPage === pageNumbers.at(-1);
+		currentPage === pageNumbers[pageNumbers.length - 3] ||
+		currentPage === pageNumbers[pageNumbers.length - 2] ||
+		currentPage === pageNumbers.length;
 
 	// go to page when clicked and scroll to top
 	const handlePaginate = (number: number) => {
@@ -48,7 +48,7 @@ export const Pagination = ({
 	// when clicking arrow to increase page number ">"
 	const handleIncreasePagination = (number: number) => {
 		// disable increase when at the last index
-		if (number === pageNumbers.at(-1)) {
+		if (number === pageNumbers.length) {
 			return;
 		}
 		paginate(number + 1);
@@ -61,7 +61,7 @@ export const Pagination = ({
 			return;
 		}
 		// time to show "..." and last index when decreasing on "<" button
-		if (number === pageNumbers.at(-7)) {
+		if (number === pageNumbers[pageNumbers.length - 7]) {
 			isEndOfPagination = true;
 		}
 		paginate(number - 1);
@@ -76,7 +76,7 @@ export const Pagination = ({
 
 	// when not at last page index AND end of segment, show higher page numbers/new segment
 	if (
-		currentPage !== pageNumbers.at(-1) &&
+		currentPage !== pageNumbers.length &&
 		currentPage === endOfPaginationSegment
 	) {
 		setStartOfPaginationSegment(startOfPaginationSegment + 1);
@@ -91,8 +91,8 @@ export const Pagination = ({
 
 	// if the end of segment is the last or second to last page numbers, hide => "..." _X_
 	if (
-		endOfPaginationSegment === pageNumbers.at(-1) ||
-		endOfPaginationSegment === pageNumbers.at(-2)
+		endOfPaginationSegment === pageNumbers.length ||
+		endOfPaginationSegment === pageNumbers[pageNumbers.length - 2]
 	) {
 		isEndOfPagination = true;
 	}
@@ -101,7 +101,7 @@ export const Pagination = ({
 		<Grid item container>
 			<ButtonGroup className={classes.buttonGroup}>
 				<IconButton
-					aria-label='går ej paginera bakåt'
+					aria-label="går ej paginera bakåt"
 					edge="start"
 					disabled={currentPage === startOfPaginationSegment}
 					className={classes.arrowButton}
@@ -116,7 +116,7 @@ export const Pagination = ({
 							.map((number) => {
 								return (
 									<Button
-										aria-label='pagineringsnummer'
+										aria-label="pagineringsnummer"
 										onClick={() => handlePaginate(number)}
 										className={
 											currentPage === number
@@ -131,7 +131,7 @@ export const Pagination = ({
 					: pageNumbers.map((number) => {
 							return (
 								<Button
-									aria-label='pagineringsnummer'
+									aria-label="pagineringsnummer"
 									onClick={() => handlePaginate(number)}
 									className={
 										currentPage === number
@@ -145,7 +145,7 @@ export const Pagination = ({
 					  })}
 				{pageNumbers.length > pageNumbersInSegment && !isEndOfPagination && (
 					<Button
-						aria-label='finns fler dolda paginationer'
+						aria-label="finns fler dolda paginationer"
 						className={`${classes.paginationButton} ${classes.threeDotsButton}`}
 					>
 						...
@@ -153,16 +153,16 @@ export const Pagination = ({
 				)}
 				{pageNumbers.length > pageNumbersInSegment && !isEndOfPagination && (
 					<Button
-						aria-label='paginera bakåt'
-						name='paginera bakåt'
+						aria-label="paginera bakåt"
+						name="paginera bakåt"
 						className={classes.paginationButton}
-						onClick={() => handleClickLastOfPagination(pageNumbers.at(-1)!)}
+						onClick={() => handleClickLastOfPagination(pageNumbers.length)}
 					>
-						{pageNumbers.at(-1)}
+						{pageNumbers.length}
 					</Button>
 				)}
 				<IconButton
-					aria-label='paginera framåt'
+					aria-label="paginera framåt"
 					disabled={currentPage === endOfPaginationSegment}
 					className={classes.arrowButton}
 					onClick={() => handleIncreasePagination(currentPage)}

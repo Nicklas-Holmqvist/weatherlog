@@ -35,11 +35,14 @@ export default makeStyles((theme) => ({
 		alignItems: 'center',
 	},
 	showAllButton: {
-		textTransform: 'uppercase',
-		marginRight: 16,
+		width: '100%',
+		display: 'flex',
+		justifyContent: 'flex-end',
 		alignItems: 'center',
+		padding: '8px 0',
+		textTransform: 'uppercase',
 		[theme.breakpoints.down(520)]: {
-			marginRight: 12,
+			padding: 0,
 		},
 	},
 	switch: {
@@ -59,8 +62,8 @@ export default makeStyles((theme) => ({
 	listIcon: {
 		marginLeft: 8,
 		marginBottom: 1,
-		[theme.breakpoints.down(520)]: {
-			marginLeft: 0,
+		[theme.breakpoints.up(520)]: {
+			marginRight: 12,
 		},
 	},
 	tableHeader: {

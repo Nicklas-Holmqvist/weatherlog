@@ -57,13 +57,13 @@ export const LandingPage = () => {
 		})
 			.then((res) => {
 				if (res.status === 401) {
-					console.log('Ingen inloggning')
+					console.log('Ingen inloggning');
 					return;
 				}
 				return res.json();
 			})
 			.then((data) => {
-				if(data === undefined) return
+				if (data === undefined) return;
 				setLogList(data);
 				setIsLoading(false);
 			})
@@ -83,8 +83,8 @@ export const LandingPage = () => {
 		} else {
 			setShowAll(false);
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<Grid item container className={classes.container}>
@@ -97,41 +97,44 @@ export const LandingPage = () => {
 					{pageTitle}
 				</Typography>
 				<Grid item className={classes.buttonContainer}>
-					<Grid item container className={classes.showAllButton}>
-						<Switch
-							aria-checked={showAll}
-							value={showAll ? 'hela listan' : 'senaste dagarna'}	
-							id='visningsvy'				
-							color="secondary"
-							onChange={() => handleToggleShowAll(!showAll)}
-							defaultChecked={viewFromLS === 'true'}
-							className={classes.switch}
-						/>
-						{!mobile && (
+					{!mobile && (
+						<Grid item container className={classes.showAllButton}>
+							<Switch
+								aria-checked={showAll}
+								value={showAll ? 'hela listan' : 'senaste dagarna'}
+								id="visningsvy"
+								color="secondary"
+								onChange={() => handleToggleShowAll(!showAll)}
+								defaultChecked={viewFromLS === 'true'}
+								className={classes.switch}
+							/>
 							<Typography
 								variant="subtitle2"
 								className={classes.showAllButtonText}
 							>
 								Visa alla
 							</Typography>
-						)}
-						<FormatListBulletedRounded
-							fontSize="small"
-							className={classes.listIcon}
-						/>
-					</Grid>
+							<FormatListBulletedRounded
+								fontSize="small"
+								className={classes.listIcon}
+							/>
+						</Grid>
+					)}
 					{historyMonths.length >= 1 && (
 						<Link
 							to={`/diagram/${history[0]}`}
 							className={classes.disableUnderline}
 						>
 							{smallScreen ? (
-								<IconButton name='gå till historik' className={classes.iconButton}>
+								<IconButton
+									name="gå till historik"
+									className={classes.iconButton}
+								>
 									<ShowChartRounded />
 								</IconButton>
 							) : (
 								<Button
-									name='gå till historik'
+									name="gå till historik"
 									variant="text"
 									endIcon={<ShowChartRounded />}
 									disableElevation
@@ -145,12 +148,16 @@ export const LandingPage = () => {
 					)}
 					<Link to="/create-log" className={classes.disableUnderline}>
 						{smallScreen ? (
-							<IconButton name='gå till skapa inlägg' edge="end" className={classes.iconButton}>
+							<IconButton
+								name="gå till skapa inlägg"
+								edge="end"
+								className={classes.iconButton}
+							>
 								<AddRounded />
 							</IconButton>
 						) : (
 							<Button
-								name='gå till skapa inlägg'
+								name="gå till skapa inlägg"
 								variant="contained"
 								endIcon={<AddRounded />}
 								disableElevation
@@ -161,6 +168,20 @@ export const LandingPage = () => {
 					</Link>
 				</Grid>
 			</Grid>
+			{mobile && (
+				<Grid item container className={classes.showAllButton}>
+					<Switch
+						aria-checked={showAll}
+						value={showAll ? 'hela listan' : 'senaste dagarna'}
+						id="visningsvy"
+						color="secondary"
+						onChange={() => handleToggleShowAll(!showAll)}
+						defaultChecked={viewFromLS === 'true'}
+						className={classes.switch}
+					/>
+					<FormatListBulletedRounded fontSize="small" />
+				</Grid>
+			)}
 			{isLoading ? (
 				<Loading />
 			) : logList?.length === 0 ? (
