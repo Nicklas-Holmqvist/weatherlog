@@ -19,22 +19,23 @@ export const SettingsUser = () => {
 	const classes = useStyles();
 
 	const handleChange = useUsersContext().handleChange;
-	const handleAfterChangedEmailSuccess = useUsersContext().handleAfterChangedEmailSuccess;
+	const handleAfterChangedEmailSuccess =
+		useUsersContext().handleAfterChangedEmailSuccess;
 	const editUser = useUsersContext().editUser;
 	const { user, errorEmail } = useUsersContext();
 
 	const [showModal, setShowModal] = useState(false);
-	const [open, setOpen] = useState<boolean>(false)
-	const [inputTouched, setInputTouched] = useState<boolean>(false)
+	const [open, setOpen] = useState<boolean>(false);
+	const [inputTouched, setInputTouched] = useState<boolean>(false);
 
 	const handleClose = () => {
-		return setOpen(false)
-	}
+		return setOpen(false);
+	};
 
 	const [errorMessage, setErrorMessage] = useState({
 		firstName: '',
 		lastName: '',
-		city: '',		
+		city: '',
 	});
 	const [error, setError] = useState({
 		firstName: false,
@@ -43,9 +44,8 @@ export const SettingsUser = () => {
 	});
 
 	const handleEditAccount = () => {
-		
-		resetErrors()
-		if (user.firstName !== undefined && user.firstName.length < 2 )  {
+		resetErrors();
+		if (user.firstName !== undefined && user.firstName.length < 2) {
 			setError((oldstate) => ({
 				...oldstate,
 				firstName: true,
@@ -54,9 +54,9 @@ export const SettingsUser = () => {
 				...oldstate,
 				firstName: 'Fyll i förnamn, minst 2 tecken',
 			}));
-			return
+			return;
 		}
-		if (user.firstName !== undefined && user.firstName.length >= 15 )  {
+		if (user.firstName !== undefined && user.firstName.length >= 15) {
 			setError((oldstate) => ({
 				...oldstate,
 				firstName: true,
@@ -65,9 +65,9 @@ export const SettingsUser = () => {
 				...oldstate,
 				firstName: 'Fyll i förnamn, max 15 tecken',
 			}));
-			return
+			return;
 		}
-		if (user.firstName === '')  {
+		if (user.firstName === '') {
 			setError((oldstate) => ({
 				...oldstate,
 				firstName: true,
@@ -76,9 +76,9 @@ export const SettingsUser = () => {
 				...oldstate,
 				firstName: 'Fyll i förnamn, minst 2 tecken',
 			}));
-			return
+			return;
 		}
-		if (user.lastName === undefined)  {
+		if (user.lastName === undefined) {
 			setError((oldstate) => ({
 				...oldstate,
 				lastName: true,
@@ -87,9 +87,9 @@ export const SettingsUser = () => {
 				...oldstate,
 				lastName: 'Fyll i efternamn',
 			}));
-			return
+			return;
 		}
-		if (user.lastName === '')  {
+		if (user.lastName === '') {
 			setError((oldstate) => ({
 				...oldstate,
 				lastName: true,
@@ -98,9 +98,9 @@ export const SettingsUser = () => {
 				...oldstate,
 				lastName: 'Fyll i efternamn',
 			}));
-			return
+			return;
 		}
-		if (user.lastName.length >= 15)  {
+		if (user.lastName.length >= 15) {
 			setError((oldstate) => ({
 				...oldstate,
 				lastName: true,
@@ -109,9 +109,9 @@ export const SettingsUser = () => {
 				...oldstate,
 				lastName: 'Max 15 tecken',
 			}));
-			return
+			return;
 		}
-		if (user.city === '')  {
+		if (user.city === '') {
 			setError((oldstate) => ({
 				...oldstate,
 				city: true,
@@ -120,9 +120,9 @@ export const SettingsUser = () => {
 				...oldstate,
 				city: 'Fyll i registreringsort',
 			}));
-			return
+			return;
 		}
-		if (user.city === undefined)  {
+		if (user.city === undefined) {
 			setError((oldstate) => ({
 				...oldstate,
 				city: true,
@@ -131,61 +131,58 @@ export const SettingsUser = () => {
 				...oldstate,
 				city: 'Fyll i registreringsort',
 			}));
-			return
+			return;
 		}
-		
+
 		setErrorMessage({
 			firstName: '',
 			lastName: '',
 			city: '',
-			
-		})
+		});
 		setError({
 			firstName: false,
 			lastName: false,
 			city: false,
-			
-		})		
-		if(!inputTouched)return
-		editUser()
-	}
+		});
+		if (!inputTouched) return;
+		editUser();
+	};
 
 	useEffect(() => {
-		setInputTouched(false)
-	},[open])
+		setInputTouched(false);
+	}, [open]);
 
 	const resetErrors = () => {
 		setErrorMessage({
 			firstName: '',
 			lastName: '',
 			city: '',
-		})
+		});
 		setError({
 			firstName: false,
 			lastName: false,
 			city: false,
-		})		
-	}
+		});
+	};
 
 	useEffect(() => {
-		if(errorEmail.success){
-			if(inputTouched){
-				setOpen(true)
-				handleAfterChangedEmailSuccess()
+		if (errorEmail.success) {
+			if (inputTouched) {
+				setOpen(true);
+				handleAfterChangedEmailSuccess();
 			}
 		}
-	}, [errorEmail.success, handleAfterChangedEmailSuccess, inputTouched])
+	}, [errorEmail.success, handleAfterChangedEmailSuccess, inputTouched]);
 
 	const action = (
 		<React.Fragment>
-		  <IconButton
-		  	name='ändring genomförd'
-			size="small"
-			aria-label="close"
-			color="inherit"
-			onClick={handleClose}
-		  >
-		  </IconButton>
+			<IconButton
+				name="ändring genomförd"
+				size="small"
+				aria-label="close"
+				color="inherit"
+				onClick={handleClose}
+			></IconButton>
 		</React.Fragment>
 	);
 
@@ -197,7 +194,7 @@ export const SettingsUser = () => {
 			<Grid container direction="column" className={classes.root}>
 				<Snackbar
 					open={open}
-					anchorOrigin={{ vertical:'top', horizontal:'center' }}
+					anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
 					autoHideDuration={1000}
 					onClose={handleClose}
 					message="Användaruppgifterna har uppdaterats!"
@@ -214,14 +211,14 @@ export const SettingsUser = () => {
 							error={error.firstName}
 							name="firstName"
 							value={user.firstName}
-							placeholder='Fyll i ditt namn'
+							placeholder="Fyll i ditt namn"
 							helperText={errorMessage.firstName}
 							variant="outlined"
 							margin="dense"
 							size="small"
 							onChange={(e) => {
-								setInputTouched(true)
-								handleChange(e)
+								setInputTouched(true);
+								handleChange(e);
 							}}
 							className={classes.textField}
 							required
@@ -234,14 +231,14 @@ export const SettingsUser = () => {
 							error={error.lastName}
 							name="lastName"
 							value={user.lastName}
-							placeholder='Fyll i ditt efternamn'
+							placeholder="Fyll i ditt efternamn"
 							helperText={errorMessage.lastName}
 							variant="outlined"
 							margin="dense"
 							size="small"
 							onChange={(e) => {
-								setInputTouched(true)
-								handleChange(e)
+								setInputTouched(true);
+								handleChange(e);
 							}}
 							className={classes.textField}
 							required
@@ -254,14 +251,14 @@ export const SettingsUser = () => {
 							error={error.city}
 							name="city"
 							value={user.city}
-							placeholder='Fyll i registreringsort'
+							placeholder="Fyll i registreringsort"
 							helperText={errorMessage.city}
 							variant="outlined"
 							margin="dense"
 							size="small"
 							onChange={(e) => {
-								setInputTouched(true)
-								handleChange(e)
+								setInputTouched(true);
+								handleChange(e);
 							}}
 							className={`${classes.textField} ${classes.marginTop}`}
 							required
@@ -274,14 +271,14 @@ export const SettingsUser = () => {
 							error={errorEmail.boolean}
 							name="email"
 							value={user.email}
-							placeholder='Fyll i email'
+							placeholder="Fyll i email"
 							helperText={errorEmail.msg}
 							variant="outlined"
 							margin="dense"
 							size="small"
 							onChange={(e) => {
-								setInputTouched(true)
-								handleChange(e)
+								setInputTouched(true);
+								handleChange(e);
 							}}
 							className={`${classes.textField} ${classes.marginTop}`}
 							required
@@ -298,7 +295,7 @@ export const SettingsUser = () => {
 						</Typography>
 					</Grid>
 					<Button
-						name='varning, ta bort konto'
+						name="varning, ta bort konto"
 						onClick={() => setShowModal(!showModal)}
 						variant="contained"
 						disableElevation
@@ -309,7 +306,7 @@ export const SettingsUser = () => {
 				</Grid>
 				<Divider className={classes.divider} />
 				<Button
-					name='spara ändringar'
+					name="spara ändringar"
 					onClick={handleEditAccount}
 					variant="contained"
 					disableElevation

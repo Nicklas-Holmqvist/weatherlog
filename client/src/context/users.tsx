@@ -8,16 +8,16 @@ import React, {
 
 import { IUsers, IPassword, IChangeErrors } from '../types/Users';
 
-import { useAuthContext } from './auth'
+import { useAuthContext } from './auth';
 
 export const UsersContext = createContext<Context>(undefined!);
 
 type Context = {
-	errorEmail: IChangeErrors
+	errorEmail: IChangeErrors;
 	user: IUsers;
 	viewUser: IUsers;
 	password: IPassword;
-	changePasswordSuccess: boolean
+	changePasswordSuccess: boolean;
 	errorMessage: { newPassword: string; oldPassword: string };
 	error: { newPassword: boolean; oldPassword: boolean };
 	deleteUser: () => void;
@@ -30,8 +30,7 @@ type Context = {
 };
 
 export const UsersProvider: FunctionComponent = ({ children }) => {
-
-	const { isAuth } = useAuthContext()
+	const { isAuth } = useAuthContext();
 	const emptyPassword = {
 		oldPassword: '',
 		newPassword: '',
@@ -61,13 +60,14 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 	});
 
 	const [viewUser, setViewUser] = useState<IUsers>({
-		email:'',
+		email: '',
 		city: '',
 		firstName: '',
 		lastName: '',
 	});
 
-	const [changePasswordSuccess, setChangePasswordSuccess] = useState<boolean>(false)
+	const [changePasswordSuccess, setChangePasswordSuccess] =
+		useState<boolean>(false);
 
 	const [password, setPassword] = useState<IPassword>(emptyPassword);
 
@@ -82,20 +82,20 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 
 	const [errorEmail, setErrorEmail] = useState({
 		msg: '',
-		boolean: true,
+		boolean: false,
 		success: false,
 	});
 
 	const handleChangePasswordSuccess = () => {
-		setChangePasswordSuccess(false)
-	}
+		setChangePasswordSuccess(false);
+	};
 
 	const handleAfterChangedEmailSuccess = () => {
 		setErrorEmail((oldstate) => ({
 			...oldstate,
-			success: false
+			success: false,
 		}));
-	}
+	};
 
 	/**
 	 * Handle input changes in setting page
@@ -126,7 +126,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 				...oldstate,
 				boolean: true,
 				msg: e.msg.toString(),
-				success: false
+				success: false,
 			}));
 			return;
 		} else {
@@ -134,17 +134,17 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 				...oldstate,
 				boolean: false,
 				msg: '',
-				success: true
+				success: true,
 			}));
-		}	
-		return
+		}
+		return;
 	};
 
 	/** Handle incoming errors from ChangePassword API */
 	const handleErrorChangePassword = (e: IChangeErrors) => {
 		setErrorMessage(emptyErrorMessage);
 		setError(emptyError);
-		setChangePasswordSuccess(false)
+		setChangePasswordSuccess(false);
 		if (e.code === 404) {
 			setError((oldstate) => ({
 				...oldstate,
@@ -167,7 +167,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 			}));
 			return;
 		}
-		setChangePasswordSuccess(true)
+		setChangePasswordSuccess(true);
 	};
 
 	const options = {
@@ -203,21 +203,21 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 			firstName: '',
 			lastName: '',
 			city: '',
-		})
-	}
+		});
+	};
 
 	useEffect(() => {
-		if(!isAuth) {
-			resetAtLogout()
+		if (!isAuth) {
+			resetAtLogout();
 		}
-	},[isAuth])
+	}, [isAuth]);
 
 	useEffect(() => {
-		if(!isAuth) return
+		if (!isAuth) return;
 		fetch('/api/user', options.fetchUser)
 			.then((res) => {
 				if (res.status === 401) {
-					console.log('Ingen inloggning!')
+					console.log('Ingen inloggning!');
 					return;
 				}
 				return res.json();
@@ -228,7 +228,7 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 					firstName: data.firstName,
 					lastName: data.lastName,
 					city: data.city,
-				})
+				});
 				setUser({
 					email: data.email,
 					firstName: data.firstName,
@@ -239,8 +239,8 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 			.catch((err) => {
 				console.error(err);
 			});
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[isAuth]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isAuth]);
 
 	const addUser = async () => {
 		await fetch('/api/user/register', options.addUser).catch((err) => {
@@ -255,15 +255,16 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 			firstName: user.firstName,
 			lastName: user.lastName,
 			city: user.city,
-		})
+		});
 		await fetch(`/api/user/edit`, options.editUser)
 			.then((res) => {
-				if(res.status === 401) console.log('Emailen har fel format ex. namne@domän.se')
-				if(res.status === 409) console.log('Emailen finns redan registrerad!')
+				if (res.status === 401)
+					console.log('Emailen har fel format ex. namne@domän.se');
+				if (res.status === 409) console.log('Emailen finns redan registrerad!');
 				else return res.json();
 			})
-			.then((data) => {		
-				if(data === undefined) return	
+			.then((data) => {
+				if (data === undefined) return;
 				handleErrorChangeEmail(data);
 			})
 			.catch((err) => {
@@ -274,9 +275,11 @@ export const UsersProvider: FunctionComponent = ({ children }) => {
 	const changePassword = async () => {
 		await fetch(`/api/user/changePassword`, options.changePassword)
 			.then((res) => {
-				if (res.status === 404) console.log('Gamla lösenordet stämmer inte')
-				if (res.status === 406) console.log('Lösenordet måste vara minst 6 tecken')
-				if (res.status === 409) console.log('Du kan inte använda samma lösenord')
+				if (res.status === 404) console.log('Gamla lösenordet stämmer inte');
+				if (res.status === 406)
+					console.log('Lösenordet måste vara minst 6 tecken');
+				if (res.status === 409)
+					console.log('Du kan inte använda samma lösenord');
 				return res.json();
 			})
 			.then((data) => {
