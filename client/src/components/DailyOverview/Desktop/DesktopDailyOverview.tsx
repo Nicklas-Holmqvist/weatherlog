@@ -181,7 +181,7 @@ export const DesktopDailyOverview = () => {
 						<Grid container direction="column">
 							<Grid item container className={classes.tempAndColorContainer}>
 								<Typography variant="h3" className={classes.temp}>
-									{`${userLog?.temperature}°C`}
+									{`${dotToCommaConverter(userLog?.temperature)}°C`}
 								</Typography>
 								{laptopScreen && GetWeatherIcon(userLog?.weather, 'large')}
 								{!laptopScreen && (

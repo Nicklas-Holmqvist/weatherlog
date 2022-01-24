@@ -56,6 +56,17 @@ export const SettingsUser = () => {
 			}));
 			return
 		}
+		if (user.firstName !== undefined && user.firstName.length >= 15 )  {
+			setError((oldstate) => ({
+				...oldstate,
+				firstName: true,
+			}));
+			setErrorMessage((oldstate) => ({
+				...oldstate,
+				firstName: 'Fyll i förnamn, max 15 tecken',
+			}));
+			return
+		}
 		if (user.firstName === '')  {
 			setError((oldstate) => ({
 				...oldstate,
@@ -86,6 +97,17 @@ export const SettingsUser = () => {
 			setErrorMessage((oldstate) => ({
 				...oldstate,
 				lastName: 'Fyll i efternamn',
+			}));
+			return
+		}
+		if (user.lastName.length >= 15)  {
+			setError((oldstate) => ({
+				...oldstate,
+				lastName: true,
+			}));
+			setErrorMessage((oldstate) => ({
+				...oldstate,
+				lastName: 'Max 15 tecken',
 			}));
 			return
 		}

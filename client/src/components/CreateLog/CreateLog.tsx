@@ -58,7 +58,7 @@ export const CreateLog = () => {
 		windDir: false,
 		windSpeed: false,
 		windFeel: false,
-		airPressure: false,
+		airpressure: false,
 		humidity: false,
 		desc: false,
 	});
@@ -78,7 +78,8 @@ export const CreateLog = () => {
 
 	logs.forEach((log) => {
 		if (selectedDate.includes(log.date.substring(0, 6))) {
-			usedDates.push(log.date.substring(6, 8));
+			if(Number(log.date.substring(6, 8))<10)usedDates.push(log.date.substring(7, 8));
+			else usedDates.push(log.date.substring(6, 8));
 		}
 		return usedDates;
 	});
@@ -109,7 +110,9 @@ export const CreateLog = () => {
 		)
 	);
 
+
 	const handleCreateLog = () => {
+
 		setErrors({
 			date: false,
 			weather: false,
@@ -118,7 +121,7 @@ export const CreateLog = () => {
 			windDir: false,
 			windSpeed: false,
 			windFeel: false,
-			airPressure: false,
+			airpressure: false,
 			humidity: false,
 			desc: false,
 		});
@@ -130,6 +133,13 @@ export const CreateLog = () => {
 				}));
 				return;
 			}
+		}
+		if (logValue.date.length !== 8) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				date: true,
+			}));
+			return;
 		}
 		if (logValue.weather === '') {
 			setErrors((oldstate) => ({
@@ -145,6 +155,13 @@ export const CreateLog = () => {
 			}));
 			return;
 		}
+		if (Number(logValue.temperature) < -100 || Number(logValue.temperature) > 100) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				temp: true,
+			}));
+			return;
+		}
 		if (logValue.precipitation === '') {
 			setErrors((oldstate) => ({
 				...oldstate,
@@ -152,13 +169,62 @@ export const CreateLog = () => {
 			}));
 			return;
 		}
+		if (Number(logValue.precipitation) < 0  || Number(logValue.precipitation) > 300) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				precipitation: true,
+			}));
+			return;
+		}
+		if (logValue.windSpeed !== null && (Number(logValue.windSpeed) < 0  || Number(logValue.windSpeed) > 50)) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				windSpeed: true,
+			}));
+			return;
+		}
+		if (logValue.windSpeed !== null && (logValue.windSpeed.includes(',') || logValue.windSpeed.includes('.'))) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				windSpeed: true,
+			}));
+			return;
+		}
+		if (logValue.airpressure !== "" && (Number(logValue.airpressure) < 850  || Number(logValue.airpressure) > 1100)) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				airpressure: true,
+			}));
+			return;
+		}
+		if (logValue.airpressure !== null && (logValue.airpressure.includes(',') || logValue.airpressure.includes('.'))) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				airpressure: true,
+			}));
+			return;
+		}
+		if (logValue.humidity !== null && (Number(logValue.humidity) < 0  || Number(logValue.humidity) > 100)) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				humidity: true,
+			}));
+			return;
+		}
+		if (logValue.humidity !== null && (logValue.humidity.includes(',') || logValue.humidity.includes('.'))) {
+			setErrors((oldstate) => ({
+				...oldstate,
+				humidity: true,
+			}));
+			return;
+		}		
 		if (logValue.description.length > 260) {
 			setErrors((oldstate) => ({
 				...oldstate,
 				desc: true,
 			}));
 			return;
-		}
+		}		
 		createLog.addPost();
 		navigateTo('/home', { replace: true });
 		getLogs();
@@ -338,7 +404,7 @@ export const CreateLog = () => {
 							value={logValue.temperature}
 							type="number"
 							error={errors.temp}
-							helperText={errors.temp && 'Ange temperatur'}
+							helperText={errors.temp && 'Ange giltigt värde, -100 till +100'}
 							variant="outlined"
 							className={classes.input}
 							size="small"
@@ -360,7 +426,7 @@ export const CreateLog = () => {
 							type="number"
 							value={logValue.precipitation}
 							error={errors.precipitation}
-							helperText={errors.precipitation && 'Ange nederbörd'}
+							helperText={errors.precipitation && 'Ange giltigt värde, 0-300'}
 							variant="outlined"
 							margin="dense"
 							size="small"
@@ -418,7 +484,7 @@ export const CreateLog = () => {
 							type="number"
 							value={logValue.windSpeed}
 							error={errors.windSpeed}
-							helperText={errors.windSpeed && 'Använd endast siffror'}
+							helperText={errors.windSpeed && 'Ange giltigt värde, 0-50'}
 							variant="outlined"
 							margin="dense"
 							size="small"
@@ -465,9 +531,9 @@ export const CreateLog = () => {
 							name="airpressure"
 							type="number"
 							value={logValue.airpressure}
-							error={errors.airPressure}
+							error={errors.airpressure}
 							helperText={
-								errors.airPressure && 'Ange ett värde mellan 900-1100'
+								errors.airpressure && 'Ange ett värde mellan 850-1100'
 							}
 							variant="outlined"
 							margin="dense"

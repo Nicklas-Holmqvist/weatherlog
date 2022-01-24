@@ -89,16 +89,16 @@ exports.createLog = async (req, res) => {
 
 	const newLog = {
 		airFeeling: airFeeling,
-		airpressure: Math.round(parseInt(airpressure)).toString(),
+		airpressure: airpressure,
 		date: date,
 		description: description,
-		humidity: Math.round(parseInt(humidity)).toString(),
-		precipitation: (Math.round(parseInt(precipitation) * 10) / 10).toString(),
-		temperature: Math.round(parseInt(temperature)).toString(),
+		humidity: humidity,
+		precipitation: precipitation,
+		temperature: temperature,
 		user: cookie,
 		windDirection: windDirection,
 		weather: weather,
-		windSpeed: Math.round(parseInt(windSpeed)).toString(),
+		windSpeed: windSpeed,
 	};
 
 	if (!dateExist) {
