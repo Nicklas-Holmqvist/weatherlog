@@ -78,7 +78,7 @@ export const CreateLog = () => {
 
 	logs.forEach((log) => {
 		if (selectedDate.includes(log.date.substring(0, 6))) {
-			if(log.date.substring(6, 8).includes('0'))usedDates.push(log.date.substring(7, 8));
+			if(Number(log.date.substring(6, 8))<10)usedDates.push(log.date.substring(7, 8));
 			else usedDates.push(log.date.substring(6, 8));
 		}
 		return usedDates;
