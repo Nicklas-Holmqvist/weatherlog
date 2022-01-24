@@ -43,77 +43,84 @@ export const StatsList = ({ isActive, toggleActive }: IStatsList) => {
 			<Typography variant="h5" className={classes.statsTitle}>
 				Statistik
 			</Typography>
-			<Grid
-				item
-				container
-				className={`${classes.statString} ${classes.marginBottom}`}
-			>
-				<Typography variant="subtitle1">Totalt antal inlägg: </Typography>
-				<Typography variant="body1" className={classes.data}>
-					{/* {dummyLogs.length} */}
-					{allLogs.length}
+			{allLogs.length < 2 ? (
+				<Typography variant="body1">
+					Skapa minst två inlägg för att se statistik
 				</Typography>
-			</Grid>
-			<Grid item container className={classes.statString}>
-				<Typography variant="subtitle1">Varmaste dag: </Typography>
-				<Typography variant="body1" className={classes.data}>
-					{allLogs.length > 0 ? getWarmestDay(allLogs) : '-'}
-				</Typography>
-			</Grid>
-			<Grid item container className={classes.statString}>
-				<Typography variant="subtitle1">Kallaste dag: </Typography>
-				<Typography variant="body1" className={classes.data}>
-					{allLogs.length > 0 ? getColdestDay(allLogs) : '-'}
-				</Typography>
-			</Grid>
-			<Grid
-				item
-				container
-				className={`${classes.statString} ${classes.marginBottom}`}
-			>
-				<Typography variant="subtitle1">Medeltemperatur: </Typography>
-				<Typography variant="body1" className={classes.data}>
-					{allLogs.length > 0 ? getAverageTemp(allLogs)! : '-'}
-				</Typography>
-			</Grid>
-			<Grid
-				item
-				container
-				className={`${classes.statString} ${classes.marginBottom}`}
-			>
-				<Typography variant="subtitle1">Blåsigaste dag: </Typography>
-				<Typography variant="body1" className={classes.data}>
-					{allLogs.length > 0 ? getWindiestDay(allLogs) : '-'}
-				</Typography>
-			</Grid>
-			<Grid item container className={classes.statString}>
-				<Typography variant="subtitle1">Regnigaste dag: </Typography>
-				<Typography variant="body1" className={classes.data}>
-					{allLogs.length > 0 ? getRainiestDay(allLogs) : '-'}
-				</Typography>
-			</Grid>
-			<Grid item container className={classes.statString}>
-				<Typography variant="subtitle1">Total nederbörd: </Typography>
-				<Typography variant="body1" className={classes.data}>
-					{allLogs.length > 0 ? getTotalPrecipitation(allLogs) : '-'}
-				</Typography>
-			</Grid>
-			<Grid
-				item
-				container
-				className={`${classes.statString} ${classes.marginBottom}`}
-			>
-				<Typography variant="subtitle1">Medelnederbörd: </Typography>
-				<Typography variant="body1" className={classes.data}>
-					{allLogs.length > 0 ? getAveragePrecipitation(allLogs) : '-'}
-				</Typography>
-			</Grid>
-			<Grid item container className={classes.statString}>
-				<Typography variant="subtitle1">Antal soldagar: </Typography>
-				<Typography variant="body1" className={classes.data}>
-					{allLogs.length > 0 ? getNumberOfSunnyDays(allLogs) : '-'}
-				</Typography>
-			</Grid>
+			) : (
+				<>
+					<Grid
+						item
+						container
+						className={`${classes.statString} ${classes.marginBottom}`}
+					>
+						<Typography variant="subtitle1">Totalt antal inlägg: </Typography>
+						<Typography variant="body1" className={classes.data}>
+							{allLogs.length}
+						</Typography>
+					</Grid>
+					<Grid item container className={classes.statString}>
+						<Typography variant="subtitle1">Varmaste dag: </Typography>
+						<Typography variant="body1" className={classes.data}>
+							{allLogs.length > 1 ? getWarmestDay(allLogs) : '-'}
+						</Typography>
+					</Grid>
+					<Grid item container className={classes.statString}>
+						<Typography variant="subtitle1">Kallaste dag: </Typography>
+						<Typography variant="body1" className={classes.data}>
+							{allLogs.length > 1 ? getColdestDay(allLogs) : '-'}
+						</Typography>
+					</Grid>
+					<Grid
+						item
+						container
+						className={`${classes.statString} ${classes.marginBottom}`}
+					>
+						<Typography variant="subtitle1">Medeltemperatur: </Typography>
+						<Typography variant="body1" className={classes.data}>
+							{allLogs.length > 1 ? getAverageTemp(allLogs)! : '-'}
+						</Typography>
+					</Grid>
+					<Grid
+						item
+						container
+						className={`${classes.statString} ${classes.marginBottom}`}
+					>
+						<Typography variant="subtitle1">Blåsigaste dag: </Typography>
+						<Typography variant="body1" className={classes.data}>
+							{allLogs.length > 1 ? getWindiestDay(allLogs) : '-'}
+						</Typography>
+					</Grid>
+					<Grid item container className={classes.statString}>
+						<Typography variant="subtitle1">Regnigaste dag: </Typography>
+						<Typography variant="body1" className={classes.data}>
+							{allLogs.length > 1 ? getRainiestDay(allLogs) : '-'}
+						</Typography>
+					</Grid>
+					<Grid item container className={classes.statString}>
+						<Typography variant="subtitle1">Total nederbörd: </Typography>
+						<Typography variant="body1" className={classes.data}>
+							{allLogs.length > 1 ? getTotalPrecipitation(allLogs) : '-'}
+						</Typography>
+					</Grid>
+					<Grid
+						item
+						container
+						className={`${classes.statString} ${classes.marginBottom}`}
+					>
+						<Typography variant="subtitle1">Medelnederbörd: </Typography>
+						<Typography variant="body1" className={classes.data}>
+							{allLogs.length > 1 ? getAveragePrecipitation(allLogs) : '-'}
+						</Typography>
+					</Grid>
+					<Grid item container className={classes.statString}>
+						<Typography variant="subtitle1">Antal soldagar: </Typography>
+						<Typography variant="body1" className={classes.data}>
+							{allLogs.length > 1 ? getNumberOfSunnyDays(allLogs) : '-'}
+						</Typography>
+					</Grid>
+				</>
+			)}
 			{isActive && mediumScreen ? (
 				<Button
 					endIcon={<CloseRounded />}
