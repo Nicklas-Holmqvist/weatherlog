@@ -62,8 +62,6 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		year: d.getFullYear(),
 	});
 
-	console.log(d.getDate())
-
 	/**
 	 * Function that adds a zero infront of single digits
 	 * @param e date values
