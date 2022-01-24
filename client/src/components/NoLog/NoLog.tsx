@@ -4,29 +4,30 @@ import { Button, Grid, Typography } from '@material-ui/core';
 import useStyles from './styles';
 
 export const NoLog = () => {
-    const classes = useStyles();
+	const classes = useStyles();
 
-    const navigateTo = useNavigate();
+	const navigateTo = useNavigate();
 
-    const toCreate = () => {
-        navigateTo('/create-log')
-    }
+	const handleNavigate = () => {
+		navigateTo('/create-log');
+	};
 
 	return (
 		<Grid container className={classes.container}>
-		    <Grid container className={classes.noLog}>
-                <Typography variant="h4" className={classes.header}>
-                    Här finns inga loggar än!
-                </Typography>
-                <Button 
-                    name='gå till skapa inlägg'
-                    variant="contained" 
-                    onClick={toCreate}
-                    className={classes.btn}
-                >
-                    Skapa
-                </Button>
-            </Grid>
+			<Grid container className={classes.noLog}>
+				<Typography variant="h4" className={classes.header}>
+					Här finns inga loggar än
+				</Typography>
+				<Button
+					name="gå till skapa inlägg"
+					variant="contained"
+					disableElevation
+					onClick={handleNavigate}
+					className={classes.btn}
+				>
+					Skapa
+				</Button>
+			</Grid>
 		</Grid>
 	);
 };
