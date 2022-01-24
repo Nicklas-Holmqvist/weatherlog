@@ -1,6 +1,5 @@
 import { Button, Grid, Typography, useMediaQuery } from '@material-ui/core';
 import { CloseRounded } from '@material-ui/icons';
-import { useState } from 'react';
 
 import { useLogsContext } from 'src/context/logs';
 import theme from 'src/theme';
