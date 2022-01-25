@@ -7,7 +7,6 @@ import {
 	NeutralBar,
 	WarmBar,
 } from '.';
-import { windFeelEnum } from './enums/windFeelEnum';
 import useStyles from 'src/components/DailyOverview/Desktop/styles';
 
 export const GetBottomInfo = (field: string, value: number | string) => {

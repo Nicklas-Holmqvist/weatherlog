@@ -64,7 +64,7 @@ export const CreateLog = () => {
 	});
 
 	const addZero = (value: number) => {
-		if (value < 9) {
+		if (value < 10) {
 			return `0${value}`;
 		}
 		return value;
