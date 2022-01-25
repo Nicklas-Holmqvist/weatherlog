@@ -114,13 +114,21 @@ export const MobileDailyOverview = () => {
 				<Grid container item>
 					<Grid container item className={classes.header}>
 						<Grid container item className={classes.dateContainer}>
-							<IconButton onClick={prevDay} className={classes.arrow}>
+							<IconButton
+								onClick={prevDay}
+								className={classes.arrow}
+								disabled={findOld === logsLength - 1}
+							>
 								<ArrowBackRounded />
 							</IconButton>
 							<Typography variant="h5" className={classes.date}>
 								{day} {month?.substring(0, 3)} {year}
 							</Typography>
-							<IconButton onClick={nextDay} className={classes.arrow}>
+							<IconButton
+								onClick={nextDay}
+								className={classes.arrow}
+								disabled={findOld === 0}
+							>
 								<ArrowForwardRounded />
 							</IconButton>
 						</Grid>
