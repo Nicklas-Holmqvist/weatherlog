@@ -7,24 +7,24 @@ export const LoginPage = () => {
 	const classes = useStyles();
 
 	return (
-		<Grid 
-			container 
-			direction="column" 
+		<Grid
+			container
+			direction="column"
 			className={classes.container}
-			style={{ 
+			style={{
 				backgroundImage: 'url(/vladimir-anikeev-IM8ZyYaSW6g-unsplash.jpg)',
 				backgroundRepeat: 'no-repeat',
 				backgroundPosition: 'center',
-				backgroundSize: 'cover',				
+				backgroundSize: 'cover',
 			}}
-			>
+		>
 			<Grid item className={classes.content}>
-			<Typography variant="h1">
-				Väderdagboken
-			</Typography>
-			<Typography variant="h5" className={classes.underTitle}>
-				Skapa din interaktiva väderdagbok
-			</Typography>
+				<Typography variant="h1" className={classes.title}>
+					Väderdagboken
+				</Typography>
+				<Typography variant="h5" className={classes.subtitle}>
+					Skapa din interaktiva väderdagbok
+				</Typography>
 			</Grid>
 			<LoginForm />
 		</Grid>

@@ -56,9 +56,6 @@ export default makeStyles((theme) => ({
 		[theme.breakpoints.down(500)]: {
 			fontSize: 15,
 		},
-		[theme.breakpoints.down(450)]: {
-			fontSize: 13,
-		},
 	},
 	temp: {
 		width: '20%',

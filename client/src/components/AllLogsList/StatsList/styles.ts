@@ -29,7 +29,6 @@ export default makeStyles((theme) => ({
 		},
 		[theme.breakpoints.down(600)]: {
 			top: -40,
-			// borderTopLeftRadius: 16,
 		},
 	},
 	smallScreenStatsInactive: {

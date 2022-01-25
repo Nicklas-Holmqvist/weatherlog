@@ -62,5 +62,13 @@ export default makeStyles((theme) => ({
 	},
 	clickableLink: {
 		textDecoration: 'underline',
+		[theme.breakpoints.down(380)]: {
+			fontSize: 16,
+		},
+	},
+	bottomText: {
+		[theme.breakpoints.down(370)]: {
+			fontSize: 16,
+		},
 	},
 }));

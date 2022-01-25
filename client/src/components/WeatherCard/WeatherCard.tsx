@@ -57,7 +57,7 @@ export const WeatherCard = ({
 					{day}
 				</Typography>
 				<Typography variant="body1" className={classes.month}>
-					{month}
+					{smallMobile ? month.substring(0, 3) : month}
 				</Typography>
 			</Grid>
 			<Typography
