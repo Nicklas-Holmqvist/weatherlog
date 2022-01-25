@@ -8,6 +8,7 @@ export default makeStyles((theme) => ({
 		columnGap: 14,
 		minHeight: '68vh',
 		maxHeight: '68vh',
+		// position: 'relative',
 		[theme.breakpoints.down(1281)]: {
 			minHeight: '58vh',
 			maxHeight: '58vh',
@@ -17,8 +18,8 @@ export default makeStyles((theme) => ({
 			gridTemplateColumns: 'unset',
 		},
 		[theme.breakpoints.down(500)]: {
-			minHeight: '67vh',
-			maxHeight: '67vh',
+			minHeight: '60vh',
+			maxHeight: '60vh',
 		},
 	},
 	logs: {

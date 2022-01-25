@@ -12,6 +12,8 @@ export default makeStyles((theme) => ({
 			padding: '0 14px',
 		},
 		marginTop: 40,
+		position: 'relative',
+		// height: '100vh',
 	},
 	pageHeader: {
 		display: 'flex',

@@ -19,7 +19,7 @@ export default makeStyles((theme) => ({
 			transition: 'right 600ms ease-in-out',
 			width: 'fit-content',
 			position: 'absolute',
-			top: 70,
+			top: -40,
 			bottom: 0,
 			borderRadius: 0,
 			right: '0px',
@@ -28,7 +28,8 @@ export default makeStyles((theme) => ({
 			padding: '26px 30px 26px 20px',
 		},
 		[theme.breakpoints.down(600)]: {
-			top: 50,
+			top: -40,
+			// borderTopLeftRadius: 16,
 		},
 	},
 	smallScreenStatsInactive: {
@@ -38,7 +39,7 @@ export default makeStyles((theme) => ({
 			transition: 'right 600ms ease-in-out',
 			width: 'fit-content',
 			position: 'absolute',
-			top: 70,
+			top: -40,
 			bottom: 0,
 			borderRadius: 0,
 			right: '-100%',
@@ -47,7 +48,8 @@ export default makeStyles((theme) => ({
 			padding: '26px 30px 26px 20px',
 		},
 		[theme.breakpoints.down(600)]: {
-			top: 50,
+			top: -40,
+			// borderTopLeftRadius: 16,
 		},
 	},
 	marginBottom: {
