@@ -13,6 +13,10 @@ And if schools wanna use it for track the weather for a while it would be wonder
 
 ## Run app
 
+First run "npm i" in root
+Second cd in to /client and runt "npm i"
+
+cd back to root 
 Package.json in root the start command need to be: 
 "start": "npm-run-all --parallel client server"
 
