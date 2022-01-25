@@ -27,7 +27,7 @@ import { Helmet } from 'react-helmet-async';
 export const RegisterForm = () => {
 	const classes = useStyles();
 	const navigateTo = useNavigate();
-	const handleAuth = useAuthContext().handleAuth
+	const handleAuth = useAuthContext().handleAuth;
 
 	const [user, setUser] = useState({
 		email: '',
@@ -59,12 +59,12 @@ export const RegisterForm = () => {
 
 		const regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
-		if(!user.email.match(regexEmail)){
+		if (!user.email.match(regexEmail)) {
 			setEmailError((oldstate) => ({
 				...oldstate,
 				format: true,
 			}));
-			return
+			return;
 		}
 
 		if (user.password === '') {
@@ -113,7 +113,7 @@ export const RegisterForm = () => {
 			const data = await res.json();
 
 			if (data.errors) {
-				console.log('Användaren finns redan!')
+				console.log('Användaren finns redan!');
 				if (data.errors.email) {
 					setEmailError((oldstate) => ({
 						...oldstate,
@@ -121,8 +121,8 @@ export const RegisterForm = () => {
 					}));
 				}
 			} else {
-				navigateTo('/home', { replace: true })
-				handleAuth(true)
+				navigateTo('/home', { replace: true });
+				handleAuth(true);
 			}
 		} catch (error) {
 			console.log(error);
@@ -133,7 +133,10 @@ export const RegisterForm = () => {
 		<Grid container item direction="column" className={classes.container}>
 			<Helmet>
 				<title>Skapa konto | Väderdagboken</title>
-				<meta name="skapa konto" content="Skapa ett konto för att logga ditt väder" />
+				<meta
+					name="skapa konto"
+					content="Skapa ett konto för att logga ditt väder"
+				/>
 			</Helmet>
 			<Typography variant="h4" className={classes.title}>
 				Skapa konto
@@ -213,7 +216,7 @@ export const RegisterForm = () => {
 				required
 			/>
 			<Button
-				name='skapa konto'
+				name="skapa konto"
 				variant="contained"
 				color="secondary"
 				className={classes.button}
@@ -223,7 +226,9 @@ export const RegisterForm = () => {
 				Skapa konto
 			</Button>
 			<Grid item className={classes.link}>
-				<Typography variant="subtitle1">Har du redan ett konto?</Typography>
+				<Typography variant="subtitle1" className={classes.bottomText}>
+					Har du redan ett konto?
+				</Typography>
 				<ArrowForwardRounded className={classes.arrow} />
 				<Link to="/login">
 					<Typography variant="subtitle1" className={classes.clickableLink}>

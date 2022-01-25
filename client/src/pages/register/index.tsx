@@ -7,26 +7,25 @@ export const RegisterPage = () => {
 	const classes = useStyles();
 
 	return (
-		<Grid 
-			container 
-			direction="column" 
+		<Grid
+			container
+			direction="column"
 			className={classes.container}
-			style={{ 
+			style={{
 				backgroundImage: 'url(/vladimir-anikeev-IM8ZyYaSW6g-unsplash.jpg)',
 				backgroundRepeat: 'no-repeat',
 				backgroundPosition: 'center',
 				backgroundSize: 'cover',
-				backgroundColor: '#000000',				
+				backgroundColor: '#000000',
 			}}
 		>
-			<Grid item className={classes.content}
-			>
-			<Typography variant="h1">
-				Väderdagboken
-			</Typography>
-			<Typography variant="h6">
-				Skapa din interaktiva väderdagbok
-			</Typography>
+			<Grid item className={classes.content}>
+				<Typography variant="h1" className={classes.title}>
+					Väderdagboken
+				</Typography>
+				<Typography variant="h5" className={classes.subtitle}>
+					Skapa din interaktiva väderdagbok
+				</Typography>
 			</Grid>
 			<RegisterForm />
 		</Grid>
