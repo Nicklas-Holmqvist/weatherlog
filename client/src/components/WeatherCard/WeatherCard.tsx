@@ -1,10 +1,23 @@
 import { Grid, Typography, useMediaQuery } from '@material-ui/core';
+import {
+	directionEnum,
+	North,
+	NorthWest,
+	West,
+	SouthWest,
+	South,
+	SouthEast,
+	East,
+	NorthEast,
+	NoData,
+} from '../../utils';
+
 import theme from 'src/theme';
 
 import {
 	dotToCommaConverter,
 	GetWeatherIcon,
-	GetWindDirection,
+	// GetWindDirection,
 	getTempColor,
 } from 'src/utils';
 import useStyles from './styles';
@@ -34,6 +47,29 @@ export const WeatherCard = ({
 	const mediumScreen = useMediaQuery(theme.breakpoints.down('sm'));
 	const bigMobile = useMediaQuery(theme.breakpoints.down(540));
 	const smallMobile = useMediaQuery(theme.breakpoints.down(450));
+
+	const getWindDirection = () => {
+		switch (direction) {
+			case directionEnum.N:
+				return <North className={classes.arrowIcon} />;
+			case directionEnum.NW:
+				return <NorthWest className={classes.arrowIcon} />;
+			case directionEnum.W:
+				return <West className={classes.arrowIcon} />;
+			case directionEnum.SW:
+				return <SouthWest className={classes.arrowIcon} />;
+			case directionEnum.S:
+				return <South className={classes.arrowIcon} />;
+			case directionEnum.SE:
+				return <SouthEast className={classes.arrowIcon} />;
+			case directionEnum.E:
+				return <East className={classes.arrowIcon} />;
+			case directionEnum.NE:
+				return <NorthEast className={classes.arrowIcon} />;
+			default:
+				return <NoData />;
+		}
+	};
 
 	return (
 		<Grid item container className={classes.container}>
@@ -76,23 +112,27 @@ export const WeatherCard = ({
 				{GetWeatherIcon(weather, 'normal')}
 			</Grid>
 			<Grid item className={classes.wind}>
-				<Typography
-					variant={
-						smallMobile
-							? 'subtitle1'
-							: bigMobile
-							? 'h5'
-							: mediumScreen
-							? 'h4'
-							: 'h3'
-					}
-				>
-					{speed || GetWindDirection(direction, 'small')}
-				</Typography>
-				{speed && (
-					<Typography variant="h5" className={classes.unit}>
-						m/s
-					</Typography>
+				{speed ? (
+					<>
+						<Typography
+							variant={
+								smallMobile
+									? 'subtitle1'
+									: bigMobile
+									? 'h5'
+									: mediumScreen
+									? 'h4'
+									: 'h3'
+							}
+						>
+							{speed}
+						</Typography>
+						<Typography variant="h5" className={classes.unit}>
+							m/s
+						</Typography>
+					</>
+				) : (
+					getWindDirection()
 				)}
 			</Grid>
 			<Grid item className={classes.precipitation}>

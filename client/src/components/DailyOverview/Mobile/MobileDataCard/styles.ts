@@ -54,4 +54,18 @@ export default makeStyles((theme) => ({
 			alignItems: 'center',
 		},
 	},
+	arrowIcon: {
+		width: 30,
+		display: 'flex',
+		alignContent: 'center',
+		[theme.breakpoints.down(1281)]: {
+			width: 24,
+		},
+		// [theme.breakpoints.only('xs')]: {
+		// 	width: 22,
+		// },
+		// [theme.breakpoints.down(450)]: {
+		// 	width: 16,
+		// },
+	},
 }));

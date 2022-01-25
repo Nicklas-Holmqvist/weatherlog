@@ -95,14 +95,14 @@ export default makeStyles((theme) => ({
 		},
 	},
 	arrowIcon: {
-		width: 40,
+		width: 34,
 		display: 'flex',
 		alignContent: 'center',
 		[theme.breakpoints.down(1281)]: {
-			width: 32,
+			width: 28,
 		},
 		[theme.breakpoints.only('xs')]: {
-			width: 26,
+			width: 22,
 		},
 		[theme.breakpoints.down(450)]: {
 			width: 16,
