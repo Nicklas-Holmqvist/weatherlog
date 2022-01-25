@@ -2,10 +2,20 @@
 
 Master thesis in frontend developer course, collaboration with [Oliver Nygren](https://github.com/olivernygren)
 
+## What is Weatherlog
+Weatherlog is a webapplication that you can create your own weatherdiary. Like a usual diary you have days you can browse trough, the same is it here.
+You have a monthly view where you can browse the months with a diagramview with data from temperature and precipitation and a standard listview.
+
+## Who is it for
+It is for those who like to track the weather, not with an API but with the data at there home. If they have a weather station they have alot of data that they can use. 
+And if schools wanna use it for track the weather for a while it would be wonderful to see.
+
 ## Run app
 
-This command will start both react app and server.
+Package.json in root the start command need to be: 
+"start": "npm-run-all --parallel client server"
 
+This command will start both react app and server.
 run in terminal: npm start
 
 ## Config
