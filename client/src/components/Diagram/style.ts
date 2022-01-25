@@ -21,10 +21,35 @@ export default makeStyles((theme) => ({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		position: 'relative',
+		flexWrap: 'nowrap',
 	},
 	titleContainer: {
 		width: 'fit-content',
 		alignItems: 'center',
+		flexWrap: 'nowrap',
+	},
+	buttonContainer: {
+		display: 'flex',
+		alignItems: 'center',
+	},
+	showAllButton: {
+		width: '100%',
+		display: 'flex',
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+		padding: '8px 0',
+		textTransform: 'uppercase',
+		[theme.breakpoints.down(520)]: {
+			padding: 0,
+		},
+	},
+	showAllButtonText: {
+		fontSize: '0.875rem',
+		marginTop: 2,
+	},
+	iconButton: {
+		color: theme.palette.common.black,
+		padding: 9,
 	},
 	arrowIcon: {
 		color: theme.palette.common.black,
@@ -66,7 +91,7 @@ export default makeStyles((theme) => ({
 	addIcon: {
 		color: theme.palette.common.black,
 		padding: 9,
-		marginBottom: 5,
+		// marginBottom: 5,
 	},
 	divider: {
 		width: '100%',
@@ -75,7 +100,7 @@ export default makeStyles((theme) => ({
 	diagram: {
 		width: '100%',
 		paddingTop: '0.5rem',
-		paddingBottom: '1.5rem'
+		paddingBottom: '1.5rem',
 	},
 	disableUnderline: {
 		textDecoration: 'none',
@@ -83,18 +108,19 @@ export default makeStyles((theme) => ({
 	mr: {
 		marginRight: 10,
 	},
-	showListButton: {
-		width: '100%',
-		display: 'flex',
-		justifyContent: 'flex-end',
-		alignItems: 'center',
-		padding: '0.5rem 0',
-		textTransform: 'uppercase',
-		marginRight: 16,
-		[theme.breakpoints.down(520)]: {
-			marginRight: 12,
-		},
-	},
+	// showListButton: {
+	// 	// width: '100%',
+	// 	display: 'flex',
+	// 	flexWrap: 'nowrap',
+	// 	// justifyContent: 'flex-end',
+	// 	alignItems: 'center',
+	// 	padding: '0.5rem 0',
+	// 	textTransform: 'uppercase',
+	// 	marginRight: 16,
+	// 	[theme.breakpoints.down(520)]: {
+	// 		marginRight: 12,
+	// 	},
+	// },
 	switch: {
 		'& .MuiSwitch-switchBase': {
 			'&.Mui-checked': {

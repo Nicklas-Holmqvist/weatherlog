@@ -14,7 +14,7 @@ import {
 	AddRounded,
 	ArrowBackRounded,
 	ArrowForwardRounded,
-	FormatListBulletedRounded
+	FormatListBulletedRounded,
 } from '@material-ui/icons';
 import { Line } from 'react-chartjs-2';
 
@@ -32,7 +32,7 @@ import {
 import { useDiagramsContext } from 'src/context/diagram';
 import { ErrorPage } from '../ErrorPage';
 
-import { ILogs } from '../../types/Logs'
+import { ILogs } from '../../types/Logs';
 
 import theme from 'src/theme';
 import useStyles from './style';
@@ -57,9 +57,8 @@ const Diagram = () => {
 	const smallScreen = useMediaQuery(theme.breakpoints.down(800));
 	const { id }: any = useParams();
 
-	const [listView, setListView] = useState<boolean>(false)
+	const [showListView, setShowListView] = useState(false);
 	const viewFromLS = localStorage.getItem('historyView');
-
 
 	const setApiParam = useDiagramsContext().getDiagramUrl;
 	const {
@@ -71,7 +70,7 @@ const Diagram = () => {
 		diagramPrec,
 	} = useDiagramsContext();
 
-	const [logs, setLogs] = useState<ILogs[]>(diagramLogs)
+	const [logs, setLogs] = useState<ILogs[]>(diagramLogs);
 	const [temp, setTemp] = useState<number[]>(diagramData);
 	const [labels, setLabels] = useState<string[]>(diagramLabel);
 	const [color, setColor] = useState<any[] | any>(diagramBackgroundcolor);
@@ -97,19 +96,24 @@ const Diagram = () => {
 			return navigate(`/diagram/${diagramMonth[findOld + 1]}`);
 	};
 
-	const changeListView = (e:boolean) => {
-		if(!listView){
-			setListView(e)
-			localStorage.setItem('historyView', e.toString())
-		}else {
-			setListView(e)
-			localStorage.setItem('historyView', e.toString())
-		} return
-	}
+	// const changeListView = (e: boolean) => {
+	// 	if (!listView) {
+	// 		setListView(e);
+	// 		localStorage.setItem('historyView', e.toString());
+	// 	} else {
+	// 		setListView(e);
+	// 		localStorage.setItem('historyView', e.toString());
+	// 	}
+	// 	return;
+	// };
+	const handleToggleShowList = (e: boolean) => {
+		setShowListView(e);
+		localStorage.setItem('historyView', e.toString());
+	};
 
 	const scrollToTop = () => {
-		window.scrollTo(0, 0)
-	}
+		window.scrollTo(0, 0);
+	};
 
 	/** Sends the params to the diagram api to fetch the data for month */
 	useEffect(() => {
@@ -123,14 +127,23 @@ const Diagram = () => {
 		setTemp(diagramData);
 		setLabels(diagramLabel);
 		setColor(diagramBackgroundcolor);
-		setLogs(diagramLogs)
+		setLogs(diagramLogs);
 	});
 
+	// useEffect(() => {
+	// 	const listView = localStorage.getItem('historyView');
+	// 	if (listView === 'false') setListView(false);
+	// 	else setListView(true);
+	// }, []);
+
 	useEffect(() => {
-		const listView = localStorage.getItem('historyView')
-		if(listView === 'false') setListView(false)
-		else setListView(true)
-	},[])
+		if (viewFromLS === 'true') {
+			setShowListView(true);
+		} else {
+			setShowListView(false);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	/** Options for the diagram */
 	const options = {
@@ -177,8 +190,12 @@ const Diagram = () => {
 			{findMonth === undefined ? (
 				<ErrorPage />
 			) : (
-				<>	
-					<Grid container direction="column" className={classes.diagramContainer}>
+				<>
+					<Grid
+						container
+						direction="column"
+						className={classes.diagramContainer}
+					>
 						<Grid container direction="row" className={classes.header}>
 							<Grid item container className={classes.titleContainer}>
 								<NavigateBackButton page="/" />
@@ -186,15 +203,42 @@ const Diagram = () => {
 									Historik
 								</Typography>
 							</Grid>
-							<Grid item>
+							<Grid item className={classes.buttonContainer}>
+								<Grid item container className={classes.showAllButton}>
+									<Switch
+										aria-checked={showListView}
+										value={showListView ? 'lista' : 'diagram'}
+										id="visningsvy"
+										color="secondary"
+										onChange={() => handleToggleShowList(!showListView)}
+										defaultChecked={viewFromLS === 'true'}
+										className={classes.switch}
+									/>
+									{!mobile && (
+										<Typography
+											variant="subtitle2"
+											className={classes.showAllButtonText}
+										>
+											Visa alla
+										</Typography>
+									)}
+									<FormatListBulletedRounded
+										fontSize="small"
+										className={classes.listIcon}
+									/>
+								</Grid>
 								<Link to="/create-log" className={classes.disableUnderline}>
-									{mobile ? (
-										<IconButton aria-label='gå till skapa inlägg' edge="end" className={classes.addIcon}>
+									{smallScreen ? (
+										<IconButton
+											name="gå till skapa inlägg"
+											edge="end"
+											className={classes.iconButton}
+										>
 											<AddRounded />
 										</IconButton>
 									) : (
 										<Button
-											name='gå till skapa inlägg'
+											name="gå till skapa inlägg"
 											variant="contained"
 											endIcon={<AddRounded />}
 											disableElevation
@@ -205,9 +249,59 @@ const Diagram = () => {
 								</Link>
 							</Grid>
 						</Grid>
+						{/* <Grid item container className={classes.buttonContainer}>
+								<Grid item className={classes.showListButton}>
+									<Switch
+										aria-checked={listView}
+										value={listView ? 'lista' : 'diagram'}
+										id="visningsvy"
+										color="secondary"
+										onChange={() => changeListView(!listView)}
+										defaultChecked={viewFromLS === 'true'}
+										className={classes.switch}
+									/>
+									{!mobile && (
+										<Typography
+											variant="subtitle2"
+											className={classes.showListButtonText}
+										>
+											Visa lista
+										</Typography>
+									)}
+									<FormatListBulletedRounded
+										fontSize="small"
+										className={classes.listIcon}
+									/>
+								</Grid>
+								<Link to="/create-log" className={classes.disableUnderline}>
+									{mobile ? (
+										<IconButton
+											aria-label="gå till skapa inlägg"
+											edge="end"
+											className={classes.addIcon}
+										>
+											<AddRounded />
+										</IconButton>
+									) : (
+										<Button
+											name="gå till skapa inlägg"
+											variant="contained"
+											endIcon={<AddRounded />}
+											disableElevation
+										>
+											Skapa
+										</Button>
+									)}
+								</Link>
+							</Grid>
+						</Grid> */}
 						{smallScreen && <Divider className={classes.divider} />}
 						<Grid item direction="row" className={classes.dateContainer}>
-							<IconButton aria-label='föregående månad' onClick={prevMonth} disabled={diagramLength <= 1}>
+							<IconButton
+								aria-label="föregående månad"
+								onClick={prevMonth}
+								disabled={diagramLength <= 1}
+							>
 								<ArrowBackRounded
 									className={
 										diagramLength <= 1
@@ -222,7 +316,11 @@ const Diagram = () => {
 									className={classes.dateText}
 								>{`${month} ${year}`}</Typography>
 							</Grid>
-							<IconButton aria-label='nästa månad' onClick={nextMonth} disabled={diagramLength <= 1}>
+							<IconButton
+								aria-label="nästa månad"
+								onClick={nextMonth}
+								disabled={diagramLength <= 1}
+							>
 								<ArrowForwardRounded
 									className={
 										diagramLength <= 1
@@ -232,60 +330,41 @@ const Diagram = () => {
 								/>
 							</IconButton>
 						</Grid>
-						<Grid item container className={classes.showListButton}>
-							<Switch
-								aria-checked={listView}
-								value={listView ? 'lista' : 'diagram'}
-								id='visningsvy'
-								color="secondary"
-								onChange={() => changeListView(!listView)}
-								defaultChecked={viewFromLS === 'true'}
-								className={classes.switch}
-							/>
-							{!mobile && (
-								<Typography
-									variant="subtitle2"
-									className={classes.showListButtonText}
-								>
-									Visa lista
-								</Typography>
-							)}
-							<FormatListBulletedRounded
-								fontSize="small"
-								className={classes.listIcon}
-							/>
-						</Grid>
-						{!listView 
-						?
-						<Grid container className={classes.diagram}>
-							<Line options={options} data={data} />
-						</Grid>
-						:
-						<Grid item container direction="column" className={classes.diagram}>
-							{logs.map((d: ILogs) => (
-								<Link
-									key={d._id}
-									to={`/log/${d.date}`}
-									className={classes.disableUnderline}
-									onClick={scrollToTop}
-								>
-									<WeatherCard
-										temp={parseInt(d.temperature)}
-									date={{
-										day: d.date.substring(6, 8).toString(),
-										month: month,
-									}}
-									weather={d.weather.toString()}
-									wind={{
-										speed: d.windSpeed.toString(),
-										direction: d.windDirection.toString(),
-									}}
-									precipitation={Number(d.precipitation)}
-								/>
-							</Link>
-						))}
-						</Grid>
-						}
+						{!showListView ? (
+							<Grid container className={classes.diagram}>
+								<Line options={options} data={data} />
+							</Grid>
+						) : (
+							<Grid
+								item
+								container
+								direction="column"
+								className={classes.diagram}
+							>
+								{logs.map((d: ILogs) => (
+									<Link
+										key={d._id}
+										to={`/log/${d.date}`}
+										className={classes.disableUnderline}
+										onClick={scrollToTop}
+									>
+										<WeatherCard
+											temp={parseInt(d.temperature)}
+											date={{
+												day: d.date.substring(6, 8).toString(),
+												month: month,
+											}}
+											weather={d.weather.toString()}
+											wind={{
+												speed: d.windSpeed.toString(),
+												direction: d.windDirection.toString(),
+											}}
+											precipitation={Number(d.precipitation)}
+										/>
+									</Link>
+								))}
+							</Grid>
+						)}
 					</Grid>
 				</>
 			)}
