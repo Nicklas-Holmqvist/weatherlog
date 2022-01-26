@@ -54,7 +54,7 @@ const Diagram = () => {
 	let navigate = useNavigate();
 	const classes = useStyles();
 	const mobile = useMediaQuery(theme.breakpoints.down(540));
-	const smallScreen = useMediaQuery(theme.breakpoints.down(800));
+	const smallScreen = useMediaQuery(theme.breakpoints.down(900));
 	const { id }: any = useParams();
 
 	const [showListView, setShowListView] = useState(false);
@@ -96,16 +96,6 @@ const Diagram = () => {
 			return navigate(`/diagram/${diagramMonth[findOld + 1]}`);
 	};
 
-	// const changeListView = (e: boolean) => {
-	// 	if (!listView) {
-	// 		setListView(e);
-	// 		localStorage.setItem('historyView', e.toString());
-	// 	} else {
-	// 		setListView(e);
-	// 		localStorage.setItem('historyView', e.toString());
-	// 	}
-	// 	return;
-	// };
 	const handleToggleShowList = (e: boolean) => {
 		setShowListView(e);
 		localStorage.setItem('historyView', e.toString());
@@ -249,62 +239,16 @@ const Diagram = () => {
 								</Link>
 							</Grid>
 						</Grid>
-						{/* <Grid item container className={classes.buttonContainer}>
-								<Grid item className={classes.showListButton}>
-									<Switch
-										aria-checked={listView}
-										value={listView ? 'lista' : 'diagram'}
-										id="visningsvy"
-										color="secondary"
-										onChange={() => changeListView(!listView)}
-										defaultChecked={viewFromLS === 'true'}
-										className={classes.switch}
-									/>
-									{!mobile && (
-										<Typography
-											variant="subtitle2"
-											className={classes.showListButtonText}
-										>
-											Visa lista
-										</Typography>
-									)}
-									<FormatListBulletedRounded
-										fontSize="small"
-										className={classes.listIcon}
-									/>
-								</Grid>
-								<Link to="/create-log" className={classes.disableUnderline}>
-									{mobile ? (
-										<IconButton
-											aria-label="gå till skapa inlägg"
-											edge="end"
-											className={classes.addIcon}
-										>
-											<AddRounded />
-										</IconButton>
-									) : (
-										<Button
-											name="gå till skapa inlägg"
-											variant="contained"
-											endIcon={<AddRounded />}
-											disableElevation
-										>
-											Skapa
-										</Button>
-									)}
-								</Link>
-							</Grid>
-						</Grid> */}
 						{smallScreen && <Divider className={classes.divider} />}
 						<Grid item direction="row" className={classes.dateContainer}>
 							<IconButton
 								aria-label="föregående månad"
 								onClick={prevMonth}
-								disabled={diagramLength <= 1}
+								disabled={diagramLength <= 1 || findOld === diagramLength - 1}
 							>
 								<ArrowBackRounded
 									className={
-										diagramLength <= 1
+										diagramLength <= 1 || findOld === diagramLength - 1
 											? classes.disabledArrowIcon
 											: classes.arrowIcon
 									}
@@ -319,11 +263,11 @@ const Diagram = () => {
 							<IconButton
 								aria-label="nästa månad"
 								onClick={nextMonth}
-								disabled={diagramLength <= 1}
+								disabled={diagramLength <= 1 || findOld === 0}
 							>
 								<ArrowForwardRounded
 									className={
-										diagramLength <= 1
+										diagramLength <= 1 || findOld === 0
 											? classes.disabledArrowIcon
 											: classes.arrowIcon
 									}
