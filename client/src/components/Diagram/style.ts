@@ -108,19 +108,6 @@ export default makeStyles((theme) => ({
 	mr: {
 		marginRight: 10,
 	},
-	// showListButton: {
-	// 	// width: '100%',
-	// 	display: 'flex',
-	// 	flexWrap: 'nowrap',
-	// 	// justifyContent: 'flex-end',
-	// 	alignItems: 'center',
-	// 	padding: '0.5rem 0',
-	// 	textTransform: 'uppercase',
-	// 	marginRight: 16,
-	// 	[theme.breakpoints.down(520)]: {
-	// 		marginRight: 12,
-	// 	},
-	// },
 	switch: {
 		'& .MuiSwitch-switchBase': {
 			'&.Mui-checked': {
@@ -138,6 +125,9 @@ export default makeStyles((theme) => ({
 	listIcon: {
 		marginLeft: 8,
 		marginBottom: 1,
+		[theme.breakpoints.up(900)]: {
+			marginRight: 20,
+		},
 		[theme.breakpoints.down(520)]: {
 			marginLeft: 0,
 		},
