@@ -29,16 +29,6 @@ import {
 	Thunder,
 	monthEnum,
 	windFeelEnum,
-	directionEnum,
-	North,
-	NorthWest,
-	West,
-	SouthWest,
-	South,
-	SouthEast,
-	East,
-	NorthEast,
-	NoData,
 } from '../../utils';
 import { NavigateBackButton } from '../NavigateBackButton';
 import useStyles from './styles';
