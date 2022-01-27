@@ -1,5 +1,6 @@
 import { Grid, Typography } from '@material-ui/core';
 
+import { Helmet } from 'react-helmet-async';
 import logo from './weatherlog-mini-logo.svg';
 import { NavigateBackButton } from 'src/components';
 import useStyles from './styles';
@@ -9,6 +10,10 @@ export const AboutPage = () => {
 
 	return (
     <Grid container item direction="column" className={classes.root}>
+      <Helmet>
+				<title>Om oss | Väderdagboken</title>
+				<meta name="om-oss" content="Om väderdagboken" />
+			</Helmet>
       <Grid item container className={classes.titleContainer}>
         <NavigateBackButton page="back" />
         <Typography variant="h2" className={classes.title}>
