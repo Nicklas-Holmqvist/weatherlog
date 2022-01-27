@@ -317,7 +317,7 @@ export const LogsProvider: FunctionComponent = ({ children }) => {
 		await fetch(`/api/log/${id}`, options.getLog)
 			.then((res) => {
 				if (res.status === 401) {
-					console.log('Ingen inloggning!')
+					console.log('Finns ingen log!')
 					return;
 				}
 				return res.json();
