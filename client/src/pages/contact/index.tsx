@@ -6,6 +6,7 @@ import {
 	Typography,
 } from '@material-ui/core';
 import { EmailRounded, PhoneRounded } from '@material-ui/icons';
+import { Helmet } from 'react-helmet-async';
 
 import { NavigateBackButton } from 'src/components';
 import useStyles from './styles';
@@ -18,6 +19,10 @@ export const ContactPage = () => {
 
 	return (
 		<Grid container item direction="column" className={classes.root}>
+			<Helmet>
+				<title>Kontakta | Väderdagboken</title>
+				<meta name="kontakta" content="Kontakta oss" />
+			</Helmet>
 			<Grid item container className={classes.titleContainer}>
 				<NavigateBackButton page="back" />
 				<Typography variant="h2" className={classes.title}>
