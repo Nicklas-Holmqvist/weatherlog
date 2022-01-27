@@ -29,8 +29,11 @@ run in terminal: npm start
 ## Techstack
 
 ReactJS(Typescript, MUI)
+
 Node.js
+
 Express
+
 MongoDB
 
 ## Config
