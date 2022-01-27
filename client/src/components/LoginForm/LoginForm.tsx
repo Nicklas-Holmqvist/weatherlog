@@ -71,7 +71,7 @@ export const LoginForm = () => {
 			const data = await res.json();
 
 			if (data.errors) {
-				console.log('Fel lösenord!')
+				console.log('Fel användare eller lösenord!')
 				if (data.errors.email) {
 					setEmailError((oldstate) => ({
 						...oldstate,
