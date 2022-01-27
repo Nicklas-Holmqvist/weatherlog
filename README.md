@@ -26,6 +26,13 @@ Package.json in root the start command need to be:
 This command will start both react app and server.
 run in terminal: npm start
 
+## Techstack
+
+ReactJS(Typescript, MUI)
+Node.js
+Express
+MongoDB
+
 ## Config
 
 React: http://localhost:3000/
