@@ -2,14 +2,17 @@
 
 Master thesis in frontend developer course, collaboration with [Oliver Nygren](https://github.com/olivernygren)
 
+
+Access the site [here](https://daily-weatherlog.herokuapp.com/)
+
 ## What is Weatherlog
-Weatherlog is a webapplication that you can create your own weatherdiary. But right now it is only in swedish. 
-Like a usual diary you have days you can browse trough, the same is it here.
-You have a monthly view where you can browse the months with a diagramview with data from temperature and precipitation and a standard listview.
+Weatherlog is a webapplication that you can create your own weatherdiary. But right now it is only available in swedish. 
+Like a regular diary you have days you can browse through, the same goes for this app.
+You have a monthly view where you can browse the months with a diagram view with data from temperature and precipitation and a standard listview.
 
 ## Who is it for
-It is for those who like to track the weather, not with an API but with the data at there home. If they have a weather station they have alot of data that they can use. 
-And if schools wanna use it for track the weather for a while it would be wonderful to see.
+It is for those who like to track the weather, not with an API but with the data at their home. If they have a weather station they have a lot of data that they can use. 
+And if schools wanna use it to track the weather for a while it would be wonderful to see.
 
 ## Run app
 
